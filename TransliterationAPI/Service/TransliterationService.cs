@@ -9,13 +9,16 @@ namespace TransliterationAPI.Service
     public class TransliterationService : ITransliterationService
     {
         IPodolakTransliterator podolakTransliterator;
+        ITransliterateDotComTransliterator transliterateDotComTransliterator;
         ITranslitterationDotComTransliterator translitterationDotComTransliterator;
 
         public TransliterationService(
             IPodolakTransliterator podolakTransliterator,
+            ITransliterateDotComTransliterator transliterateDotComTransliterator,
             ITranslitterationDotComTransliterator translitterationDotComTransliterator)
         {
             this.podolakTransliterator = podolakTransliterator;
+            this.transliterateDotComTransliterator = transliterateDotComTransliterator;
             this.translitterationDotComTransliterator = translitterationDotComTransliterator;
         }
 
@@ -38,7 +41,8 @@ namespace TransliterationAPI.Service
                     return await podolakTransliterator.Transliterate(normalisedText, language);
                 case "cv":
                     return await translitterationDotComTransliterator.Transliterate(normalisedText, "chv", "ala-lc");
-                //case "el":
+                case "el":
+                    return await transliterateDotComTransliterator.Transliterate(normalisedText, "el");
                 case "hy":
                     return await translitterationDotComTransliterator.Transliterate(normalisedText, "xcl", "iso-9985");
                 case "hyw":
