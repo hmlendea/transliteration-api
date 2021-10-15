@@ -12,17 +12,20 @@ namespace TransliterationAPI.Service
         IRomajiTransliterator romajiTransliterator;
         ITransliterateDotComTransliterator transliterateDotComTransliterator;
         ITranslitterationDotComTransliterator translitterationDotComTransliterator;
+        IUshuaiaTransliterator ushuaiaTransliterator;
 
         public TransliterationService(
             IPodolakTransliterator podolakTransliterator,
             IRomajiTransliterator romajiTransliterator,
             ITransliterateDotComTransliterator transliterateDotComTransliterator,
-            ITranslitterationDotComTransliterator translitterationDotComTransliterator)
+            ITranslitterationDotComTransliterator translitterationDotComTransliterator,
+            IUshuaiaTransliterator ushuaiaTransliterator)
         {
             this.podolakTransliterator = podolakTransliterator;
             this.romajiTransliterator = romajiTransliterator;
             this.transliterateDotComTransliterator = transliterateDotComTransliterator;
             this.translitterationDotComTransliterator = translitterationDotComTransliterator;
+            this.ushuaiaTransliterator = ushuaiaTransliterator;
         }
 
         public async Task<string> Transliterate(string text, string language)
@@ -61,7 +64,8 @@ namespace TransliterationAPI.Service
                     return await translitterationDotComTransliterator.Transliterate(normalisedText, "kir", "iso-9");
                 case "mk":
                     return await translitterationDotComTransliterator.Transliterate(normalisedText, "mkd", "bgn-pcgn");
-                //case "mn":
+                case "mn":
+                    return await ushuaiaTransliterator.Transliterate(normalisedText, "mongolian_mns_transliterate");
                 case "os":
                     return await translitterationDotComTransliterator.Transliterate(normalisedText, "oss", "iso-9");
                 case "ru":

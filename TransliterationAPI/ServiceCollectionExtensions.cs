@@ -15,6 +15,7 @@ namespace TransliterationAPI
                 .AddSingleton<IRomajiTransliterator, RomajiTransliterator>()
                 .AddSingleton<ITransliterateDotComTransliterator, TransliterateDotComTransliterator>()
                 .AddSingleton<ITranslitterationDotComTransliterator, TranslitterationDotComTransliterator>()
+                .AddSingleton<IUshuaiaTransliterator, UshuaiaTransliterator>()
                 .AddSingleton<ITransliterationService, TransliterationService>();
         }
     }
