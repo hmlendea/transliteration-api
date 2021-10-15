@@ -9,14 +9,14 @@ namespace TransliterationAPI.Service
     public class TransliterationService : ITransliterationService
     {
         IPodolakTransliterator podolakTransliterator;
-        ITransliterationDotCom transliterationDotCom;
+        ITranslitterationDotComTransliterator translitterationDotComTransliterator;
 
         public TransliterationService(
             IPodolakTransliterator podolakTransliterator,
-            ITransliterationDotCom transliterationDotCom)
+            ITranslitterationDotComTransliterator translitterationDotComTransliterator)
         {
             this.podolakTransliterator = podolakTransliterator;
-            this.transliterationDotCom = transliterationDotCom;
+            this.translitterationDotComTransliterator = translitterationDotComTransliterator;
         }
 
         public async Task<string> Transliterate(string text, string language)
@@ -25,44 +25,44 @@ namespace TransliterationAPI.Service
             switch (language)
             {
                 case "ab":
-                    return await transliterationDotCom.Transliterate(normalisedText, "abk", "iso-9");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "abk", "iso-9");
                 case "ady":
-                    return await transliterationDotCom.Transliterate(normalisedText, "ady", "iso-9");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "ady", "iso-9");
                 case "ba":
-                    return await transliterationDotCom.Transliterate(normalisedText, "bak", "iso-9");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "bak", "iso-9");
                 case "be":
-                    return await transliterationDotCom.Transliterate(normalisedText, "bel", "national");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "bel", "national");
                 case "bg":
-                    return await transliterationDotCom.Transliterate(normalisedText, "bul", "streamlined");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "bul", "streamlined");
                 case "cu":
                     return await podolakTransliterator.Transliterate(normalisedText, language);
                 case "cv":
-                    return await transliterationDotCom.Transliterate(normalisedText, "chv", "ala-lc");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "chv", "ala-lc");
                 //case "el":
                 case "hy":
-                    return await transliterationDotCom.Transliterate(normalisedText, "xcl", "iso-9985");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "xcl", "iso-9985");
                 case "hyw":
-                    return await transliterationDotCom.Transliterate(normalisedText, "hye", "ala-lc");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "hye", "ala-lc");
                 //case "ja":
                 case "ka":
-                    return await transliterationDotCom.Transliterate(normalisedText, "kat", "national");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "kat", "national");
                 case "kk":
-                    return await transliterationDotCom.Transliterate(normalisedText, "kaz", "national");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "kaz", "national");
                 case "ky":
-                    return await transliterationDotCom.Transliterate(normalisedText, "kir", "iso-9");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "kir", "iso-9");
                 case "mk":
-                    return await transliterationDotCom.Transliterate(normalisedText, "mkd", "bgn-pcgn");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "mkd", "bgn-pcgn");
                 //case "mn":
                 case "os":
-                    return await transliterationDotCom.Transliterate(normalisedText, "oss", "iso-9");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "oss", "iso-9");
                 case "ru":
-                    return await transliterationDotCom.Transliterate(normalisedText, "rus", "bgn-pcgn");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "rus", "bgn-pcgn");
                 case "sr":
-                    return await transliterationDotCom.Transliterate(normalisedText, "srp", "national");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "srp", "national");
                 case "udm":
-                    return await transliterationDotCom.Transliterate(normalisedText, "udm", "bgn-pcgn");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "udm", "bgn-pcgn");
                 case "uk":
-                    return await transliterationDotCom.Transliterate(normalisedText, "ukr", "bgn-pcgn");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "ukr", "bgn-pcgn");
                 default:
                     throw new ArgumentException($"The \"{language}\" language is not supported");
             }

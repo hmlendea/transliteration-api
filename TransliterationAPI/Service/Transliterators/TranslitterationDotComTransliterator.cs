@@ -4,13 +4,13 @@ using System.Threading.Tasks;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class TransliterationDotCom : ITransliterationDotCom
+    public class TranslitterationDotComTransliterator : ITranslitterationDotComTransliterator
     {
         private const string URL = "https://www.translitteration.com/ajax/en/transliterate";
 
         IHttpRequestManager httpRequestManager;
 
-        public TransliterationDotCom(IHttpRequestManager httpRequestManager)
+        public TranslitterationDotComTransliterator(IHttpRequestManager httpRequestManager)
         {
             this.httpRequestManager = httpRequestManager;
         }
@@ -27,7 +27,7 @@ namespace TransliterationAPI.Service.Transliterators
 
             string rawTransliteratedText = await httpRequestManager.Post(URL, formData);
 
-            return ApplyLanguageSpecificFixes(text, language).Replace("ack:::", "");
+            return ApplyLanguageSpecificFixes(rawTransliteratedText, language).Replace("ack:::", "");
         }
 
         private string ApplyLanguageSpecificFixes(string text, string language)

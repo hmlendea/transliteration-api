@@ -21,8 +21,7 @@ namespace TransliterationAPI.Controllers
         [HttpGet]
         public ActionResult Get(
             [FromQuery] string text,
-            [FromQuery] string language
-        )
+            [FromQuery] string language)
         {
             try
             {
