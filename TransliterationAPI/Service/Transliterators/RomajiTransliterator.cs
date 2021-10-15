@@ -25,12 +25,12 @@ namespace TransliterationAPI.Service.Transliterators
                 { "text", text }
             };
 
-            string html = await httpRequestManager.Post(URL, formData);
+            string response = await httpRequestManager.Post(URL, formData);
 
-            return ExtractResultFromHtml(html);
+            return ExtractResultFromResponse(response);
         }
 
-        private string ExtractResultFromHtml(string response)
+        private string ExtractResultFromResponse(string response)
         {
             string line = response;
             

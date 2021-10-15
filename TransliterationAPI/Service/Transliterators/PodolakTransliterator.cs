@@ -8,7 +8,6 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class PodolakTransliterator : IPodolakTransliterator
     {
-
         IHttpRequestManager httpRequestManager;
 
         public PodolakTransliterator(IHttpRequestManager httpRequestManager)
@@ -29,9 +28,9 @@ namespace TransliterationAPI.Service.Transliterators
             };
 
             string url = GetUrl(language);
-            string html = await httpRequestManager.Post(url, formData);
+            string response = await httpRequestManager.Post(url, formData);
 
-            return ExtractResultFromHtml(html);
+            return ExtractResultFromResponse(response);
         }
 
         private string GetUrl(string language)
@@ -48,9 +47,9 @@ namespace TransliterationAPI.Service.Transliterators
             }
         }
 
-        private string ExtractResultFromHtml(string html)
+        private string ExtractResultFromResponse(string response)
         {
-            string line = html
+            string line = response
                 .Split(new [] { '\r', '\n' })
                 .First(x => x.Contains("ausgabe"));
 
