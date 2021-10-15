@@ -11,8 +11,9 @@ namespace TransliterationAPI
         {
             return services
                 .AddSingleton<IHttpRequestManager, HttpRequestManager>()
-                .AddSingleton<ITransliterationService, TransliterationService>()
-                .AddSingleton<ITransliterationDotCom, TransliterationDotCom>();
+                .AddSingleton<IPodolakTransliterator, PodolakTransliterator>()
+                .AddSingleton<ITransliterationDotCom, TransliterationDotCom>()
+                .AddSingleton<ITransliterationService, TransliterationService>();
         }
     }
 }

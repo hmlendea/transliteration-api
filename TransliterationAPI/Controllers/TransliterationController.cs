@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +26,7 @@ namespace TransliterationAPI.Controllers
         {
             try
             {
+                string decodedText = HttpUtility.UrlDecode(text);
                 string transliteratedText = transliterationService.Transliterate(text, language).Result; // TODO: Broken async
                 return Ok(transliteratedText);
             }
