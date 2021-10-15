@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace TransliterationAPI.Service.Transliterators
@@ -26,7 +27,25 @@ namespace TransliterationAPI.Service.Transliterators
 
             string rawTransliteratedText = await httpRequestManager.Post(URL, formData);
 
-            return rawTransliteratedText.Replace("ack:::", "");
+            return ApplyLanguageSpecificFixes(text, language).Replace("ack:::", "");
+        }
+
+        private string ApplyLanguageSpecificFixes(string text, string language)
+        {
+            if (language == "bel" || language == "bul")
+            {
+                return Regex.Replace(text, "([a-zA-Z])H", "$1h");
+            }
+            else if (language == "chv")
+            {
+                return text.Replace("i͡", "y");
+            }
+            else if (language == "rus")
+            {
+                return Regex.Replace(text, "([a-zA-Z])Y", "$1y");
+            }
+
+            return text;
         }
     }
 }
