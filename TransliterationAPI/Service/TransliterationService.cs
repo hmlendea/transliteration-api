@@ -9,15 +9,18 @@ namespace TransliterationAPI.Service
     public class TransliterationService : ITransliterationService
     {
         IPodolakTransliterator podolakTransliterator;
+        IRomajiTransliterator romajiTransliterator;
         ITransliterateDotComTransliterator transliterateDotComTransliterator;
         ITranslitterationDotComTransliterator translitterationDotComTransliterator;
 
         public TransliterationService(
             IPodolakTransliterator podolakTransliterator,
+            IRomajiTransliterator romajiTransliterator,
             ITransliterateDotComTransliterator transliterateDotComTransliterator,
             ITranslitterationDotComTransliterator translitterationDotComTransliterator)
         {
             this.podolakTransliterator = podolakTransliterator;
+            this.romajiTransliterator = romajiTransliterator;
             this.transliterateDotComTransliterator = transliterateDotComTransliterator;
             this.translitterationDotComTransliterator = translitterationDotComTransliterator;
         }
@@ -25,6 +28,7 @@ namespace TransliterationAPI.Service
         public async Task<string> Transliterate(string text, string language)
         {
             string normalisedText = NormaliseText(text);
+
             switch (language)
             {
                 case "ab":
@@ -47,7 +51,8 @@ namespace TransliterationAPI.Service
                     return await translitterationDotComTransliterator.Transliterate(normalisedText, "xcl", "iso-9985");
                 case "hyw":
                     return await translitterationDotComTransliterator.Transliterate(normalisedText, "hye", "ala-lc");
-                //case "ja":
+                case "ja":
+                    return await romajiTransliterator.Transliterate(normalisedText);
                 case "ka":
                     return await translitterationDotComTransliterator.Transliterate(normalisedText, "kat", "national");
                 case "kk":
