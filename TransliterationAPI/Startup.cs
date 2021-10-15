@@ -21,6 +21,7 @@ namespace TransliterationAPI
         {
 
             services.AddControllers();
+            services.AddCustomServices();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TransliterationAPI", Version = "v1" });

@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+
+using Microsoft.AspNetCore.Mvc;
+
+using TransliterationAPI.Service;
 
 namespace TransliterationAPI.Controllers
 {
@@ -6,13 +10,28 @@ namespace TransliterationAPI.Controllers
     [Route("[controller]")]
     public class TransliterationController : ControllerBase
     {
+        ITransliterationService transliterationService;
+
+        public TransliterationController(ITransliterationService transliterationService)
+        {
+            this.transliterationService = transliterationService;
+        }
+
         [HttpGet]
-        public string Get(
-            [FromQuery] string language,
-            [FromQuery] string text
+        public ActionResult Get(
+            [FromQuery] string text,
+            [FromQuery] string language
         )
         {
-            return "TEST! You sent: " + text + " in " + language;
+            try
+            {
+                string transliteratedText = transliterationService.Transliterate(text, language).Result; // TODO: Broken async
+                return Ok(transliteratedText);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
