@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
 using TransliterationAPI.Service.Transliterators;
+using System.Text;
 
 namespace TransliterationAPI.Service
 {
@@ -49,7 +51,7 @@ namespace TransliterationAPI.Service
         {
             string normalisedText = NormaliseText(text);
 
-            string cacheKey = $"{normalisedText}_${language}";
+            string cacheKey = GetSha256FromString($"{normalisedText}_${language}");
 
             if (cache.ContainsKey(cacheKey))
             {
@@ -152,6 +154,20 @@ namespace TransliterationAPI.Service
             normalisedText = Regex.Replace(normalisedText, "[\\s\r\n]*$", "");
 
             return normalisedText;
+        }
+        
+        string GetSha256FromString(string strData)
+        {
+            var message = Encoding.ASCII.GetBytes(strData);
+            SHA256Managed hashString = new SHA256Managed();
+            string hex = "";
+
+            var hashValue = hashString.ComputeHash(message);
+            foreach (byte x in hashValue)
+            {
+                hex += String.Format("{0:x2}", x);
+            }
+            return hex;
         }
     }
 }

@@ -8,5 +8,7 @@ namespace TransliterationAPI.Service
         Task<string> Post(string url, IDictionary<string, string> formData);
 
         Task<string> Post(string url, IDictionary<string, string> formData, IDictionary<string, string> headers);
+
+        Task<string> RetrieveCookies(string url);
     }
 }

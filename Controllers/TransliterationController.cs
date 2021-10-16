@@ -23,6 +23,11 @@ namespace TransliterationAPI.Controllers
             [FromQuery] string text,
             [FromQuery] string language)
         {
+            if (text != null && text.Length > 256)
+            {
+                return BadRequest("The text cannot exceed 256 characters");
+            }
+
             try
             {
                 string decodedText = HttpUtility.UrlDecode(text);

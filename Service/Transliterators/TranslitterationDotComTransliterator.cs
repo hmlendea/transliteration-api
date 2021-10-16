@@ -8,8 +8,6 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class TranslitterationDotComTransliterator : ITranslitterationDotComTransliterator
     {
-        private const string URL = "https://www.translitteration.com/ajax/en/transliterate";
-
         IHttpRequestManager httpRequestManager;
 
         public TranslitterationDotComTransliterator(IHttpRequestManager httpRequestManager)
@@ -27,7 +25,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "scheme", scheme }
             };
 
-            string response = await httpRequestManager.Post(URL, formData);
+            string response = await httpRequestManager.Post("https://www.translitteration.com/ajax/en/transliterate", formData);
             string rawTransliteratedText = response.Replace("ack:::", "");
 
             return ApplyLanguageSpecificFixes(rawTransliteratedText, language);

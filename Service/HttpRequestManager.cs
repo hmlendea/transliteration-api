@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -7,11 +8,19 @@ namespace TransliterationAPI.Service
 {
     public class HttpRequestManager : IHttpRequestManager
     {
-        private HttpClient client = new HttpClient();
+        readonly CookieContainer cookies;
+        readonly HttpClient client = new HttpClient();
 
         public HttpRequestManager()
         {
-            this.client = new HttpClient();
+            cookies = new CookieContainer();
+            
+            HttpClientHandler handler = new HttpClientHandler
+            {
+                CookieContainer = cookies
+            };
+
+            client = new HttpClient(handler);
         }
 
         public async Task<string> Post(
@@ -61,6 +70,33 @@ namespace TransliterationAPI.Service
                     .Content
                     .ReadAsStringAsync()
                     .ConfigureAwait(false);
+            }
+        }
+
+        public async Task<string> RetrieveCookies(string url)
+        {
+            Uri uri = new Uri(url);
+
+            HttpRequestMessage request = new HttpRequestMessage()
+            {
+                RequestUri = new Uri(url),
+                Method = HttpMethod.Get
+            };
+            
+            using (HttpResponseMessage response = await client
+                .SendAsync(request)
+                .ConfigureAwait(false))
+            {
+                response.EnsureSuccessStatusCode();
+
+                string cook = string.Empty;
+
+                foreach (var cookie in cookies.GetCookies(uri))
+                {
+                    cook += cookie.ToString() + ";";
+                }
+
+                return cook;
             }
         }
     }
