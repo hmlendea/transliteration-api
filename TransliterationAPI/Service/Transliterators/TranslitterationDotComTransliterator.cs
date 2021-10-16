@@ -29,27 +29,34 @@ namespace TransliterationAPI.Service.Transliterators
 
             string response = await httpRequestManager.Post(URL, formData);
             string rawTransliteratedText = response.Replace("ack:::", "");
-            
+
             return ApplyLanguageSpecificFixes(rawTransliteratedText, language);
         }
 
         private string ApplyLanguageSpecificFixes(string text, string language)
         {
+            string fixedText = text;
+
             if (language == "bel" || language == "bul")
             {
-                return Regex.Replace(text, "([a-zA-Z])H", "$1h");
+                fixedText = Regex.Replace(fixedText, "([a-zA-Z])H", "$1h");
             }
             else if (language == "chv")
             {
-                return text.Replace("i͡", "y");
+                fixedText = fixedText.Replace("i͡", "y");
             }
             else if (language == "iku")
             {
-                return text.Replace("ᐆ", "u").ToTitleCase();
+                fixedText = fixedText.Replace("ᐆ", "u");
             }
             else if (language == "rus")
             {
-                return Regex.Replace(text, "([a-zA-Z])Y", "$1y");
+                fixedText = Regex.Replace(fixedText, "([a-zA-Z])Y", "$1y");
+            }
+
+            if (language == "iku" || language == "kat" || language == "kir" || language == "xcl")
+            {
+                fixedText = fixedText.ToTitleCase();
             }
 
             return text;

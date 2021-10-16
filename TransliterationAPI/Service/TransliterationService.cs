@@ -61,60 +61,66 @@ namespace TransliterationAPI.Service
         {
             switch (language)
             {
-                case "ab":
+                case "ab": // Abkhaz
                     return await translitterationDotComTransliterator.Transliterate(text, "abk", "iso-9");
-                case "ady":
+                case "ady": // Adyghe
                     return await translitterationDotComTransliterator.Transliterate(text, "ady", "iso-9");
-                case "ba":
+                case "ba": // Bashkir
                     return await translitterationDotComTransliterator.Transliterate(text, "bak", "iso-9");
-                case "be":
+                case "be": // Belarussian
                     return await translitterationDotComTransliterator.Transliterate(text, "bel", "national");
-                case "bg":
+                case "bg": // Bulgarian
                     return await translitterationDotComTransliterator.Transliterate(text, "bul", "streamlined");
-                case "bn":
+                case "bn": // Bengali
                     return await ushuaiaTransliterator.Transliterate(text, "bengali_iso_transliterate");
-                case "cu":
+                case "cu": // Old Church Slavonic
                     return await podolakTransliterator.Transliterate(text, language);
-                case "cv":
+                case "cv": // Chuvash
                     return await translitterationDotComTransliterator.Transliterate(text, "chv", "ala-lc");
-                case "el":
+                case "el": // Greek
                     return await transliterateDotComTransliterator.Transliterate(text, "el");
-                case "gu":
+                case "gu": // Gujarati
                     return gujaratiTransliterator.Transliterate(text);
-                case "he":
+                case "he": // Hebrew
                     return await transliterateDotComTransliterator.Transliterate(text, "he");
-                case "hi":
+                case "hi": // Hindi
                     return await ushuaiaTransliterator.Transliterate(text, "devanagari_hunt_transcribe");
-                case "hy":
+                case "hy": // Armenian
                     return await translitterationDotComTransliterator.Transliterate(text, "xcl", "iso-9985");
-                case "hyw":
+                case "hyw": // Western Armenian
                     return await translitterationDotComTransliterator.Transliterate(text, "hye", "ala-lc");
-                case "iu":
+                case "iu": // Inuttitut
                     return await translitterationDotComTransliterator.Transliterate(text, "iku", "canadian-aboriginal-syllabics");
-                case "ja":
+                case "ja": // Japanese
                     return await romajiTransliterator.Transliterate(text);
-                case "ka":
+                case "ka": // Georgian
                     return await translitterationDotComTransliterator.Transliterate(text, "kat", "national");
-                case "kk":
+                case "kk": // Kazakh
                     return await translitterationDotComTransliterator.Transliterate(text, "kaz", "national");
-                case "ky":
+                case "kn": // Kannada
+                    return await ushuaiaTransliterator.Transliterate(text, "kannada_iso_transliterate");
+                case "ko": // Korean
+                    return await ushuaiaTransliterator.Transliterate(text, "hangul_mr_transcribe");
+                case "ky": // Kyrgyz
                     return await translitterationDotComTransliterator.Transliterate(text, "kir", "iso-9");
-                case "mk":
+                case "mk": // Macedonian Slavic
                     return await translitterationDotComTransliterator.Transliterate(text, "mkd", "bgn-pcgn");
-                case "mn":
+                case "ml": // Malayalam
+                    return await ushuaiaTransliterator.Transliterate(text, "malayalam_iso_transliterate");
+                case "mn": // Mongol
                     return await ushuaiaTransliterator.Transliterate(text, "mongolian_mns_transliterate");
-                case "os":
+                case "os": // Ossetic
                     return await translitterationDotComTransliterator.Transliterate(text, "oss", "iso-9");
-                case "ru":
+                case "ru": // Russian
                     return await translitterationDotComTransliterator.Transliterate(text, "rus", "bgn-pcgn");
-                case "sr":
+                case "sr": // Serbian
                     return await translitterationDotComTransliterator.Transliterate(text, "srp", "national");
-                case "udm":
+                case "udm": // Udmurt
                     return await translitterationDotComTransliterator.Transliterate(text, "udm", "bgn-pcgn");
-                case "uk":
+                case "uk": // Ukrainian
                     return await translitterationDotComTransliterator.Transliterate(text, "ukr", "bgn-pcgn");
-                case "zh":
-                case "zh-hans":
+                case "zh": // Chinese
+                case "zh-hans": // Simplified Chinese
                     return pinyinTransliterator.Transliterate(text);
                 default:
                     throw new ArgumentException($"The \"{language}\" language is not supported");

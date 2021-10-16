@@ -4,6 +4,6 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public interface IUshuaiaTransliterator
     {
-        Task<string> Transliterate(string text, string language);
+        Task<string> Transliterate(string text, string mode);
     }
 }

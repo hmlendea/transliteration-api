@@ -20,25 +20,29 @@ namespace TransliterationAPI.Service.Transliterators
         {
             IDictionary<string, string> formData = new Dictionary<string, string>
             {
-                { "text", text},
+                { "text", text },
                 { "lang", language }
             };
             IDictionary<string, string> headers = new Dictionary<string, string>
             {
-                { "Cookie", $"translit=86ta9rrnl43mdrf4qpq33h77ii; lastlang={language}; PHPSESSID=2r3ig8h0o534m09o9gogc6vood"}
+                { "Cookie", "translit=6rhvaovg1cfkbt8cb9vhtkbfdh;" }
             };
 
             string response = await httpRequestManager.Post(URL, formData, headers);
+            string transliteratedText = ApplyFixes(response, language);
 
-            return ApplyFixes(response, language);
+            return transliteratedText;
         }
 
-        string ApplyFixes(string text, string language)
+        string ApplyFixes(string text, string mode)
         {
             string fixedText = text;
 
-            if (language.Contains("bengali") || 
-                language.Contains("devanagari"))
+            if (mode.Contains("bengali") || 
+                mode.Contains("devanagari") || 
+                mode.Contains("hangul_mr") || 
+                mode.Contains("kannada") ||
+                mode.Contains("malayalam"))
             {
                 fixedText = fixedText.ToTitleCase();
             }
