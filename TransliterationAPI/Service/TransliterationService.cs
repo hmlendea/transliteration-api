@@ -8,6 +8,7 @@ namespace TransliterationAPI.Service
 {
     public class TransliterationService : ITransliterationService
     {
+        IGujaratiTransliterator gujaratiTransliterator;
         IPodolakTransliterator podolakTransliterator;
         IRomajiTransliterator romajiTransliterator;
         ITransliterateDotComTransliterator transliterateDotComTransliterator;
@@ -15,12 +16,14 @@ namespace TransliterationAPI.Service
         IUshuaiaTransliterator ushuaiaTransliterator;
 
         public TransliterationService(
+            IGujaratiTransliterator gujaratiTransliterator,
             IPodolakTransliterator podolakTransliterator,
             IRomajiTransliterator romajiTransliterator,
             ITransliterateDotComTransliterator transliterateDotComTransliterator,
             ITranslitterationDotComTransliterator translitterationDotComTransliterator,
             IUshuaiaTransliterator ushuaiaTransliterator)
         {
+            this.gujaratiTransliterator = gujaratiTransliterator;
             this.podolakTransliterator = podolakTransliterator;
             this.romajiTransliterator = romajiTransliterator;
             this.transliterateDotComTransliterator = transliterateDotComTransliterator;
@@ -49,7 +52,9 @@ namespace TransliterationAPI.Service
                 case "cv":
                     return await translitterationDotComTransliterator.Transliterate(normalisedText, "chv", "ala-lc");
                 case "el":
-                    return await transliterateDotComTransliterator.Transliterate(normalisedText, "el");
+                    return await translitterationDotComTransliterator.Transliterate(normalisedText, "chv", "ala-lc");
+                case "gu":
+                    return gujaratiTransliterator.Transliterate(normalisedText);
                 case "hy":
                     return await translitterationDotComTransliterator.Transliterate(normalisedText, "xcl", "iso-9985");
                 case "hyw":
