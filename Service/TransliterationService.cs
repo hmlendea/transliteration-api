@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
@@ -158,23 +159,26 @@ namespace TransliterationAPI.Service
 
         string GetCacheId(string text, string language)
         {
-            string cacheKey = $"{text}_${text.Length}_${text.GetHashCode()}_${language}";
-            cacheKey = GetSha256FromString($"{text}_${language}");
+            string textUnicodes = string.Join('-', text.Select(c => (int)c));
+            string cacheKey = $"{language}_{textUnicodes}";
+            cacheKey = GetSha256FromString(cacheKey);
 
             return cacheKey;
         }
         
         string GetSha256FromString(string strData)
         {
-            var message = Encoding.ASCII.GetBytes(strData);
+            byte[] message = Encoding.ASCII.GetBytes(strData);
             SHA256Managed hashString = new SHA256Managed();
             string hex = "";
 
-            var hashValue = hashString.ComputeHash(message);
+            byte[] hashValue = hashString.ComputeHash(message);
+
             foreach (byte x in hashValue)
             {
                 hex += String.Format("{0:x2}", x);
             }
+
             return hex;
         }
     }
