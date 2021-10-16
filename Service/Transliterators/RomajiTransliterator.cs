@@ -49,6 +49,7 @@ namespace TransliterationAPI.Service.Transliterators
             string fixedText = text;
 
             fixedText = Regex.Replace(fixedText, "・", "");
+            fixedText = Regex.Replace(fixedText, "\\s*", " ");
             fixedText = fixedText.ToTitleCase();
 
             return fixedText;
