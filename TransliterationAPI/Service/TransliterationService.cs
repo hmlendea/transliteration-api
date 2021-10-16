@@ -76,7 +76,7 @@ namespace TransliterationAPI.Service
                 case "cv":
                     return await translitterationDotComTransliterator.Transliterate(text, "chv", "ala-lc");
                 case "el":
-                    return await translitterationDotComTransliterator.Transliterate(text, "chv", "ala-lc");
+                    return await transliterateDotComTransliterator.Transliterate(text, "el");
                 case "gu":
                     return gujaratiTransliterator.Transliterate(text);
                 case "hy":

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace TransliterationAPI.Service.Transliterators
 {
@@ -22,15 +24,15 @@ namespace TransliterationAPI.Service.Transliterators
                 { "input", text}
             };
 
-            string response = await httpRequestManager.Post(URL, formData);
-            string rawTransliteratedText = ExtractResultFromHtml(response);
+            string responseHtml = await httpRequestManager.Post(URL, formData);
+            string response = ExtractResultFromHtml(responseHtml);
 
-            return ApplyLanguageSpecificFixes(rawTransliteratedText, language).Replace("ack:::", "");
+            return ApplyFixes(response, language);
         }
 
-        private string ApplyLanguageSpecificFixes(string text, string language)
+        private string ApplyFixes(string text, string language)
         {
-            string fixedText = text;
+            string fixedText = text.Replace("ack:::", "");
 
             if (language == "el")
             {
@@ -42,6 +44,7 @@ namespace TransliterationAPI.Service.Transliterators
                 fixedText = Regex.Replace(fixedText, "ntm", "dm");
                 fixedText = Regex.Replace(fixedText, "rnk", "rk");
                 fixedText = Regex.Replace(fixedText, "snt", "sht");
+                fixedText = Regex.Replace(fixedText, "([A-Za-z])'([A-Za-z])", "$1$2");
             }
 
             return fixedText;
@@ -49,7 +52,13 @@ namespace TransliterationAPI.Service.Transliterators
 
         private string ExtractResultFromHtml(string html)
         {
-            return Regex.Replace(html, ".*\"latin\":\"([^\"]*).*", "$1");
+            Regex regexDecoder = new Regex(@"\\u(?<Value>[a-zA-Z0-9]{4})", RegexOptions.Compiled);
+            string latinText = Regex.Replace(html, ".*\"latin\":\"([^\"]*).*", "$1");
+
+            return regexDecoder.Replace(
+                latinText,
+                m => ((char)int.Parse(m.Groups["Value"].Value, NumberStyles.HexNumber)).ToString()
+            );
         }
     }
 }
