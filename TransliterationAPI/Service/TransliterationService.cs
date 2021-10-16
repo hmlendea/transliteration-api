@@ -9,6 +9,7 @@ namespace TransliterationAPI.Service
     public class TransliterationService : ITransliterationService
     {
         IGujaratiTransliterator gujaratiTransliterator;
+        IPinyinTransliterator pinyinTransliterator;
         IPodolakTransliterator podolakTransliterator;
         IRomajiTransliterator romajiTransliterator;
         ITransliterateDotComTransliterator transliterateDotComTransliterator;
@@ -17,6 +18,7 @@ namespace TransliterationAPI.Service
 
         public TransliterationService(
             IGujaratiTransliterator gujaratiTransliterator,
+            IPinyinTransliterator pinyinTransliterator,
             IPodolakTransliterator podolakTransliterator,
             IRomajiTransliterator romajiTransliterator,
             ITransliterateDotComTransliterator transliterateDotComTransliterator,
@@ -24,6 +26,7 @@ namespace TransliterationAPI.Service
             IUshuaiaTransliterator ushuaiaTransliterator)
         {
             this.gujaratiTransliterator = gujaratiTransliterator;
+            this.pinyinTransliterator = pinyinTransliterator;
             this.podolakTransliterator = podolakTransliterator;
             this.romajiTransliterator = romajiTransliterator;
             this.transliterateDotComTransliterator = transliterateDotComTransliterator;
@@ -81,6 +84,9 @@ namespace TransliterationAPI.Service
                     return await translitterationDotComTransliterator.Transliterate(normalisedText, "udm", "bgn-pcgn");
                 case "uk":
                     return await translitterationDotComTransliterator.Transliterate(normalisedText, "ukr", "bgn-pcgn");
+                case "zh":
+                case "zh-hans":
+                    return pinyinTransliterator.Transliterate(normalisedText);
                 default:
                     throw new ArgumentException($"The \"{language}\" language is not supported");
             }

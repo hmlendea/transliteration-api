@@ -12,6 +12,7 @@ namespace TransliterationAPI
             return services
                 .AddSingleton<IHttpRequestManager, HttpRequestManager>()
                 .AddSingleton<IGujaratiTransliterator, GujaratiTransliterator>()
+                .AddSingleton<IPinyinTransliterator, PinyinTransliterator>()
                 .AddSingleton<IPodolakTransliterator, PodolakTransliterator>()
                 .AddSingleton<IRomajiTransliterator, RomajiTransliterator>()
                 .AddSingleton<ITransliterateDotComTransliterator, TransliterateDotComTransliterator>()
