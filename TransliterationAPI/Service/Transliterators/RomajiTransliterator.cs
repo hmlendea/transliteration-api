@@ -26,11 +26,12 @@ namespace TransliterationAPI.Service.Transliterators
             };
 
             string response = await httpRequestManager.Post(URL, formData);
+            string rawTransliteratedText = ExtractResultFromResponse(response);
 
-            return ExtractResultFromResponse(response);
+            return ApplyFixes(rawTransliteratedText);
         }
 
-        private string ExtractResultFromResponse(string response)
+        string ExtractResultFromResponse(string response)
         {
             string line = response;
             
@@ -40,7 +41,17 @@ namespace TransliterationAPI.Service.Transliterators
             line = Regex.Replace(line, "^\\s*", "");
             line = Regex.Replace(line, "\\s*$", "");
 
-            return line.ToTitleCase();
+            return line;
+        }
+
+        string ApplyFixes(string text)
+        {
+            string fixedText = text;
+
+            fixedText = Regex.Replace(fixedText, "・", "");
+            fixedText = fixedText.ToTitleCase();
+
+            return text;
         }
     }
 }
