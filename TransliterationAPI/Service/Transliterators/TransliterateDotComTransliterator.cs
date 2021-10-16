@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Web;
+
+using NuciExtensions;
 
 namespace TransliterationAPI.Service.Transliterators
 {
@@ -45,6 +46,11 @@ namespace TransliterationAPI.Service.Transliterators
                 fixedText = Regex.Replace(fixedText, "rnk", "rk");
                 fixedText = Regex.Replace(fixedText, "snt", "sht");
                 fixedText = Regex.Replace(fixedText, "([A-Za-z])'([A-Za-z])", "$1$2");
+            }
+            else if (language == "he")
+            {
+                fixedText = fixedText.ToTitleCase();
+                fixedText = Regex.Replace(fixedText, " '([a-z])", m => " '" + m.Groups[1].Value.ToUpperInvariant());
             }
 
             return fixedText;

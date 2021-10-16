@@ -71,6 +71,8 @@ namespace TransliterationAPI.Service
                     return await translitterationDotComTransliterator.Transliterate(text, "bel", "national");
                 case "bg":
                     return await translitterationDotComTransliterator.Transliterate(text, "bul", "streamlined");
+                case "bn":
+                    return await ushuaiaTransliterator.Transliterate(text, "bengali_iso_transliterate");
                 case "cu":
                     return await podolakTransliterator.Transliterate(text, language);
                 case "cv":
@@ -79,6 +81,10 @@ namespace TransliterationAPI.Service
                     return await transliterateDotComTransliterator.Transliterate(text, "el");
                 case "gu":
                     return gujaratiTransliterator.Transliterate(text);
+                case "he":
+                    return await transliterateDotComTransliterator.Transliterate(text, "he");
+                case "hi":
+                    return await ushuaiaTransliterator.Transliterate(text, "devanagari_hunt_transcribe");
                 case "hy":
                     return await translitterationDotComTransliterator.Transliterate(text, "xcl", "iso-9985");
                 case "hyw":

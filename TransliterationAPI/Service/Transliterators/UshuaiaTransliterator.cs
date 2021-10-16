@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using NuciExtensions;
+
 namespace TransliterationAPI.Service.Transliterators
 {
     public class UshuaiaTransliterator : IUshuaiaTransliterator
@@ -23,10 +25,25 @@ namespace TransliterationAPI.Service.Transliterators
             };
             IDictionary<string, string> headers = new Dictionary<string, string>
             {
-                { "Cookie", $"translit=4iuo753l2j3dej19i8rg7vkbkt; lastlang={language}; PHPSESSID=46akf4fi4bsq67otho7pg8qa34"}
+                { "Cookie", $"translit=86ta9rrnl43mdrf4qpq33h77ii; lastlang={language}; PHPSESSID=2r3ig8h0o534m09o9gogc6vood"}
             };
 
-            return await httpRequestManager.Post(URL, formData, headers);
+            string response = await httpRequestManager.Post(URL, formData, headers);
+
+            return ApplyFixes(response, language);
+        }
+
+        string ApplyFixes(string text, string language)
+        {
+            string fixedText = text;
+
+            if (language.Contains("bengali") || 
+                language.Contains("devanagari"))
+            {
+                fixedText = fixedText.ToTitleCase();
+            }
+            
+            return fixedText;
         }
     }
 }
