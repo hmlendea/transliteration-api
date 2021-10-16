@@ -16,6 +16,7 @@ namespace TransliterationAPI.Service
         IPinyinTransliterator pinyinTransliterator;
         IPodolakTransliterator podolakTransliterator;
         IRomajiTransliterator romajiTransliterator;
+        IThailitTransliterator thailitTransliterator;
         ITransliterateDotComTransliterator transliterateDotComTransliterator;
         ITranslitterationDotComTransliterator translitterationDotComTransliterator;
         IUshuaiaTransliterator ushuaiaTransliterator;
@@ -26,6 +27,7 @@ namespace TransliterationAPI.Service
             IPinyinTransliterator pinyinTransliterator,
             IPodolakTransliterator podolakTransliterator,
             IRomajiTransliterator romajiTransliterator,
+            IThailitTransliterator thailitTransliterator,
             ITransliterateDotComTransliterator transliterateDotComTransliterator,
             ITranslitterationDotComTransliterator translitterationDotComTransliterator,
             IUshuaiaTransliterator ushuaiaTransliterator)
@@ -37,6 +39,7 @@ namespace TransliterationAPI.Service
             this.pinyinTransliterator = pinyinTransliterator;
             this.podolakTransliterator = podolakTransliterator;
             this.romajiTransliterator = romajiTransliterator;
+            this.thailitTransliterator = thailitTransliterator;
             this.transliterateDotComTransliterator = transliterateDotComTransliterator;
             this.translitterationDotComTransliterator = translitterationDotComTransliterator;
             this.ushuaiaTransliterator = ushuaiaTransliterator;
@@ -126,6 +129,10 @@ namespace TransliterationAPI.Service
                     return await translitterationDotComTransliterator.Transliterate(text, "srp", "national");
                 case "ta": // Tamil
                     return await ushuaiaTransliterator.Transliterate(text, "tamil_iso_transliterate");
+                case "te": // Telugu
+                    return await ushuaiaTransliterator.Transliterate(text, "telugu_iso_transliterate");
+                case "th": // Thai
+                    return await thailitTransliterator.Transliterate(text);
                 case "udm": // Udmurt
                     return await translitterationDotComTransliterator.Transliterate(text, "udm", "bgn-pcgn");
                 case "uk": // Ukrainian

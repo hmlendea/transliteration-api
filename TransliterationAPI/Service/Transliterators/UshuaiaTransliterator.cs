@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -40,11 +41,12 @@ namespace TransliterationAPI.Service.Transliterators
 
             if (mode.Contains("bengali") || 
                 mode.Contains("devanagari") || 
-                mode.Contains("hangul_mr") || 
+                mode.Contains("hangul") || 
                 mode.Contains("kannada") ||
                 mode.Contains("malayalam") ||
                 mode.Contains("sinhala") ||
-                mode.Contains("tamil"))
+                mode.Contains("tamil") ||
+                mode.Contains("telugu"))
             {
                 fixedText = fixedText.ToTitleCase();
             }

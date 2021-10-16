@@ -16,6 +16,7 @@ namespace TransliterationAPI
                 .AddSingleton<IPinyinTransliterator, PinyinTransliterator>()
                 .AddSingleton<IPodolakTransliterator, PodolakTransliterator>()
                 .AddSingleton<IRomajiTransliterator, RomajiTransliterator>()
+                .AddSingleton<IThailitTransliterator, ThailitTransliterator>()
                 .AddSingleton<ITransliterateDotComTransliterator, TransliterateDotComTransliterator>()
                 .AddSingleton<ITranslitterationDotComTransliterator, TranslitterationDotComTransliterator>()
                 .AddSingleton<IUshuaiaTransliterator, UshuaiaTransliterator>()

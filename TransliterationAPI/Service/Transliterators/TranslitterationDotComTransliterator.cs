@@ -59,7 +59,7 @@ namespace TransliterationAPI.Service.Transliterators
                 fixedText = fixedText.ToTitleCase();
             }
 
-            return text;
+            return fixedText;
         }
     }
 }
