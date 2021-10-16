@@ -51,7 +51,7 @@ namespace TransliterationAPI.Service
         {
             string normalisedText = NormaliseText(text);
 
-            string cacheKey = GetSha256FromString($"{normalisedText}_${language}");
+            string cacheKey = GetCacheId(normalisedText, language);
 
             if (cache.ContainsKey(cacheKey))
             {
@@ -154,6 +154,14 @@ namespace TransliterationAPI.Service
             normalisedText = Regex.Replace(normalisedText, "[\\s\r\n]*$", "");
 
             return normalisedText;
+        }
+
+        string GetCacheId(string text, string language)
+        {
+            string cacheKey = $"{text}_${text.Length}_${text.GetHashCode()}_${language}";
+            cacheKey = GetSha256FromString($"{text}_${language}");
+
+            return cacheKey;
         }
         
         string GetSha256FromString(string strData)
