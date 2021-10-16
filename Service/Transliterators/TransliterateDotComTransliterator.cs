@@ -58,6 +58,11 @@ namespace TransliterationAPI.Service.Transliterators
 
         private string ExtractResultFromResponse(string response)
         {
+            if (!response.Contains("\"latin\""))
+            {
+                return null;
+            }
+            
             Regex regexDecoder = new Regex(@"\\u(?<Value>[a-zA-Z0-9]{4})", RegexOptions.Compiled);
             string latinText = Regex.Replace(response, ".*\"latin\":\"([^\"]*).*", "$1");
 
