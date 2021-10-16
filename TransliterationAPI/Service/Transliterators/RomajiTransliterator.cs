@@ -51,7 +51,7 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "・", "");
             fixedText = fixedText.ToTitleCase();
 
-            return text;
+            return fixedText;
         }
     }
 }
