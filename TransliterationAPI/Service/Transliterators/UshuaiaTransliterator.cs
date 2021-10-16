@@ -9,8 +9,6 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class UshuaiaTransliterator : IUshuaiaTransliterator
     {
-        const string URL = "https://www.ushuaia.pl/transliterate/transliterate.php";
-
         IHttpRequestManager httpRequestManager;
 
         string sessionCookieValue;
@@ -41,7 +39,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Cookie", $"translit={sessionCookieValue};lastlang={mode}" }
             };
 
-            string response = await httpRequestManager.Post(URL, formData, headers);
+            string response = await httpRequestManager.Post("https://www.ushuaia.pl/transliterate/transliterate.php", formData, headers);
             string transliteratedText = ApplyFixes(response, mode);
 
             return transliteratedText;

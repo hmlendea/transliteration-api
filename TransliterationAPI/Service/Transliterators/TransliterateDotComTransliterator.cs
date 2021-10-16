@@ -9,8 +9,6 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class TransliterateDotComTransliterator : ITransliterateDotComTransliterator
     {
-        private const string URL = "https://transliterate.com/Home/Transliterate";
-
         IHttpRequestManager httpRequestManager;
 
         public TransliterateDotComTransliterator(IHttpRequestManager httpRequestManager)
@@ -25,10 +23,10 @@ namespace TransliterationAPI.Service.Transliterators
                 { "input", text}
             };
 
-            string responseHtml = await httpRequestManager.Post(URL, formData);
-            string response = ExtractResultFromHtml(responseHtml);
+            string response = await httpRequestManager.Post("https://transliterate.com/Home/Transliterate", formData);
+            string result = ExtractResultFromResponse(response);
 
-            return ApplyFixes(response, language);
+            return ApplyFixes(result, language);
         }
 
         private string ApplyFixes(string text, string language)
@@ -58,10 +56,10 @@ namespace TransliterationAPI.Service.Transliterators
             return fixedText;
         }
 
-        private string ExtractResultFromHtml(string html)
+        private string ExtractResultFromResponse(string response)
         {
             Regex regexDecoder = new Regex(@"\\u(?<Value>[a-zA-Z0-9]{4})", RegexOptions.Compiled);
-            string latinText = Regex.Replace(html, ".*\"latin\":\"([^\"]*).*", "$1");
+            string latinText = Regex.Replace(response, ".*\"latin\":\"([^\"]*).*", "$1");
 
             return regexDecoder.Replace(
                 latinText,
