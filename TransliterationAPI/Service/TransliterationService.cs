@@ -89,6 +89,8 @@ namespace TransliterationAPI.Service
                     return await translitterationDotComTransliterator.Transliterate(text, "xcl", "iso-9985");
                 case "hyw":
                     return await translitterationDotComTransliterator.Transliterate(text, "hye", "ala-lc");
+                case "iu":
+                    return await translitterationDotComTransliterator.Transliterate(text, "iku", "canadian-aboriginal-syllabics");
                 case "ja":
                     return await romajiTransliterator.Transliterate(text);
                 case "ka":

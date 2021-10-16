@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+using NuciExtensions;
+
 namespace TransliterationAPI.Service.Transliterators
 {
     public class TranslitterationDotComTransliterator : ITranslitterationDotComTransliterator
@@ -25,9 +27,10 @@ namespace TransliterationAPI.Service.Transliterators
                 { "scheme", scheme }
             };
 
-            string rawTransliteratedText = await httpRequestManager.Post(URL, formData);
-
-            return ApplyLanguageSpecificFixes(rawTransliteratedText, language).Replace("ack:::", "");
+            string response = await httpRequestManager.Post(URL, formData);
+            string rawTransliteratedText = response.Replace("ack:::", "");
+            
+            return ApplyLanguageSpecificFixes(rawTransliteratedText, language);
         }
 
         private string ApplyLanguageSpecificFixes(string text, string language)
@@ -39,6 +42,10 @@ namespace TransliterationAPI.Service.Transliterators
             else if (language == "chv")
             {
                 return text.Replace("i͡", "y");
+            }
+            else if (language == "iku")
+            {
+                return text.Replace("ᐆ", "u").ToTitleCase();
             }
             else if (language == "rus")
             {
