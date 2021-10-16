@@ -42,7 +42,9 @@ namespace TransliterationAPI.Service.Transliterators
                 mode.Contains("devanagari") || 
                 mode.Contains("hangul_mr") || 
                 mode.Contains("kannada") ||
-                mode.Contains("malayalam"))
+                mode.Contains("malayalam") ||
+                mode.Contains("sinhala") ||
+                mode.Contains("tamil"))
             {
                 fixedText = fixedText.ToTitleCase();
             }

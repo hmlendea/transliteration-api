@@ -12,6 +12,7 @@ namespace TransliterationAPI.Service
         IDictionary<string, string> cache;
 
         IGujaratiTransliterator gujaratiTransliterator;
+        IMarathiTransliterator marathiTransliterator;
         IPinyinTransliterator pinyinTransliterator;
         IPodolakTransliterator podolakTransliterator;
         IRomajiTransliterator romajiTransliterator;
@@ -21,6 +22,7 @@ namespace TransliterationAPI.Service
 
         public TransliterationService(
             IGujaratiTransliterator gujaratiTransliterator,
+            IMarathiTransliterator marathiTransliterator,
             IPinyinTransliterator pinyinTransliterator,
             IPodolakTransliterator podolakTransliterator,
             IRomajiTransliterator romajiTransliterator,
@@ -31,6 +33,7 @@ namespace TransliterationAPI.Service
             this.cache = new Dictionary<string, string>();
             
             this.gujaratiTransliterator = gujaratiTransliterator;
+            this.marathiTransliterator = marathiTransliterator;
             this.pinyinTransliterator = pinyinTransliterator;
             this.podolakTransliterator = podolakTransliterator;
             this.romajiTransliterator = romajiTransliterator;
@@ -109,12 +112,20 @@ namespace TransliterationAPI.Service
                     return await ushuaiaTransliterator.Transliterate(text, "malayalam_iso_transliterate");
                 case "mn": // Mongol
                     return await ushuaiaTransliterator.Transliterate(text, "mongolian_mns_transliterate");
+                case "mr": // Marathi
+                    return marathiTransliterator.Transliterate(text);
                 case "os": // Ossetic
                     return await translitterationDotComTransliterator.Transliterate(text, "oss", "iso-9");
                 case "ru": // Russian
                     return await translitterationDotComTransliterator.Transliterate(text, "rus", "bgn-pcgn");
+                case "sa": // Sanskrit
+                    return await ushuaiaTransliterator.Transliterate(text, "devanagari_iast_transliterate");
+                case "si": // Sinhala
+                    return await ushuaiaTransliterator.Transliterate(text, "sinhala_iso_transliterate");
                 case "sr": // Serbian
                     return await translitterationDotComTransliterator.Transliterate(text, "srp", "national");
+                case "ta": // Tamil
+                    return await ushuaiaTransliterator.Transliterate(text, "tamil_iso_transliterate");
                 case "udm": // Udmurt
                     return await translitterationDotComTransliterator.Transliterate(text, "udm", "bgn-pcgn");
                 case "uk": // Ukrainian
