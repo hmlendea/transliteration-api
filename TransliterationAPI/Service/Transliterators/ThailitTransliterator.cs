@@ -24,13 +24,17 @@ namespace TransliterationAPI.Service.Transliterators
             };
 
             string response = await httpRequestManager.Post("https://thailit.com/transliterate.php", formData);
+            string result = ExtractResultFromResponse(response);
 
-            return ExtractResultFromResponse(response).ToTitleCase();
+            return ApplyFixes(result);
         }
 
         private string ApplyFixes(string text)
         {
-            string fixedText = text.ToTitleCase();
+            string fixedText = text;
+            
+            fixedText = fixedText.Replace("- ", "-");
+            fixedText = fixedText.ToTitleCase();
 
             return fixedText;
         }
