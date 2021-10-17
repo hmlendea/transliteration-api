@@ -38,11 +38,10 @@ namespace TransliterationAPI.Service.Transliterators
                 fixedText = Regex.Replace(fixedText, "^Mp", "B");
                 fixedText = Regex.Replace(fixedText, "^Nk", "G");
                 fixedText = Regex.Replace(fixedText, "^Nt", "D");
-                fixedText = Regex.Replace(fixedText, "mp([aáo])", "b");
+                fixedText = Regex.Replace(fixedText, "mp([aáio])", "b$1");
                 fixedText = Regex.Replace(fixedText, "nknt", "gd");
                 fixedText = Regex.Replace(fixedText, "ntm", "dm");
-                fixedText = Regex.Replace(fixedText, "rmp", "rb");
-                fixedText = Regex.Replace(fixedText, "smpe", "sbe");
+                fixedText = Regex.Replace(fixedText, "[rs]mp", "$1b");
                 fixedText = Regex.Replace(fixedText, "rnk", "rk");
                 fixedText = Regex.Replace(fixedText, "snt", "sht");
                 fixedText = Regex.Replace(fixedText, "([A-Za-z])'([A-Za-z])", "$1$2");
@@ -50,6 +49,7 @@ namespace TransliterationAPI.Service.Transliterators
             else if (language == "he")
             {
                 fixedText = fixedText.ToTitleCase();
+                fixedText = fixedText.Replace(" Dh ", " dh ");
                 fixedText = Regex.Replace(fixedText, " '([a-z])", m => " '" + m.Groups[1].Value.ToUpperInvariant());
                 fixedText = Regex.Replace(fixedText, "^'([a-z])", m => "'" + m.Groups[1].Value.ToUpperInvariant());
             }
