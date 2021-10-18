@@ -48,6 +48,14 @@ namespace TransliterationAPI.Service.Transliterators
             }
             else if (language == "he")
             {
+                // Add vowels
+                fixedText = Regex.Replace(fixedText, "e(ae|\\s)", "$1", RegexOptions.IgnoreCase);
+                fixedText = Regex.Replace(fixedText, "([b-df-hj-np-tv-z])([b-df-gj-np-tv-z])", "$1e$2", RegexOptions.IgnoreCase);
+
+                // Add diacritics
+                //fixedText = fixedText.Replace("sh", "š");
+
+                // Fix casing
                 fixedText = fixedText.ToTitleCase();
                 fixedText = fixedText.Replace(" Dh ", " dh ");
                 fixedText = Regex.Replace(fixedText, " '([a-z])", m => " '" + m.Groups[1].Value.ToUpperInvariant());
