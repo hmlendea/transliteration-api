@@ -1,4 +1,6 @@
-# Transliteration API
+[![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/fund.html) [![Latest GitHub release](https://img.shields.io/github/v/release/hmlendea/transliteration-api)](https://github.com/hmlendea/transliteration-api/releases/latest)
+
+# About
 
 REST API for transliterating text into the latin alphabet, with support for over 35 languages.
 
