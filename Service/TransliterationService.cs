@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
@@ -13,6 +14,7 @@ namespace TransliterationAPI.Service
     {
         IDictionary<string, string> cache;
 
+        IArabicTransliterator arabicTransliterator;
         IGujaratiTransliterator gujaratiTransliterator;
         IMarathiTransliterator marathiTransliterator;
         IPinyinTransliterator pinyinTransliterator;
@@ -24,6 +26,7 @@ namespace TransliterationAPI.Service
         IUshuaiaTransliterator ushuaiaTransliterator;
 
         public TransliterationService(
+            IArabicTransliterator arabicTransliterator,
             IGujaratiTransliterator gujaratiTransliterator,
             IMarathiTransliterator marathiTransliterator,
             IPinyinTransliterator pinyinTransliterator,
@@ -36,6 +39,7 @@ namespace TransliterationAPI.Service
         {
             this.cache = new Dictionary<string, string>();
             
+            this.arabicTransliterator = arabicTransliterator;
             this.gujaratiTransliterator = gujaratiTransliterator;
             this.marathiTransliterator = marathiTransliterator;
             this.pinyinTransliterator = pinyinTransliterator;
@@ -51,7 +55,7 @@ namespace TransliterationAPI.Service
         {
             string normalisedText = NormaliseText(text);
 
-            string cacheKey = GetSha256FromString($"{normalisedText}_${language}");
+            string cacheKey = GetCacheId(normalisedText, language);
 
             if (cache.ContainsKey(cacheKey))
             {
@@ -73,6 +77,8 @@ namespace TransliterationAPI.Service
                     return await translitterationDotComTransliterator.Transliterate(text, "abk", "iso-9");
                 case "ady": // Adyghe
                     return await translitterationDotComTransliterator.Transliterate(text, "ady", "iso-9");
+                case "ar": // Arabic
+                    return arabicTransliterator.Transliterate(text);
                 case "ba": // Bashkir
                     return await translitterationDotComTransliterator.Transliterate(text, "bak", "iso-9");
                 case "be": // Belarussian
@@ -155,18 +161,29 @@ namespace TransliterationAPI.Service
 
             return normalisedText;
         }
+
+        string GetCacheId(string text, string language)
+        {
+            string textUnicodes = string.Join('-', text.Select(c => (int)c));
+            string cacheKey = $"{language}_{textUnicodes}";
+            cacheKey = GetSha256FromString(cacheKey);
+
+            return cacheKey;
+        }
         
         string GetSha256FromString(string strData)
         {
-            var message = Encoding.ASCII.GetBytes(strData);
+            byte[] message = Encoding.ASCII.GetBytes(strData);
             SHA256Managed hashString = new SHA256Managed();
             string hex = "";
 
-            var hashValue = hashString.ComputeHash(message);
+            byte[] hashValue = hashString.ComputeHash(message);
+
             foreach (byte x in hashValue)
             {
                 hex += String.Format("{0:x2}", x);
             }
+
             return hex;
         }
     }
