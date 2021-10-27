@@ -127,8 +127,11 @@ namespace TransliterationAPI.Service.Transliterators
             string fixedText = text;
 
             fixedText = fixedText.ToTitleCase();
+
+            fixedText = fixedText.Replace("Ftḥ", "Fatḥ");
             fixedText = fixedText.Replace("ūrfū", "ūrifū");
-            fixedText = Regex.Replace(fixedText, " Dī ", " dī ");
+            fixedText = fixedText.Replace(" Dī ", " dī ");
+            
             fixedText = Regex.Replace(fixedText, "^Al([ -])", "al$1");
             fixedText = Regex.Replace(fixedText, "ʾ(\\p{L})", m => "ʾ" + m.Groups[1].Value.ToUpperInvariant());
 

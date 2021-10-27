@@ -41,13 +41,15 @@ namespace TransliterationAPI.Service.Transliterators
                 fixedText = Regex.Replace(fixedText, " Nk", "G");
                 fixedText = Regex.Replace(fixedText, "^Nt", "D");
                 fixedText = Regex.Replace(fixedText, " Nt", "D");
-                fixedText = Regex.Replace(fixedText, "mp([aáio])", "b$1");
+                fixedText = Regex.Replace(fixedText, "mp([aáioó])", "b$1");
                 fixedText = Regex.Replace(fixedText, "nknt", "gd");
                 fixedText = Regex.Replace(fixedText, "ntm", "dm");
                 fixedText = Regex.Replace(fixedText, "[rs]mp", "$1b");
                 fixedText = Regex.Replace(fixedText, "rnk", "rk");
+                fixedText = Regex.Replace(fixedText, "rnt", "rd");
                 fixedText = Regex.Replace(fixedText, "snt", "sht");
                 fixedText = Regex.Replace(fixedText, "([A-Za-z])'([A-Za-z])", "$1$2");
+                fixedText = Regex.Replace(fixedText, "([Rr])(a|ṓ)", "$1h$2");
             }
             else if (language == "he")
             {
