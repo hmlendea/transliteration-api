@@ -5,7 +5,8 @@
         "statusBarItem.hoverBackground": "#ebbc09",
         "statusBarItem.remoteBackground": "#f7ce30",
         "statusBarItem.remoteForeground": "#15202b",
-        "tab.activeBorder": "#f9da61"
+        "tab.activeBorder": "#f9da61",
+        "sash.hoverBorder": "#f9da61"
     },
     "peacock.color": "#f7ce30"
 }
