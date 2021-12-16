@@ -48,6 +48,10 @@ namespace TransliterationAPI.Service.Transliterators
             {
                 fixedText = fixedText.Replace("ᐆ", "u");
             }
+            else if (language == "kaz")
+            {
+                fixedText = fixedText.Replace("ь", "’");
+            }
             else if (language == "rus")
             {
                 fixedText = Regex.Replace(fixedText, "([a-zA-Z])Y", "$1y");
