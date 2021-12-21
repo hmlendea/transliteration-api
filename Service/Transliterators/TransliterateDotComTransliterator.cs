@@ -54,6 +54,7 @@ namespace TransliterationAPI.Service.Transliterators
             else if (language == "he")
             {
                 // Add vowels
+                fixedText = Regex.Replace(fixedText, "qh", "qah");
                 fixedText = Regex.Replace(fixedText, "e(ae|\\s)", "$1", RegexOptions.IgnoreCase);
                 fixedText = Regex.Replace(fixedText, "([b-df-hj-np-tv-z])([b-df-gj-np-tv-z])", "$1e$2", RegexOptions.IgnoreCase);
 
