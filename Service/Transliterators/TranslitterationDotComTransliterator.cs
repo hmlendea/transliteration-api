@@ -51,8 +51,12 @@ namespace TransliterationAPI.Service.Transliterators
             else if (language == "kaz")
             {
                 fixedText = fixedText.Replace("Ц", "C");
+                fixedText = fixedText.Replace("Я", "Ia");
+                fixedText = fixedText.Replace("Ю", "Iu");
                 fixedText = fixedText.Replace("ь", "’");
                 fixedText = fixedText.Replace("ц", "c");
+                fixedText = fixedText.Replace("я", "ia");
+                fixedText = fixedText.Replace("ю", "iu");
             }
             else if (language == "rus")
             {
