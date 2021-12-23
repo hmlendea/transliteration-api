@@ -62,11 +62,26 @@ namespace TransliterationAPI.Service
                 return cache[cacheKey];
             }
 
-            string transliteratedText = await GetTransliteratedText(normalisedText, language);
+            string transliteratedText = await TryGetTransliteratedText(normalisedText, language);
 
-            cache.Add(cacheKey, transliteratedText);
+            if (!string.IsNullOrWhiteSpace(transliteratedText))
+            {
+                cache.Add(cacheKey, transliteratedText);
+            }
 
             return transliteratedText;
+        }
+
+        async Task<string> TryGetTransliteratedText(string text, string language)
+        {
+            try
+            {
+                return await GetTransliteratedText(text, language);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         async Task<string> GetTransliteratedText(string text, string language)
