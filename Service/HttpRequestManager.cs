@@ -20,7 +20,10 @@ namespace TransliterationAPI.Service
                 CookieContainer = cookies
             };
 
-            client = new HttpClient(handler);
+            client = new HttpClient(handler)
+            {
+                Timeout = TimeSpan.FromSeconds(3)
+            };
         }
 
         public async Task<string> Post(
