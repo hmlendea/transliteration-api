@@ -50,6 +50,7 @@ namespace TransliterationAPI.Service.Transliterators
 
             fixedText = Regex.Replace(fixedText, "・", "");
             fixedText = Regex.Replace(fixedText, "\\s\\s*", " ");
+            fixedText = Regex.Replace(fixedText, "ou", "ō");
             fixedText = fixedText.ToTitleCase();
 
             return fixedText;
