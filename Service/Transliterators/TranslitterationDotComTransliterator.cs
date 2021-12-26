@@ -39,6 +39,7 @@ namespace TransliterationAPI.Service.Transliterators
             {
                 fixedText = Regex.Replace(fixedText, "([a-zA-Z])H", "$1h");
                 fixedText = Regex.Replace(fixedText, "([a-zA-Z])U", "$1u");
+                fixedText = Regex.Replace(fixedText, "([a-zA-Z])Z", "$1z");
                 fixedText = Regex.Replace(fixedText, "([a-zA-Z])Ž", "$1ž");
             }
             else if (language == "chv")
