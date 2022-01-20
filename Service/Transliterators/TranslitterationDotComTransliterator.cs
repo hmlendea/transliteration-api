@@ -49,7 +49,13 @@ namespace TransliterationAPI.Service.Transliterators
             else if (language == "gre")
             {
                 fixedText = Regex.Replace(fixedText, "^([a-zA-Z])H", "$1h");
+                fixedText = fixedText.Replace("ά", "á");
+                fixedText = fixedText.Replace("έ", "é");
                 fixedText = fixedText.Replace("ί", "í");
+                fixedText = fixedText.Replace("ύ", "ú");
+
+                fixedText = fixedText.Replace("Mp", "B");
+                fixedText = Regex.Replace(fixedText, "([nrs])mp", "$1b");
             }
             else if (language == "iku")
             {
