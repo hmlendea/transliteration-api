@@ -60,6 +60,11 @@ namespace TransliterationAPI.Service.Transliterators
             {
                 fixedText = fixedText.ToTitleCase();
             }
+
+            if (mode.Contains("hangul"))
+            {
+                fixedText = fixedText.Replace("ǒ", "ŏ");
+            }
             
             return fixedText;
         }
