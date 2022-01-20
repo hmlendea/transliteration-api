@@ -22,8 +22,9 @@ namespace TransliterationAPI.Service.Transliterators
 
             string tonedPinYin = ConvertNumericalToTonedPinYin(numericalPinYin);
             string transliteratedText = StyliseTonedPinYin(tonedPinYin);
+            string fixedText = ApplyFixes(transliteratedText);
 
-            return transliteratedText;
+            return fixedText;
         }
 
         string StyliseTonedPinYin(string tonedPinYin)
@@ -122,6 +123,15 @@ namespace TransliterationAPI.Service.Transliterators
             accented = accented.TrimEnd();
 
             return accented;
+        }
+
+        string ApplyFixes(string text)
+        {
+            string fixedText = text;
+
+            fixedText = fixedText.Replace("ǒ", "ŏ");
+            
+            return fixedText;
         }
     }
 }
