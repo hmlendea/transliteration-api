@@ -107,6 +107,8 @@ namespace TransliterationAPI.Service
                 case "cv": // Chuvash
                     return await translitterationDotComTransliterator.Transliterate(text, "chv", "ala-lc");
                 case "el": // Greek
+                    return await translitterationDotComTransliterator.Transliterate(text, "gre", "un-elot");
+                case "grc": // Ancient Greek
                     return await transliterateDotComTransliterator.Transliterate(text, "el");
                 case "gu": // Gujarati
                     return gujaratiTransliterator.Transliterate(text);

@@ -46,6 +46,11 @@ namespace TransliterationAPI.Service.Transliterators
             {
                 fixedText = fixedText.Replace("i͡", "y");
             }
+            else if (language == "gre")
+            {
+                fixedText = Regex.Replace(fixedText, "^([a-zA-Z])H", "$1h");
+                fixedText = fixedText.Replace("ί", "í");
+            }
             else if (language == "iku")
             {
                 fixedText = fixedText.Replace("ᐆ", "u");
