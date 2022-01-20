@@ -35,16 +35,13 @@ namespace TransliterationAPI.Service.Transliterators
 
             if (language == "el")
             {
-                fixedText = Regex.Replace(fixedText, "^Mp", "B");
-                fixedText = Regex.Replace(fixedText, " Mp", "B");
-                fixedText = Regex.Replace(fixedText, "^Nk", "G");
-                fixedText = Regex.Replace(fixedText, " Nk", "G");
-                fixedText = Regex.Replace(fixedText, "^Nt", "D");
-                fixedText = Regex.Replace(fixedText, " Nt", "D");
-                fixedText = Regex.Replace(fixedText, "mp([aáioó])", "b$1");
+                fixedText = Regex.Replace(fixedText, "Mp", "V");
+                fixedText = Regex.Replace(fixedText, "Nk", "G");
+                fixedText = Regex.Replace(fixedText, "Nt", "D");
+                fixedText = Regex.Replace(fixedText, "([nrs])mp", "$1v");
+                fixedText = Regex.Replace(fixedText, "mp([aáioó])", "v$1");
                 fixedText = Regex.Replace(fixedText, "nknt", "gd");
                 fixedText = Regex.Replace(fixedText, "ntm", "dm");
-                fixedText = Regex.Replace(fixedText, "([rs])mp", "$1b");
                 fixedText = Regex.Replace(fixedText, "rnk", "rk");
                 fixedText = Regex.Replace(fixedText, "rnt", "rd");
                 fixedText = Regex.Replace(fixedText, "snt", "sht");
