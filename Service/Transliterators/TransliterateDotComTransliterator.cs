@@ -47,6 +47,7 @@ namespace TransliterationAPI.Service.Transliterators
                 fixedText = Regex.Replace(fixedText, "snt", "sht");
                 fixedText = Regex.Replace(fixedText, "([A-Za-z])'([A-Za-z])", "$1$2");
                 fixedText = Regex.Replace(fixedText, "([Rr])(a|ṓ)", "$1h$2");
+                fixedText = Regex.Replace(fixedText, "([Rr])h([a])", "$1$2");
             }
             else if (language == "he")
             {
