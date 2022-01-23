@@ -36,7 +36,10 @@ namespace TransliterationAPI.Service.Transliterators
             if (language == "el")
             {
                 fixedText = Regex.Replace(fixedText, "^Y", "Hy");
+                fixedText = Regex.Replace(fixedText, "^Ý", "Hý");
                 fixedText = Regex.Replace(fixedText, "ē̂", "ê");
+
+                fixedText = Regex.Replace(fixedText, "rh", "r");
 
                 fixedText = Regex.Replace(fixedText, "Mp", "V");
                 fixedText = Regex.Replace(fixedText, "Nk", "G");
