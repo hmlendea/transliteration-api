@@ -50,10 +50,14 @@ namespace TransliterationAPI.Service.Transliterators
             }
             else if (language == "gre")
             {
+                fixedText = Regex.Replace(fixedText, "ήn([iíί])$", "íni");
+                fixedText = Regex.Replace(fixedText, "ήr([iíί])$", "éri");
+
                 fixedText = Regex.Replace(fixedText, "([a-zA-Z])H", "$1h");
                 fixedText = Regex.Replace(fixedText, "ά", "á");
                 fixedText = Regex.Replace(fixedText, "[έή]", "é");
                 fixedText = Regex.Replace(fixedText, "ί", "í");
+                fixedText = Regex.Replace(fixedText, "ώ", "ó");
                 fixedText = Regex.Replace(fixedText, "ς", "s");
                 fixedText = Regex.Replace(fixedText, "ύ", "ú");
 
