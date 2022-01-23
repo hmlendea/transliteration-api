@@ -38,6 +38,7 @@ namespace TransliterationAPI.Service.Transliterators
             if (language == "bel" || language == "bul")
             {
                 fixedText = Regex.Replace(fixedText, "([a-zA-Z])H", "$1h");
+                fixedText = Regex.Replace(fixedText, "([a-zA-Z])S", "$1s");
                 fixedText = Regex.Replace(fixedText, "([a-zA-Z])T", "$1t");
                 fixedText = Regex.Replace(fixedText, "([a-zA-Z])U", "$1u");
                 fixedText = Regex.Replace(fixedText, "([a-zA-Z])Z", "$1z");
