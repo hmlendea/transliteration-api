@@ -33,8 +33,18 @@ namespace TransliterationAPI.Service.Transliterators
         {
             string fixedText = text.Replace("ack:::", "");
 
-            if (language == "el")
+            if (language == "el") // Ancient Greek
             {
+                fixedText = Regex.Replace(fixedText, "^Y", "Hy");
+                fixedText = Regex.Replace(fixedText, "^Ý", "Hý");
+                fixedText = Regex.Replace(fixedText, "ē̂", "ê");
+                fixedText = Regex.Replace(fixedText, "ō̂", "ô");
+
+                fixedText = Regex.Replace(fixedText, "Ch", "Kh");
+                
+                fixedText = Regex.Replace(fixedText, "ch", "kh");
+                fixedText = Regex.Replace(fixedText, "rh", "r");
+
                 fixedText = Regex.Replace(fixedText, "Mp", "V");
                 fixedText = Regex.Replace(fixedText, "Nk", "G");
                 fixedText = Regex.Replace(fixedText, "Nt", "D");
@@ -47,6 +57,7 @@ namespace TransliterationAPI.Service.Transliterators
                 fixedText = Regex.Replace(fixedText, "snt", "sht");
                 fixedText = Regex.Replace(fixedText, "([A-Za-z])'([A-Za-z])", "$1$2");
                 fixedText = Regex.Replace(fixedText, "([Rr])(a|ṓ)", "$1h$2");
+                fixedText = Regex.Replace(fixedText, "([Rr])h([a])", "$1$2");
             }
             else if (language == "he")
             {
