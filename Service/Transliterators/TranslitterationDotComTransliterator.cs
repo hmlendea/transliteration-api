@@ -48,15 +48,20 @@ namespace TransliterationAPI.Service.Transliterators
             {
                 fixedText = fixedText.Replace("i͡", "y");
             }
-            else if (language == "gre")
+            else if (language == "gre") // Modern Greek
             {
+                fixedText = Regex.Replace(fixedText, "Mή[lt]", "Mí$1");
+                fixedText = Regex.Replace(fixedText, "Tή[m]", "Tí$1");
                 fixedText = Regex.Replace(fixedText, "ήn([iíί])$", "íni");
+                
+                fixedText = Regex.Replace(fixedText, "[m]ή[d]", "$1é$2");
                 fixedText = Regex.Replace(fixedText, "ήr([iíί])$", "éri");
 
                 fixedText = Regex.Replace(fixedText, "([a-zA-Z])H", "$1h");
+                fixedText = Regex.Replace(fixedText, "ᾶ", "a");
                 fixedText = Regex.Replace(fixedText, "ά", "á");
-                fixedText = Regex.Replace(fixedText, "[έή]", "é");
-                fixedText = Regex.Replace(fixedText, "ί", "í");
+                fixedText = Regex.Replace(fixedText, "[έ]", "é");
+                fixedText = Regex.Replace(fixedText, "[ίή]", "í");
                 fixedText = Regex.Replace(fixedText, "ώ", "ó");
                 fixedText = Regex.Replace(fixedText, "ς", "s");
                 fixedText = Regex.Replace(fixedText, "ύ", "ú");

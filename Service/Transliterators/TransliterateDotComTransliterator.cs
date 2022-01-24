@@ -33,12 +33,16 @@ namespace TransliterationAPI.Service.Transliterators
         {
             string fixedText = text.Replace("ack:::", "");
 
-            if (language == "el")
+            if (language == "el") // Ancient Greek
             {
                 fixedText = Regex.Replace(fixedText, "^Y", "Hy");
                 fixedText = Regex.Replace(fixedText, "^Ý", "Hý");
                 fixedText = Regex.Replace(fixedText, "ē̂", "ê");
+                fixedText = Regex.Replace(fixedText, "ō̂", "ô");
 
+                fixedText = Regex.Replace(fixedText, "Ch", "Kh");
+                
+                fixedText = Regex.Replace(fixedText, "ch", "kh");
                 fixedText = Regex.Replace(fixedText, "rh", "r");
 
                 fixedText = Regex.Replace(fixedText, "Mp", "V");
