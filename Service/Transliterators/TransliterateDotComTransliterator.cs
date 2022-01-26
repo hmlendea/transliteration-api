@@ -52,6 +52,7 @@ namespace TransliterationAPI.Service.Transliterators
                 fixedText = Regex.Replace(fixedText, "([nrs])mp", "$1v");
                 fixedText = Regex.Replace(fixedText, "mp([aáioó])", "v$1");
                 fixedText = Regex.Replace(fixedText, "nknt", "gd");
+                fixedText = Regex.Replace(fixedText, "nnt", "ng");
                 fixedText = Regex.Replace(fixedText, "ntm", "dm");
                 fixedText = Regex.Replace(fixedText, "rnk", "rk");
                 fixedText = Regex.Replace(fixedText, "rnt", "rd");
@@ -63,6 +64,10 @@ namespace TransliterationAPI.Service.Transliterators
                 fixedText = Regex.Replace(fixedText, "Agí(a|os)", "Hagí$1");
                 fixedText = Regex.Replace(fixedText, "polē$", "polis");
                 fixedText = Regex.Replace(fixedText, "polē ", "polis");
+
+                fixedText = Regex.Replace(fixedText, "ín$", "ínon");
+                fixedText = Regex.Replace(fixedText, "o$", "on");
+
             }
             else if (language == "he")
             {

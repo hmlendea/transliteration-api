@@ -68,11 +68,14 @@ namespace TransliterationAPI.Service.Transliterators
                 fixedText = Regex.Replace(fixedText, "ά", "á");
                 fixedText = Regex.Replace(fixedText, "[έ]", "é");
                 fixedText = Regex.Replace(fixedText, "[ίή]", "í");
+                fixedText = Regex.Replace(fixedText, "[ϊ]", "ï");
                 fixedText = Regex.Replace(fixedText, "[όώ]", "ó");
                 fixedText = Regex.Replace(fixedText, "ς", "s");
                 fixedText = Regex.Replace(fixedText, "ύ", "ú");
 
                 fixedText = fixedText.Replace("Mp", "B");
+                fixedText = fixedText.Replace("Nt", "D");
+
                 fixedText = Regex.Replace(fixedText, "([r])nt", "$1d");
                 fixedText = Regex.Replace(fixedText, "([nrs])mp", "$1b");
             }
