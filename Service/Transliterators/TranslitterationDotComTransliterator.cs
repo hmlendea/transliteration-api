@@ -58,11 +58,17 @@ namespace TransliterationAPI.Service.Transliterators
                 fixedText = Regex.Replace(fixedText, "ήr([iíί])$", "éri");
 
                 fixedText = Regex.Replace(fixedText, "([a-zA-Z])H", "$1h");
+
+
+                fixedText = Regex.Replace(fixedText, "[Ά]", "Á");
+                fixedText = Regex.Replace(fixedText, "[Έ]", "É");
+                fixedText = Regex.Replace(fixedText, "[Ό]", "Ó");
+
                 fixedText = Regex.Replace(fixedText, "ᾶ", "a");
                 fixedText = Regex.Replace(fixedText, "ά", "á");
                 fixedText = Regex.Replace(fixedText, "[έ]", "é");
                 fixedText = Regex.Replace(fixedText, "[ίή]", "í");
-                fixedText = Regex.Replace(fixedText, "ώ", "ó");
+                fixedText = Regex.Replace(fixedText, "[όώ]", "ó");
                 fixedText = Regex.Replace(fixedText, "ς", "s");
                 fixedText = Regex.Replace(fixedText, "ύ", "ú");
 
