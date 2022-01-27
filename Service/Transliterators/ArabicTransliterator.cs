@@ -136,7 +136,9 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "^Al([ -])*", "al-$1");
             fixedText = Regex.Replace(fixedText, "^Āl([ -])*", "āl-$1");
             fixedText = Regex.Replace(fixedText, "ʾ(\\p{L})", m => "ʾ" + m.Groups[1].Value.ToUpperInvariant());
+            fixedText = Regex.Replace(fixedText, "āšr$", "āšir");
             fixedText = Regex.Replace(fixedText, "lnd$", "land");
+            fixedText = Regex.Replace(fixedText, "rzn", "rzin");
 
             return fixedText;
         }
