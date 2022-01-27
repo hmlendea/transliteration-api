@@ -130,7 +130,8 @@ namespace TransliterationAPI.Service.Transliterators
 
             fixedText = fixedText.Replace("Ftḥ", "Fatḥ");
             fixedText = fixedText.Replace("ūrfū", "ūrifū");
-            fixedText = fixedText.Replace(" Dī ", " dī ");
+            fixedText = fixedText.Replace(" [Dd]ī[l]* ", " āl-");
+            fixedText = fixedText.Replace("ẖr", "ẖar");
             
             fixedText = Regex.Replace(fixedText, "^Al([ -])*", "al-$1");
             fixedText = Regex.Replace(fixedText, "^Āl([ -])*", "āl-$1");
