@@ -81,6 +81,7 @@ namespace TransliterationAPI.Service.Transliterators
             }
             else if (language == "iku")
             {
+                fixedText = fixedText.Replace("ᐄ", "i");
                 fixedText = fixedText.Replace("ᐆ", "u");
             }
             else if (language == "kaz")
