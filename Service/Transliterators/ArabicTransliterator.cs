@@ -147,6 +147,7 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "rzn", "rzin");
             fixedText = Regex.Replace(fixedText, "([Ǧǧ])b", "$1ib");
             fixedText = Regex.Replace(fixedText, "([Nn])m", "$1im");
+            fixedText = Regex.Replace(fixedText, "([Qq])f", "$1if");
             fixedText = fixedText.Replace("ẖr", "ẖar");
 
             return fixedText;
