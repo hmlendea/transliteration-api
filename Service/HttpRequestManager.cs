@@ -78,8 +78,6 @@ namespace TransliterationAPI.Service
 
         public async Task<string> RetrieveCookies(string url)
         {
-            Uri uri = new Uri(url);
-
             HttpRequestMessage request = new HttpRequestMessage()
             {
                 RequestUri = new Uri(url),
@@ -94,7 +92,7 @@ namespace TransliterationAPI.Service
 
                 string cook = string.Empty;
 
-                foreach (var cookie in cookies.GetCookies(uri))
+                foreach (var cookie in cookies.GetCookies(request.RequestUri))
                 {
                     cook += cookie.ToString() + ";";
                 }

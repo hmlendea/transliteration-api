@@ -119,6 +119,7 @@ namespace TransliterationAPI.Service.Transliterators
             transliteratedText = transliteratedText.Replace("ॻ", "g");
             transliteratedText = transliteratedText.Replace("ॐ", "om");
             transliteratedText = transliteratedText.Replace("ऽ", "'");
+            
             transliteratedText = Regex.Replace(transliteratedText, "e.a", "a");
 
             return transliteratedText.ToTitleCase();

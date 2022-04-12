@@ -32,6 +32,7 @@ namespace TransliterationAPI.Controllers
             {
                 string decodedText = HttpUtility.UrlDecode(text);
                 string transliteratedText = transliterationService.Transliterate(text, language).Result; // TODO: Broken async
+                
                 return Ok(transliteratedText);
             }
             catch (ArgumentException ex)

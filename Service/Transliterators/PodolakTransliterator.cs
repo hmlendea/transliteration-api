@@ -37,14 +37,12 @@ namespace TransliterationAPI.Service.Transliterators
         {
             const string url = "https://podolak.net/en/transliteration";
 
-            if (language == "cu")
-            {
-                return $"{url}/old-church-slavonic";
-            }
-            else
+            if (!language.Equals("cu"))
             {
                 throw new ArgumentException($"Unsupported language \"{language}\"");
             }
+            
+            return $"{url}/old-church-slavonic";
         }
 
         private string ExtractResultFromResponse(string response)

@@ -54,7 +54,6 @@ namespace TransliterationAPI.Service
         public async Task<string> Transliterate(string text, string language)
         {
             string normalisedText = NormaliseText(text);
-
             string cacheKey = GetCacheId(normalisedText, language);
 
             if (cache.ContainsKey(cacheKey))
