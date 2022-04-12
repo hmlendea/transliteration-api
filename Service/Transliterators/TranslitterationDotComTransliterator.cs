@@ -59,10 +59,10 @@ namespace TransliterationAPI.Service.Transliterators
 
                 fixedText = Regex.Replace(fixedText, "([a-zA-Z])H", "$1h");
 
-
                 fixedText = Regex.Replace(fixedText, "[Ά]", "Á");
                 fixedText = Regex.Replace(fixedText, "[Έ]", "É");
                 fixedText = Regex.Replace(fixedText, "[Ό]", "Ó");
+                fixedText = Regex.Replace(fixedText, "[Ύ]", "Ý");
 
                 fixedText = Regex.Replace(fixedText, "ᾶ", "a");
                 fixedText = Regex.Replace(fixedText, "ά", "á");
@@ -81,6 +81,7 @@ namespace TransliterationAPI.Service.Transliterators
             }
             else if (language == "iku")
             {
+                fixedText = fixedText.Replace("ᐄ", "i");
                 fixedText = fixedText.Replace("ᐆ", "u");
             }
             else if (language == "kaz")
