@@ -191,7 +191,7 @@ namespace TransliterationAPI.Service
         string GetSha256FromString(string strData)
         {
             byte[] message = Encoding.ASCII.GetBytes(strData);
-            SHA256Managed hashString = new SHA256Managed();
+            SHA256 hashString = SHA256.Create();
             string hex = "";
 
             byte[] hashValue = hashString.ComputeHash(message);
