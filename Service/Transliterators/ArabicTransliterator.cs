@@ -137,6 +137,7 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "([ -])ǧ", "$1Ǧ");
             fixedText = Regex.Replace(fixedText, "([ -])ẖ", "$1H̱");
 
+            fixedText = Regex.Replace(fixedText, "[ -][Dd][eīo][ls]*[ -]", " al-");
             fixedText = Regex.Replace(fixedText, "^Al([ -])*", "al-$1");
             fixedText = Regex.Replace(fixedText, "^Āl([ -])*", "āl-$1");
             fixedText = Regex.Replace(fixedText, "ʾ(\\p{L})", m => "ʾ" + m.Groups[1].Value.ToUpperInvariant());
@@ -149,6 +150,8 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "([Nn])m", "$1im");
             fixedText = Regex.Replace(fixedText, "([Qq])f", "$1if");
             fixedText = fixedText.Replace("ẖr", "ẖar");
+
+            fixedText = fixedText.Replace("Mīdīnā", "Madīnā");
 
             return fixedText;
         }
