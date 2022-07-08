@@ -49,9 +49,9 @@ namespace TransliterationAPI.Service.Transliterators
         {
             string fixedText = text;
 
-            if (mode.Contains("bengali") || 
-                mode.Contains("devanagari") || 
-                mode.Contains("hangul") || 
+            if (mode.Contains("bengali") ||
+                mode.Contains("devanagari") ||
+                mode.Contains("hangul") ||
                 mode.Contains("kannada") ||
                 mode.Contains("malayalam") ||
                 mode.Contains("sinhala") ||
@@ -63,9 +63,13 @@ namespace TransliterationAPI.Service.Transliterators
 
             if (mode.Contains("hangul"))
             {
-                fixedText = fixedText.Replace("ǒ", "ŏ");
+                fixedText = fixedText
+                    .Replace("ǒ", "ŏ")
+                    .Replace("’", "");
+
+                fixedText = Regex.Replace(fixedText, "^\"(.*)\"$", "$1");
             }
-            
+
             return fixedText;
         }
     }
