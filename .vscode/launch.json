@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/TransliterationAPI/bin/Debug/net5.0/TransliterationAPI.dll",
+            "program": "${workspaceFolder}/TransliterationAPI/bin/Debug/net7.0/TransliterationAPI.dll",
             "args": [],
             "cwd": "${workspaceFolder}/TransliterationAPI",
             "stopAtEntry": false,
