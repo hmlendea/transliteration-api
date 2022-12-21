@@ -5,6 +5,8 @@ VisualStudioVersion = 16.6.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{AA74CE52-6BFE-4E9F-B77E-D1B6EC3D18CB}") = "TransliterationAPI", "TransliterationAPI\TransliterationAPI.csproj", "{7D085A24-05C7-49CC-8F2F-1465D01B1C6C}"
 EndProject
+Project("{AA74CE52-6BFE-4E9F-B77E-D1B6EC3D18CB}") = "TransliterationAPI.UnitTests", "TransliterationAPI.UnitTests\TransliterationAPI.UnitTests.csproj", "{F74B1F35-8514-4E7C-9DB5-B66A44EE61D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,17 @@ Global
 		{7D085A24-05C7-49CC-8F2F-1465D01B1C6C}.Release|x64.Build.0 = Release|Any CPU
 		{7D085A24-05C7-49CC-8F2F-1465D01B1C6C}.Release|x86.ActiveCfg = Release|Any CPU
 		{7D085A24-05C7-49CC-8F2F-1465D01B1C6C}.Release|x86.Build.0 = Release|Any CPU
+		{F74B1F35-8514-4E7C-9DB5-B66A44EE61D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F74B1F35-8514-4E7C-9DB5-B66A44EE61D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F74B1F35-8514-4E7C-9DB5-B66A44EE61D6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F74B1F35-8514-4E7C-9DB5-B66A44EE61D6}.Debug|x64.Build.0 = Debug|Any CPU
+		{F74B1F35-8514-4E7C-9DB5-B66A44EE61D6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F74B1F35-8514-4E7C-9DB5-B66A44EE61D6}.Debug|x86.Build.0 = Debug|Any CPU
+		{F74B1F35-8514-4E7C-9DB5-B66A44EE61D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F74B1F35-8514-4E7C-9DB5-B66A44EE61D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F74B1F35-8514-4E7C-9DB5-B66A44EE61D6}.Release|x64.ActiveCfg = Release|Any CPU
+		{F74B1F35-8514-4E7C-9DB5-B66A44EE61D6}.Release|x64.Build.0 = Release|Any CPU
+		{F74B1F35-8514-4E7C-9DB5-B66A44EE61D6}.Release|x86.ActiveCfg = Release|Any CPU
+		{F74B1F35-8514-4E7C-9DB5-B66A44EE61D6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

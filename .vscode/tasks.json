@@ -32,9 +32,8 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/TransliterationAPI/TransliterationAPI.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "--project",
+                "${workspaceFolder}/TransliterationAPI/TransliterationAPI.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
