@@ -15,9 +15,13 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         }
 
         [Test]
-        [TestCase("روما", "Rūmā")]
-        [TestCase("تشيشيناو", "Tšīšīnāū")]
+        [TestCase("إسدود", "ʾIsdūd")]
         [TestCase("اسلو", "Āslū")]
+        [TestCase("بابل", "Babil")]
+        [TestCase("تشيشيناو", "Tšīšīnāū")]
+        [TestCase("دمشق", "Dimašq")]
+        [TestCase("روما", "Rūmā")]
+        [TestCase("عَسْقَلَان", "ʿAsqalān")]
         public void GivenATextInArabicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string arabicText,
             string expectedTransliteratedText)
