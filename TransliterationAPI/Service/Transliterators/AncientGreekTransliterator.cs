@@ -101,7 +101,6 @@ namespace TransliterationAPI.Service.Transliterators
 
             transliterationMap2 = new Dictionary<char, string>
             {
-                {'α', "a"},
                 {'ἀ', "a"},
                 {'ἄ', "á"},
                 {'ἁ', "a"},
@@ -192,8 +191,10 @@ namespace TransliterationAPI.Service.Transliterators
         {
             string fixedText = text;
 
-            fixedText = Regex.Replace(fixedText, "^Buz", "Byz");
-            fixedText = Regex.Replace(fixedText, "^Mug", "Myg");
+            fixedText = Regex.Replace(fixedText, "Buz", "Byz");
+            fixedText = Regex.Replace(fixedText, "che([ií])", "khe$1");
+            fixedText = Regex.Replace(fixedText, "Mug", "Myg");
+            fixedText = Regex.Replace(fixedText, "vul", "byl");
 
             return fixedText;
         }
