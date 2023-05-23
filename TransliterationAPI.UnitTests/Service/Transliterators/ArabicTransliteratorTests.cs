@@ -4,7 +4,7 @@ using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
-    public class NameNormaliserTests
+    public class ArabicTransliteratorTests
     {
         private IArabicTransliterator transliterator;
 
