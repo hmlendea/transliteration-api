@@ -93,6 +93,7 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "Hvo", "Ho");
             fixedText = Regex.Replace(fixedText, "Mq", "Maq");
             fixedText = Regex.Replace(fixedText, "Mv", "ʿAmmv");
+            fixedText = Regex.Replace(fixedText, "Na(ṣ|ts)", "Nā$1");
             fixedText = Regex.Replace(fixedText, "Nt", "Net");
             fixedText = Regex.Replace(fixedText, "Rb", "Rab");
             fixedText = Regex.Replace(fixedText, "R(ch|ḥ)", "Re$1");
@@ -105,6 +106,8 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "([hḥ])v$", "$1ō");
             fixedText = Regex.Replace(fixedText, "am ", "ām ");
             fixedText = Regex.Replace(fixedText, "am$", "ām");
+            fixedText = Regex.Replace(fixedText, "at ", "aṯ ");
+            fixedText = Regex.Replace(fixedText, "at$", "aṯ");
             fixedText = Regex.Replace(fixedText, "ame", "amme");
             fixedText = Regex.Replace(fixedText, "ayim", "áyim");
             fixedText = Regex.Replace(fixedText, "bt", "bat");
@@ -132,6 +135,7 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "shׁ", "š");
             fixedText = Regex.Replace(fixedText, "sheq", "śeq");
             fixedText = Regex.Replace(fixedText, "shl", "shal");
+            fixedText = Regex.Replace(fixedText, "ā(ṣ|ts)r", "ā$1ər");
             fixedText = Regex.Replace(fixedText, "sy", "zi");
             fixedText = Regex.Replace(fixedText, "ts", "ṣ");
             fixedText = Regex.Replace(fixedText, "y(ch|ḥ)", "īḥ");

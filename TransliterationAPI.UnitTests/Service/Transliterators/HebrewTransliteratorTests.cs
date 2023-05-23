@@ -15,6 +15,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         }
 
         [Test]
+        [TestCase("נָצְרַת", "Nāṣəraṯ")]
         [TestCase("אַשְׁדּוֹד", "ʾAšdōḏ")]
         [TestCase("אַשְׁקְלוֹן", "ʾAšqəlōn")]
         [TestCase("בְּאֵר שֶׁבַע", "Bəʾēr Ševaʿ")]
@@ -31,7 +32,6 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("נְתַנְיָה", "Netanya")]
         [TestCase("עֵילָם", "ʿĒlām")]
         [TestCase("רבת בני עמון", "Rabat Bnei ʿAmmon")]
-        [TestCase("רַהַט", "Rahat")]
         [TestCase("רְחוֹבוֹת", "Reḥōvōt")]
         [TestCase("רַמְלָה", "Ramlā")]
         [TestCase("תל-אביב", "Tel-Aviv")]
