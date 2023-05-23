@@ -16,9 +16,14 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
 
         [Test]
         [TestCase("Ἀθῆναι", "Athênai")]
+        [TestCase("Ἀντιόχεια τῆς Μυγδονίας", "Antiókheia tês Mygdonías")]
+        [TestCase("Ασκαλων", "Askalōn")]
+        [TestCase("Βαβυλών", "Babylṓn")]
         [TestCase("Βυζάντιον", "Byzántion")]
+        [TestCase("Δαμασκός", "Damaskós")]
         [TestCase("Ελευσίσ", "Eleusís")]
         [TestCase("Ήπειρος", "Ḗpeiros")]
+        [TestCase("Βαβυλών", "Babylṓn")]
         [TestCase("Θεσσαλονίκη", "Thessaloníkē")]
         [TestCase("Ἰουερνία", "Ἰouernía")]
         [TestCase("Ἰουερνίς", "Ἰouernís")]
@@ -29,6 +34,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Μυγδονία", "Mygdonía")]
         [TestCase("Ῥώμη", "Rhṓmē")]
         [TestCase("Σπάρτη", "Spártē")]
+        [TestCase("Φιλαδέλφεια", "Philadélpheia")]
         public void GivenATextInAncientGreekScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string ancientGreekText,
             string expectedTransliteratedText)
