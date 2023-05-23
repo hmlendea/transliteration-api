@@ -14,6 +14,7 @@ namespace TransliterationAPI
                 .AddSingleton<IAncientGreekTransliterator, AncientGreekTransliterator>()
                 .AddSingleton<IArabicTransliterator, ArabicTransliterator>()
                 .AddSingleton<IGujaratiTransliterator, GujaratiTransliterator>()
+                .AddSingleton<IHebrewTransliterator, HebrewTransliterator>()
                 .AddSingleton<IMarathiTransliterator, MarathiTransliterator>()
                 .AddSingleton<IPinyinTransliterator, PinyinTransliterator>()
                 .AddSingleton<IPodolakTransliterator, PodolakTransliterator>()
