@@ -14,6 +14,7 @@ namespace TransliterationAPI.Service
     {
         IDictionary<string, string> cache;
 
+        IAncientGreekTransliterator ancientGreekTransilterator;
         IArabicTransliterator arabicTransliterator;
         IGujaratiTransliterator gujaratiTransliterator;
         IMarathiTransliterator marathiTransliterator;
@@ -26,6 +27,7 @@ namespace TransliterationAPI.Service
         IUshuaiaTransliterator ushuaiaTransliterator;
 
         public TransliterationService(
+            IAncientGreekTransliterator ancientGreekTransilterator,
             IArabicTransliterator arabicTransliterator,
             IGujaratiTransliterator gujaratiTransliterator,
             IMarathiTransliterator marathiTransliterator,
@@ -38,7 +40,8 @@ namespace TransliterationAPI.Service
             IUshuaiaTransliterator ushuaiaTransliterator)
         {
             this.cache = new Dictionary<string, string>();
-            
+
+            this.ancientGreekTransilterator = ancientGreekTransilterator;
             this.arabicTransliterator = arabicTransliterator;
             this.gujaratiTransliterator = gujaratiTransliterator;
             this.marathiTransliterator = marathiTransliterator;
@@ -106,7 +109,7 @@ namespace TransliterationAPI.Service
                 case "cv": // Chuvash
                     return await translitterationDotComTransliterator.Transliterate(text, "chv", "ala-lc");
                 case "el": // Greek
-                    return await translitterationDotComTransliterator.Transliterate(text, "gre", "un-elot");
+                    return ancientGreekTransilterator.Transliterate(text);
                 case "grc": // Ancient Greek
                     return await transliterateDotComTransliterator.Transliterate(text, "el");
                 case "gu": // Gujarati
@@ -186,7 +189,7 @@ namespace TransliterationAPI.Service
 
             return cacheKey;
         }
-        
+
         string GetSha256FromString(string strData)
         {
             byte[] message = Encoding.ASCII.GetBytes(strData);
