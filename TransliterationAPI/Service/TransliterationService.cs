@@ -17,12 +17,12 @@ namespace TransliterationAPI.Service
         IAncientGreekTransliterator ancientGreekTransilterator;
         IArabicTransliterator arabicTransliterator;
         IGujaratiTransliterator gujaratiTransliterator;
+        IHebrewTransliterator hebrewTransliterator;
         IMarathiTransliterator marathiTransliterator;
         IPinyinTransliterator pinyinTransliterator;
         IPodolakTransliterator podolakTransliterator;
         IRomajiTransliterator romajiTransliterator;
         IThailitTransliterator thailitTransliterator;
-        ITransliterateDotComTransliterator transliterateDotComTransliterator;
         ITranslitterationDotComTransliterator translitterationDotComTransliterator;
         IUshuaiaTransliterator ushuaiaTransliterator;
 
@@ -30,12 +30,12 @@ namespace TransliterationAPI.Service
             IAncientGreekTransliterator ancientGreekTransilterator,
             IArabicTransliterator arabicTransliterator,
             IGujaratiTransliterator gujaratiTransliterator,
+            IHebrewTransliterator hebrewTransliterator,
             IMarathiTransliterator marathiTransliterator,
             IPinyinTransliterator pinyinTransliterator,
             IPodolakTransliterator podolakTransliterator,
             IRomajiTransliterator romajiTransliterator,
             IThailitTransliterator thailitTransliterator,
-            ITransliterateDotComTransliterator transliterateDotComTransliterator,
             ITranslitterationDotComTransliterator translitterationDotComTransliterator,
             IUshuaiaTransliterator ushuaiaTransliterator)
         {
@@ -44,12 +44,12 @@ namespace TransliterationAPI.Service
             this.ancientGreekTransilterator = ancientGreekTransilterator;
             this.arabicTransliterator = arabicTransliterator;
             this.gujaratiTransliterator = gujaratiTransliterator;
+            this.hebrewTransliterator = hebrewTransliterator;
             this.marathiTransliterator = marathiTransliterator;
             this.pinyinTransliterator = pinyinTransliterator;
             this.podolakTransliterator = podolakTransliterator;
             this.romajiTransliterator = romajiTransliterator;
             this.thailitTransliterator = thailitTransliterator;
-            this.transliterateDotComTransliterator = transliterateDotComTransliterator;
             this.translitterationDotComTransliterator = translitterationDotComTransliterator;
             this.ushuaiaTransliterator = ushuaiaTransliterator;
         }
@@ -109,13 +109,13 @@ namespace TransliterationAPI.Service
                 case "cv": // Chuvash
                     return await translitterationDotComTransliterator.Transliterate(text, "chv", "ala-lc");
                 case "el": // Greek
-                    return ancientGreekTransilterator.Transliterate(text);
+                    return await translitterationDotComTransliterator.Transliterate(text, "gre", "un-elot");
                 case "grc": // Ancient Greek
-                    return await transliterateDotComTransliterator.Transliterate(text, "el");
+                    return ancientGreekTransilterator.Transliterate(text);
                 case "gu": // Gujarati
                     return gujaratiTransliterator.Transliterate(text);
                 case "he": // Hebrew
-                    return await transliterateDotComTransliterator.Transliterate(text, "he");
+                    return hebrewTransliterator.Transliterate(text);
                 case "hi": // Hindi
                     return await ushuaiaTransliterator.Transliterate(text, "devanagari_hunt_transcribe");
                 case "hy": // Armenian
