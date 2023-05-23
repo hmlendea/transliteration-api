@@ -15,17 +15,25 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         }
 
         [Test]
-        [TestCase("יריחו", "Yərīḥō")]
-        [TestCase("עֵילָם", "ʿĒlām")]
-        [TestCase("מִצְרַיִם", "Miṣráyim")]
         [TestCase("אַשְׁדּוֹד", "ʾAšdōḏ")]
         [TestCase("אַשְׁקְלוֹן", "ʾAšqəlōn")]
         [TestCase("בְּאֵר שֶׁבַע", "Bəʾēr Ševaʿ")]
         [TestCase("בָּבֶל", "Bāvel")]
+        [TestCase("גִּבְעָתַיִים", "Givatayim")]
         [TestCase("דַּמֶּשֶׂק", "Dammeśeq")]
+        [TestCase("הֶרְצְלִיָּה", "Herzliya")]
+        [TestCase("חֵיפָה", "Ḥēyfā")]
         [TestCase("ירושלים", "Yerushaláyim")]
+        [TestCase("יריחו", "Yərīḥō")]
+        [TestCase("מִצְרַיִם", "Miṣráyim")]
+        [TestCase("נַהֲרִיָּה", "Nahariya")]
         [TestCase("נציבין", "Netzivin")]
+        [TestCase("נְתַנְיָה", "Netanya")]
+        [TestCase("עֵילָם", "ʿĒlām")]
         [TestCase("רבת בני עמון", "Rabat Bnei ʿAmmon")]
+        [TestCase("רַהַט", "Rahat")]
+        [TestCase("רְחוֹבוֹת", "Reḥōvōt")]
+        [TestCase("רַמְלָה", "Ramlā")]
         [TestCase("תל-אביב", "Tel-Aviv")]
         public void GivenATextInHebrewScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string hebrewText,
