@@ -24,6 +24,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("دمشق", "Dimašq")]
         [TestCase("روما", "Rūmā")]
         [TestCase("عَسْقَلَان", "ʿAsqalān")]
+        [TestCase("فِلَسْطِينَ", "Filasṭīn")]
         [TestCase("هرتسليا", "Hirtsiliyā")]
         public void GivenATextInArabicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string arabicText,
