@@ -82,13 +82,19 @@ namespace TransliterationAPI.Service.Transliterators
                 // Capital letters with diacritical marks
                 { 'Ἀ', "A" },
                 { 'Ά', "Á" },
+                { 'Ἐ', "E" },
                 { 'Έ', "É" },
                 { 'Ή', "Ḗ" }, // Ḗ
+                { 'Ἡ', "Hē" },
+                { 'Ἰ', "I" },
                 { 'Ί', "Í" },
+                { 'Ὀ', "Ó" },
+                { 'Ὄ', "Ó" },
                 { 'Ό', "Ó" },
                 { 'Ῥ', "Rh" },
                 { 'Ύ', "Ú" },
                 { 'Ώ', "Ṓ" }, // Ṓ
+
 
                 // Additional characters
                 { 'ϵ', "e" }, // lunate epsilon
@@ -191,9 +197,19 @@ namespace TransliterationAPI.Service.Transliterators
         {
             string fixedText = text;
 
+            fixedText = Regex.Replace(fixedText, "Ach", "Akh");
             fixedText = Regex.Replace(fixedText, "Buz", "Byz");
+            fixedText = Regex.Replace(fixedText, "Ku", "Ky");
+            fixedText = Regex.Replace(fixedText, "Kú", "Ký");
+            fixedText = Regex.Replace(fixedText, "Mu([gk])", "My$1");
+
+            fixedText = Regex.Replace(fixedText, "([hk])ê([^n])", "$1ē$2");
             fixedText = Regex.Replace(fixedText, "che([ií])", "khe$1");
-            fixedText = Regex.Replace(fixedText, "Mug", "Myg");
+            fixedText = Regex.Replace(fixedText, "gup", "gyp");
+            fixedText = Regex.Replace(fixedText, "lu([mn])", "ly$1");
+            fixedText = Regex.Replace(fixedText, "v([úý])", "bý");
+            fixedText = Regex.Replace(fixedText, "vai", "bai");
+            fixedText = Regex.Replace(fixedText, "vos", "bos");
             fixedText = Regex.Replace(fixedText, "vul", "byl");
 
             return fixedText;
