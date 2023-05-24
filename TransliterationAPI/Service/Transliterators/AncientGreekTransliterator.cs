@@ -214,16 +214,14 @@ namespace TransliterationAPI.Service.Transliterators
             doricTransliterationTable = new Dictionary<string, string>
             {
                 { "Ή", "Á" },
-                { "Ἡ", "Ha" },
+                { "Ἡ([^ρ])", "Ha$1" },
 
-                { "η ", "a " },
-                { "ἤ ", "á " },
-                { "ἥ ", "á " },
-                { "ή ", "á " },
-                { "η$", "a" },
-                { "ἤ$", "á" },
-                { "ἥ$", "á" },
-                { "ή$", "á" },
+                { "([κλνπτ])η", "$1a" },
+                { "([κλνπτ])ἤ", "$1á" },
+                { "([κλνπτ])ἥ", "$1á" },
+                { "([κλνπτ])ή", "$1á" },
+                { "ε([ρ])", "a$1" },
+                { "ίνεια", "inéa" },
             };
         }
 
@@ -267,6 +265,7 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "([hk])ê([^n])", "$1ē$2");
             fixedText = Regex.Replace(fixedText, "che([ií])", "khe$1");
             fixedText = Regex.Replace(fixedText, "óvo", "óbo");
+            fixedText = Regex.Replace(fixedText, "r([úý])", "rý");
             fixedText = Regex.Replace(fixedText, "v([úý])", "bý");
             fixedText = Regex.Replace(fixedText, "vai", "bai");
             fixedText = Regex.Replace(fixedText, "vos", "bos");
