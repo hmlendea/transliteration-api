@@ -36,6 +36,8 @@ namespace TransliterationAPI.Service.Transliterators
                 {'ヤ', "ya"}, {'ユ', "yu"}, {'ヨ', "yo"},
                 {'ラ', "ra"}, {'リ', "ri"}, {'ル', "ru"}, {'レ', "re"}, {'ロ', "ro"},
                 {'ワ', "wa"}, {'ヲ', "wo"}, {'ン', "n"},
+                {'ィ', "i"}, {'デ', "de"}, {'プ', "pu"}, {'グ', "gu"},
+                {'・', " "},
 
                 // Special Characters
                 {'ゃ', "ya"}, {'ゅ', "yu"}, {'ょ', "yo"}, // small ya, yu, yo
@@ -71,6 +73,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { '士', "ji" },
                 { '奈', "na" },
                 { '媛', "hime" },
+                { '宮', "miya" },
                 { '富', "fu" },
                 { '山', "yama" },
                 { '岐', "gi" },
@@ -89,6 +92,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { '根', "ne" },
                 { '森', "mori" },
                 { '歌', "ka" },
+                { '殿', "dono" },
                 { '沖', "oki" },
                 { '沢', "zawa" },
                 { '滋', "shi" },
@@ -115,7 +119,6 @@ namespace TransliterationAPI.Service.Transliterators
                 { '高', "taka" },
                 { '鳥', "tori" },
                 { '鹿', "ka" },
-                { '宮', "miya" },
             };
 
         }
@@ -147,6 +150,9 @@ namespace TransliterationAPI.Service.Transliterators
 
             fixedText = Regex.Replace(fixedText, "([Tt])orit", "$1ott");
             fixedText = Regex.Replace(fixedText, "Takac", "Kōc");
+
+            fixedText = Regex.Replace(fixedText, "Oo", "Ō");
+            fixedText = Regex.Replace(fixedText, "oo", "ō");
 
             fixedText = Regex.Replace(fixedText, "akoy", "agoy");
             fixedText = Regex.Replace(fixedText, "ika ", "iga ");

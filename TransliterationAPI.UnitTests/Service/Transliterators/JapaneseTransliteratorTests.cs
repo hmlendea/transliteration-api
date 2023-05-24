@@ -1,5 +1,4 @@
 using NUnit.Framework;
-
 using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
