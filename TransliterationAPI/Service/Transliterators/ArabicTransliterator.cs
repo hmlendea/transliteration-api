@@ -165,6 +165,8 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "bl", "bil");
             fixedText = Regex.Replace(fixedText, "hṭ", "haṭ");
             fixedText = Regex.Replace(fixedText, "īā", "iyā");
+            fixedText = Regex.Replace(fixedText, "īna ", "īn ");
+            fixedText = Regex.Replace(fixedText, "īna$", "īn");
             fixedText = Regex.Replace(fixedText, "lnd", "land");
             fixedText = Regex.Replace(fixedText, "lẗ", "laḧ");
             fixedText = Regex.Replace(fixedText, "mš", "maš");
