@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -6,6 +7,7 @@ namespace TransliterationAPI.Service.Transliterators
     public class AncientGreekTransliterator : IAncientGreekTransliterator
     {
         Dictionary<string, string> transliterationTable;
+        Dictionary<string, string> doricTransliterationTable;
 
         public AncientGreekTransliterator()
         {
@@ -208,15 +210,41 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ϰ", "k" }, // script kappa
                 { "ϗ", "kai" }, // kai symbol
             };
+
+            doricTransliterationTable = new Dictionary<string, string>
+            {
+                { "η ", "a " },
+                { "ἤ ", "á " },
+                { "ἥ ", "á " },
+                { "ή ", "á " },
+                { "η$", "a" },
+                { "ἤ$", "á" },
+                { "ἥ$", "á" },
+                { "ή$", "á" },
+            };
         }
 
         public string Transliterate(string text)
+            => Transliterate(text, null);
+
+        public string Transliterate(string text, string variant)
         {
             string transliteratedText = text;
 
-            foreach (string marathiCharacter in transliterationTable.Keys)
+            if (!string.IsNullOrWhiteSpace(variant))
             {
-                transliteratedText = transliteratedText.Replace(marathiCharacter, transliterationTable[marathiCharacter]);
+                if(variant.Equals("doric", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    foreach (string character in doricTransliterationTable.Keys)
+                    {
+                        transliteratedText = Regex.Replace(transliteratedText, character, doricTransliterationTable[character]);
+                    }
+                }
+            }
+
+            foreach (string character in transliterationTable.Keys)
+            {
+                transliteratedText = Regex.Replace(transliteratedText, character, transliterationTable[character]);
             }
 
             transliteratedText = ApplyFixes(transliteratedText);
@@ -229,6 +257,7 @@ namespace TransliterationAPI.Service.Transliterators
             string fixedText = text;
 
             fixedText = Regex.Replace(fixedText, "Ach", "Akh");
+            fixedText = Regex.Replace(fixedText, "Cha", "Kha");
             fixedText = Regex.Replace(fixedText, "Kú", "Ký");
 
             fixedText = Regex.Replace(fixedText, "([aeio])y", "$1u");
