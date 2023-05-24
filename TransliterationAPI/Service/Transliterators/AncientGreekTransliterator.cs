@@ -74,6 +74,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { 'ϊ', "ï" },
                 { 'ΐ', "ḯ" },
                 { 'ό', "ó" },
+                { 'ὐ', "ú" },
                 { 'ύ', "ú" },
                 { 'ϋ', "ü" },
                 { 'ΰ', "ǘ" },
@@ -207,6 +208,8 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "che([ií])", "khe$1");
             fixedText = Regex.Replace(fixedText, "gup", "gyp");
             fixedText = Regex.Replace(fixedText, "lu([mn])", "ly$1");
+            fixedText = Regex.Replace(fixedText, "óvo", "óbo");
+            fixedText = Regex.Replace(fixedText, "rut", "ryt");
             fixedText = Regex.Replace(fixedText, "v([úý])", "bý");
             fixedText = Regex.Replace(fixedText, "vai", "bai");
             fixedText = Regex.Replace(fixedText, "vos", "bos");
