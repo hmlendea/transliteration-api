@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
 
 using NuciExtensions;
@@ -6,123 +8,200 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class MarathiTransliterator : IMarathiTransliterator
     {
-        IHttpRequestManager httpRequestManager;
+        Dictionary<string, string> transliterationTable;
 
-        public MarathiTransliterator(IHttpRequestManager httpRequestManager)
+        public MarathiTransliterator()
         {
-            this.httpRequestManager = httpRequestManager;
+            transliterationTable = new Dictionary<string, string>
+            {
+                // Additional characters
+                {"क़", "q"},
+                {"ख़", "x"},
+                {"ग़", "ġ"},
+                {"ज़", "z"},
+                {"ड़", "ṛ"},
+                {"ढ़", "ṛh"},
+                {"फ़", "f"},
+                {"य़", "y"},
+                {"क्ष", "kṣ"},
+                {"ज्ञ", "gy"},
+                {"श्र", "śr"},
+
+                // Main
+                { "।", "." },
+                { "ः", "ah" },
+                { "़", "e" },
+                { "ँ", "n" },
+                { "ं", "n" },
+                { "०", "0" },
+                { "१", "1" },
+                { "२", "2" },
+                { "३", "3" },
+                { "४", "4" },
+                { "५", "5" },
+                { "६", "6" },
+                { "७", "7" },
+                { "८", "8" },
+                { "९", "9" },
+                { "ॐ", "om" },
+                { "अ", "a" },
+                { "आ", "ā" }, // aa
+                { "इ", "i" },
+                { "ई", "ī" },
+                { "उ", "u" },
+                { "ऊ", "ū" },
+                { "ऋ", "ṛ" }, // ri
+                { "ॠ", "ṝ" },
+                { "ऌ", "ḷ" },
+                { "ॡ", "l" },
+                { "ऍ", "e" },
+                { "ए", "e" },
+                { "ऐ", "ai" },
+                { "ऑ", "au" },
+                { "ओ", "o" },
+                { "औ", "au" },
+                { "क", "k" },
+                { "क़", "k" },
+                { "ख", "kh" },
+                { "ख़", "kh" },
+                { "ग़", "g" },
+                { "ग", "ga" },
+                { "ॻ", "g" },
+                { "घ", "gh" },
+                { "ङ", "ṅ" }, //ng
+                { "च", "k" },
+                { "छ", "ch" },
+                { "ज", "j" },
+                { "ज़", "z" },
+                { "ॼ", "j" },
+                { "झ", "jh" },
+                { "ञ", "ñ" }, // ny
+                { "ट", "ṭ" },
+                { "ठ", "ṭh" },
+                { "ड", "ḍ" },
+                { "ड़", "d" },
+                { "ॾ", "d" },
+                { "ढ", "ḍh" },
+                { "ढ़", "rh" },
+                { "ण", "ṇ" },
+                { "त", "t" },
+                { "थ", "th" },
+                { "द", "d" },
+                { "ध", "dh" },
+                { "न", "n" },
+                { "ऩ", "n" },
+                { "प", "p" },
+                { "फ", "f" },
+                { "फ़", "f" },
+                { "ब", "b" },
+                { "ॿ", "b" },
+                { "भ", "bh" },
+                { "म", "m" },
+                { "य", "y" },
+                { "य़", "ye" },
+                { "र", "r" },
+                { "ऱ", "r" },
+                { "ल", "l" },
+                { "ळ", "ḷ" },
+                { "ऴ", "ll" },
+                { "व", "v" },
+                { "श", "ś" }, // sh
+                { "ष", "ṣ" },
+                { "स", "s" },
+                { "ह", "h" },
+                { "ऽ", "'" },
+                { "ॽ", "" },
+                { "ा", "aa" },
+                { "ि", "i" },
+                { "ी", "i" },
+                { "ु", "u" },
+                { "ू", "u" },
+                { "ृ", "ri" },
+                { "ॄ", "rr" },
+                { "ॢ", "l" },
+                { "ॣ", "l" },
+                { "ॅ", "e" },
+                { "ॆ", "e" },
+                { "े", "e" },
+                { "ै", "ai" },
+                { "ॉ", "o" },
+                { "ॊ", "o" },
+                { "ो", "o" },
+                { "ौ", "au" },
+                { "्", "" },
+            };
         }
 
         public string Transliterate(string text)
         {
             string transliteratedText = text;
-            
-            transliteratedText = transliteratedText.Replace("क", "k");
-            transliteratedText = transliteratedText.Replace("ख", "kh");
-            transliteratedText = transliteratedText.Replace("ग", "ga");
-            transliteratedText = transliteratedText.Replace("घ", "gh");
-            transliteratedText = transliteratedText.Replace("ङ", "ng");
-            transliteratedText = transliteratedText.Replace("च", "k");
-            transliteratedText = transliteratedText.Replace("छ", "ch");
-            transliteratedText = transliteratedText.Replace("ज", "j");
-            transliteratedText = transliteratedText.Replace("झ", "jh");
-            transliteratedText = transliteratedText.Replace("ञ", "ny");
-            transliteratedText = transliteratedText.Replace("ट", "t");
-            transliteratedText = transliteratedText.Replace("ठ", "th");
-            transliteratedText = transliteratedText.Replace("ड", "d");
-            transliteratedText = transliteratedText.Replace("ढ", "dh");
-            transliteratedText = transliteratedText.Replace("ण", "n");
-            transliteratedText = transliteratedText.Replace("त", "t");
-            transliteratedText = transliteratedText.Replace("थ", "th");
-            transliteratedText = transliteratedText.Replace("द", "d");
-            transliteratedText = transliteratedText.Replace("ध", "dh");
-            transliteratedText = transliteratedText.Replace("न", "n");
-            transliteratedText = transliteratedText.Replace("प", "p");
-            transliteratedText = transliteratedText.Replace("फ", "f");
-            transliteratedText = transliteratedText.Replace("ब", "b");
-            transliteratedText = transliteratedText.Replace("भ", "bh");
-            transliteratedText = transliteratedText.Replace("म", "m");
-            transliteratedText = transliteratedText.Replace("य", "y");
-            transliteratedText = transliteratedText.Replace("र", "r");
-            transliteratedText = transliteratedText.Replace("ल", "l");
-            transliteratedText = transliteratedText.Replace("व", "v");
-            transliteratedText = transliteratedText.Replace("श", "sh");
-            transliteratedText = transliteratedText.Replace("ष", "s");
-            transliteratedText = transliteratedText.Replace("स", "s");
-            transliteratedText = transliteratedText.Replace("ह", "h");
-            transliteratedText = transliteratedText.Replace("क़", "k");
-            transliteratedText = transliteratedText.Replace("ख़", "kh");
-            transliteratedText = transliteratedText.Replace("ग़", "g");
-            transliteratedText = transliteratedText.Replace("ऩ", "n");
-            transliteratedText = transliteratedText.Replace("ड़", "d");
-            transliteratedText = transliteratedText.Replace("ढ", "dh");
-            transliteratedText = transliteratedText.Replace("ढ़", "rh");
-            transliteratedText = transliteratedText.Replace("ऱ", "r");
-            transliteratedText = transliteratedText.Replace("य़", "ye");
-            transliteratedText = transliteratedText.Replace("ळ", "l");
-            transliteratedText = transliteratedText.Replace("ऴ", "ll");
-            transliteratedText = transliteratedText.Replace("फ़", "f");
-            transliteratedText = transliteratedText.Replace("ज़", "z");
-            transliteratedText = transliteratedText.Replace("ऋ", "ri");
-            transliteratedText = transliteratedText.Replace("ा", "aa");
-            transliteratedText = transliteratedText.Replace("ि", "i");
-            transliteratedText = transliteratedText.Replace("ी", "i");
-            transliteratedText = transliteratedText.Replace("ु", "u");
-            transliteratedText = transliteratedText.Replace("ू", "u");
-            transliteratedText = transliteratedText.Replace("ॅ", "e");
-            transliteratedText = transliteratedText.Replace("ॆ", "e");
-            transliteratedText = transliteratedText.Replace("े", "e");
-            transliteratedText = transliteratedText.Replace("ै", "ai");
-            transliteratedText = transliteratedText.Replace("ॉ", "o");
-            transliteratedText = transliteratedText.Replace("ॊ", "o");
-            transliteratedText = transliteratedText.Replace("ो", "o");
-            transliteratedText = transliteratedText.Replace("ौ", "au");
-            transliteratedText = transliteratedText.Replace("अ", "a");
-            transliteratedText = transliteratedText.Replace("आ", "aa");
-            transliteratedText = transliteratedText.Replace("इ", "i");
-            transliteratedText = transliteratedText.Replace("ई", "i");
-            transliteratedText = transliteratedText.Replace("उ", "u");
-            transliteratedText = transliteratedText.Replace("ऊ", "oo");
-            transliteratedText = transliteratedText.Replace("ए", "e");
-            transliteratedText = transliteratedText.Replace("ऐ", "ai");
-            transliteratedText = transliteratedText.Replace("ऑ", "au");
-            transliteratedText = transliteratedText.Replace("ओ", "o");
-            transliteratedText = transliteratedText.Replace("औ", "au");
-            transliteratedText = transliteratedText.Replace("ँ", "n");
-            transliteratedText = transliteratedText.Replace("ं", "n");
-            transliteratedText = transliteratedText.Replace("ः", "ah");
-            transliteratedText = transliteratedText.Replace("़", "e");
-            transliteratedText = transliteratedText.Replace("्", "");
-            transliteratedText = transliteratedText.Replace("०", "0");
-            transliteratedText = transliteratedText.Replace("१", "1");
-            transliteratedText = transliteratedText.Replace("२", "2");
-            transliteratedText = transliteratedText.Replace("३", "3");
-            transliteratedText = transliteratedText.Replace("४", "4");
-            transliteratedText = transliteratedText.Replace("५", "5");
-            transliteratedText = transliteratedText.Replace("६", "6");
-            transliteratedText = transliteratedText.Replace("७", "7");
-            transliteratedText = transliteratedText.Replace("८", "8");
-            transliteratedText = transliteratedText.Replace("९", "9");
-            transliteratedText = transliteratedText.Replace("।", ".");
-            transliteratedText = transliteratedText.Replace("ऍ", "e");
-            transliteratedText = transliteratedText.Replace("ृ", "ri");
-            transliteratedText = transliteratedText.Replace("ॄ", "rr");
-            transliteratedText = transliteratedText.Replace("ॠ", "ṝ");
-            transliteratedText = transliteratedText.Replace("ऌ", "ḷ");
-            transliteratedText = transliteratedText.Replace("ॣ", "l");
-            transliteratedText = transliteratedText.Replace("ॢ", "l");
-            transliteratedText = transliteratedText.Replace("ॡ", "l");
-            transliteratedText = transliteratedText.Replace("ॿ", "b");
-            transliteratedText = transliteratedText.Replace("ॾ", "d");
-            transliteratedText = transliteratedText.Replace("ॽ", "");
-            transliteratedText = transliteratedText.Replace("ॼ", "j");
-            transliteratedText = transliteratedText.Replace("ॻ", "g");
-            transliteratedText = transliteratedText.Replace("ॐ", "om");
-            transliteratedText = transliteratedText.Replace("ऽ", "'");
-            
-            transliteratedText = Regex.Replace(transliteratedText, "e.a", "a");
 
-            return transliteratedText.ToTitleCase();
+            foreach (string marathiCharacter in transliterationTable.Keys)
+            {
+                transliteratedText = transliteratedText.Replace(marathiCharacter, transliterationTable[marathiCharacter]);
+            }
+
+            transliteratedText = ApplyFixes(transliteratedText);
+
+            return transliteratedText;
+        }
+
+        string ApplyFixes(string text)
+        {
+            string fixedText = text;
+            fixedText = Regex.Replace(fixedText, " kn", " chan");
+            fixedText = Regex.Replace(fixedText, "^kn", "chan");
+
+            fixedText = Regex.Replace(fixedText, "([kd])ol", "$1ōl");
+            fixedText = Regex.Replace(fixedText, "([lḷ])g", "$1ag");
+            fixedText = Regex.Replace(fixedText, "([pt])ur", "$1ūr");
+            fixedText = Regex.Replace(fixedText, "aa[a]*", "ā");
+            fixedText = Regex.Replace(fixedText, "ānj", "āṅj");
+            fixedText = Regex.Replace(fixedText, "ḍh(ch|k)", "da$1");
+            fixedText = Regex.Replace(fixedText, "dng", "dnag");
+            fixedText = Regex.Replace(fixedText, "e.a", "a");
+            fixedText = Regex.Replace(fixedText, "ga([il])", "g$1");
+            fixedText = Regex.Replace(fixedText, "gao", "gō");
+            fixedText = Regex.Replace(fixedText, "gap", "gāp");
+            fixedText = Regex.Replace(fixedText, "h([ṇr])", "ha$1");
+            fixedText = Regex.Replace(fixedText, "hn", "hān");
+            fixedText = Regex.Replace(fixedText, "jḷ", "jaḷ");
+            fixedText = Regex.Replace(fixedText, "ki", "chi");
+            fixedText = Regex.Replace(fixedText, "lḍ", "ḷḍ");
+            fixedText = Regex.Replace(fixedText, "ḷeg", "ḷēg");
+            fixedText = Regex.Replace(fixedText, "md", "mad");
+            fixedText = Regex.Replace(fixedText, "mir", "mīr");
+            fixedText = Regex.Replace(fixedText, "nḍ", "ṇḍ");
+            fixedText = Regex.Replace(fixedText, "ng", "ṅg");
+            fixedText = Regex.Replace(fixedText, "p([ṇr])", "pa$1");
+            fixedText = Regex.Replace(fixedText, "r([bt])", "ra$1");
+            fixedText = Regex.Replace(fixedText, "r([p])", "rā$1");
+            fixedText = Regex.Replace(fixedText, "r[nṅ]", "ran");
+            fixedText = Regex.Replace(fixedText, "s([ṅr])", "sa$1");
+            fixedText = Regex.Replace(fixedText, "śh", "śah");
+            fixedText = Regex.Replace(fixedText, "t([lm])", "ta$1");
+            fixedText = Regex.Replace(fixedText, "v([lt])", "va$1");
+            fixedText = Regex.Replace(fixedText, "vel", "vēl");
+            fixedText = Regex.Replace(fixedText, "yev", "yēv");
+            fixedText = Regex.Replace(fixedText, "yv", "yav");
+
+            fixedText = Regex.Replace(fixedText, "osm", "osam");
+            fixedText = Regex.Replace(fixedText, "rāpūr", "rāpur");
+
+            fixedText = Regex.Replace(fixedText, "([ḍlṇrt])i ", "$1ī ");
+            fixedText = Regex.Replace(fixedText, "([ḍlṇrt])i$", "$1ī");
+            fixedText = Regex.Replace(fixedText, "eḍ ", "ēd ");
+            fixedText = Regex.Replace(fixedText, "eḍ$", "ēd");
+            fixedText = Regex.Replace(fixedText, "ḷi ", "lī ");
+            fixedText = Regex.Replace(fixedText, "ḷi$", "lī");
+            fixedText = Regex.Replace(fixedText, "ṇe ", "ṇē ");
+            fixedText = Regex.Replace(fixedText, "ṇe$", "ṇē");
+            fixedText = Regex.Replace(fixedText, "sī ", "sai ");
+            fixedText = Regex.Replace(fixedText, "sī$", "sai");
+
+            fixedText = Regex.Replace(fixedText, "valī", "vlī");
+
+            return fixedText.ToTitleCase();
         }
     }
 }
