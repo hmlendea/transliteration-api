@@ -140,10 +140,12 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = fixedText.Replace("-r", "-R");
 
             fixedText = Regex.Replace(fixedText, "([Ǧǧ])b", "$1ib");
+            fixedText = Regex.Replace(fixedText, "([Īī])wā", "$1ā");
             fixedText = Regex.Replace(fixedText, "([Nn])m", "$1im");
             fixedText = Regex.Replace(fixedText, "([Qq])f", "$1if");
             fixedText = Regex.Replace(fixedText, "Bā", "Ba");
             fixedText = Regex.Replace(fixedText, "Dm", "Dim");
+            fixedText = Regex.Replace(fixedText, "Fh", "Fah");
             fixedText = Regex.Replace(fixedText, "Hr", "Hir");
             fixedText = Regex.Replace(fixedText, "Is", "ʾIs");
             fixedText = Regex.Replace(fixedText, "R([hm])", "Ra$1");
@@ -170,7 +172,7 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "lnd", "land");
             fixedText = Regex.Replace(fixedText, "lẗ", "laḧ");
             fixedText = Regex.Replace(fixedText, "mš", "maš");
-            fixedText = Regex.Replace(fixedText, "rzn", "rzin");
+            fixedText = Regex.Replace(fixedText, "rǧ", "raǧ");
             fixedText = Regex.Replace(fixedText, "tsl", "tsil");
 
             fixedText = Regex.Replace(fixedText, "rzn", "rzin");

@@ -95,6 +95,8 @@ namespace TransliterationAPI.Service
                 case "ady": // Adyghe
                     return await translitterationDotComTransliterator.Transliterate(text, "ady", "iso-9");
                 case "ar": // Arabic
+                case "ary": // Maghrebi Arabic
+                case "arz": // Egyptian Arabic
                     return arabicTransliterator.Transliterate(text);
                 case "ba": // Bashkir
                     return await translitterationDotComTransliterator.Transliterate(text, "bak", "iso-9");
