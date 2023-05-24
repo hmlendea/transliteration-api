@@ -213,6 +213,9 @@ namespace TransliterationAPI.Service.Transliterators
 
             doricTransliterationTable = new Dictionary<string, string>
             {
+                { "Ή", "Á" },
+                { "Ἡ", "Ha" },
+
                 { "η ", "a " },
                 { "ἤ ", "á " },
                 { "ἥ ", "á " },

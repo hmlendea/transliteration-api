@@ -36,13 +36,16 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Βυζάντιον", "Byzántion")]
         [TestCase("Δαμασκός", "Damaskós")]
         [TestCase("Δελφοί", "Delphoí")]
+        [TestCase("Δωδώνη", "Dōdṓnē")]
         [TestCase("Ελευσίσ", "Eleusís")]
         [TestCase("Ἐλευσίς", "Eleusís")]
         [TestCase("Ἐπίδαυρος", "Epídauros")]
         [TestCase("Ἐρέτρια", "Erétria")]
+        [TestCase("Ἐτεόκρητη", "Eteókrētē")]
         [TestCase("Ήπειρος", "Ḗpeiros")]
         [TestCase("Ἡράκλεια", "Hērákleia")]
         [TestCase("Ἡράκλειον", "Hērákleion")]
+        [TestCase("Ἡφαιστία", "Hēphaistía")]
         [TestCase("Θεσσαλονίκη", "Thessaloníkē")]
         [TestCase("Θῆβαι", "Thēbai")]
         [TestCase("Ἰουερνία", "Iouernía")]
@@ -55,6 +58,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Κορυτσά", "Korytsá")]
         [TestCase("Κορωνέα", "Korōnéa")]
         [TestCase("Κουλουκιά", "Kouloukiá")]
+        [TestCase("Κρήτη", "Krḗtē")]
         [TestCase("Κρούσεβατς", "Kroúsevats")]
         [TestCase("Κύθηρα", "Kýthēra")]
         [TestCase("Κύπρος", "Kýpros")]
@@ -80,7 +84,6 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Χαλάστρα", "Khalástra")]
         [TestCase("Χαλέστρη", "Khaléstrē")]
         [TestCase("Χαλκιδική", "Khalkidikḗ")]
-        [TestCase("Κρήτη", "Krḗtē")]
         public void GivenATextInAncientGreekScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string ancientGreekText,
             string expectedTransliteratedText)
@@ -90,6 +93,9 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Ᾰθῆναι", "Athênai")]
         [TestCase("Αττική", "Attiká")]
         [TestCase("Δᾶλος", "Dâlos")]
+        [TestCase("Ἐτεόκρητη", "Eteókrēta")]
+        [TestCase("Ήπειρος", "Ápeiros")]
+        [TestCase("Ἡφαιστία", "Haphaistía")]
         [TestCase("Κρήτη", "Krḗta")]
         [TestCase("Χαλκιδική", "Khalkidiká")]
         public void GivenATextInAncientGreekDoricScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
