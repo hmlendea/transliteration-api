@@ -107,6 +107,7 @@ namespace TransliterationAPI.Service.Transliterators
 
             fixedText = Regex.Replace(fixedText, "([hḥ])v ", "$1ō ");
             fixedText = Regex.Replace(fixedText, "([hḥ])v$", "$1ō");
+            fixedText = Regex.Replace(fixedText, "([Pp])r", "$1ǝr");
             fixedText = Regex.Replace(fixedText, "ā(ṣ|ts)r", "ā$1ər");
             fixedText = Regex.Replace(fixedText, "ae", "āʾē");
             fixedText = Regex.Replace(fixedText, "am ", "ām ");
@@ -161,6 +162,7 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "ym", "yim");
 
             fixedText = Regex.Replace(fixedText, "eiah", "ya");
+            fixedText = Regex.Replace(fixedText, "ǝraṯ", "ǝrāṯ");
             fixedText = Regex.Replace(fixedText, "yiyi", "yi");
 
             return fixedText;

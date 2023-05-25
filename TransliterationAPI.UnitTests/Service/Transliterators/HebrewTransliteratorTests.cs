@@ -36,6 +36,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("נְתַנְיָה", "Netanya")]
         [TestCase("עֵילָם", "ʿĒlām")]
         [TestCase("פלשתינה", "Palestīna")]
+        [TestCase("פְּרָת", "Pǝrāṯ")]
         [TestCase("רבת בני עמון", "Rabat Bnei ʿAmmon")]
         [TestCase("רְחוֹבוֹת", "Reḥōvōt")]
         [TestCase("רַמְלָה", "Ramlā")]
