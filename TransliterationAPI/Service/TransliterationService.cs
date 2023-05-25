@@ -86,9 +86,9 @@ namespace TransliterationAPI.Service
             }
         }
 
-        async Task<string> GetTransliteratedText(string text, string language)
+        async Task<string> GetTransliteratedText(string text, string languageCode)
         {
-            switch (language)
+            switch (languageCode)
             {
                 case "ab": // Abkhaz
                     return await translitterationDotComTransliterator.Transliterate(text, "abk", "iso-9");
@@ -97,7 +97,7 @@ namespace TransliterationAPI.Service
                 case "ar": // Arabic
                 case "ary": // Maghrebi Arabic
                 case "arz": // Egyptian Arabic
-                    return arabicTransliterator.Transliterate(text);
+                    return arabicTransliterator.Transliterate(text, languageCode);
                 case "ba": // Bashkir
                     return await translitterationDotComTransliterator.Transliterate(text, "bak", "iso-9");
                 case "be": // Belarussian
@@ -107,7 +107,7 @@ namespace TransliterationAPI.Service
                 case "bn": // Bengali
                     return await ushuaiaTransliterator.Transliterate(text, "bengali_iso_transliterate");
                 case "cu": // Old Church Slavonic
-                    return await podolakTransliterator.Transliterate(text, language);
+                    return await podolakTransliterator.Transliterate(text, languageCode);
                 case "cv": // Chuvash
                     return await translitterationDotComTransliterator.Transliterate(text, "chv", "ala-lc");
                 case "el": // Greek
@@ -172,7 +172,7 @@ namespace TransliterationAPI.Service
                 case "zh-hans": // Simplified Chinese
                     return pinyinTransliterator.Transliterate(text);
                 default:
-                    throw new ArgumentException($"The \"{language}\" language is not supported");
+                    throw new ArgumentException($"The \"{languageCode}\" language is not supported");
             }
         }
 

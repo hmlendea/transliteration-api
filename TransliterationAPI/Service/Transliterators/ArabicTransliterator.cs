@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using NuciExtensions;
@@ -6,120 +8,145 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class ArabicTransliterator : IArabicTransliterator
     {
-        public string Transliterate(string text)
+        Dictionary<string, string> transliterationTable;
+        Dictionary<string, string> maghrebiTransliterationTable;
+
+        public ArabicTransliterator()
         {
-            string rawTransliteratedText = text;
+            transliterationTable = new Dictionary<string, string>()
+            {
+                { "ا", "ā" },
+                { "آ", "\u02beā" },
+                { "ء", "\u02be" },
+                { "إ", "i" },
+                { "أ", "\u02bea" }, // ou u ?
+                { "ؤ", "u\u02be" },
+                { "ئ", "ʾi" },
 
-            // marbouta
-            rawTransliteratedText = rawTransliteratedText.Replace("ة", "ẗ"); // ah ou
-            rawTransliteratedText = rawTransliteratedText.Replace("ا", "ā");
-            rawTransliteratedText = rawTransliteratedText.Replace("آ", "\u02beā");
-            rawTransliteratedText = rawTransliteratedText.Replace("ء", "\u02be");
-            rawTransliteratedText = rawTransliteratedText.Replace("إ", "i");
-            rawTransliteratedText = rawTransliteratedText.Replace("أ", "\u02bea"); // ou u ?
-            rawTransliteratedText = rawTransliteratedText.Replace("ؤ", "u\u02be");
-            rawTransliteratedText = rawTransliteratedText.Replace("ئ", "ʾi");
+                { "ب", "b" },
+                { "ت", "t" },
+                { "ث", "th" }, // ṯ
+                { "ج", "ǧ" },
+                { "ح", "ḥ" },
+                { "خ", "ẖ" },
+                { "د", "d" },
+                { "ذ", "ḏ" },
+                { "ر", "r" },
+                { "ز", "z" },
+                { "س", "s" },
+                { "ش", "š" },
+                { "ص", "ṣ" },
+                { "ض", "ḍ" },
+                { "ط", "ṭ" },
+                { "ظ", "ẓ" },
+                { "ع", "ʿ" },
+                { "غ", "ġ" },
+                { "ف", "f" },
+                { "ق", "q" },
+                { "ك", "k" },
+                { "ل", "l" },
+                { "م", "m" },
+                { "ن", "n" },
+                { "ه", "h" },
+                { "ة", "ah" }, // ISO-233: ẗ // ah ou
+                { "و", "ū" },  // ISO-233: w
+                { "ي", "ī" }, // ISO-233: y
+            };
 
-            rawTransliteratedText = rawTransliteratedText.Replace("ب", "b");
-            rawTransliteratedText = rawTransliteratedText.Replace("ت", "t");
-            rawTransliteratedText = rawTransliteratedText.Replace("ث", "ṯ");
-            rawTransliteratedText = rawTransliteratedText.Replace("ج", "ǧ");
-            rawTransliteratedText = rawTransliteratedText.Replace("ح", "ḥ");
-            rawTransliteratedText = rawTransliteratedText.Replace("خ", "ẖ");
-            rawTransliteratedText = rawTransliteratedText.Replace("د", "d");
-            rawTransliteratedText = rawTransliteratedText.Replace("ذ", "ḏ");
-            rawTransliteratedText = rawTransliteratedText.Replace("ر", "r");
-            rawTransliteratedText = rawTransliteratedText.Replace("ز", "z");
-            rawTransliteratedText = rawTransliteratedText.Replace("س", "s");
-            rawTransliteratedText = rawTransliteratedText.Replace("ش", "š");
-            rawTransliteratedText = rawTransliteratedText.Replace("ص", "ṣ");
-            rawTransliteratedText = rawTransliteratedText.Replace("ض", "ḍ");
-            rawTransliteratedText = rawTransliteratedText.Replace("ط", "ṭ");
-            rawTransliteratedText = rawTransliteratedText.Replace("ظ", "ẓ");
-            rawTransliteratedText = rawTransliteratedText.Replace("ع", "ʿ");
-            rawTransliteratedText = rawTransliteratedText.Replace("غ", "ġ");
-            rawTransliteratedText = rawTransliteratedText.Replace("ف", "f");
-            rawTransliteratedText = rawTransliteratedText.Replace("ق", "q");
-            rawTransliteratedText = rawTransliteratedText.Replace("ك", "k");
-            rawTransliteratedText = rawTransliteratedText.Replace("ل", "l");
-            rawTransliteratedText = rawTransliteratedText.Replace("م", "m");
-            rawTransliteratedText = rawTransliteratedText.Replace("ن", "n");
-            rawTransliteratedText = rawTransliteratedText.Replace("ه", "h");
-            rawTransliteratedText = rawTransliteratedText.Replace("و", "ū");
-            rawTransliteratedText = rawTransliteratedText.Replace("ي", "ī");
+            maghrebiTransliterationTable = new Dictionary<string, string>()
+            {
+                { "گ", "g" },
+                { "ڤ", "g" }
+            };
+        }
+
+        public string Transliterate(string text, string languageCode)
+        {
+            string transliteratedText = text;
+
+            if (languageCode.Equals("ary", StringComparison.InvariantCultureIgnoreCase))
+            {
+                foreach (string character in maghrebiTransliterationTable.Keys)
+                {
+                    transliteratedText = Regex.Replace(transliteratedText, character, maghrebiTransliterationTable[character]);
+                }
+            }
+
+            foreach (string character in transliterationTable.Keys)
+            {
+                transliteratedText = Regex.Replace(transliteratedText, character, transliterationTable[character]);
+            }
 
             // cas du a initial
-            rawTransliteratedText = rawTransliteratedText.Replace(" \u02be", " ");
+            transliteratedText = transliteratedText.Replace(" \u02be", " ");
             // pb rawTransliteratedText = Regex.Replace(rawTransliteratedText, "-\u02be", "-");
-            rawTransliteratedText = rawTransliteratedText.Replace(" ā", " a");
-            rawTransliteratedText = rawTransliteratedText.Replace(" al", " al-");
-            rawTransliteratedText = rawTransliteratedText.Replace("\n\u02be", "\n");
-            rawTransliteratedText = rawTransliteratedText.Replace("\nā", "\na");
-            rawTransliteratedText = rawTransliteratedText.Replace("\nal", "\nal-");
+            transliteratedText = transliteratedText.Replace(" ā", " a");
+            transliteratedText = transliteratedText.Replace(" al", " al-");
+            transliteratedText = transliteratedText.Replace("\n\u02be", "\n");
+            transliteratedText = transliteratedText.Replace("\nā", "\na");
+            transliteratedText = transliteratedText.Replace("\nal", "\nal-");
 
             // voyelles
-            rawTransliteratedText = rawTransliteratedText.Replace("َ", "a"); //1614
-            rawTransliteratedText = rawTransliteratedText.Replace("ُ", "u"); //1615
-            rawTransliteratedText = rawTransliteratedText.Replace("ِ", "i"); //1616
-            rawTransliteratedText = rawTransliteratedText.Replace("ّ", "w"); //1617
+            transliteratedText = transliteratedText.Replace("َ", "a"); //1614
+            transliteratedText = transliteratedText.Replace("ُ", "u"); //1615
+            transliteratedText = transliteratedText.Replace("ِ", "i"); //1616
+            transliteratedText = transliteratedText.Replace("ّ", "w"); //1617
 
-            rawTransliteratedText = rawTransliteratedText.Replace("ىْ", "y");
-            rawTransliteratedText = rawTransliteratedText.Replace("ى", "i");
+            transliteratedText = transliteratedText.Replace("ىْ", "y");
+            transliteratedText = transliteratedText.Replace("ى", "i");
 
             // cas du w et y
-            rawTransliteratedText = rawTransliteratedText.Replace("aā", "ā");
-            rawTransliteratedText = rawTransliteratedText.Replace("aa", "ā");
-            rawTransliteratedText = rawTransliteratedText.Replace("ūa", "wa");
-            rawTransliteratedText = rawTransliteratedText.Replace("ūā", "wā");
-            rawTransliteratedText = rawTransliteratedText.Replace("ūu", "wu");
-            rawTransliteratedText = rawTransliteratedText.Replace("ūū", "wu");
-            rawTransliteratedText = rawTransliteratedText.Replace("ūw", "ww");
-            rawTransliteratedText = rawTransliteratedText.Replace("ūi", "wi");
-            rawTransliteratedText = rawTransliteratedText.Replace("ūī", "wy");
-            rawTransliteratedText = rawTransliteratedText.Replace("uu", "ū");
-            rawTransliteratedText = rawTransliteratedText.Replace("uū", "ū");
-            rawTransliteratedText = rawTransliteratedText.Replace("īī", "yi");
-            rawTransliteratedText = rawTransliteratedText.Replace("ii", "ī");
-            rawTransliteratedText = rawTransliteratedText.Replace("iī", "ī");
+            transliteratedText = transliteratedText.Replace("aā", "ā");
+            transliteratedText = transliteratedText.Replace("aa", "ā");
+            transliteratedText = transliteratedText.Replace("ūa", "wa");
+            transliteratedText = transliteratedText.Replace("ūā", "wā");
+            transliteratedText = transliteratedText.Replace("ūu", "wu");
+            transliteratedText = transliteratedText.Replace("ūū", "wu");
+            transliteratedText = transliteratedText.Replace("ūw", "ww");
+            transliteratedText = transliteratedText.Replace("ūi", "wi");
+            transliteratedText = transliteratedText.Replace("ūī", "wy");
+            transliteratedText = transliteratedText.Replace("uu", "ū");
+            transliteratedText = transliteratedText.Replace("uw", "ū");
+            transliteratedText = transliteratedText.Replace("uū", "ū");
+            transliteratedText = transliteratedText.Replace("īī", "yi");
+            transliteratedText = transliteratedText.Replace("ii", "ī");
+            transliteratedText = transliteratedText.Replace("iī", "ī");
+            transliteratedText = transliteratedText.Replace("īy", "ī");
 
             // double conso
-            rawTransliteratedText = rawTransliteratedText.Replace("rً", "rr");
-            rawTransliteratedText = rawTransliteratedText.Replace("lً", "ll");
-            rawTransliteratedText = rawTransliteratedText.Replace("bً", "bb");
-            rawTransliteratedText = rawTransliteratedText.Replace("tً", "tt");
-            rawTransliteratedText = rawTransliteratedText.Replace("ṭṭً", "ṭṭ");
-            rawTransliteratedText = rawTransliteratedText.Replace("mً", "mm");
-            rawTransliteratedText = rawTransliteratedText.Replace("nً", "nn");
-            rawTransliteratedText = rawTransliteratedText.Replace("dً", "dd");
-            rawTransliteratedText = rawTransliteratedText.Replace("ḍً", "ḍḍ");
-            rawTransliteratedText = rawTransliteratedText.Replace("sً", "ss");
-            rawTransliteratedText = rawTransliteratedText.Replace("tً", "tt");
-            rawTransliteratedText = rawTransliteratedText.Replace("ṣṣً", "ṣṣ");
+            transliteratedText = transliteratedText.Replace("rً", "rr");
+            transliteratedText = transliteratedText.Replace("lً", "ll");
+            transliteratedText = transliteratedText.Replace("bً", "bb");
+            transliteratedText = transliteratedText.Replace("tً", "tt");
+            transliteratedText = transliteratedText.Replace("ṭṭً", "ṭṭ");
+            transliteratedText = transliteratedText.Replace("mً", "mm");
+            transliteratedText = transliteratedText.Replace("nً", "nn");
+            transliteratedText = transliteratedText.Replace("dً", "dd");
+            transliteratedText = transliteratedText.Replace("ḍً", "ḍḍ");
+            transliteratedText = transliteratedText.Replace("sً", "ss");
+            transliteratedText = transliteratedText.Replace("tً", "tt");
+            transliteratedText = transliteratedText.Replace("ṣṣً", "ṣṣ");
 
-            rawTransliteratedText = rawTransliteratedText.Replace("،", ",");
-            rawTransliteratedText = rawTransliteratedText.Replace("؛", ";");
-            rawTransliteratedText = rawTransliteratedText.Replace("؟", "?");
-            rawTransliteratedText = rawTransliteratedText.Replace("ـ", ".");
+            transliteratedText = transliteratedText.Replace("،", ",");
+            transliteratedText = transliteratedText.Replace("؛", ";");
+            transliteratedText = transliteratedText.Replace("؟", "?");
+            transliteratedText = transliteratedText.Replace("ـ", ".");
 
-            rawTransliteratedText = rawTransliteratedText.Replace("٠", "0");
-            rawTransliteratedText = rawTransliteratedText.Replace("١", "1");
-            rawTransliteratedText = rawTransliteratedText.Replace("٢", "2");
-            rawTransliteratedText = rawTransliteratedText.Replace("٣", "3");
-            rawTransliteratedText = rawTransliteratedText.Replace("٤", "4");
-            rawTransliteratedText = rawTransliteratedText.Replace("۴", "4");
-            rawTransliteratedText = rawTransliteratedText.Replace("٥", "5");
-            rawTransliteratedText = rawTransliteratedText.Replace("۵", "5");
-            rawTransliteratedText = rawTransliteratedText.Replace("٦", "6");
-            rawTransliteratedText = rawTransliteratedText.Replace("۶", "6");
-            rawTransliteratedText = rawTransliteratedText.Replace("٧", "7");
-            rawTransliteratedText = rawTransliteratedText.Replace("٨", "8");
-            rawTransliteratedText = rawTransliteratedText.Replace("٩", "9");
+            transliteratedText = transliteratedText.Replace("٠", "0");
+            transliteratedText = transliteratedText.Replace("١", "1");
+            transliteratedText = transliteratedText.Replace("٢", "2");
+            transliteratedText = transliteratedText.Replace("٣", "3");
+            transliteratedText = transliteratedText.Replace("٤", "4");
+            transliteratedText = transliteratedText.Replace("۴", "4");
+            transliteratedText = transliteratedText.Replace("٥", "5");
+            transliteratedText = transliteratedText.Replace("۵", "5");
+            transliteratedText = transliteratedText.Replace("٦", "6");
+            transliteratedText = transliteratedText.Replace("۶", "6");
+            transliteratedText = transliteratedText.Replace("٧", "7");
+            transliteratedText = transliteratedText.Replace("٨", "8");
+            transliteratedText = transliteratedText.Replace("٩", "9");
 
-            // maghreb
-            rawTransliteratedText = rawTransliteratedText.Replace("گ", "g");
-            rawTransliteratedText = rawTransliteratedText.Replace("ڤ", "g");
-
-            return ApplyFixes(rawTransliteratedText);
+            return ApplyFixes(transliteratedText);
         }
 
         string ApplyFixes(string text)
@@ -132,53 +159,101 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = fixedText.Replace("Ftḥ", "Fatḥ");
             fixedText = fixedText.Replace("ūrfū", "ūrifū");
 
-            fixedText = Regex.Replace(fixedText, " Al([ -])*", "al-$1");
-            fixedText = Regex.Replace(fixedText, " Āl([ -])*", "āl-$1");
+            fixedText = Regex.Replace(fixedText, "[ -][Dd][eīo][ls]*[ -]", " al-");
+            fixedText = Regex.Replace(fixedText, "ٱl", "al-");
+            fixedText = Regex.Replace(fixedText, " Al[ -]", " al-");
+            fixedText = Regex.Replace(fixedText, " Āl[ -]", " āl-");
             fixedText = Regex.Replace(fixedText, "^Al([ -])*", "al-$1");
             fixedText = Regex.Replace(fixedText, "^Āl([ -])*", "āl-$1");
 
-            fixedText = fixedText.Replace("-r", "-R");
+            fixedText = Regex.Replace(fixedText, "-(\\p{L})", m => "-" + m.Groups[1].Value.ToUpperInvariant());
+            fixedText = Regex.Replace(fixedText, "al--([A-Z])", " al-$1");
 
+            fixedText = Regex.Replace(fixedText, " [IĪiī]s", " ʾIs");
+            fixedText = Regex.Replace(fixedText, "([\\ \\-])ʾ[Aa]r", "$1ʾUr");
             fixedText = Regex.Replace(fixedText, "([Ǧǧ])b", "$1ib");
             fixedText = Regex.Replace(fixedText, "([Īī])wā", "$1ā");
             fixedText = Regex.Replace(fixedText, "([Nn])m", "$1im");
             fixedText = Regex.Replace(fixedText, "([Qq])f", "$1if");
+            fixedText = Regex.Replace(fixedText, "([ʿʾ])a", "$1A");
+            fixedText = Regex.Replace(fixedText, "([ʿʾ])[Mm]ā", "$1Amā");
+            fixedText = Regex.Replace(fixedText, "^(H̱|ẖ|ẖ)", "Kh");
+            fixedText = Regex.Replace(fixedText, "^[IĪiī]s", "ʾIs");
             fixedText = Regex.Replace(fixedText, "Bā", "Ba");
             fixedText = Regex.Replace(fixedText, "Dm", "Dim");
             fixedText = Regex.Replace(fixedText, "Fh", "Fah");
             fixedText = Regex.Replace(fixedText, "Hr", "Hir");
-            fixedText = Regex.Replace(fixedText, "Is", "ʾIs");
             fixedText = Regex.Replace(fixedText, "R([hm])", "Ra$1");
-            fixedText = Regex.Replace(fixedText, "ʿa", "ʿA");
+            fixedText = Regex.Replace(fixedText, @"-(H̱|ẖ|ẖ)", "-Kh");
 
             fixedText = Regex.Replace(fixedText, "^ǧ", "Ǧ");
-            fixedText = Regex.Replace(fixedText, "^ẖ", "H̱");
             fixedText = Regex.Replace(fixedText, "([ -])ǧ", "$1Ǧ");
             fixedText = Regex.Replace(fixedText, "([ -])ẖ", "$1H̱");
 
             fixedText = Regex.Replace(fixedText, "īْ", "y");
+            fixedText = Regex.Replace(fixedText, "nْ", "n");
             fixedText = Regex.Replace(fixedText, "sْ", "s");
+            fixedText = Regex.Replace(fixedText, "yْ", "y");
 
-            fixedText = Regex.Replace(fixedText, "[ -][Dd][eīo][ls]*[ -]", " al-");
-            fixedText = Regex.Replace(fixedText, "ʾ(\\p{L})", m => "ʾ" + m.Groups[1].Value.ToUpperInvariant());
-
+            fixedText = Regex.Replace(fixedText, "([Bb])ʾir", "$1iʾr");
+            fixedText = Regex.Replace(fixedText, "([Ff])r", "$1ur");
+            fixedText = Regex.Replace(fixedText, "([ǦJǧj])m", "$1um");
+            fixedText = Regex.Replace(fixedText, "([HḤhḥ])([blmrtṭ])", "$1a$2");
+            fixedText = Regex.Replace(fixedText, "([Kk])w", "$1uw");
+            fixedText = Regex.Replace(fixedText, "([LMlm])n", "$1an");
+            fixedText = Regex.Replace(fixedText, "([Mm])q", "$1uq");
+            fixedText = Regex.Replace(fixedText, "([Rr])w", "$1ū");
+            fixedText = Regex.Replace(fixedText, "([Ss])b", "$1ab");
+            fixedText = Regex.Replace(fixedText, "āhٌ", "ah");
             fixedText = Regex.Replace(fixedText, "āšr ", "āšir ");
             fixedText = Regex.Replace(fixedText, "āšr$", "āšir");
+            fixedText = Regex.Replace(fixedText, "āūm", "āwam");
             fixedText = Regex.Replace(fixedText, "bl", "bil");
-            fixedText = Regex.Replace(fixedText, "hṭ", "haṭ");
+            fixedText = Regex.Replace(fixedText, "dn", "dun");
+            fixedText = Regex.Replace(fixedText, "dwd", "dūd");
             fixedText = Regex.Replace(fixedText, "īā", "iyā");
+            fixedText = Regex.Replace(fixedText, "īah ", "iyyah ");
+            fixedText = Regex.Replace(fixedText, "īah$", "iyyah");
+            fixedText = Regex.Replace(fixedText, "īī", "ī");
             fixedText = Regex.Replace(fixedText, "īna ", "īn ");
             fixedText = Regex.Replace(fixedText, "īna$", "īn");
-            fixedText = Regex.Replace(fixedText, "lnd", "land");
-            fixedText = Regex.Replace(fixedText, "lẗ", "laḧ");
+            fixedText = Regex.Replace(fixedText, "l--[Ll]", "ll");
+            fixedText = Regex.Replace(fixedText, "lyā", "liyā");
+            fixedText = Regex.Replace(fixedText, "lyl", "līl");
+            fixedText = Regex.Replace(fixedText, "mr", "mir");
             fixedText = Regex.Replace(fixedText, "mš", "maš");
-            fixedText = Regex.Replace(fixedText, "rǧ", "raǧ");
+            fixedText = Regex.Replace(fixedText, "r([kǧ])", "ra$1");
+            fixedText = Regex.Replace(fixedText, "shׂr", "sr");
             fixedText = Regex.Replace(fixedText, "tsl", "tsil");
+            fixedText = Regex.Replace(fixedText, "un ", "unn ");
+            fixedText = Regex.Replace(fixedText, "un$", "unn");
+            fixedText = Regex.Replace(fixedText, "w ", "ū ");
+            fixedText = Regex.Replace(fixedText, "w([my])", "wa$1");
+            fixedText = Regex.Replace(fixedText, "w$", "ū");
+            fixedText = Regex.Replace(fixedText, "wq", "q");
+            fixedText = Regex.Replace(fixedText, "ʿr", "ʿIr");
 
+            fixedText = Regex.Replace(fixedText, "([Ii])salām", "$1slām");
+            fixedText = Regex.Replace(fixedText, "ahar", "ahr");
+            fixedText = Regex.Replace(fixedText, "al-[Ll]h", "Allāh");
+            fixedText = Regex.Replace(fixedText, "azawah", "azzah");
+            fixedText = Regex.Replace(fixedText, "ẖr", "ẖar");
+            fixedText = Regex.Replace(fixedText, "īrah", "īra");
+            fixedText = Regex.Replace(fixedText, "īwah", "iyya");
+            fixedText = Regex.Replace(fixedText, "myah", "miyyah");
             fixedText = Regex.Replace(fixedText, "rzn", "rzin");
-            fixedText = fixedText.Replace("ẖr", "ẖar");
+
+            fixedText = Regex.Replace(fixedText, "[aā]l-([BFKM])", "al-$1");
+            fixedText = Regex.Replace(fixedText, "[aā]l-N", "an-N");
+            fixedText = Regex.Replace(fixedText, "[Āā]l-ʾ", "Al-ʾ");
+            fixedText = Regex.Replace(fixedText, "[AĀaā]l-Is", "al-ʾIs");
+            fixedText = Regex.Replace(fixedText, "[AĀaā]l-Kh", "al-Kh");
+            fixedText = Regex.Replace(fixedText, "[AĀaā]l-S([aā])", "as-S$1");
+            fixedText = Regex.Replace(fixedText, "[AĀaā]l-ʿAm", "al-ʿAm");
 
             fixedText = fixedText.Replace("Mīdīnā", "Madīnā");
+
+            fixedText = Regex.Replace(fixedText, "([a-z])([A-Z])", "$1 $2");
 
             return fixedText;
         }
