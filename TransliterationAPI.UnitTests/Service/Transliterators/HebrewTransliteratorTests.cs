@@ -24,6 +24,8 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("הֶרְצְלִיָּה", "Herzliya")]
         [TestCase("חֶבְרוֹן", "Ḥevrōn")]
         [TestCase("חֵיפָה", "Ḥēyfā")]
+        [TestCase("יהודה", "Yəhūda")]
+        [TestCase("שֹׁמְרוֹן", "Šōmrōn")]
         [TestCase("ירושלים", "Yerushaláyim")]
         [TestCase("יריחו", "Yərīḥō")]
         [TestCase("יִשְׂרָאֵל", "Yīsrāʾēl")]
