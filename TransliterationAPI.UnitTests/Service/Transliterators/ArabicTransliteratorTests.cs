@@ -24,6 +24,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("الخليل", "al-Khalīl")]
         [TestCase("السامرة", "as-Sāmirah")]
         [TestCase("العمارنة", "al-ʿAmārnah")]
+        [TestCase("الكويت", "al-Kuwayt")]
         [TestCase("بئر السبع", "Biʾr as-Sabʿ")]
         [TestCase("بابل", "Babil")]
         [TestCase("تشيشيناو", "Tšīšīnāū")]
