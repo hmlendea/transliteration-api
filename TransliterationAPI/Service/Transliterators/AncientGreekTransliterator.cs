@@ -196,7 +196,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ϊ", "ï" },
                 { "ΐ", "ḯ" },
                 { "ό", "ó" },
-                { "ὐ", "ú" },
+                { "ὐ", "u" }, // u is the most common transliteration, not ú
                 { "ύ", "ú" },
                 { "ϋ", "ü" },
                 { "ΰ", "ǘ" },
