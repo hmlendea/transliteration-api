@@ -80,6 +80,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Κυρήνη", "Kyrḗnē")]
         [TestCase("Κωνσταντινούπολις", "Kōnstantinoúpolis")]
         [TestCase("Λέσβος", "Lésbos")]
+        [TestCase("Λυκανδός", "Lykandós")]
         [TestCase("Μακεδονία", "Makedonía")]
         [TestCase("Μαντίνεια", "Mantíneia")]
         [TestCase("Μελιτηνή", "Melitēnḗ")]
