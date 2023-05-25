@@ -15,7 +15,7 @@ namespace TransliterationAPI.Service.Transliterators
             {
                 { "α", "a" },
                 { "ἀ", "a" },
-                { "β", "v" }, //b
+                { "β", "b" }, // v
                 { "γ", "g" },
                 { "δ", "d" },
                 { "ε", "e" },
@@ -106,6 +106,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Ἣι", "Êi" },
                 { "Ἧι", "Êi" },
                 { "Θ", "Th" },
+                { "Ἱ", "Hi" },
                 { "Ι", "I" },
                 { "Ἰ", "I" },
                 { "Ί", "Í" },
@@ -117,7 +118,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Ν", "N" },
                 { "Ξ", "X" },
                 { "Ο", "O" },
-                { "Ὀ", "Ó" },
+                { "Ὀ", "Ō" },
                 { "Ὄ", "Ó" },
                 { "Ό", "Ó" },
                 { "Π", "P" },
@@ -196,7 +197,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ϊ", "ï" },
                 { "ΐ", "ḯ" },
                 { "ό", "ó" },
-                { "ὐ", "ú" },
+                { "ὐ", "u" }, // u is the most common transliteration, not ú
                 { "ύ", "ú" },
                 { "ϋ", "ü" },
                 { "ΰ", "ǘ" },
@@ -263,10 +264,11 @@ namespace TransliterationAPI.Service.Transliterators
 
             fixedText = Regex.Replace(fixedText, "([aeio])y", "$1u");
             fixedText = Regex.Replace(fixedText, "([hk])ê([^n])", "$1ē$2");
+            fixedText = Regex.Replace(fixedText, "[bv]([úý])", "bý");
+            fixedText = Regex.Replace(fixedText, "bats", "vats");
             fixedText = Regex.Replace(fixedText, "che([ií])", "khe$1");
             fixedText = Regex.Replace(fixedText, "óvo", "óbo");
             fixedText = Regex.Replace(fixedText, "r([úý])", "rý");
-            fixedText = Regex.Replace(fixedText, "v([úý])", "bý");
             fixedText = Regex.Replace(fixedText, "vai", "bai");
             fixedText = Regex.Replace(fixedText, "vos", "bos");
             fixedText = Regex.Replace(fixedText, "vy", "by");
