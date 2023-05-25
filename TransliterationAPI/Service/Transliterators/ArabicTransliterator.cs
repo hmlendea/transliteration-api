@@ -196,13 +196,14 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "yْ", "y");
 
             fixedText = Regex.Replace(fixedText, "([Bb])ʾir", "$1iʾr");
+            fixedText = Regex.Replace(fixedText, "([Ff])r", "$1ur");
             fixedText = Regex.Replace(fixedText, "([ǦJǧj])m", "$1um");
             fixedText = Regex.Replace(fixedText, "([HḤhḥ])([blmrtṭ])", "$1a$2");
             fixedText = Regex.Replace(fixedText, "([Kk])w", "$1uw");
+            fixedText = Regex.Replace(fixedText, "([LMlm])n", "$1an");
             fixedText = Regex.Replace(fixedText, "([Mm])q", "$1uq");
             fixedText = Regex.Replace(fixedText, "([Rr])w", "$1ū");
             fixedText = Regex.Replace(fixedText, "([Ss])b", "$1ab");
-
             fixedText = Regex.Replace(fixedText, "āšr ", "āšir ");
             fixedText = Regex.Replace(fixedText, "āšr$", "āšir");
             fixedText = Regex.Replace(fixedText, "āūm", "āwam");
@@ -216,7 +217,6 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "īna ", "īn ");
             fixedText = Regex.Replace(fixedText, "īna$", "īn");
             fixedText = Regex.Replace(fixedText, "l--[Ll]", "ll");
-            fixedText = Regex.Replace(fixedText, "ln", "lan");
             fixedText = Regex.Replace(fixedText, "lyā", "liyā");
             fixedText = Regex.Replace(fixedText, "lyl", "līl");
             fixedText = Regex.Replace(fixedText, "mr", "mir");
@@ -237,11 +237,11 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "al-[Ll]h", "Allāh");
             fixedText = Regex.Replace(fixedText, "azawah", "azzah");
             fixedText = Regex.Replace(fixedText, "ẖr", "ẖar");
+            fixedText = Regex.Replace(fixedText, "īwah", "iyya");
             fixedText = Regex.Replace(fixedText, "myah", "miyyah");
             fixedText = Regex.Replace(fixedText, "rzn", "rzin");
-            fixedText = fixedText.Replace("ẖr", "ẖar");
 
-            fixedText = Regex.Replace(fixedText, "[aā]l-K", "al-K");
+            fixedText = Regex.Replace(fixedText, "[aā]l-([FKM])", "al-$1");
             fixedText = Regex.Replace(fixedText, "[aā]l-N", "an-N");
             fixedText = Regex.Replace(fixedText, "[Āā]l-ʾ", "Al-ʾ");
             fixedText = Regex.Replace(fixedText, "[AĀaā]l-Is", "al-ʾIs");
