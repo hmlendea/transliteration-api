@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace TransliterationAPI.Service.Transliterators
@@ -7,6 +8,9 @@ namespace TransliterationAPI.Service.Transliterators
     public class CyrillicTransliterator : ICyrillicTransliterator
     {
         Dictionary<string, string> bgnPcgnTransliterationTable;
+
+        Dictionary<string, string> bulgarianTransliterationTable;
+        Dictionary<string, string> russianTransliterationTable;
 
         public CyrillicTransliterator()
         {
@@ -79,23 +83,73 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ю", "yu" },
                 { "я", "ya" }
             };
+
+            bulgarianTransliterationTable = new Dictionary<string, string>
+            {
+                { @"ия\b", "ia" },
+
+                { "Ъ", "Ă" }, // A officially, since the 2002 proposal did not pass
+                { "Х", "H" },
+                { "Щ", "Sht" },
+                { "ъ", "ă" }, // a officially, since the 2002 proposal did not pass
+                { "х", "h" },
+                { "щ", "sht" },
+            };
+
+            russianTransliterationTable = new Dictionary<string, string>();
+
+            foreach (var characterTransliteration in bgnPcgnTransliterationTable)
+            {
+                if (!bulgarianTransliterationTable.ContainsKey(characterTransliteration.Key))
+                {
+                    bulgarianTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
+                }
+
+                if (!russianTransliterationTable.ContainsKey(characterTransliteration.Key))
+                {
+                    russianTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
+                }
+            }
         }
 
         public string Transliterate(string text, string languageCode)
         {
-            string transliteratedText = text;
+            IDictionary<string, string> transliterationTable;
 
-            foreach (string character in bgnPcgnTransliterationTable.Keys)
+            if (languageCode.Equals("bg"))
             {
-                transliteratedText = Regex.Replace(transliteratedText, character, bgnPcgnTransliterationTable[character]);
+                transliterationTable = bulgarianTransliterationTable;
+            }
+            else if (languageCode.Equals("ru"))
+            {
+                transliterationTable = russianTransliterationTable;
+            }
+            else
+            {
+                throw new ArgumentException($"The '{languageCode}' language is not supported in the {nameof(CyrillicTransliterator)}");
             }
 
-            transliteratedText = ApplyFixes(transliteratedText);
+            string transliteratedText = text;
+
+            foreach (string character in transliterationTable.Keys)
+            {
+                transliteratedText = Regex.Replace(transliteratedText, character, transliterationTable[character]);
+            }
+
+            //if (languageCode.Equals("bg"))
+            //{
+            //    transliteratedText = ApplyBulgarianFixes(transliteratedText);
+            //}
+            //else
+            if (languageCode.Equals("ru"))
+            {
+                transliteratedText = ApplyRussianFixes(transliteratedText);
+            }
 
             return transliteratedText;
         }
 
-        string ApplyFixes(string text)
+        string ApplyRussianFixes(string text)
         {
             string fixedText = text;
 
