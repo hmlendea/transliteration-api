@@ -109,7 +109,7 @@ namespace TransliterationAPI.Service
                 case "be": // Belarussian
                     return await translitterationDotComTransliterator.Transliterate(text, "bel", "national");
                 case "bg": // Bulgarian
-                    return await translitterationDotComTransliterator.Transliterate(text, "bul", "streamlined");
+                    return cyrillicTransliterator.Transliterate(text, languageCode);
                 case "bn": // Bengali
                     return await ushuaiaTransliterator.Transliterate(text, "bengali_iso_transliterate");
                 case "cop": // Coptic
