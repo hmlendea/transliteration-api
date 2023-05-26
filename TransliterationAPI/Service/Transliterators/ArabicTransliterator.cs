@@ -160,6 +160,7 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = fixedText.Replace("ūrfū", "ūrifū");
 
             fixedText = Regex.Replace(fixedText, "[ -][Dd][eīo][ls]*[ -]", " al-");
+            fixedText = Regex.Replace(fixedText, "[ -][Ss][uū]r[ -]", " al-");
             fixedText = Regex.Replace(fixedText, "ٱl", "al-");
             fixedText = Regex.Replace(fixedText, " Al[ -]", " al-");
             fixedText = Regex.Replace(fixedText, " Āl[ -]", " āl-");
