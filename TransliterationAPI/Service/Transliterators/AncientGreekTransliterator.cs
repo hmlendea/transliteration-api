@@ -265,11 +265,11 @@ namespace TransliterationAPI.Service.Transliterators
 
             fixedText = Regex.Replace(fixedText, "([aeio])y", "$1u");
             fixedText = Regex.Replace(fixedText, "([hk])ê([^n])", "$1ē$2");
+            fixedText = Regex.Replace(fixedText, "([lr])[úý]", "$1ý");
             fixedText = Regex.Replace(fixedText, "[bv]([úý])", "bý");
             fixedText = Regex.Replace(fixedText, "b(ats|ion)", "v$1");
             fixedText = Regex.Replace(fixedText, "che([ií])", "khe$1");
             fixedText = Regex.Replace(fixedText, "óvo", "óbo");
-            fixedText = Regex.Replace(fixedText, "r([úý])", "rý");
             fixedText = Regex.Replace(fixedText, "v(ai|os|y)", "b$1");
 
             return fixedText;

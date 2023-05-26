@@ -65,6 +65,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Κασταναία", "Kastanaía")]
         [TestCase("Κερύνεια", "Kerýneia")]
         [TestCase("Κεφαλληνία", "Kephallēnía")]
+        [TestCase("Κλύσμα", "Klýsma")]
         [TestCase("Κνωσός", "Knōsós")]
         [TestCase("Κόρινθος", "Kórinthos")]
         [TestCase("Κορόπη", "Korópē")]
