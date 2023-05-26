@@ -54,17 +54,17 @@ namespace TransliterationAPI.Service
             this.ushuaiaTransliterator = ushuaiaTransliterator;
         }
 
-        public async Task<string> Transliterate(string text, string language)
+        public async Task<string> Transliterate(string text, string languageCode)
         {
             string normalisedText = NormaliseText(text);
-            string cacheKey = GetCacheId(normalisedText, language);
+            string cacheKey = GetCacheId(normalisedText, languageCode);
 
             if (cache.ContainsKey(cacheKey))
             {
                 return cache[cacheKey];
             }
 
-            string transliteratedText = await TryGetTransliteratedText(normalisedText, language);
+            string transliteratedText = await TryGetTransliteratedText(normalisedText, languageCode);
 
             if (!string.IsNullOrWhiteSpace(transliteratedText))
             {
@@ -74,11 +74,11 @@ namespace TransliterationAPI.Service
             return transliteratedText;
         }
 
-        async Task<string> TryGetTransliteratedText(string text, string language)
+        async Task<string> TryGetTransliteratedText(string text, string languageCode)
         {
             try
             {
-                return await GetTransliteratedText(text, language);
+                return await GetTransliteratedText(text, languageCode);
             }
             catch
             {
@@ -113,9 +113,9 @@ namespace TransliterationAPI.Service
                 case "el": // Greek
                     return await translitterationDotComTransliterator.Transliterate(text, "gre", "un-elot");
                 case "grc": // Ancient Greek
-                    return ancientGreekTransilterator.Transliterate(text, language);
+                    return ancientGreekTransilterator.Transliterate(text, languageCode);
                 case "grc-dor": // Ancient Greek - Doric
-                    return ancientGreekTransilterator.Transliterate(text, language);
+                    return ancientGreekTransilterator.Transliterate(text, languageCode);
                 case "gu": // Gujarati
                     return gujaratiTransliterator.Transliterate(text);
                 case "he": // Hebrew
@@ -185,10 +185,10 @@ namespace TransliterationAPI.Service
             return normalisedText;
         }
 
-        string GetCacheId(string text, string language)
+        string GetCacheId(string text, string languageCode)
         {
             string textUnicodes = string.Join('-', text.Select(c => (int)c));
-            string cacheKey = $"{language}_{textUnicodes}";
+            string cacheKey = $"{languageCode}_{textUnicodes}";
             cacheKey = GetSha256FromString(cacheKey);
 
             return cacheKey;
