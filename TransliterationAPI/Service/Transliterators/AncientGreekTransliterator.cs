@@ -92,7 +92,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Η͂", "Ê" },
                 { "Ἤ", "Ḗ" }, // Ḗ
                 { "Ἥ", "Ḗ" }, // Ḗ
-                { "Ή", "Ḗ" }, // Ḗ
+                { "Ή", "Ḗ" }, // Hē, Ḗ
                 { "Ηι", "Ē̂" },
                 { "Ήι", "Ē̄́" },
                 { "Ὴι", "Ē̄̀" },
@@ -262,6 +262,7 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "Ach", "Akh");
             fixedText = Regex.Replace(fixedText, "Ch([eé])", "Kh$1");
             fixedText = Regex.Replace(fixedText, "Cha", "Kha");
+            fixedText = Regex.Replace(fixedText, "Ḗl", "Hēl");
             fixedText = Regex.Replace(fixedText, "Kú", "Ký");
 
             fixedText = Regex.Replace(fixedText, "([aeio])y", "$1u");
