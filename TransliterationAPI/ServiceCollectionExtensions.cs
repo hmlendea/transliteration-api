@@ -20,7 +20,7 @@ namespace TransliterationAPI
                 .AddSingleton<IMarathiTransliterator, MarathiTransliterator>()
                 .AddSingleton<IPinyinTransliterator, PinyinTransliterator>()
                 .AddSingleton<IPodolakTransliterator, PodolakTransliterator>()
-                .AddSingleton<IRomajiTransliterator, RomajiTransliterator>()
+                .AddSingleton<IJapaneseTransliterator, JapaneseTransliterator>()
                 .AddSingleton<IThailitTransliterator, ThailitTransliterator>()
                 .AddSingleton<ITranslitterationDotComTransliterator, TranslitterationDotComTransliterator>()
                 .AddSingleton<IUshuaiaTransliterator, UshuaiaTransliterator>()

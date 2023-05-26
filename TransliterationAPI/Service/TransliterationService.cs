@@ -23,7 +23,7 @@ namespace TransliterationAPI.Service
         IMarathiTransliterator marathiTransliterator;
         IPinyinTransliterator pinyinTransliterator;
         IPodolakTransliterator podolakTransliterator;
-        IRomajiTransliterator romajiTransliterator;
+        IJapaneseTransliterator japaneseTransliterator;
         IThailitTransliterator thailitTransliterator;
         ITranslitterationDotComTransliterator translitterationDotComTransliterator;
         IUshuaiaTransliterator ushuaiaTransliterator;
@@ -38,7 +38,7 @@ namespace TransliterationAPI.Service
             IMarathiTransliterator marathiTransliterator,
             IPinyinTransliterator pinyinTransliterator,
             IPodolakTransliterator podolakTransliterator,
-            IRomajiTransliterator romajiTransliterator,
+            IJapaneseTransliterator japaneseTransliterator,
             IThailitTransliterator thailitTransliterator,
             ITranslitterationDotComTransliterator translitterationDotComTransliterator,
             IUshuaiaTransliterator ushuaiaTransliterator)
@@ -54,7 +54,7 @@ namespace TransliterationAPI.Service
             this.marathiTransliterator = marathiTransliterator;
             this.pinyinTransliterator = pinyinTransliterator;
             this.podolakTransliterator = podolakTransliterator;
-            this.romajiTransliterator = romajiTransliterator;
+            this.japaneseTransliterator = japaneseTransliterator;
             this.thailitTransliterator = thailitTransliterator;
             this.translitterationDotComTransliterator = translitterationDotComTransliterator;
             this.ushuaiaTransliterator = ushuaiaTransliterator;
@@ -137,7 +137,7 @@ namespace TransliterationAPI.Service
                 case "iu": // Inuttitut
                     return await translitterationDotComTransliterator.Transliterate(text, "iku", "canadian-aboriginal-syllabics");
                 case "ja": // Japanese
-                    return await romajiTransliterator.Transliterate(text);
+                    return japaneseTransliterator.Transliterate(text);
                 case "ka": // Georgian
                     return await translitterationDotComTransliterator.Transliterate(text, "kat", "national");
                 case "kk": // Kazakh
