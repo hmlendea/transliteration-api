@@ -16,6 +16,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
 
         [Test]
         [TestCase("Kαταoνία", "Kataonía")]
+        [TestCase("Άβυδος Αιγύπτου", "Ábydos Aigýptou")]
         [TestCase("ᾈγίοι Ανάργυροι", "Agíoi Anárgyroi")]
         [TestCase("Ἀθῆναι", "Athênai")]
         [TestCase("Ᾰθῆναι", "Athênai")]
@@ -47,6 +48,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Ἐρέτρια", "Erétria")]
         [TestCase("Ἐτεόκρητη", "Eteókrētē")]
         [TestCase("Εὐφράτης", "Euphrátēs")]
+        [TestCase("Ήλιούπολις", "Hēlioúpolis")]
         [TestCase("Ήπειρος", "Ḗpeiros")]
         [TestCase("Ἡράκλεια Σιντική", "Hērákleia Sintikḗ")]
         [TestCase("Ἡράκλεια", "Hērákleia")]
@@ -54,7 +56,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Ἡφαιστία", "Hēphaistía")]
         [TestCase("Θεσσαλονίκη", "Thessaloníkē")]
         [TestCase("Θῆβαι", "Thēbai")]
-        [TestCase("Θῆβαι", "Thēbai")]
+        [TestCase("Θώθ", "Thṓth")]
         [TestCase("Ἱεράπολις", "Hierápolis")]
         [TestCase("Ἰουερνία", "Iouernía")]
         [TestCase("Ἰουερνίς", "Iouernís")]
@@ -65,6 +67,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Κασταναία", "Kastanaía")]
         [TestCase("Κερύνεια", "Kerýneia")]
         [TestCase("Κεφαλληνία", "Kephallēnía")]
+        [TestCase("Κλύσμα", "Klýsma")]
         [TestCase("Κνωσός", "Knōsós")]
         [TestCase("Κόρινθος", "Kórinthos")]
         [TestCase("Κορόπη", "Korópē")]
@@ -80,9 +83,11 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Κυρήνη", "Kyrḗnē")]
         [TestCase("Κωνσταντινούπολις", "Kōnstantinoúpolis")]
         [TestCase("Λέσβος", "Lésbos")]
+        [TestCase("Λυκανδός", "Lykandós")]
         [TestCase("Μακεδονία", "Makedonía")]
         [TestCase("Μαντίνεια", "Mantíneia")]
         [TestCase("Μελιτηνή", "Melitēnḗ")]
+        [TestCase("Μέμφις", "Mémphis")]
         [TestCase("Μεσσήνη", "Messḗnē")]
         [TestCase("Μίλητος", "Mílētos")]
         [TestCase("Μυγδονία", "Mygdonía")]
@@ -94,20 +99,24 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Οὐινδόβονα", "Ouindóbona")]
         [TestCase("Παλαιστίνη", "Palaistínē")]
         [TestCase("Παλλήνη", "Pallḗnē")]
+        [TestCase("Πανόπολις", "Panópolis")]
+        [TestCase("Πανὸς πόλις", "Panὸs pólis")]
         [TestCase("Παραλία", "Paralía")]
         [TestCase("Πελοπόννησος", "Pelopónnēsos")]
         [TestCase("Ῥόδος", "Rhódos")]
         [TestCase("Ῥώμη", "Rhṓmē")]
         [TestCase("Σάρος", "Sáros")]
         [TestCase("Σπάρτη", "Spártē")]
+        [TestCase("Συήνη", "Syḗnē")]
         [TestCase("Φιλαδέλφεια", "Philadélpheia")]
         [TestCase("Χαλάστρα", "Khalástra")]
         [TestCase("Χαλέστρη", "Khaléstrē")]
         [TestCase("Χαλκιδική", "Khalkidikḗ")]
+        [TestCase("Χέμμις", "Khémmis")]
         public void GivenATextInAncientGreekScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string ancientGreekText,
             string expectedTransliteratedText)
-            => Assert.That(transliterator.Transliterate(ancientGreekText), Is.EqualTo(expectedTransliteratedText));
+            => Assert.That(transliterator.Transliterate(ancientGreekText, "grc"), Is.EqualTo(expectedTransliteratedText));
 
         [Test]
         [TestCase("Ᾰθῆναι", "Athênai")]
@@ -130,6 +139,6 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         public void GivenATextInAncientGreekDoricScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string ancientGreekDoricText,
             string expectedTransliteratedText)
-            => Assert.That(transliterator.Transliterate(ancientGreekDoricText, "doric"), Is.EqualTo(expectedTransliteratedText));
+            => Assert.That(transliterator.Transliterate(ancientGreekDoricText, "grc-dor"), Is.EqualTo(expectedTransliteratedText));
     }
 }

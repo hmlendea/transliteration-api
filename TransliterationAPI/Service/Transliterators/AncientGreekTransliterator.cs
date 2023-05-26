@@ -92,7 +92,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Η͂", "Ê" },
                 { "Ἤ", "Ḗ" }, // Ḗ
                 { "Ἥ", "Ḗ" }, // Ḗ
-                { "Ή", "Ḗ" }, // Ḗ
+                { "Ή", "Ḗ" }, // Hē, Ḗ
                 { "Ηι", "Ē̂" },
                 { "Ήι", "Ē̄́" },
                 { "Ὴι", "Ē̄̀" },
@@ -184,7 +184,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ῃ", "ē̂" },
                 { "ἤ", "ḗ" }, // ḗ
                 { "ἥ", "ḗ" }, // ḗ
-                { "ή", "ḗ" }, // ḗ
+                { "ή", "ḗ" }, // ē, ḗ
                 { "ᾔ", "ēí" },
                 { "ᾒ", "êi" },
                 { "ᾖ", "êi" },
@@ -194,13 +194,14 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ᾗ", "êi" },
                 { "ᾑ", "ēi" },
                 { "ί", "í" },
+                { "ῖ", "ī" },
                 { "ϊ", "ï" },
                 { "ΐ", "ḯ" },
                 { "ό", "ó" },
-                { "ὐ", "u" }, // u is the most common transliteration, not ú
                 { "ύ", "ú" },
                 { "ϋ", "ü" },
                 { "ΰ", "ǘ" },
+                { "ὐ", "u" }, // u is the most common transliteration, not ú
                 { "ώ", "ṓ" }, // ṓ
 
                 // Additional characters
@@ -229,13 +230,13 @@ namespace TransliterationAPI.Service.Transliterators
         public string Transliterate(string text)
             => Transliterate(text, null);
 
-        public string Transliterate(string text, string variant)
+        public string Transliterate(string text, string languageCode)
         {
             string transliteratedText = text;
 
-            if (!string.IsNullOrWhiteSpace(variant))
+            if (!string.IsNullOrWhiteSpace(languageCode))
             {
-                if(variant.Equals("doric", StringComparison.InvariantCultureIgnoreCase))
+                if(languageCode.Equals("grc-dor", StringComparison.InvariantCultureIgnoreCase))
                 {
                     foreach (string character in doricTransliterationTable.Keys)
                     {
@@ -259,19 +260,20 @@ namespace TransliterationAPI.Service.Transliterators
             string fixedText = text;
 
             fixedText = Regex.Replace(fixedText, "Ach", "Akh");
+            fixedText = Regex.Replace(fixedText, "Ch([eé])", "Kh$1");
             fixedText = Regex.Replace(fixedText, "Cha", "Kha");
+            fixedText = Regex.Replace(fixedText, "Ḗl", "Hēl");
             fixedText = Regex.Replace(fixedText, "Kú", "Ký");
 
             fixedText = Regex.Replace(fixedText, "([aeio])y", "$1u");
             fixedText = Regex.Replace(fixedText, "([hk])ê([^n])", "$1ē$2");
+            fixedText = Regex.Replace(fixedText, "([lr])[úý]", "$1ý");
             fixedText = Regex.Replace(fixedText, "[bv]([úý])", "bý");
-            fixedText = Regex.Replace(fixedText, "bats", "vats");
-            fixedText = Regex.Replace(fixedText, "che([ií])", "khe$1");
+            fixedText = Regex.Replace(fixedText, "b(ats|ion)", "v$1");
+            fixedText = Regex.Replace(fixedText, "ch([eé])([ií])", "kh$1$2");
+            fixedText = Regex.Replace(fixedText, "gú", "gý");
             fixedText = Regex.Replace(fixedText, "óvo", "óbo");
-            fixedText = Regex.Replace(fixedText, "r([úý])", "rý");
-            fixedText = Regex.Replace(fixedText, "vai", "bai");
-            fixedText = Regex.Replace(fixedText, "vos", "bos");
-            fixedText = Regex.Replace(fixedText, "vy", "by");
+            fixedText = Regex.Replace(fixedText, "v(ai|os|y)", "b$1");
 
             return fixedText;
         }
