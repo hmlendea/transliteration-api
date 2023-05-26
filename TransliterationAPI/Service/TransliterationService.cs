@@ -16,6 +16,7 @@ namespace TransliterationAPI.Service
 
         IAncientGreekTransliterator ancientGreekTransilterator;
         IArabicTransliterator arabicTransliterator;
+        ICopticTransliterator copticTransliterator;
         IGujaratiTransliterator gujaratiTransliterator;
         IHebrewTransliterator hebrewTransliterator;
         IMarathiTransliterator marathiTransliterator;
@@ -30,6 +31,7 @@ namespace TransliterationAPI.Service
             IAncientGreekTransliterator ancientGreekTransilterator,
             IArabicTransliterator arabicTransliterator,
             IGujaratiTransliterator gujaratiTransliterator,
+            ICopticTransliterator copticTransliterator,
             IHebrewTransliterator hebrewTransliterator,
             IMarathiTransliterator marathiTransliterator,
             IPinyinTransliterator pinyinTransliterator,
@@ -43,6 +45,7 @@ namespace TransliterationAPI.Service
 
             this.ancientGreekTransilterator = ancientGreekTransilterator;
             this.arabicTransliterator = arabicTransliterator;
+            this.copticTransliterator = copticTransliterator;
             this.gujaratiTransliterator = gujaratiTransliterator;
             this.hebrewTransliterator = hebrewTransliterator;
             this.marathiTransliterator = marathiTransliterator;
@@ -106,6 +109,8 @@ namespace TransliterationAPI.Service
                     return await translitterationDotComTransliterator.Transliterate(text, "bul", "streamlined");
                 case "bn": // Bengali
                     return await ushuaiaTransliterator.Transliterate(text, "bengali_iso_transliterate");
+                case "cop": // Coptic
+                    return copticTransliterator.Transliterate(text, languageCode);
                 case "cu": // Old Church Slavonic
                     return await podolakTransliterator.Transliterate(text, languageCode);
                 case "cv": // Chuvash

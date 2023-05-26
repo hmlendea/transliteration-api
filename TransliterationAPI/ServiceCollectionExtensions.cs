@@ -13,6 +13,7 @@ namespace TransliterationAPI
                 .AddSingleton<IHttpRequestManager, HttpRequestManager>()
                 .AddSingleton<IAncientGreekTransliterator, AncientGreekTransliterator>()
                 .AddSingleton<IArabicTransliterator, ArabicTransliterator>()
+                .AddSingleton<ICopticTransliterator, CopticTransliterator>()
                 .AddSingleton<IGujaratiTransliterator, GujaratiTransliterator>()
                 .AddSingleton<IHebrewTransliterator, HebrewTransliterator>()
                 .AddSingleton<IMarathiTransliterator, MarathiTransliterator>()
