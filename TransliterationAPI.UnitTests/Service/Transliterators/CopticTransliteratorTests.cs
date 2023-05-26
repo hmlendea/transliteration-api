@@ -16,10 +16,17 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
 
         [Test]
         [TestCase("ⲁⲗⲉⲝⲁⲛⲇⲣⲓⲁ", "Alexandria")]
+        [TestCase("ⲁⲛⲟⲩⲡ", "Anoup")]
+        [TestCase("Ⲉⲃⲱⲧ", "Ebōt")] // Sahidic Coptic
+        [TestCase("Ⲉⲗⲓⲟⲩⲓ", "Elioui")]
+        [TestCase("Ⲗⲓⲟⲩⲓ", "Lioui")]
         [TestCase("ⲣⲁⲕⲟϯ", "Rakotī")]
-        [TestCase("ⲱⲛ ⲡⲉⲧ ⲫⲣⲏ", "On Pet Phre")]
-        [TestCase("ϣⲙⲓⲛ", "Shmin")]
         [TestCase("Ⲥⲟⲩⲁⲛ", "Souan")]
+        [TestCase("ⲭⲁⲓⲣⲟⲛ", "Khairon")]
+        [TestCase("ⲭⲁⲓⲣⲟⲛ", "Khairon")]
+        [TestCase("ⲱⲛ ⲡⲉⲧ ⲫⲣⲏ", "Ōn Pet Phre")]
+        [TestCase("ϣⲙⲓⲛ", "Šmin")]
+        [TestCase("Ϯⲕⲉϣⲣⲱⲙⲓ", "Tikešrōmi")]
         public void GivenATextInCopticScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string copticText,
             string expectedTransliteratedText)
