@@ -16,6 +16,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
 
         [Test]
         [TestCase("Kαταoνία", "Kataonía")]
+        [TestCase("Άβυδος Αιγύπτου", "Ábydos Aigýptou")]
         [TestCase("ᾈγίοι Ανάργυροι", "Agíoi Anárgyroi")]
         [TestCase("Ἀθῆναι", "Athênai")]
         [TestCase("Ᾰθῆναι", "Athênai")]
@@ -53,7 +54,6 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Ἡράκλειον", "Hērákleion")]
         [TestCase("Ἡφαιστία", "Hēphaistía")]
         [TestCase("Θεσσαλονίκη", "Thessaloníkē")]
-        [TestCase("Θῆβαι", "Thēbai")]
         [TestCase("Θῆβαι", "Thēbai")]
         [TestCase("Ἱεράπολις", "Hierápolis")]
         [TestCase("Ἰουερνία", "Iouernía")]
