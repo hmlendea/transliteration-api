@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
+using NuciExtensions;
+
 namespace TransliterationAPI.Service.Transliterators
 {
     public class CopticTransliterator : ICopticTransliterator
@@ -109,7 +111,9 @@ namespace TransliterationAPI.Service.Transliterators
         {
             string fixedText = text;
 
-            return fixedText;
+            fixedText = Regex.Replace(fixedText, @"ot\b", "otī");
+
+            return fixedText.ToTitleCase();
         }
     }
 }

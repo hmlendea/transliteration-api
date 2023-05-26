@@ -15,8 +15,11 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         }
 
         [Test]
-        [TestCase("ⲱⲛ ⲡⲉⲧ ⲫⲣⲏ", "on pet phre")]
-        [TestCase("ϣⲙⲓⲛ", "shmin")]
+        [TestCase("ⲁⲗⲉⲝⲁⲛⲇⲣⲓⲁ", "Alexandria")]
+        [TestCase("ⲣⲁⲕⲟϯ", "Rakotī")]
+        [TestCase("ⲱⲛ ⲡⲉⲧ ⲫⲣⲏ", "On Pet Phre")]
+        [TestCase("ϣⲙⲓⲛ", "Shmin")]
+        [TestCase("Ⲥⲟⲩⲁⲛ", "Souan")]
         public void GivenATextInCopticScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string copticText,
             string expectedTransliteratedText)

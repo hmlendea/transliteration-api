@@ -110,7 +110,7 @@ namespace TransliterationAPI.Service
                 case "bn": // Bengali
                     return await ushuaiaTransliterator.Transliterate(text, "bengali_iso_transliterate");
                 case "cop": // Coptic
-                    return await copticTransliterator.Transliterate(text, languageCode);
+                    return copticTransliterator.Transliterate(text, languageCode);
                 case "cu": // Old Church Slavonic
                     return await podolakTransliterator.Transliterate(text, languageCode);
                 case "cv": // Chuvash
