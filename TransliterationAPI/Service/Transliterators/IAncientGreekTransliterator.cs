@@ -2,8 +2,6 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public interface IAncientGreekTransliterator
     {
-        string Transliterate(string text);
-
-        string Transliterate(string text, string variant);
+        string Transliterate(string text, string languageCode);
     }
 }

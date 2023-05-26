@@ -104,6 +104,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Ῥώμη", "Rhṓmē")]
         [TestCase("Σάρος", "Sáros")]
         [TestCase("Σπάρτη", "Spártē")]
+        [TestCase("Συήνη", "Suḗnē")]
         [TestCase("Φιλαδέλφεια", "Philadélpheia")]
         [TestCase("Χαλάστρα", "Khalástra")]
         [TestCase("Χαλέστρη", "Khaléstrē")]
@@ -112,7 +113,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         public void GivenATextInAncientGreekScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string ancientGreekText,
             string expectedTransliteratedText)
-            => Assert.That(transliterator.Transliterate(ancientGreekText), Is.EqualTo(expectedTransliteratedText));
+            => Assert.That(transliterator.Transliterate(ancientGreekText, "grc"), Is.EqualTo(expectedTransliteratedText));
 
         [Test]
         [TestCase("Ᾰθῆναι", "Athênai")]
@@ -135,6 +136,6 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         public void GivenATextInAncientGreekDoricScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string ancientGreekDoricText,
             string expectedTransliteratedText)
-            => Assert.That(transliterator.Transliterate(ancientGreekDoricText, "doric"), Is.EqualTo(expectedTransliteratedText));
+            => Assert.That(transliterator.Transliterate(ancientGreekDoricText, "grc-dor"), Is.EqualTo(expectedTransliteratedText));
     }
 }

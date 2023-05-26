@@ -113,9 +113,9 @@ namespace TransliterationAPI.Service
                 case "el": // Greek
                     return await translitterationDotComTransliterator.Transliterate(text, "gre", "un-elot");
                 case "grc": // Ancient Greek
-                    return ancientGreekTransilterator.Transliterate(text);
+                    return ancientGreekTransilterator.Transliterate(text, language);
                 case "grc-dor": // Ancient Greek - Doric
-                    return ancientGreekTransilterator.Transliterate(text, "doric");
+                    return ancientGreekTransilterator.Transliterate(text, language);
                 case "gu": // Gujarati
                     return gujaratiTransliterator.Transliterate(text);
                 case "he": // Hebrew
