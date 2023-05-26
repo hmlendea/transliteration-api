@@ -29,8 +29,8 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ⲋ", "z" },
                 { "Ⲍ", "Y" },
                 { "ⲍ", "y" },
-                { "Ⲏ", "E" },
-                { "ⲏ", "e" },
+                { "Ⲏ", "Ē" }, // E
+                { "ⲏ", "ē" }, // e
                 { "Ⲑ", "Th" },
                 { "ⲑ", "th" },
                 { "Ⲓ", "I" },
@@ -41,7 +41,9 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ⲗ", "l" },
                 { "Ⲙ", "M" },
                 { "ⲙ", "m" },
+                { "Ⲛ̀", "Ǹ" }, // En
                 { "Ⲛ", "N" },
+                { "ⲛ̀", "ǹ" }, // en
                 { "ⲛ", "n" },
                 { "Ⲝ", "X" },
                 { "ⲝ", "x" },
@@ -52,6 +54,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Ϥ", "F" },
                 { "ϥ", "f" },
                 { "Ⲣ", "R" },
+                { "ⲣ̅", "ǝr" },
                 { "ⲣ", "r" },
                 { "Ⲥ", "S" },
                 { "ⲥ", "s" },
