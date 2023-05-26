@@ -104,7 +104,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Ῥώμη", "Rhṓmē")]
         [TestCase("Σάρος", "Sáros")]
         [TestCase("Σπάρτη", "Spártē")]
-        [TestCase("Συήνη", "Suḗnē")]
+        [TestCase("Συήνη", "Syḗnē")]
         [TestCase("Φιλαδέλφεια", "Philadélpheia")]
         [TestCase("Χαλάστρα", "Khalástra")]
         [TestCase("Χαλέστρη", "Khaléstrē")]
