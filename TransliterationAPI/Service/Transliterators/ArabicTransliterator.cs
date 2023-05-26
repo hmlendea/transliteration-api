@@ -173,11 +173,12 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, " [IĪiī]s", " ʾIs");
             fixedText = Regex.Replace(fixedText, "([\\ \\-])ʾ[Aa]r", "$1ʾUr");
             fixedText = Regex.Replace(fixedText, "([Ǧǧ])b", "$1ib");
+            fixedText = Regex.Replace(fixedText, "([ĠQġq])r", "$1ar");
             fixedText = Regex.Replace(fixedText, "([Īī])wā", "$1ā");
             fixedText = Regex.Replace(fixedText, "([Nn])m", "$1im");
             fixedText = Regex.Replace(fixedText, "([Qq])f", "$1if");
-            fixedText = Regex.Replace(fixedText, "([ʿʾ])a", "$1A");
             fixedText = Regex.Replace(fixedText, "([ʿʾ])[Mm]ā", "$1Amā");
+            fixedText = Regex.Replace(fixedText, "([ʿʾ])a", "$1A");
             fixedText = Regex.Replace(fixedText, "^(H̱|ẖ|ẖ)", "Kh");
             fixedText = Regex.Replace(fixedText, "^[IĪiī]s", "ʾIs");
             fixedText = Regex.Replace(fixedText, "Bā", "Ba");

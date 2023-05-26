@@ -38,16 +38,17 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("دمشق", "Dimašq")]
         [TestCase("رام الله", "Rām Allāh")]
         [TestCase("روما", "Rūmā")]
+        [TestCase("رومان سور ديزير", "Rūmān al-Dīzīr")]
         [TestCase("سُورِيَا", "Sūriyā")]
         [TestCase("عَسْقَلَان", "ʿAsqalān")]
         [TestCase("غَزَّة", "Ġazzah")]
         [TestCase("فتح", "Fatḥ")]
         [TestCase("فِلَسْطِينَ", "Filasṭīn")]
         [TestCase("فهرج", "Fahraǧ")]
+        [TestCase("قرنين", "Qarnīn")]
         [TestCase("مَنْف", "Manf")]
         [TestCase("هرتسليا", "Hirtsiliyā")]
         [TestCase("يوانينا", "Īānīnā")]
-        [TestCase("رومان سور ديزير", "Rūmān al-Dīzīr")]
         public void GivenATextInArabicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string arabicText,
             string expectedTransliteratedText)
