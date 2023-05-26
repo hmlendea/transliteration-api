@@ -37,6 +37,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Пермь", "Perm")]
         [TestCase("Петровск-Порт", "Petrovsk-Port")]
         [TestCase("Петровское", "Petrovskoye")]
+        [TestCase("Роман-сюр-Изер", "Roman-na-Izere")]
         [TestCase("Ростов-на-Дону", "Rostov-na-Donu")]
         [TestCase("Самара", "Samara")]
         [TestCase("Санкт-Петербург", "Sankt-Peterburg")]

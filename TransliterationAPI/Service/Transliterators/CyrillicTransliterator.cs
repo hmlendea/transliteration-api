@@ -102,6 +102,8 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "Eka", "Yeka");
             fixedText = Regex.Replace(fixedText, "oe", "oye");
 
+            fixedText = Regex.Replace(fixedText, @"([\ \-])syur([\ \-])(.*)\b", "$1na$1$3e");
+
             return fixedText;
         }
     }
