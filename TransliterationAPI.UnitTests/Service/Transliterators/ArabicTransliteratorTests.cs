@@ -15,6 +15,8 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         }
 
         [Test]
+        [TestCase("افود", "Afūd")]
+        [TestCase("أبيدوس", "Abīdūs")]
         [TestCase("أريحا", "ʾArīḥā")]
         [TestCase("ٱلنَّقَب", "an-Naqab")]
         [TestCase("إسدود", "ʾIsdūd")]
@@ -31,6 +33,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("بئر السبع", "Biʾr as-Sabʿ")]
         [TestCase("بابل", "Babil")]
         [TestCase("تشيشيناو", "Tšīšīnāū")]
+        [TestCase("تنيس", "Tinnīs")]
         [TestCase("حَدِيثَةٌ", "Ḥadīthah")]
         [TestCase("حركة المقاومة الإسلامية", "Ḥarakah al-Muqāwamah al-ʾIslāmiyyah")]
         [TestCase("حماس", "Ḥamās")]
@@ -38,15 +41,18 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("دمشق", "Dimašq")]
         [TestCase("رام الله", "Rām Allāh")]
         [TestCase("روما", "Rūmā")]
+        [TestCase("رومان سور ديزير", "Rūmān al-Dīzīr")]
         [TestCase("سُورِيَا", "Sūriyā")]
         [TestCase("عَسْقَلَان", "ʿAsqalān")]
         [TestCase("غَزَّة", "Ġazzah")]
         [TestCase("فتح", "Fatḥ")]
         [TestCase("فِلَسْطِينَ", "Filasṭīn")]
         [TestCase("فهرج", "Fahraǧ")]
+        [TestCase("قرنين", "Qarnīn")]
         [TestCase("مَنْف", "Manf")]
         [TestCase("هرتسليا", "Hirtsiliyā")]
         [TestCase("يوانينا", "Īānīnā")]
+        [TestCase("قَصْر الرُوم", "Qaṣr ar-Rūm")]
         public void GivenATextInArabicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string arabicText,
             string expectedTransliteratedText)
