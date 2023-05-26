@@ -96,6 +96,8 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Οὐινδόβονα", "Ouindóbona")]
         [TestCase("Παλαιστίνη", "Palaistínē")]
         [TestCase("Παλλήνη", "Pallḗnē")]
+        [TestCase("Πανόπολις", "Panópolis")]
+        [TestCase("Πανὸς πόλις", "Panὸs pólis")]
         [TestCase("Παραλία", "Paralía")]
         [TestCase("Πελοπόννησος", "Pelopónnēsos")]
         [TestCase("Ῥόδος", "Rhódos")]
@@ -106,6 +108,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Χαλάστρα", "Khalástra")]
         [TestCase("Χαλέστρη", "Khaléstrē")]
         [TestCase("Χαλκιδική", "Khalkidikḗ")]
+        [TestCase("Χέμμις", "Khémmis")]
         public void GivenATextInAncientGreekScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string ancientGreekText,
             string expectedTransliteratedText)

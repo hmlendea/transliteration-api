@@ -260,6 +260,7 @@ namespace TransliterationAPI.Service.Transliterators
             string fixedText = text;
 
             fixedText = Regex.Replace(fixedText, "Ach", "Akh");
+            fixedText = Regex.Replace(fixedText, "Ch([eé])", "Kh$1");
             fixedText = Regex.Replace(fixedText, "Cha", "Kha");
             fixedText = Regex.Replace(fixedText, "Kú", "Ký");
 
@@ -268,7 +269,7 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "([lr])[úý]", "$1ý");
             fixedText = Regex.Replace(fixedText, "[bv]([úý])", "bý");
             fixedText = Regex.Replace(fixedText, "b(ats|ion)", "v$1");
-            fixedText = Regex.Replace(fixedText, "che([ií])", "khe$1");
+            fixedText = Regex.Replace(fixedText, "ch([eé])([ií])", "kh$1$2");
             fixedText = Regex.Replace(fixedText, "óvo", "óbo");
             fixedText = Regex.Replace(fixedText, "v(ai|os|y)", "b$1");
 
