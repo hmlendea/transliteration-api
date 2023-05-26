@@ -17,6 +17,7 @@ namespace TransliterationAPI.Service
         IAncientGreekTransliterator ancientGreekTransilterator;
         IArabicTransliterator arabicTransliterator;
         ICopticTransliterator copticTransliterator;
+        ICyrillicTransliterator cyrillicTransliterator;
         IGujaratiTransliterator gujaratiTransliterator;
         IHebrewTransliterator hebrewTransliterator;
         IMarathiTransliterator marathiTransliterator;
@@ -30,6 +31,7 @@ namespace TransliterationAPI.Service
         public TransliterationService(
             IAncientGreekTransliterator ancientGreekTransilterator,
             IArabicTransliterator arabicTransliterator,
+            ICyrillicTransliterator cyrillicTransliterator,
             IGujaratiTransliterator gujaratiTransliterator,
             ICopticTransliterator copticTransliterator,
             IHebrewTransliterator hebrewTransliterator,
@@ -46,6 +48,7 @@ namespace TransliterationAPI.Service
             this.ancientGreekTransilterator = ancientGreekTransilterator;
             this.arabicTransliterator = arabicTransliterator;
             this.copticTransliterator = copticTransliterator;
+            this.cyrillicTransliterator = cyrillicTransliterator;
             this.gujaratiTransliterator = gujaratiTransliterator;
             this.hebrewTransliterator = hebrewTransliterator;
             this.marathiTransliterator = marathiTransliterator;
@@ -156,7 +159,7 @@ namespace TransliterationAPI.Service
                 case "os": // Ossetic
                     return await translitterationDotComTransliterator.Transliterate(text, "oss", "iso-9");
                 case "ru": // Russian
-                    return await translitterationDotComTransliterator.Transliterate(text, "rus", "bgn-pcgn");
+                    return cyrillicTransliterator.Transliterate(text, languageCode);
                 case "sa": // Sanskrit
                     return await ushuaiaTransliterator.Transliterate(text, "devanagari_iast_transliterate");
                 case "si": // Sinhala

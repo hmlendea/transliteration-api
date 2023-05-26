@@ -53,7 +53,7 @@ namespace TransliterationAPI.Service.Transliterators
                 fixedText = Regex.Replace(fixedText, "Mή[lt]", "Mí$1");
                 fixedText = Regex.Replace(fixedText, "Tή[m]", "Tí$1");
                 fixedText = Regex.Replace(fixedText, "ήn([iíί])$", "íni");
-                
+
                 fixedText = Regex.Replace(fixedText, "[m]ή[d]", "$1é$2");
                 fixedText = Regex.Replace(fixedText, "ήr([iíί])$", "éri");
 
@@ -95,10 +95,6 @@ namespace TransliterationAPI.Service.Transliterators
                 fixedText = fixedText.Replace("э", "e");
                 fixedText = fixedText.Replace("я", "ia");
                 fixedText = fixedText.Replace("ю", "iu");
-            }
-            else if (language == "rus")
-            {
-                fixedText = Regex.Replace(fixedText, "([a-zA-Z])Y", "$1y");
             }
 
             if (language == "iku" || language == "kat" || language == "kir" || language == "xcl")
