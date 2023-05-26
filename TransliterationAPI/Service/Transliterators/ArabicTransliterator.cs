@@ -177,6 +177,7 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "([Īī])wā", "$1ā");
             fixedText = Regex.Replace(fixedText, "([Nn])m", "$1im");
             fixedText = Regex.Replace(fixedText, "([Qq])f", "$1if");
+            fixedText = Regex.Replace(fixedText, "([Tt])n", "$1inn");
             fixedText = Regex.Replace(fixedText, "([ʿʾ])[Mm]ā", "$1Amā");
             fixedText = Regex.Replace(fixedText, "([ʿʾ])a", "$1A");
             fixedText = Regex.Replace(fixedText, "^(H̱|ẖ|ẖ)", "Kh");

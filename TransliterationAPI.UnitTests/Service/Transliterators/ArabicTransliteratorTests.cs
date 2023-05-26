@@ -31,6 +31,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("بئر السبع", "Biʾr as-Sabʿ")]
         [TestCase("بابل", "Babil")]
         [TestCase("تشيشيناو", "Tšīšīnāū")]
+        [TestCase("تنيس", "Tinnīs")]
         [TestCase("حَدِيثَةٌ", "Ḥadīthah")]
         [TestCase("حركة المقاومة الإسلامية", "Ḥarakah al-Muqāwamah al-ʾIslāmiyyah")]
         [TestCase("حماس", "Ḥamās")]
