@@ -1,18 +1,22 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using System.Text;
 using System.Text.RegularExpressions;
 
+using NuciDAL.Repositories;
+
+using TransliterationAPI.Configuration;
+using TransliterationAPI.Service.Entities;
 using TransliterationAPI.Service.Transliterators;
-using System.Text;
 
 namespace TransliterationAPI.Service
 {
     public class TransliterationService : ITransliterationService
     {
-        IDictionary<string, string> cache;
+        IRepository<CachedTransliteration> cache;
+        CacheSettings cacheSettings;
 
         IAncientGreekTransliterator ancientGreekTransilterator;
         IArabicTransliterator arabicTransliterator;
@@ -41,9 +45,12 @@ namespace TransliterationAPI.Service
             IJapaneseTransliterator japaneseTransliterator,
             IThailitTransliterator thailitTransliterator,
             ITranslitterationDotComTransliterator translitterationDotComTransliterator,
-            IUshuaiaTransliterator ushuaiaTransliterator)
+            IUshuaiaTransliterator ushuaiaTransliterator,
+            IRepository<CachedTransliteration> cache,
+            CacheSettings cacheSettings)
         {
-            this.cache = new Dictionary<string, string>();
+            this.cache = cache;
+            this.cacheSettings = cacheSettings;
 
             this.ancientGreekTransilterator = ancientGreekTransilterator;
             this.arabicTransliterator = arabicTransliterator;
@@ -63,21 +70,28 @@ namespace TransliterationAPI.Service
         public async Task<string> Transliterate(string text, string languageCode)
         {
             string normalisedText = NormaliseText(text);
-            string cacheKey = GetCacheId(normalisedText, languageCode);
+            string cacheId = GetCacheId(normalisedText, languageCode);
 
-            if (cache.ContainsKey(cacheKey))
+            CachedTransliteration transliteration = cache.TryGet(cacheId);
+
+            if (transliteration is not null)
             {
-                return cache[cacheKey];
+                return transliteration.TransliteratedText;
             }
 
-            string transliteratedText = await TryGetTransliteratedText(normalisedText, languageCode);
-
-            if (!string.IsNullOrWhiteSpace(transliteratedText))
+            transliteration = new CachedTransliteration()
             {
-                cache.Add(cacheKey, transliteratedText);
+                Id = cacheId,
+                TransliteratedText = await TryGetTransliteratedText(normalisedText, languageCode)
+            };
+
+            if (!string.IsNullOrWhiteSpace(transliteration.TransliteratedText))
+            {
+                cache.Add(transliteration);
+                cache.ApplyChanges();
             }
 
-            return transliteratedText;
+            return transliteration.TransliteratedText;
         }
 
         async Task<string> TryGetTransliteratedText(string text, string languageCode)
@@ -196,7 +210,7 @@ namespace TransliterationAPI.Service
         string GetCacheId(string text, string languageCode)
         {
             string textUnicodes = string.Join('-', text.Select(c => (int)c));
-            string cacheKey = $"{languageCode}_{textUnicodes}";
+            string cacheKey = $"{languageCode}_{textUnicodes}_{cacheSettings.ApplicationVersion}";
             cacheKey = GetSha256FromString(cacheKey);
 
             return cacheKey;
