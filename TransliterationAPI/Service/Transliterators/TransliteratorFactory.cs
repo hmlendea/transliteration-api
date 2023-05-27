@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
 using TransliterationAPI.Service.Entities;
@@ -7,6 +8,13 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class TransliteratorFactory : ITransliteratorFactory
     {
+        readonly Assembly assembly;
+
+        public TransliteratorFactory()
+        {
+            assembly = Assembly.GetExecutingAssembly();
+        }
+
         public IExternalTransliterator GetExternalTransliterator(Language language)
             => language.Transliterator switch
             {
@@ -18,18 +26,23 @@ namespace TransliterationAPI.Service.Transliterators
             };
 
         public ITransliterator GetTransliterator(Language language)
-            => language.Transliterator switch
+            => GetTransliteratorInstance<ITransliterator>(language.Transliterator);
+
+        private TTransliteratorInterface GetTransliteratorInstance<TTransliteratorInterface>(string transliteratorClassName)
+        {
+            Type transliteratorType = GetTransliteratorType(transliteratorClassName);
+
+            try
             {
-                nameof(AncientGreekTransliterator) => Startup.ServiceProvider.GetService<AncientGreekTransliterator>(),
-                nameof(ArabicTransliterator) => Startup.ServiceProvider.GetService<ArabicTransliterator>(),
-                nameof(CopticTransliterator) => Startup.ServiceProvider.GetService<CopticTransliterator>(),
-                nameof(CyrillicTransliterator) => Startup.ServiceProvider.GetService<CyrillicTransliterator>(),
-                nameof(GujaratiTransliterator) => Startup.ServiceProvider.GetService<GujaratiTransliterator>(),
-                nameof(HebrewTransliterator) => Startup.ServiceProvider.GetService<HebrewTransliterator>(),
-                nameof(JapaneseTransliterator) => Startup.ServiceProvider.GetService<JapaneseTransliterator>(),
-                nameof(MarathiTransliterator) => Startup.ServiceProvider.GetService<MarathiTransliterator>(),
-                nameof(PinyinTransliterator) => Startup.ServiceProvider.GetService<PinyinTransliterator>(),
-                _ => throw new ArgumentException($"The \"{language.Transliterator}\" internal transliterator is not registered!")
-            };
+                return (TTransliteratorInterface)Activator.CreateInstance(transliteratorType);
+            }
+            catch
+            {
+                throw new ArgumentException($"The {transliteratorClassName} transliterator is not registered!");
+            }
+        }
+
+        private Type GetTransliteratorType(string transliteratorClassName)
+            => assembly.GetType($"{nameof(TransliterationAPI)}.{nameof(Service)}.{nameof(Transliterators)}.{transliteratorClassName}");
     }
 }
