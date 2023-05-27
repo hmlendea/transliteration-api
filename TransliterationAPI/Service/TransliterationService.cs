@@ -175,7 +175,7 @@ namespace TransliterationAPI.Service
                 case "udm": // Udmurt
                     return await translitterationDotComTransliterator.Transliterate(text, "udm", "bgn-pcgn");
                 case "uk": // Ukrainian
-                    return await translitterationDotComTransliterator.Transliterate(text, "ukr", "bgn-pcgn");
+                    return cyrillicTransliterator.Transliterate(text, "uk");
                 case "zh": // Chinese
                 case "zh-hans": // Simplified Chinese
                     return pinyinTransliterator.Transliterate(text);

@@ -11,6 +11,7 @@ namespace TransliterationAPI.Service.Transliterators
 
         Dictionary<string, string> bulgarianTransliterationTable;
         Dictionary<string, string> russianTransliterationTable;
+        Dictionary<string, string> ukrainianTransliterationTable;
 
         public CyrillicTransliterator()
         {
@@ -98,6 +99,32 @@ namespace TransliterationAPI.Service.Transliterators
 
             russianTransliterationTable = new Dictionary<string, string>();
 
+            ukrainianTransliterationTable = new Dictionary<string, string>
+            {
+                { @"ія\b", "ia" },
+                { @"\b([Сс])и", "$1i" },
+
+                { "Г", "H" },
+                { "Є", "Ye" },
+                { "И", "Y" },
+                { "І", "I" },
+                { "Ї", "I" },
+                { "Й", "I" },
+                { "О́", "Ó" },
+                { "Я", "Ya" },
+
+                { "г", "h" },
+                { "є", "ie" },
+                { "и", "y" },
+                { "і", "i" },
+                { "ї", "i" },
+                { "й", "i" },
+                { "о́", "ó" },
+                { "я", "ia" },
+
+                { "'", "" },
+            };
+
             foreach (var characterTransliteration in bgnPcgnTransliterationTable)
             {
                 if (!bulgarianTransliterationTable.ContainsKey(characterTransliteration.Key))
@@ -108,6 +135,11 @@ namespace TransliterationAPI.Service.Transliterators
                 if (!russianTransliterationTable.ContainsKey(characterTransliteration.Key))
                 {
                     russianTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
+                }
+
+                if (!ukrainianTransliterationTable.ContainsKey(characterTransliteration.Key))
+                {
+                    ukrainianTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
                 }
             }
         }
@@ -124,9 +156,13 @@ namespace TransliterationAPI.Service.Transliterators
             {
                 transliterationTable = russianTransliterationTable;
             }
+            else if (languageCode.Equals("uk"))
+            {
+                transliterationTable = ukrainianTransliterationTable;
+            }
             else
             {
-                throw new ArgumentException($"The '{languageCode}' language is not supported in the {nameof(CyrillicTransliterator)}");
+                throw new ArgumentException($"The '{languageCode}' language is not supported by the {nameof(CyrillicTransliterator)}");
             }
 
             string transliteratedText = text;
@@ -136,11 +172,6 @@ namespace TransliterationAPI.Service.Transliterators
                 transliteratedText = Regex.Replace(transliteratedText, character, transliterationTable[character]);
             }
 
-            //if (languageCode.Equals("bg"))
-            //{
-            //    transliteratedText = ApplyBulgarianFixes(transliteratedText);
-            //}
-            //else
             if (languageCode.Equals("ru"))
             {
                 transliteratedText = ApplyRussianFixes(transliteratedText);
