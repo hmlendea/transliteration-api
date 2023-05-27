@@ -14,7 +14,6 @@ namespace TransliterationAPI.Service.Transliterators
 
         public ArabicTransliterator()
         {
-            System.Console.WriteLine("INSIDE");
             transliterationTable = new Dictionary<string, string>()
             {
                 { "ا", "ā" },
@@ -65,7 +64,6 @@ namespace TransliterationAPI.Service.Transliterators
         public string Transliterate(string text, Language language)
         {
             string transliteratedText = text;
-            System.Console.WriteLine("TRANSLIT");
 
             if (language.Equals(Language.MaghrebiArabic))
             {
