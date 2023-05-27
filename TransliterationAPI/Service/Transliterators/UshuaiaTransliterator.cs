@@ -21,30 +21,11 @@ namespace TransliterationAPI.Service.Transliterators
             this.httpRequestManager = httpRequestManager;
         }
 
-        public async Task<string> Transliterate(string text, string language)
+        public async Task<string> Transliterate(string text, string languageCode)
         {
-            IDictionary<string, string> formData = new Dictionary<string, string>
-            {
-                { "text", text },
-                { "lang", language }
-            };
+            string transliteratedText = await SendTransliterationRequest(text, languageCode);
 
-            if ((DateTime.Now - cookieDate).TotalMinutes > 5)
-            {
-                string cookies = await httpRequestManager.RetrieveCookies("https://www.ushuaia.pl/transliterate/");
-                sessionCookieValue = Regex.Replace(cookies, "translit=([^;]*).*", "$1");
-                cookieDate = DateTime.Now;
-            }
-
-            IDictionary<string, string> headers = new Dictionary<string, string>
-            {
-                { "Cookie", $"translit={sessionCookieValue};lastlang={language}" }
-            };
-
-            string response = await httpRequestManager.Post("https://www.ushuaia.pl/transliterate/transliterate.php", formData, headers);
-            string transliteratedText = ApplyFixes(response, language);
-
-            return transliteratedText;
+            return ApplyFixes(transliteratedText, languageCode);
         }
 
         string ApplyFixes(string text, string languageCode)
@@ -76,13 +57,20 @@ namespace TransliterationAPI.Service.Transliterators
             return fixedText;
         }
 
-        private IDictionary<string, string> BuildFormData(string text, string languageCode)
+        private async Task<string> SendTransliterationRequest(string text, string languageCode)
         {
             IDictionary<string, string> formData = new Dictionary<string, string>
             {
                 { "text", text},
                 { "lang", string.Empty }
             };
+
+            if ((DateTime.Now - cookieDate).TotalMinutes > 5)
+            {
+                string cookies = await httpRequestManager.RetrieveCookies("https://www.ushuaia.pl/transliterate/");
+                sessionCookieValue = Regex.Replace(cookies, "translit=([^;]*).*", "$1");
+                cookieDate = DateTime.Now;
+            }
 
             if (languageCode.Equals(Language.Bengali))
             {
@@ -129,7 +117,12 @@ namespace TransliterationAPI.Service.Transliterators
                 throw new ArgumentException($"The \"{languageCode}\" language is not supported by {nameof(UshuaiaTransliterator)}!");
             }
 
-            return formData;
+            IDictionary<string, string> headers = new Dictionary<string, string>
+            {
+                { "Cookie", $"translit={sessionCookieValue};lastlang={formData["lang"]}" }
+            };
+
+            return await httpRequestManager.Post("https://www.ushuaia.pl/transliterate/transliterate.php", formData, headers);
         }
     }
 }

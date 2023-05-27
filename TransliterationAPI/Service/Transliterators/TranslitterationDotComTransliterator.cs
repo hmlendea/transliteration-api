@@ -20,11 +20,9 @@ namespace TransliterationAPI.Service.Transliterators
 
         public async Task<string> Transliterate(string text, string languageCode)
         {
-            IDictionary<string, string> formData = BuildFormData(text, languageCode);
-            string response = await httpRequestManager.Post("https://www.translitteration.com/ajax/en/transliterate", formData);
-            string rawTransliteratedText = response.Replace("ack:::", "");
+            string transliteratedText = await SendTransliterationRequest(text, languageCode);
 
-            return ApplyLanguageSpecificFixes(rawTransliteratedText, languageCode);
+            return ApplyLanguageSpecificFixes(transliteratedText, languageCode);
         }
 
         private string ApplyLanguageSpecificFixes(string text, string languageCode)
@@ -96,7 +94,8 @@ namespace TransliterationAPI.Service.Transliterators
             if (languageCode.Equals(Language.Armenian) ||
                 languageCode.Equals(Language.Georgian) ||
                 languageCode.Equals(Language.Inuttitut) ||
-                languageCode.Equals(Language.Kyrgyz))
+                languageCode.Equals(Language.Kyrgyz) ||
+                languageCode.Equals(Language.MacedonianSlavic))
             {
                 fixedText = fixedText.ToTitleCase();
             }
@@ -104,7 +103,7 @@ namespace TransliterationAPI.Service.Transliterators
             return fixedText;
         }
 
-        private IDictionary<string, string> BuildFormData(string text, string languageCode)
+        private async Task<string> SendTransliterationRequest(string text, string languageCode)
         {
             IDictionary<string, string> formData = new Dictionary<string, string>
             {
@@ -199,7 +198,9 @@ namespace TransliterationAPI.Service.Transliterators
                 throw new ArgumentException($"The \"{languageCode}\" language is not supported by {nameof(TranslitterationDotComTransliterator)}!");
             }
 
-            return formData;
+            string response = await httpRequestManager.Post("https://www.translitteration.com/ajax/en/transliterate", formData);
+
+            return response.Replace("ack:::", "");
         }
     }
 }
