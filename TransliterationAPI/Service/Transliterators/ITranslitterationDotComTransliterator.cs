@@ -4,6 +4,6 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public interface ITranslitterationDotComTransliterator
     {
-        Task<string> Transliterate(string text, string language, string scheme);
+        Task<string> Transliterate(string text, string languageCode);
     }
 }
