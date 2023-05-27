@@ -6,12 +6,9 @@
 
   <ItemGroup>
     <PackageReference Include="CHSPinYinConv" Version="1.0.0" />
+    <PackageReference Include="NuciDAL" Version="2.1.0" />
     <PackageReference Include="NuciExtensions" Version="1.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="../../nucidal/NuciDAL.csproj" />
   </ItemGroup>
 
 </Project>
