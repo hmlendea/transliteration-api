@@ -1,6 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+
+using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
@@ -227,21 +228,15 @@ namespace TransliterationAPI.Service.Transliterators
             };
         }
 
-        public string Transliterate(string text)
-            => Transliterate(text, null);
-
-        public string Transliterate(string text, string languageCode)
+        public string Transliterate(string text, Language language)
         {
             string transliteratedText = text;
 
-            if (!string.IsNullOrWhiteSpace(languageCode))
+            if(language.Equals(Language.AncientGreekDoric))
             {
-                if(languageCode.Equals("grc-dor", StringComparison.InvariantCultureIgnoreCase))
+                foreach (string character in doricTransliterationTable.Keys)
                 {
-                    foreach (string character in doricTransliterationTable.Keys)
-                    {
-                        transliteratedText = Regex.Replace(transliteratedText, character, doricTransliterationTable[character]);
-                    }
+                    transliteratedText = Regex.Replace(transliteratedText, character, doricTransliterationTable[character]);
                 }
             }
 

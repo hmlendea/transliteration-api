@@ -3,6 +3,8 @@ using System.Text.RegularExpressions;
 
 using NuciExtensions;
 
+using TransliterationAPI.Service.Entities;
+
 namespace TransliterationAPI.Service.Transliterators
 {
     public class JapaneseTransliterator : ITransliterator
@@ -123,7 +125,7 @@ namespace TransliterationAPI.Service.Transliterators
 
         }
 
-        public string Transliterate(string text, string languageCode)
+        public string Transliterate(string text, Language language)
         {
             string transliteratedText = string.Empty;
 

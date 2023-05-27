@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 using NuciExtensions;
 
+using TransliterationAPI.Service.Entities;
+
 namespace TransliterationAPI.Service.Transliterators
 {
     public class ThailitTransliterator : IExternalTransliterator
@@ -16,7 +18,7 @@ namespace TransliterationAPI.Service.Transliterators
             this.httpRequestManager = httpRequestManager;
         }
 
-        public async Task<string> Transliterate(string text, string languageCode)
+        public async Task<string> Transliterate(string text, Language language)
         {
             IDictionary<string, string> formData = new Dictionary<string, string>
             {

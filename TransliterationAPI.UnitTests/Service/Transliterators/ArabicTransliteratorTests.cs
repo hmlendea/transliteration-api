@@ -1,12 +1,13 @@
 using NUnit.Framework;
 
+using TransliterationAPI.Service.Entities;
 using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
     public class ArabicTransliteratorTests
     {
-        private IArabicTransliterator transliterator;
+        private ITransliterator transliterator;
 
         [SetUp]
         public void SetUp()
@@ -59,6 +60,6 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         public void GivenATextInArabicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string arabicText,
             string expectedTransliteratedText)
-            => Assert.That(transliterator.Transliterate(arabicText, "ar"), Is.EqualTo(expectedTransliteratedText));
+            => Assert.That(transliterator.Transliterate(arabicText, Language.Arabic), Is.EqualTo(expectedTransliteratedText));
     }
 }

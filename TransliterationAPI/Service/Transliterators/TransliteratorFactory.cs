@@ -5,7 +5,7 @@ using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class TransliteratorFactory
+    public class TransliteratorFactory : ITransliteratorFactory
     {
         public IExternalTransliterator GetExternalTransliterator(Language language)
             => language.Transliterator switch
@@ -17,7 +17,7 @@ namespace TransliterationAPI.Service.Transliterators
                 _ => throw new ArgumentException($"The \"{language.Transliterator}\" external transliterator is not registered!")
             };
 
-        public ITransliterator GetInternalTransliterator(Language language)
+        public ITransliterator GetTransliterator(Language language)
             => language.Transliterator switch
             {
                 nameof(AncientGreekTransliterator) => Startup.ServiceProvider.GetService<AncientGreekTransliterator>(),

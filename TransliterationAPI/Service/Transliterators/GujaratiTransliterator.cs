@@ -2,18 +2,13 @@ using System.Text.RegularExpressions;
 
 using NuciExtensions;
 
+using TransliterationAPI.Service.Entities;
+
 namespace TransliterationAPI.Service.Transliterators
 {
     public class GujaratiTransliterator : ITransliterator
     {
-        IHttpRequestManager httpRequestManager;
-
-        public GujaratiTransliterator(IHttpRequestManager httpRequestManager)
-        {
-            this.httpRequestManager = httpRequestManager;
-        }
-
-        public string Transliterate(string text, string languageCode)
+        public string Transliterate(string text, Language language)
         {
             string[] guc = new string[] { "ક", "ખ", "ગ", "ઘ", "ચ", "છ", "જ", "ઝ", "ટ", "ઠ", "ડ", "ઢ", "ણ", "ત", "થ", "દ", "ધ", "ન", "પ", "ફ", "બ", "ભ", "મ", "ય", "ર", "લ", "વ", "શ", "ષ", "સ", "હ", "ળ", "ઞ" };
             string[] enc = new string[] { "ka", "kha", "ga", "gha", "cha", "chha", "ja", "za", "ṭa", "ṭha", "ḍa", "ḍha", "ṇa", "ta", "tha", "da", "dha", "na", "pa", "fa", "ba", "bha", "ma", "ya", "ra", "la", "va", "sha", "ṣha", "sa", "ha", "ḷa", "nya" };

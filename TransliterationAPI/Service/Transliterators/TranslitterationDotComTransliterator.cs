@@ -18,18 +18,18 @@ namespace TransliterationAPI.Service.Transliterators
             this.httpRequestManager = httpRequestManager;
         }
 
-        public async Task<string> Transliterate(string text, string languageCode)
+        public async Task<string> Transliterate(string text, Language language)
         {
-            string transliteratedText = await SendTransliterationRequest(text, languageCode);
+            string transliteratedText = await SendTransliterationRequest(text, language);
 
-            return ApplyLanguageSpecificFixes(transliteratedText, languageCode);
+            return ApplyFixes(transliteratedText, language);
         }
 
-        private string ApplyLanguageSpecificFixes(string text, string languageCode)
+        private string ApplyFixes(string text, Language language)
         {
             string fixedText = text;
 
-            if (languageCode.Equals(Language.Belarussian))
+            if (language.Equals(Language.Belarussian))
             {
                 fixedText = Regex.Replace(fixedText, "([a-zA-Z])H", "$1h");
                 fixedText = Regex.Replace(fixedText, "([a-zA-Z])S", "$1s");
@@ -38,11 +38,11 @@ namespace TransliterationAPI.Service.Transliterators
                 fixedText = Regex.Replace(fixedText, "([a-zA-Z])Z", "$1z");
                 fixedText = Regex.Replace(fixedText, "([a-zA-Z])Ž", "$1ž");
             }
-            else if (languageCode.Equals(Language.Chuvash))
+            else if (language.Equals(Language.Chuvash))
             {
                 fixedText = fixedText.Replace("i͡", "y");
             }
-            else if (languageCode.Equals(Language.Greek)) // Modern Greek
+            else if (language.Equals(Language.Greek)) // Modern Greek
             {
                 fixedText = Regex.Replace(fixedText, "Mή[lt]", "Mí$1");
                 fixedText = Regex.Replace(fixedText, "Tή[m]", "Tí$1");
@@ -73,12 +73,12 @@ namespace TransliterationAPI.Service.Transliterators
                 fixedText = Regex.Replace(fixedText, "([r])nt", "$1d");
                 fixedText = Regex.Replace(fixedText, "([nrs])mp", "$1b");
             }
-            else if (languageCode.Equals(Language.Inuttitut))
+            else if (language.Equals(Language.Inuttitut))
             {
                 fixedText = fixedText.Replace("ᐄ", "i");
                 fixedText = fixedText.Replace("ᐆ", "u");
             }
-            else if (languageCode.Equals(Language.Kazakh))
+            else if (language.Equals(Language.Kazakh))
             {
                 fixedText = fixedText.Replace("Ц", "C");
                 fixedText = fixedText.Replace("Э", "E");
@@ -91,11 +91,11 @@ namespace TransliterationAPI.Service.Transliterators
                 fixedText = fixedText.Replace("ю", "iu");
             }
 
-            if (languageCode.Equals(Language.Armenian) ||
-                languageCode.Equals(Language.Georgian) ||
-                languageCode.Equals(Language.Inuttitut) ||
-                languageCode.Equals(Language.Kyrgyz) ||
-                languageCode.Equals(Language.MacedonianSlavic))
+            if (language.Equals(Language.Armenian) ||
+                language.Equals(Language.Georgian) ||
+                language.Equals(Language.Inuttitut) ||
+                language.Equals(Language.Kyrgyz) ||
+                language.Equals(Language.MacedonianSlavic))
             {
                 fixedText = fixedText.ToTitleCase();
             }

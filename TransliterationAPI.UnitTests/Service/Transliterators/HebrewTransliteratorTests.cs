@@ -1,12 +1,13 @@
 using NUnit.Framework;
 
+using TransliterationAPI.Service.Entities;
 using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
     public class HebrewTransliteratorTests
     {
-        private IHebrewTransliterator transliterator;
+        private ITransliterator transliterator;
 
         [SetUp]
         public void SetUp()
@@ -47,6 +48,6 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         public void GivenATextInHebrewScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string hebrewText,
             string expectedTransliteratedText)
-            => Assert.That(transliterator.Transliterate(hebrewText), Is.EqualTo(expectedTransliteratedText));
+            => Assert.That(transliterator.Transliterate(hebrewText, Language.Hebrew), Is.EqualTo(expectedTransliteratedText));
     }
 }

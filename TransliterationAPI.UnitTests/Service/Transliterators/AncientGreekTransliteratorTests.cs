@@ -1,12 +1,13 @@
 using NUnit.Framework;
 
+using TransliterationAPI.Service.Entities;
 using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
     public class AncientGreekTransliteratorTests
     {
-        private IAncientGreekTransliterator transliterator;
+        private ITransliterator transliterator;
 
         [SetUp]
         public void SetUp()
@@ -117,7 +118,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         public void GivenATextInAncientGreekScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string ancientGreekText,
             string expectedTransliteratedText)
-            => Assert.That(transliterator.Transliterate(ancientGreekText, "grc"), Is.EqualTo(expectedTransliteratedText));
+            => Assert.That(transliterator.Transliterate(ancientGreekText, Language.AncientGreek), Is.EqualTo(expectedTransliteratedText));
 
         [Test]
         [TestCase("Ᾰθῆναι", "Athênai")]
@@ -140,6 +141,6 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         public void GivenATextInAncientGreekDoricScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string ancientGreekDoricText,
             string expectedTransliteratedText)
-            => Assert.That(transliterator.Transliterate(ancientGreekDoricText, "grc-dor"), Is.EqualTo(expectedTransliteratedText));
+            => Assert.That(transliterator.Transliterate(ancientGreekDoricText, Language.AncientGreekDoric), Is.EqualTo(expectedTransliteratedText));
     }
 }

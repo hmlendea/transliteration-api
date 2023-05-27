@@ -3,6 +3,8 @@ using System.Text.RegularExpressions;
 
 using NuciExtensions;
 
+using TransliterationAPI.Service.Entities;
+
 namespace TransliterationAPI.Service.Transliterators
 {
     public class CopticTransliterator : ITransliterator
@@ -93,10 +95,7 @@ namespace TransliterationAPI.Service.Transliterators
             };
         }
 
-        public string Transliterate(string text)
-            => Transliterate(text, null);
-
-        public string Transliterate(string text, string variant)
+        public string Transliterate(string text, Language language)
         {
             string transliteratedText = text;
 

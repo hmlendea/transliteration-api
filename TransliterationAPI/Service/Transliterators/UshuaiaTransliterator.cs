@@ -21,31 +21,31 @@ namespace TransliterationAPI.Service.Transliterators
             this.httpRequestManager = httpRequestManager;
         }
 
-        public async Task<string> Transliterate(string text, string languageCode)
+        public async Task<string> Transliterate(string text, Language language)
         {
-            string transliteratedText = await SendTransliterationRequest(text, languageCode);
+            string transliteratedText = await SendTransliterationRequest(text, language);
 
-            return ApplyFixes(transliteratedText, languageCode);
+            return ApplyFixes(transliteratedText, language);
         }
 
-        string ApplyFixes(string text, string languageCode)
+        string ApplyFixes(string text, Language language)
         {
             string fixedText = text;
 
-            if (languageCode.Equals(Language.Bengali) ||
-                languageCode.Equals(Language.Hindi) ||
-                languageCode.Equals(Language.Kannada) ||
-                languageCode.Equals(Language.Korean) ||
-                languageCode.Equals(Language.Malayalam) ||
-                languageCode.Equals(Language.Sanskrit) ||
-                languageCode.Equals(Language.Sinhala) ||
-                languageCode.Equals(Language.Tamil) ||
-                languageCode.Equals(Language.Telugu))
+            if (language.Equals(Language.Bengali) ||
+                language.Equals(Language.Hindi) ||
+                language.Equals(Language.Kannada) ||
+                language.Equals(Language.Korean) ||
+                language.Equals(Language.Malayalam) ||
+                language.Equals(Language.Sanskrit) ||
+                language.Equals(Language.Sinhala) ||
+                language.Equals(Language.Tamil) ||
+                language.Equals(Language.Telugu))
             {
                 fixedText = fixedText.ToTitleCase();
             }
 
-            if (languageCode.Equals(Language.Korean))
+            if (language.Equals(Language.Korean))
             {
                 fixedText = fixedText
                     .Replace("ǒ", "ŏ")
@@ -57,7 +57,7 @@ namespace TransliterationAPI.Service.Transliterators
             return fixedText;
         }
 
-        private async Task<string> SendTransliterationRequest(string text, string languageCode)
+        private async Task<string> SendTransliterationRequest(string text, Language language)
         {
             IDictionary<string, string> formData = new Dictionary<string, string>
             {
@@ -72,49 +72,49 @@ namespace TransliterationAPI.Service.Transliterators
                 cookieDate = DateTime.Now;
             }
 
-            if (languageCode.Equals(Language.Bengali))
+            if (language.Equals(Language.Bengali))
             {
                 formData["lang"] = "bengali_iso_transliterate";
             }
-            else if (languageCode.Equals(Language.Hindi))
+            else if (language.Equals(Language.Hindi))
             {
                 formData["lang"] = "devanagari_hunt_transcribe";
             }
-            else if (languageCode.Equals(Language.Kannada))
+            else if (language.Equals(Language.Kannada))
             {
                 formData["lang"] = "kannada_iso_transliterate";
             }
-            else if (languageCode.Equals(Language.Korean))
+            else if (language.Equals(Language.Korean))
             {
                 formData["lang"] = "hangul_mr_transcribe";
             }
-            else if (languageCode.Equals(Language.Malayalam))
+            else if (language.Equals(Language.Malayalam))
             {
                 formData["lang"] = "malayalam_iso_transliterate";
             }
-            else if (languageCode.Equals(Language.Mongol))
+            else if (language.Equals(Language.Mongol))
             {
                 formData["lang"] = "mongolian_mns_transliterate";
             }
-            else if (languageCode.Equals(Language.Sanskrit))
+            else if (language.Equals(Language.Sanskrit))
             {
                 formData["lang"] = "devanagari_iast_transliterate";
             }
-            else if (languageCode.Equals(Language.Sinhala))
+            else if (language.Equals(Language.Sinhala))
             {
                 formData["lang"] = "sinhala_iso_transliterate";
             }
-            else if (languageCode.Equals(Language.Tamil))
+            else if (language.Equals(Language.Tamil))
             {
                 formData["lang"] = "tamil_iso_transliterate";
             }
-            else if (languageCode.Equals(Language.Telugu))
+            else if (language.Equals(Language.Telugu))
             {
                 formData["lang"] = "telugu_iso_transliterate";
             }
             else
             {
-                throw new ArgumentException($"The \"{languageCode}\" language is not supported by {nameof(UshuaiaTransliterator)}!");
+                throw new ArgumentException($"The \"{language}\" language is not supported by {nameof(UshuaiaTransliterator)}!");
             }
 
             IDictionary<string, string> headers = new Dictionary<string, string>

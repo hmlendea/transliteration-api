@@ -1,8 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using NuciExtensions;
+
+using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
@@ -13,6 +14,7 @@ namespace TransliterationAPI.Service.Transliterators
 
         public ArabicTransliterator()
         {
+            System.Console.WriteLine("INSIDE");
             transliterationTable = new Dictionary<string, string>()
             {
                 { "ا", "ā" },
@@ -60,11 +62,12 @@ namespace TransliterationAPI.Service.Transliterators
             };
         }
 
-        public string Transliterate(string text, string languageCode)
+        public string Transliterate(string text, Language language)
         {
             string transliteratedText = text;
+            System.Console.WriteLine("TRANSLIT");
 
-            if (languageCode.Equals("ary", StringComparison.InvariantCultureIgnoreCase))
+            if (language.Equals(Language.MaghrebiArabic))
             {
                 foreach (string character in maghrebiTransliterationTable.Keys)
                 {

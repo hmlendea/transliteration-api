@@ -6,11 +6,13 @@ using Microsoft.International.Converters.PinYinConverter;
 
 using NuciExtensions;
 
+using TransliterationAPI.Service.Entities;
+
 namespace TransliterationAPI.Service.Transliterators
 {
     public class PinyinTransliterator : ITransliterator
     {
-        public string Transliterate(string text, string languageCode)
+        public string Transliterate(string text, Language language)
         {
             string numericalPinYin = string.Empty;
 
