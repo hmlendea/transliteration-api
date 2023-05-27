@@ -4,7 +4,7 @@ using NuciExtensions;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class GujaratiTransliterator : IGujaratiTransliterator
+    public class GujaratiTransliterator : ITransliterator
     {
         IHttpRequestManager httpRequestManager;
 
@@ -13,7 +13,7 @@ namespace TransliterationAPI.Service.Transliterators
             this.httpRequestManager = httpRequestManager;
         }
 
-        public string Transliterate(string text)
+        public string Transliterate(string text, string languageCode)
         {
             string[] guc = new string[] { "ક", "ખ", "ગ", "ઘ", "ચ", "છ", "જ", "ઝ", "ટ", "ઠ", "ડ", "ઢ", "ણ", "ત", "થ", "દ", "ધ", "ન", "પ", "ફ", "બ", "ભ", "મ", "ય", "ર", "લ", "વ", "શ", "ષ", "સ", "હ", "ળ", "ઞ" };
             string[] enc = new string[] { "ka", "kha", "ga", "gha", "cha", "chha", "ja", "za", "ṭa", "ṭha", "ḍa", "ḍha", "ṇa", "ta", "tha", "da", "dha", "na", "pa", "fa", "ba", "bha", "ma", "ya", "ra", "la", "va", "sha", "ṣha", "sa", "ha", "ḷa", "nya" };

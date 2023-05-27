@@ -6,7 +6,7 @@ using NuciExtensions;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class MarathiTransliterator : IMarathiTransliterator
+    public class MarathiTransliterator : ITransliterator
     {
         Dictionary<string, string> transliterationTable;
 
@@ -132,7 +132,7 @@ namespace TransliterationAPI.Service.Transliterators
             };
         }
 
-        public string Transliterate(string text)
+        public string Transliterate(string text, string languageCode)
         {
             string transliteratedText = text;
 

@@ -20,7 +20,7 @@ namespace TransliterationAPI
         }
 
         public IConfiguration Configuration { get; }
-        public IServiceProvider ServiceProvider { get; private set; }
+        public static IServiceProvider ServiceProvider { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)

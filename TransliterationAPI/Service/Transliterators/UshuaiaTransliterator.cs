@@ -9,7 +9,7 @@ using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class UshuaiaTransliterator : IUshuaiaTransliterator
+    public class UshuaiaTransliterator : IExternalTransliterator
     {
         IHttpRequestManager httpRequestManager;
 

@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class AncientGreekTransliterator : IAncientGreekTransliterator
+    public class AncientGreekTransliterator : ITransliterator
     {
         Dictionary<string, string> transliterationTable;
         Dictionary<string, string> doricTransliterationTable;

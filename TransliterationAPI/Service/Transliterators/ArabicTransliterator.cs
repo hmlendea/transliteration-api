@@ -6,7 +6,7 @@ using NuciExtensions;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class ArabicTransliterator : IArabicTransliterator
+    public class ArabicTransliterator : ITransliterator
     {
         Dictionary<string, string> transliterationTable;
         Dictionary<string, string> maghrebiTransliterationTable;

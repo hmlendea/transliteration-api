@@ -7,7 +7,7 @@ using NuciExtensions;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class ThailitTransliterator : IThailitTransliterator
+    public class ThailitTransliterator : IExternalTransliterator
     {
         IHttpRequestManager httpRequestManager;
 
@@ -16,7 +16,7 @@ namespace TransliterationAPI.Service.Transliterators
             this.httpRequestManager = httpRequestManager;
         }
 
-        public async Task<string> Transliterate(string text)
+        public async Task<string> Transliterate(string text, string languageCode)
         {
             IDictionary<string, string> formData = new Dictionary<string, string>
             {
@@ -32,7 +32,7 @@ namespace TransliterationAPI.Service.Transliterators
         private string ApplyFixes(string text)
         {
             string fixedText = text;
-            
+
             fixedText = fixedText.Replace("- ", "-");
             fixedText = Regex.Replace(fixedText, "\\s\\s*", " ");
             fixedText = fixedText.ToTitleCase();

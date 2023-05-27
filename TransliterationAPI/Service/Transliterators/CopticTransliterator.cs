@@ -5,7 +5,7 @@ using NuciExtensions;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class CopticTransliterator : ICopticTransliterator
+    public class CopticTransliterator : ITransliterator
     {
         Dictionary<string, string> transliterationTable;
 

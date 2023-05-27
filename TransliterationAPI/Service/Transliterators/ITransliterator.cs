@@ -1,6 +1,6 @@
 namespace TransliterationAPI.Service.Transliterators
 {
-    public interface ICopticTransliterator
+    public interface ITransliterator
     {
         string Transliterate(string text, string languageCode);
     }

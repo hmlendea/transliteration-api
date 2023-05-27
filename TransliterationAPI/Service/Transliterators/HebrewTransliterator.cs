@@ -4,7 +4,7 @@ using NuciExtensions;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class HebrewTransliterator : IHebrewTransliterator
+    public class HebrewTransliterator : ITransliterator
     {
         Dictionary<string, string> transliterationTable;
 
@@ -62,7 +62,7 @@ namespace TransliterationAPI.Service.Transliterators
             };
         }
 
-        public string Transliterate(string text)
+        public string Transliterate(string text, string languageCode)
         {
             string transliteratedText = text;
 

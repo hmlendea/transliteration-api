@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class PodolakTransliterator : IPodolakTransliterator
+    public class PodolakTransliterator : IExternalTransliterator
     {
         IHttpRequestManager httpRequestManager;
 
@@ -41,7 +41,7 @@ namespace TransliterationAPI.Service.Transliterators
             {
                 throw new ArgumentException($"Unsupported language \"{language}\"");
             }
-            
+
             return $"{url}/old-church-slavonic";
         }
 

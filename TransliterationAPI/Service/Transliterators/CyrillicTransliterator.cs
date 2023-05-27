@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class CyrillicTransliterator : ICyrillicTransliterator
+    public class CyrillicTransliterator : ITransliterator
     {
         Dictionary<string, string> bgnPcgnTransliterationTable;
 

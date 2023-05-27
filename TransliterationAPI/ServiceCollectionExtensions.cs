@@ -30,19 +30,7 @@ namespace TransliterationAPI
             return services
                 .AddSingleton<IRepository<CachedTransliteration>>(x => new JsonRepository<CachedTransliteration>(cacheSettings.StoreLocation))
                 .AddSingleton<IHttpRequestManager, HttpRequestManager>()
-                .AddSingleton<IAncientGreekTransliterator, AncientGreekTransliterator>()
-                .AddSingleton<IArabicTransliterator, ArabicTransliterator>()
-                .AddSingleton<ICopticTransliterator, CopticTransliterator>()
-                .AddSingleton<ICyrillicTransliterator, CyrillicTransliterator>()
-                .AddSingleton<IGujaratiTransliterator, GujaratiTransliterator>()
-                .AddSingleton<IHebrewTransliterator, HebrewTransliterator>()
-                .AddSingleton<IMarathiTransliterator, MarathiTransliterator>()
-                .AddSingleton<IPinyinTransliterator, PinyinTransliterator>()
-                .AddSingleton<IPodolakTransliterator, PodolakTransliterator>()
-                .AddSingleton<IJapaneseTransliterator, JapaneseTransliterator>()
-                .AddSingleton<IThailitTransliterator, ThailitTransliterator>()
-                .AddSingleton<ITranslitterationDotComTransliterator, TranslitterationDotComTransliterator>()
-                .AddSingleton<IUshuaiaTransliterator, UshuaiaTransliterator>()
+                .AddSingleton<IExternalTransliterator, ThailitTransliterator>()
                 .AddSingleton<ITransliterationService, TransliterationService>();
         }
     }

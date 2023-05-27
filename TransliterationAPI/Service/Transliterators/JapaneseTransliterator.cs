@@ -5,7 +5,7 @@ using NuciExtensions;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class JapaneseTransliterator : IJapaneseTransliterator
+    public class JapaneseTransliterator : ITransliterator
     {
         Dictionary<char, string> transliterationMap;
 
@@ -123,7 +123,7 @@ namespace TransliterationAPI.Service.Transliterators
 
         }
 
-        public string Transliterate(string text)
+        public string Transliterate(string text, string languageCode)
         {
             string transliteratedText = string.Empty;
 

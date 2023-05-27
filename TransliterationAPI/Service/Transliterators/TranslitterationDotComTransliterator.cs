@@ -9,7 +9,7 @@ using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class TranslitterationDotComTransliterator : ITranslitterationDotComTransliterator
+    public class TranslitterationDotComTransliterator : IExternalTransliterator
     {
         IHttpRequestManager httpRequestManager;
 

@@ -15,56 +15,18 @@ namespace TransliterationAPI.Service
 {
     public class TransliterationService : ITransliterationService
     {
+        ITransliteratorFactory transliteratorFactory;
         IRepository<CachedTransliteration> cache;
         CacheSettings cacheSettings;
 
-        IAncientGreekTransliterator ancientGreekTransilterator;
-        IArabicTransliterator arabicTransliterator;
-        ICopticTransliterator copticTransliterator;
-        ICyrillicTransliterator cyrillicTransliterator;
-        IGujaratiTransliterator gujaratiTransliterator;
-        IHebrewTransliterator hebrewTransliterator;
-        IMarathiTransliterator marathiTransliterator;
-        IPinyinTransliterator pinyinTransliterator;
-        IPodolakTransliterator podolakTransliterator;
-        IJapaneseTransliterator japaneseTransliterator;
-        IThailitTransliterator thailitTransliterator;
-        ITranslitterationDotComTransliterator translitterationDotComTransliterator;
-        IUshuaiaTransliterator ushuaiaTransliterator;
-
         public TransliterationService(
-            IAncientGreekTransliterator ancientGreekTransilterator,
-            IArabicTransliterator arabicTransliterator,
-            ICyrillicTransliterator cyrillicTransliterator,
-            IGujaratiTransliterator gujaratiTransliterator,
-            ICopticTransliterator copticTransliterator,
-            IHebrewTransliterator hebrewTransliterator,
-            IMarathiTransliterator marathiTransliterator,
-            IPinyinTransliterator pinyinTransliterator,
-            IPodolakTransliterator podolakTransliterator,
-            IJapaneseTransliterator japaneseTransliterator,
-            IThailitTransliterator thailitTransliterator,
-            ITranslitterationDotComTransliterator translitterationDotComTransliterator,
-            IUshuaiaTransliterator ushuaiaTransliterator,
+            ITransliteratorFactory transliteratorFactory,
             IRepository<CachedTransliteration> cache,
             CacheSettings cacheSettings)
         {
+            this.transliteratorFactory = transliteratorFactory;
             this.cache = cache;
             this.cacheSettings = cacheSettings;
-
-            this.ancientGreekTransilterator = ancientGreekTransilterator;
-            this.arabicTransliterator = arabicTransliterator;
-            this.copticTransliterator = copticTransliterator;
-            this.cyrillicTransliterator = cyrillicTransliterator;
-            this.gujaratiTransliterator = gujaratiTransliterator;
-            this.hebrewTransliterator = hebrewTransliterator;
-            this.marathiTransliterator = marathiTransliterator;
-            this.pinyinTransliterator = pinyinTransliterator;
-            this.podolakTransliterator = podolakTransliterator;
-            this.japaneseTransliterator = japaneseTransliterator;
-            this.thailitTransliterator = thailitTransliterator;
-            this.translitterationDotComTransliterator = translitterationDotComTransliterator;
-            this.ushuaiaTransliterator = ushuaiaTransliterator;
         }
 
         public async Task<string> Transliterate(string text, string languageCode)
@@ -115,62 +77,19 @@ namespace TransliterationAPI.Service
         {
             Language language = Language.FromCode(languageCode);
 
-            if (language.Transliterator.Equals(nameof(AncientGreekTransliterator)))
+            if (language.Transliterator.Equals(nameof(PodolakTransliterator)) ||
+                language.Transliterator.Equals(nameof(ThailitTransliterator)) ||
+                language.Transliterator.Equals(nameof(TranslitterationDotComTransliterator)) ||
+                language.Transliterator.Equals(nameof(UshuaiaTransliterator)))
             {
-                return ancientGreekTransilterator.Transliterate(text, languageCode);
+                return await transliteratorFactory
+                    .GetExternalTransliterator(language)
+                    .Transliterate(text, languageCode);
             }
-            else if (language.Transliterator.Equals(nameof(ArabicTransliterator)))
-            {
-                return arabicTransliterator.Transliterate(text, languageCode);
-            }
-            else if (language.Transliterator.Equals(nameof(CopticTransliterator)))
-            {
-                return copticTransliterator.Transliterate(text, languageCode);
-            }
-            else if (language.Transliterator.Equals(nameof(CyrillicTransliterator)))
-            {
-                return cyrillicTransliterator.Transliterate(text, languageCode);
-            }
-            else if (language.Transliterator.Equals(nameof(GujaratiTransliterator)))
-            {
-                return gujaratiTransliterator.Transliterate(text);
-            }
-            else if (language.Transliterator.Equals(nameof(HebrewTransliterator)))
-            {
-                return hebrewTransliterator.Transliterate(text);
-            }
-            else if (language.Transliterator.Equals(nameof(JapaneseTransliterator)))
-            {
-                return japaneseTransliterator.Transliterate(text);
-            }
-            else if (language.Transliterator.Equals(nameof(MarathiTransliterator)))
-            {
-                return marathiTransliterator.Transliterate(text);
-            }
-            else if (language.Transliterator.Equals(nameof(PinyinTransliterator)))
-            {
-                return pinyinTransliterator.Transliterate(text);
-            }
-            else if (language.Transliterator.Equals(nameof(PodolakTransliterator)))
-            {
-                return await podolakTransliterator.Transliterate(text, languageCode);
-            }
-            else if (language.Transliterator.Equals(nameof(ThailitTransliterator)))
-            {
-                return await thailitTransliterator.Transliterate(text);
-            }
-            else if (language.Transliterator.Equals(nameof(TranslitterationDotComTransliterator)))
-            {
-                return await translitterationDotComTransliterator.Transliterate(text, languageCode);
-            }
-            else if (language.Transliterator.Equals(nameof(UshuaiaTransliterator)))
-            {
-                return await ushuaiaTransliterator.Transliterate(text, languageCode);
-            }
-            else
-            {
-                throw new ArgumentException($"The \"{language.Transliterator}\" transliterator is not registered!");
-            }
+
+            return transliteratorFactory
+                .GetTransliterator(language)
+                .Transliterate(text, languageCode);
         }
 
         string NormaliseText(string text)
