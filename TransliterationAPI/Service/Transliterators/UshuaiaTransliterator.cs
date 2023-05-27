@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 using NuciExtensions;
 
+using TransliterationAPI.Service.Entities;
+
 namespace TransliterationAPI.Service.Transliterators
 {
     public class UshuaiaTransliterator : IUshuaiaTransliterator
@@ -19,12 +21,12 @@ namespace TransliterationAPI.Service.Transliterators
             this.httpRequestManager = httpRequestManager;
         }
 
-        public async Task<string> Transliterate(string text, string mode)
+        public async Task<string> Transliterate(string text, string language)
         {
             IDictionary<string, string> formData = new Dictionary<string, string>
             {
                 { "text", text },
-                { "lang", mode }
+                { "lang", language }
             };
 
             if ((DateTime.Now - cookieDate).TotalMinutes > 5)
@@ -36,32 +38,33 @@ namespace TransliterationAPI.Service.Transliterators
 
             IDictionary<string, string> headers = new Dictionary<string, string>
             {
-                { "Cookie", $"translit={sessionCookieValue};lastlang={mode}" }
+                { "Cookie", $"translit={sessionCookieValue};lastlang={language}" }
             };
 
             string response = await httpRequestManager.Post("https://www.ushuaia.pl/transliterate/transliterate.php", formData, headers);
-            string transliteratedText = ApplyFixes(response, mode);
+            string transliteratedText = ApplyFixes(response, language);
 
             return transliteratedText;
         }
 
-        string ApplyFixes(string text, string mode)
+        string ApplyFixes(string text, string languageCode)
         {
             string fixedText = text;
 
-            if (mode.Contains("bengali") ||
-                mode.Contains("devanagari") ||
-                mode.Contains("hangul") ||
-                mode.Contains("kannada") ||
-                mode.Contains("malayalam") ||
-                mode.Contains("sinhala") ||
-                mode.Contains("tamil") ||
-                mode.Contains("telugu"))
+            if (languageCode.Equals(Language.Bengali) ||
+                languageCode.Equals(Language.Hindi) ||
+                languageCode.Equals(Language.Kannada) ||
+                languageCode.Equals(Language.Korean) ||
+                languageCode.Equals(Language.Malayalam) ||
+                languageCode.Equals(Language.Sanskrit) ||
+                languageCode.Equals(Language.Sinhala) ||
+                languageCode.Equals(Language.Tamil) ||
+                languageCode.Equals(Language.Telugu))
             {
                 fixedText = fixedText.ToTitleCase();
             }
 
-            if (mode.Contains("hangul"))
+            if (languageCode.Equals(Language.Korean))
             {
                 fixedText = fixedText
                     .Replace("ǒ", "ŏ")
@@ -71,6 +74,62 @@ namespace TransliterationAPI.Service.Transliterators
             }
 
             return fixedText;
+        }
+
+        private IDictionary<string, string> BuildFormData(string text, string languageCode)
+        {
+            IDictionary<string, string> formData = new Dictionary<string, string>
+            {
+                { "text", text},
+                { "lang", string.Empty }
+            };
+
+            if (languageCode.Equals(Language.Bengali))
+            {
+                formData["lang"] = "bengali_iso_transliterate";
+            }
+            else if (languageCode.Equals(Language.Hindi))
+            {
+                formData["lang"] = "devanagari_hunt_transcribe";
+            }
+            else if (languageCode.Equals(Language.Kannada))
+            {
+                formData["lang"] = "kannada_iso_transliterate";
+            }
+            else if (languageCode.Equals(Language.Korean))
+            {
+                formData["lang"] = "hangul_mr_transcribe";
+            }
+            else if (languageCode.Equals(Language.Malayalam))
+            {
+                formData["lang"] = "malayalam_iso_transliterate";
+            }
+            else if (languageCode.Equals(Language.Mongol))
+            {
+                formData["lang"] = "mongolian_mns_transliterate";
+            }
+            else if (languageCode.Equals(Language.Sanskrit))
+            {
+                formData["lang"] = "devanagari_iast_transliterate";
+            }
+            else if (languageCode.Equals(Language.Sinhala))
+            {
+                formData["lang"] = "sinhala_iso_transliterate";
+            }
+            else if (languageCode.Equals(Language.Tamil))
+            {
+                formData["lang"] = "tamil_iso_transliterate";
+            }
+            else if (languageCode.Equals(Language.Telugu))
+            {
+                formData["lang"] = "telugu_iso_transliterate";
+            }
+            else
+            {
+                throw new ArgumentException($"The \"{languageCode}\" language is not supported by {nameof(UshuaiaTransliterator)}!");
+            }
+
+            return formData;
         }
     }
 }

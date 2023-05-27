@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -192,6 +193,10 @@ namespace TransliterationAPI.Service.Transliterators
             {
                 formData["tlang"] = "hye";
                 formData["scheme"] = "ala-lc";
+            }
+            else
+            {
+                throw new ArgumentException($"The \"{languageCode}\" language is not supported by {nameof(TranslitterationDotComTransliterator)}!");
             }
 
             return formData;

@@ -163,31 +163,13 @@ namespace TransliterationAPI.Service
             {
                 return await translitterationDotComTransliterator.Transliterate(text, languageCode);
             }
-
-            switch (languageCode)
+            else if (language.Transliterator.Equals(nameof(UshuaiaTransliterator)))
             {
-                case "bn": // Bengali
-                    return await ushuaiaTransliterator.Transliterate(text, "bengali_iso_transliterate");
-                case "hi": // Hindi
-                    return await ushuaiaTransliterator.Transliterate(text, "devanagari_hunt_transcribe");
-                case "kn": // Kannada
-                    return await ushuaiaTransliterator.Transliterate(text, "kannada_iso_transliterate");
-                case "ko": // Korean
-                    return await ushuaiaTransliterator.Transliterate(text, "hangul_mr_transcribe");
-                case "ml": // Malayalam
-                    return await ushuaiaTransliterator.Transliterate(text, "malayalam_iso_transliterate");
-                case "mn": // Mongol
-                    return await ushuaiaTransliterator.Transliterate(text, "mongolian_mns_transliterate");
-                case "sa": // Sanskrit
-                    return await ushuaiaTransliterator.Transliterate(text, "devanagari_iast_transliterate");
-                case "si": // Sinhala
-                    return await ushuaiaTransliterator.Transliterate(text, "sinhala_iso_transliterate");
-                case "ta": // Tamil
-                    return await ushuaiaTransliterator.Transliterate(text, "tamil_iso_transliterate");
-                case "te": // Telugu
-                    return await ushuaiaTransliterator.Transliterate(text, "telugu_iso_transliterate");
-                default:
-                    throw new ArgumentException($"The \"{languageCode}\" language is not supported");
+                return await ushuaiaTransliterator.Transliterate(text, languageCode);
+            }
+            else
+            {
+                throw new ArgumentException($"The \"{language.Transliterator}\" transliterator is not registered!");
             }
         }
 
