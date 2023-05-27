@@ -21,6 +21,7 @@ namespace TransliterationAPI
         {
 
             services.AddControllers();
+            services.AddConfigurations(Configuration);
             services.AddCustomServices();
             services.AddSwaggerGen(c =>
             {
