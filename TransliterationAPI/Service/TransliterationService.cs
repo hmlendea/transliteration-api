@@ -69,6 +69,11 @@ namespace TransliterationAPI.Service
 
         public async Task<string> Transliterate(string text, string languageCode)
         {
+            if (Language.GetAll().All(language => !language.Code.Equals(languageCode)))
+            {
+                return text;
+            }
+
             string normalisedText = NormaliseText(text);
             string cacheId = GetCacheId(normalisedText, languageCode);
 
