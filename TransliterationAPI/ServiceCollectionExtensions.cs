@@ -30,20 +30,27 @@ namespace TransliterationAPI
             return services
                 .AddSingleton<IRepository<CachedTransliteration>>(x => new JsonRepository<CachedTransliteration>(cacheSettings.StoreLocation))
                 .AddSingleton<IHttpRequestManager, HttpRequestManager>()
-                .AddSingleton<IAncientGreekTransliterator, AncientGreekTransliterator>()
-                .AddSingleton<IArabicTransliterator, ArabicTransliterator>()
-                .AddSingleton<ICopticTransliterator, CopticTransliterator>()
-                .AddSingleton<ICyrillicTransliterator, CyrillicTransliterator>()
-                .AddSingleton<IGujaratiTransliterator, GujaratiTransliterator>()
-                .AddSingleton<IHebrewTransliterator, HebrewTransliterator>()
-                .AddSingleton<IMarathiTransliterator, MarathiTransliterator>()
-                .AddSingleton<IPinyinTransliterator, PinyinTransliterator>()
-                .AddSingleton<IPodolakTransliterator, PodolakTransliterator>()
-                .AddSingleton<IJapaneseTransliterator, JapaneseTransliterator>()
-                .AddSingleton<IThailitTransliterator, ThailitTransliterator>()
-                .AddSingleton<ITranslitterationDotComTransliterator, TranslitterationDotComTransliterator>()
-                .AddSingleton<IUshuaiaTransliterator, UshuaiaTransliterator>()
+                .AddTransliteratorServices()
+                .AddSingleton<ITransliteratorFactory, TransliteratorFactory>()
                 .AddSingleton<ITransliterationService, TransliterationService>();
+        }
+
+        static IServiceCollection AddTransliteratorServices(this IServiceCollection services)
+        {
+            return services
+                .AddScoped<AncientGreekTransliterator>()
+                .AddScoped<ArabicTransliterator>()
+                .AddScoped<CopticTransliterator>()
+                .AddScoped<CyrillicTransliterator>()
+                .AddScoped<GujaratiTransliterator>()
+                .AddScoped<HebrewTransliterator>()
+                .AddScoped<JapaneseTransliterator>()
+                .AddScoped<MarathiTransliterator>()
+                .AddScoped<PinyinTransliterator>()
+                .AddScoped<PodolakTransliterator>()
+                .AddScoped<ThailitTransliterator>()
+                .AddScoped<TranslitterationDotComTransliterator>()
+                .AddScoped<UshuaiaTransliterator>();
         }
     }
 }

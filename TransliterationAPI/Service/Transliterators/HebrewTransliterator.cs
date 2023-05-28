@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+
 using NuciExtensions;
+
+using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class HebrewTransliterator : IHebrewTransliterator
+    public class HebrewTransliterator : ITransliterator
     {
         Dictionary<string, string> transliterationTable;
 
@@ -62,7 +65,7 @@ namespace TransliterationAPI.Service.Transliterators
             };
         }
 
-        public string Transliterate(string text)
+        public string Transliterate(string text, Language language)
         {
             string transliteratedText = text;
 

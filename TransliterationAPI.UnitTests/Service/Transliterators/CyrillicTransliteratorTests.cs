@@ -1,12 +1,13 @@
 using NUnit.Framework;
 
+using TransliterationAPI.Service.Entities;
 using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
     public class CyrillicTransliteratorTests
     {
-        private ICyrillicTransliterator transliterator;
+        private ITransliterator transliterator;
 
         [SetUp]
         public void SetUp()
@@ -82,7 +83,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         public void GivenATextInBulgarianCyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string bulgarianText,
             string expectedTransliteratedText)
-            => Assert.That(transliterator.Transliterate(bulgarianText, "bg"), Is.EqualTo(expectedTransliteratedText));
+            => Assert.That(transliterator.Transliterate(bulgarianText, Language.Bulgarian), Is.EqualTo(expectedTransliteratedText));
 
         [Test]
         [TestCase("Барнау́л", "Barnaúl")]
@@ -128,7 +129,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         public void GivenATextInRussianCyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string russianText,
             string expectedTransliteratedText)
-            => Assert.That(transliterator.Transliterate(russianText, "ru"), Is.EqualTo(expectedTransliteratedText));
+            => Assert.That(transliterator.Transliterate(russianText, Language.Russian), Is.EqualTo(expectedTransliteratedText));
 
         [Test]
         [TestCase("Київ", "Kyiv")]
@@ -185,6 +186,6 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         public void GivenATextInUkrainianCyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string ukrainianText,
             string expectedTransliteratedText)
-            => Assert.That(transliterator.Transliterate(ukrainianText, "uk"), Is.EqualTo(expectedTransliteratedText));
+            => Assert.That(transliterator.Transliterate(ukrainianText, Language.Ukrainian), Is.EqualTo(expectedTransliteratedText));
     }
 }

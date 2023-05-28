@@ -15,60 +15,27 @@ namespace TransliterationAPI.Service
 {
     public class TransliterationService : ITransliterationService
     {
+        ITransliteratorFactory transliteratorFactory;
         IRepository<CachedTransliteration> cache;
         CacheSettings cacheSettings;
 
-        IAncientGreekTransliterator ancientGreekTransilterator;
-        IArabicTransliterator arabicTransliterator;
-        ICopticTransliterator copticTransliterator;
-        ICyrillicTransliterator cyrillicTransliterator;
-        IGujaratiTransliterator gujaratiTransliterator;
-        IHebrewTransliterator hebrewTransliterator;
-        IMarathiTransliterator marathiTransliterator;
-        IPinyinTransliterator pinyinTransliterator;
-        IPodolakTransliterator podolakTransliterator;
-        IJapaneseTransliterator japaneseTransliterator;
-        IThailitTransliterator thailitTransliterator;
-        ITranslitterationDotComTransliterator translitterationDotComTransliterator;
-        IUshuaiaTransliterator ushuaiaTransliterator;
-
         public TransliterationService(
-            IAncientGreekTransliterator ancientGreekTransilterator,
-            IArabicTransliterator arabicTransliterator,
-            ICyrillicTransliterator cyrillicTransliterator,
-            IGujaratiTransliterator gujaratiTransliterator,
-            ICopticTransliterator copticTransliterator,
-            IHebrewTransliterator hebrewTransliterator,
-            IMarathiTransliterator marathiTransliterator,
-            IPinyinTransliterator pinyinTransliterator,
-            IPodolakTransliterator podolakTransliterator,
-            IJapaneseTransliterator japaneseTransliterator,
-            IThailitTransliterator thailitTransliterator,
-            ITranslitterationDotComTransliterator translitterationDotComTransliterator,
-            IUshuaiaTransliterator ushuaiaTransliterator,
+            ITransliteratorFactory transliteratorFactory,
             IRepository<CachedTransliteration> cache,
             CacheSettings cacheSettings)
         {
+            this.transliteratorFactory = transliteratorFactory;
             this.cache = cache;
             this.cacheSettings = cacheSettings;
-
-            this.ancientGreekTransilterator = ancientGreekTransilterator;
-            this.arabicTransliterator = arabicTransliterator;
-            this.copticTransliterator = copticTransliterator;
-            this.cyrillicTransliterator = cyrillicTransliterator;
-            this.gujaratiTransliterator = gujaratiTransliterator;
-            this.hebrewTransliterator = hebrewTransliterator;
-            this.marathiTransliterator = marathiTransliterator;
-            this.pinyinTransliterator = pinyinTransliterator;
-            this.podolakTransliterator = podolakTransliterator;
-            this.japaneseTransliterator = japaneseTransliterator;
-            this.thailitTransliterator = thailitTransliterator;
-            this.translitterationDotComTransliterator = translitterationDotComTransliterator;
-            this.ushuaiaTransliterator = ushuaiaTransliterator;
         }
 
         public async Task<string> Transliterate(string text, string languageCode)
         {
+            if (Language.GetAll().All(language => !language.Code.Equals(languageCode)))
+            {
+                return text;
+            }
+
             string normalisedText = NormaliseText(text);
             string cacheId = GetCacheId(normalisedText, languageCode);
 
@@ -108,94 +75,21 @@ namespace TransliterationAPI.Service
 
         async Task<string> GetTransliteratedText(string text, string languageCode)
         {
-            switch (languageCode)
+            Language language = Language.FromCode(languageCode);
+
+            if (language.Transliterator.Equals(nameof(PodolakTransliterator)) ||
+                language.Transliterator.Equals(nameof(ThailitTransliterator)) ||
+                language.Transliterator.Equals(nameof(TranslitterationDotComTransliterator)) ||
+                language.Transliterator.Equals(nameof(UshuaiaTransliterator)))
             {
-                case "ab": // Abkhaz
-                    return await translitterationDotComTransliterator.Transliterate(text, "abk", "iso-9");
-                case "ady": // Adyghe
-                    return await translitterationDotComTransliterator.Transliterate(text, "ady", "iso-9");
-                case "ar": // Arabic
-                case "ary": // Maghrebi Arabic
-                case "arz": // Egyptian Arabic
-                    return arabicTransliterator.Transliterate(text, languageCode);
-                case "ba": // Bashkir
-                    return await translitterationDotComTransliterator.Transliterate(text, "bak", "iso-9");
-                case "be": // Belarussian
-                    return await translitterationDotComTransliterator.Transliterate(text, "bel", "national");
-                case "bg": // Bulgarian
-                    return cyrillicTransliterator.Transliterate(text, languageCode);
-                case "bn": // Bengali
-                    return await ushuaiaTransliterator.Transliterate(text, "bengali_iso_transliterate");
-                case "cop": // Coptic
-                    return copticTransliterator.Transliterate(text, languageCode);
-                case "cu": // Old Church Slavonic
-                    return await podolakTransliterator.Transliterate(text, languageCode);
-                case "cv": // Chuvash
-                    return await translitterationDotComTransliterator.Transliterate(text, "chv", "ala-lc");
-                case "el": // Greek
-                    return await translitterationDotComTransliterator.Transliterate(text, "gre", "un-elot");
-                case "grc": // Ancient Greek
-                    return ancientGreekTransilterator.Transliterate(text, languageCode);
-                case "grc-dor": // Ancient Greek - Doric
-                    return ancientGreekTransilterator.Transliterate(text, languageCode);
-                case "gu": // Gujarati
-                    return gujaratiTransliterator.Transliterate(text);
-                case "he": // Hebrew
-                    return hebrewTransliterator.Transliterate(text);
-                case "hi": // Hindi
-                    return await ushuaiaTransliterator.Transliterate(text, "devanagari_hunt_transcribe");
-                case "hy": // Armenian
-                    return await translitterationDotComTransliterator.Transliterate(text, "xcl", "iso-9985");
-                case "hyw": // Western Armenian
-                    return await translitterationDotComTransliterator.Transliterate(text, "hye", "ala-lc");
-                case "iu": // Inuttitut
-                    return await translitterationDotComTransliterator.Transliterate(text, "iku", "canadian-aboriginal-syllabics");
-                case "ja": // Japanese
-                    return japaneseTransliterator.Transliterate(text);
-                case "ka": // Georgian
-                    return await translitterationDotComTransliterator.Transliterate(text, "kat", "national");
-                case "kk": // Kazakh
-                    return await translitterationDotComTransliterator.Transliterate(text, "kaz", "national");
-                case "kn": // Kannada
-                    return await ushuaiaTransliterator.Transliterate(text, "kannada_iso_transliterate");
-                case "ko": // Korean
-                    return await ushuaiaTransliterator.Transliterate(text, "hangul_mr_transcribe");
-                case "ky": // Kyrgyz
-                    return await translitterationDotComTransliterator.Transliterate(text, "kir", "iso-9");
-                case "mk": // Macedonian Slavic
-                    return await translitterationDotComTransliterator.Transliterate(text, "mkd", "bgn-pcgn");
-                case "ml": // Malayalam
-                    return await ushuaiaTransliterator.Transliterate(text, "malayalam_iso_transliterate");
-                case "mn": // Mongol
-                    return await ushuaiaTransliterator.Transliterate(text, "mongolian_mns_transliterate");
-                case "mr": // Marathi
-                    return marathiTransliterator.Transliterate(text);
-                case "os": // Ossetic
-                    return await translitterationDotComTransliterator.Transliterate(text, "oss", "iso-9");
-                case "ru": // Russian
-                    return cyrillicTransliterator.Transliterate(text, languageCode);
-                case "sa": // Sanskrit
-                    return await ushuaiaTransliterator.Transliterate(text, "devanagari_iast_transliterate");
-                case "si": // Sinhala
-                    return await ushuaiaTransliterator.Transliterate(text, "sinhala_iso_transliterate");
-                case "sr": // Serbian
-                    return await translitterationDotComTransliterator.Transliterate(text, "srp", "national");
-                case "ta": // Tamil
-                    return await ushuaiaTransliterator.Transliterate(text, "tamil_iso_transliterate");
-                case "te": // Telugu
-                    return await ushuaiaTransliterator.Transliterate(text, "telugu_iso_transliterate");
-                case "th": // Thai
-                    return await thailitTransliterator.Transliterate(text);
-                case "udm": // Udmurt
-                    return await translitterationDotComTransliterator.Transliterate(text, "udm", "bgn-pcgn");
-                case "uk": // Ukrainian
-                    return cyrillicTransliterator.Transliterate(text, "uk");
-                case "zh": // Chinese
-                case "zh-hans": // Simplified Chinese
-                    return pinyinTransliterator.Transliterate(text);
-                default:
-                    throw new ArgumentException($"The \"{languageCode}\" language is not supported");
+                return await transliteratorFactory
+                    .GetExternalTransliterator(language)
+                    .Transliterate(text, languageCode);
             }
+
+            return transliteratorFactory
+                .GetTransliterator(language)
+                .Transliterate(text, languageCode);
         }
 
         string NormaliseText(string text)

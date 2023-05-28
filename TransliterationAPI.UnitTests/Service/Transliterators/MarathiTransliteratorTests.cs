@@ -1,12 +1,13 @@
 using NUnit.Framework;
 
+using TransliterationAPI.Service.Entities;
 using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
     public class MarathiTransliteratorTests
     {
-        private IMarathiTransliterator transliterator;
+        private ITransliterator transliterator;
 
         [SetUp]
         public void SetUp()
@@ -60,6 +61,6 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         public void GivenATextInMarathiScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string marathiText,
             string expectedTransliteratedText)
-            => Assert.That(transliterator.Transliterate(marathiText), Is.EqualTo(expectedTransliteratedText));
+            => Assert.That(transliterator.Transliterate(marathiText, Language.Marathi), Is.EqualTo(expectedTransliteratedText));
     }
 }

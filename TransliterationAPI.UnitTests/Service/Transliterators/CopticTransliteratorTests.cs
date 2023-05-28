@@ -1,12 +1,13 @@
 using NUnit.Framework;
 
+using TransliterationAPI.Service.Entities;
 using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
     public class CopticTransliteratorTests
     {
-        private ICopticTransliterator transliterator;
+        private ITransliterator transliterator;
 
         [SetUp]
         public void SetUp()
@@ -42,6 +43,6 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         public void GivenATextInCopticScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string copticText,
             string expectedTransliteratedText)
-            => Assert.That(transliterator.Transliterate(copticText, "cop"), Is.EqualTo(expectedTransliteratedText));
+            => Assert.That(transliterator.Transliterate(copticText, Language.Coptic), Is.EqualTo(expectedTransliteratedText));
     }
 }

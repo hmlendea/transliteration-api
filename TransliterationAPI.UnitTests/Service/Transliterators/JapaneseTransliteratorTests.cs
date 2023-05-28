@@ -1,11 +1,13 @@
 using NUnit.Framework;
+
+using TransliterationAPI.Service.Entities;
 using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
     public class JapaneseTransliteratorTests
     {
-        private IJapaneseTransliterator transliterator;
+        private ITransliterator transliterator;
 
         [SetUp]
         public void SetUp()
@@ -57,6 +59,6 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         public void GivenATextInJapaneseScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string japaneseText,
             string expectedTransliteratedText)
-            => Assert.That(transliterator.Transliterate(japaneseText), Is.EqualTo(expectedTransliteratedText));
+            => Assert.That(transliterator.Transliterate(japaneseText, Language.Japanese), Is.EqualTo(expectedTransliteratedText));
     }
 }

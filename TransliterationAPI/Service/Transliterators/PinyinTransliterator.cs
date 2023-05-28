@@ -6,11 +6,13 @@ using Microsoft.International.Converters.PinYinConverter;
 
 using NuciExtensions;
 
+using TransliterationAPI.Service.Entities;
+
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class PinyinTransliterator : IPinyinTransliterator
+    public class PinyinTransliterator : ITransliterator
     {
-        public string Transliterate(string text)
+        public string Transliterate(string text, Language language)
         {
             string numericalPinYin = string.Empty;
 
@@ -119,7 +121,7 @@ namespace TransliterationAPI.Service.Transliterators
 
                 accented += t + " ";
             }
-            
+
             accented = accented.TrimEnd();
 
             return accented;
@@ -130,7 +132,7 @@ namespace TransliterationAPI.Service.Transliterators
             string fixedText = text;
 
             fixedText = fixedText.Replace("ǒ", "ŏ");
-            
+
             return fixedText;
         }
     }

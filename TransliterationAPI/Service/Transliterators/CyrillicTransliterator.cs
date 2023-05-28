@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
+
+using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class CyrillicTransliterator : ICyrillicTransliterator
+    public class CyrillicTransliterator : ITransliterator
     {
         Dictionary<string, string> bgnPcgnTransliterationTable;
 
@@ -144,25 +145,25 @@ namespace TransliterationAPI.Service.Transliterators
             }
         }
 
-        public string Transliterate(string text, string languageCode)
+        public string Transliterate(string text, Language language)
         {
             IDictionary<string, string> transliterationTable;
 
-            if (languageCode.Equals("bg"))
+            if (language.Equals(Language.Bulgarian))
             {
                 transliterationTable = bulgarianTransliterationTable;
             }
-            else if (languageCode.Equals("ru"))
+            else if (language.Equals(Language.Russian))
             {
                 transliterationTable = russianTransliterationTable;
             }
-            else if (languageCode.Equals("uk"))
+            else if (language.Equals(Language.Ukrainian))
             {
                 transliterationTable = ukrainianTransliterationTable;
             }
             else
             {
-                throw new ArgumentException($"The '{languageCode}' language is not supported by the {nameof(CyrillicTransliterator)}");
+                throw new ArgumentException($"The {language.Name} language is not supported by the {nameof(CyrillicTransliterator)}");
             }
 
             string transliteratedText = text;
@@ -172,7 +173,7 @@ namespace TransliterationAPI.Service.Transliterators
                 transliteratedText = Regex.Replace(transliteratedText, character, transliterationTable[character]);
             }
 
-            if (languageCode.Equals("ru"))
+            if (language.Equals(Language.Russian))
             {
                 transliteratedText = ApplyRussianFixes(transliteratedText);
             }

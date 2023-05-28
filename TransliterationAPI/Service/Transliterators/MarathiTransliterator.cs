@@ -1,12 +1,13 @@
 using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 
 using NuciExtensions;
 
+using TransliterationAPI.Service.Entities;
+
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class MarathiTransliterator : IMarathiTransliterator
+    public class MarathiTransliterator : ITransliterator
     {
         Dictionary<string, string> transliterationTable;
 
@@ -132,7 +133,7 @@ namespace TransliterationAPI.Service.Transliterators
             };
         }
 
-        public string Transliterate(string text)
+        public string Transliterate(string text, Language language)
         {
             string transliteratedText = text;
 

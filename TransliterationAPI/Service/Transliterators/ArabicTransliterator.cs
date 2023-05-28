@@ -1,12 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using NuciExtensions;
 
+using TransliterationAPI.Service.Entities;
+
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class ArabicTransliterator : IArabicTransliterator
+    public class ArabicTransliterator : ITransliterator
     {
         Dictionary<string, string> transliterationTable;
         Dictionary<string, string> maghrebiTransliterationTable;
@@ -60,11 +61,11 @@ namespace TransliterationAPI.Service.Transliterators
             };
         }
 
-        public string Transliterate(string text, string languageCode)
+        public string Transliterate(string text, Language language)
         {
             string transliteratedText = text;
 
-            if (languageCode.Equals("ary", StringComparison.InvariantCultureIgnoreCase))
+            if (language.Equals(Language.MaghrebiArabic))
             {
                 foreach (string character in maghrebiTransliterationTable.Keys)
                 {
