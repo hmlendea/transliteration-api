@@ -38,8 +38,8 @@ namespace TransliterationAPI.Service.Transliterators
                 {'ヤ', "ya"}, {'ユ', "yu"}, {'ヨ', "yo"},
                 {'ラ', "ra"}, {'リ', "ri"}, {'ル', "ru"}, {'レ', "re"}, {'ロ', "ro"},
                 {'ワ', "wa"}, {'ヲ', "wo"}, {'ン', "n"},
-                {'ィ', "i"}, {'デ', "de"}, {'プ', "pu"}, {'グ', "gu"},
-                {'・', " "},
+                {'ィ', "i"}, {'デ', "de"}, {'プ', "pu"}, {'グ', "gu"}, {'ズ', "zu"}, {'ジ', "ji"}, {'ガ', "ga"},
+                {'・', " "}, {'ー', ""},
 
                 // Special Characters
                 {'ゃ', "ya"}, {'ゅ', "yu"}, {'ょ', "yo"}, // small ya, yu, yo
