@@ -78,7 +78,6 @@ namespace TransliterationAPI.Service
             Language language = Language.FromCode(languageCode);
 
             if (language.Transliterator.Equals(nameof(PodolakTransliterator)) ||
-                language.Transliterator.Equals(nameof(ThailitTransliterator)) ||
                 language.Transliterator.Equals(nameof(TranslitterationDotComTransliterator)) ||
                 language.Transliterator.Equals(nameof(UshuaiaTransliterator)))
             {

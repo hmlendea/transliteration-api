@@ -50,7 +50,6 @@ namespace TransliterationAPI.Service.Entities
         public static Language Sinhala => new Language("si", "Sinhala", nameof(UshuaiaTransliterator));
         public static Language Tamil => new Language("ta", "Tamil", nameof(UshuaiaTransliterator));
         public static Language Telugu => new Language("te", "Telugu", nameof(UshuaiaTransliterator));
-        public static Language Thai => new Language("th", "Thai", nameof(ThailitTransliterator));
         public static Language Udmurt => new Language("udm", "Udmurt", nameof(TranslitterationDotComTransliterator));
         public static Language Ukrainian => new Language("uk", "Ukrainian", nameof(CyrillicTransliterator));
         public static Language WesternArmenian => new Language("hyw", "Western Armenian", nameof(TranslitterationDotComTransliterator));
