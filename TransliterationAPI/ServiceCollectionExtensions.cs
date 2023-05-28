@@ -48,7 +48,6 @@ namespace TransliterationAPI
                 .AddScoped<MarathiTransliterator>()
                 .AddScoped<PinyinTransliterator>()
                 .AddScoped<PodolakTransliterator>()
-                .AddScoped<ThailitTransliterator>()
                 .AddScoped<TranslitterationDotComTransliterator>()
                 .AddScoped<UshuaiaTransliterator>();
         }
