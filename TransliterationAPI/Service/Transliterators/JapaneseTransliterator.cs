@@ -39,7 +39,7 @@ namespace TransliterationAPI.Service.Transliterators
                 {'ラ', "ra"}, {'リ', "ri"}, {'ル', "ru"}, {'レ', "re"}, {'ロ', "ro"},
                 {'ワ', "wa"}, {'ヲ', "wo"}, {'ン', "n"},
                 {'ィ', "i"}, {'デ', "de"}, {'プ', "pu"}, {'グ', "gu"}, {'ズ', "zu"}, {'ジ', "ji"}, {'ガ', "ga"}, {'ベ', "be"}, {'ェ', "e"},
-                {'バ', "ba"},
+                {'バ', "ba"}, {'ゲ', "ge"}, {'ド', "do"}, {'ゥ', "ū"},
                 {'・', " "}, {'ー', ""},
 
                 // Special Characters
@@ -76,6 +76,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { '士', "ji" },
                 { '奈', "na" },
                 { '媛', "hime" },
+                { '宇', "u" },
                 { '宮', "miya" },
                 { '富', "fu" },
                 { '山', "yama" },
@@ -84,6 +85,8 @@ namespace TransliterationAPI.Service.Transliterators
                 { '島', "shima" },
                 { '崎', "saki" },
                 { '川', "kawa" },
+                { '州', "shū" },
+                { '市', "shi" },
                 { '幌', "poro" },
                 { '広', "hiro" },
                 { '形', "gata" },
@@ -98,6 +101,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { '殿', "dono" },
                 { '沖', "oki" },
                 { '沢', "zawa" },
+                { '津', "tsu" },
                 { '滋', "shi" },
                 { '潟', "gata" },
                 { '熊', "kuma" },
@@ -122,6 +126,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { '高', "taka" },
                 { '鳥', "tori" },
                 { '鹿', "ka" },
+                { '木', "ki" },
             };
 
         }
