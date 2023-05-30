@@ -104,6 +104,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Набережные Челны", "Naberezhnye Chelny")]
         [TestCase("Нижний Новгород", "Nizhniy Novgorod")]
         [TestCase("Новосиби́рск", "Novosibírsk")]
+        [TestCase("Новошареево", "Novoshareyevo")]
         [TestCase("Омск", "Omsk")]
         [TestCase("Пермь", "Perm")]
         [TestCase("Петровск-Порт", "Petrovsk-Port")]
