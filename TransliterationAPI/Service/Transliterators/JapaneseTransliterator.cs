@@ -38,7 +38,8 @@ namespace TransliterationAPI.Service.Transliterators
                 {'ヤ', "ya"}, {'ユ', "yu"}, {'ヨ', "yo"},
                 {'ラ', "ra"}, {'リ', "ri"}, {'ル', "ru"}, {'レ', "re"}, {'ロ', "ro"},
                 {'ワ', "wa"}, {'ヲ', "wo"}, {'ン', "n"},
-                {'ィ', "i"}, {'デ', "de"}, {'プ', "pu"}, {'グ', "gu"}, {'ズ', "zu"}, {'ジ', "ji"}, {'ガ', "ga"},
+                {'ィ', "i"}, {'デ', "de"}, {'プ', "pu"}, {'グ', "gu"}, {'ズ', "zu"}, {'ジ', "ji"}, {'ガ', "ga"}, {'ベ', "be"}, {'ェ', "e"},
+                {'バ', "ba"},
                 {'・', " "}, {'ー', ""},
 
                 // Special Characters
@@ -149,6 +150,12 @@ namespace TransliterationAPI.Service.Transliterators
         string ApplyFixes(string text)
         {
             string fixedText = text.ToTitleCase();
+
+            fixedText = Regex.Replace(fixedText, "aー", "ā");
+            fixedText = Regex.Replace(fixedText, "eー", "ē");
+            fixedText = Regex.Replace(fixedText, "iー", "ī");
+            fixedText = Regex.Replace(fixedText, "oー", "ō");
+            fixedText = Regex.Replace(fixedText, "uー", "ū");
 
             fixedText = Regex.Replace(fixedText, "([Tt])orit", "$1ott");
             fixedText = Regex.Replace(fixedText, "Takac", "Kōc");
