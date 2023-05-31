@@ -132,6 +132,44 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
             => Assert.That(transliterator.Transliterate(russianText, Language.Russian), Is.EqualTo(expectedTransliteratedText));
 
         [Test]
+        [TestCase("Ақтау", "Aqtaý")]
+        [TestCase("Ақтөбе", "Aqtóbe")]
+        [TestCase("Алматы", "Almaty")]
+        [TestCase("Арқалық", "Arqalyq")]
+        [TestCase("Астана", "Astana")]
+        [TestCase("Атырау", "Atyraý")]
+        [TestCase("Байқоңыр", "Baiqońyr")]
+        [TestCase("Балқаш", "Balqash")]
+        [TestCase("Екібастұз", "Ekibastuz")]
+        [TestCase("Жаңаөзен", "Jańaózen")]
+        [TestCase("Жезқазған", "Jezqazǵan")]
+        [TestCase("Кентау", "Kentaý")]
+        [TestCase("Көкшетау", "Kókshetaý")]
+        [TestCase("Қарағанды", "Qaraǵandy")]
+        [TestCase("Қостанай", "Qostanai")]
+        [TestCase("Қызылорда", "Qyzylorda")]
+        [TestCase("Орал", "Oral")]
+        [TestCase("Өскемен", "Óskemen")]
+        [TestCase("Павлодар", "Pavlodar")]
+        [TestCase("Петропавл", "Petropavl")]
+        [TestCase("Риддер", "Ridder")]
+        [TestCase("Саран", "Saran")]
+        [TestCase("Сәтбаев", "Sátbaev")]
+        [TestCase("Семей", "Semei")]
+        [TestCase("Степногорск", "Stepnogorsk")]
+        [TestCase("Талдықорған", "Taldyqorǵan")]
+        [TestCase("Тараз", "Taraz")]
+        [TestCase("Теміртау", "Temirtaý")]
+        [TestCase("Түркістан", "Túrkistan")]
+        [TestCase("Шахтинск", "Shahtinsk")]
+        [TestCase("Шымкент", "Shymkent")]
+        [TestCase("Щучинск", "Shchýchinsk")]
+        public void GivenATextInKazakh2018CyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
+            string kazakhText,
+            string expectedTransliteratedText)
+            => Assert.That(transliterator.Transliterate(kazakhText, Language.Kazakh2018), Is.EqualTo(expectedTransliteratedText));
+
+        [Test]
         [TestCase("Ақтау", "Aqtau")]
         [TestCase("Ақтөбе", "Aqtöbe")]
         [TestCase("Алматы", "Almaty")]
@@ -163,8 +201,8 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Түркістан", "Türkıstan")]
         [TestCase("Шахтинск", "Şahtinsk")]
         [TestCase("Шымкент", "Şymkent")]
-        [TestCase("Щучинск", "Şçuçinsk")]
-        public void GivenATextInKazakhCyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
+        [TestCase("Щучинск", "Ştşutşinsk")]
+        public void GivenATextInKazakh2021CyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string kazakhText,
             string expectedTransliteratedText)
             => Assert.That(transliterator.Transliterate(kazakhText, Language.Kazakh), Is.EqualTo(expectedTransliteratedText));

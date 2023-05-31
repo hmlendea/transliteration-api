@@ -34,6 +34,8 @@ namespace TransliterationAPI.Service.Entities
         public static Language Japanese => new Language("ja", "Japanese", nameof(JapaneseTransliterator));
         public static Language Kannada => new Language("kn", "Kannada", nameof(UshuaiaTransliterator));
         public static Language Kazakh => new Language("kk", "Kazakh", nameof(CyrillicTransliterator));
+        public static Language Kazakh2018 => new Language("kk-2018", "Kazakh (2018)", nameof(CyrillicTransliterator));
+        public static Language Kazakh2021 => new Language("kk-2021", "Kazakh (2021)", nameof(CyrillicTransliterator));
         public static Language Korean => new Language("ko", "Korean", nameof(UshuaiaTransliterator));
         public static Language Kyrgyz => new Language("ky", "Kyrgyz", nameof(TranslitterationDotComTransliterator));
         public static Language MacedonianSlavic => new Language("mk", "Macedonian Slavic", nameof(TranslitterationDotComTransliterator));

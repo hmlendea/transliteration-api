@@ -11,7 +11,8 @@ namespace TransliterationAPI.Service.Transliterators
         Dictionary<string, string> bgnPcgnTransliterationTable;
 
         Dictionary<string, string> bulgarianTransliterationTable;
-        Dictionary<string, string> kazakhTransliterationTable;
+        Dictionary<string, string> kazakh2018TransliterationTable;
+        Dictionary<string, string> kazakh2021TransliterationTable;
         Dictionary<string, string> russianTransliterationTable;
         Dictionary<string, string> ukrainianTransliterationTable;
 
@@ -99,37 +100,94 @@ namespace TransliterationAPI.Service.Transliterators
                 { "щ", "sht" },
             };
 
-            kazakhTransliterationTable = new Dictionary<string, string>
+            kazakh2018TransliterationTable = new Dictionary<string, string>
             {
-                { "Ә", "Ä" },
-                { "Ғ", "Ğ" },
+                { "Ә", "Á" },
+                { "Ғ", "Ǵ" },
+                { "Ё", "Io" },
                 { "Ж", "J" },
+                { "И", "I" },
                 { "І", "I" },
                 { "Й", "I" },
                 { "Қ", "Q" },
+                { "Ң", "Ń" },
+                { "Ө", "Ó" },
+                { "У", "Ý" },
+                { "Ү", "Ú" },
+                { "Ұ", "U" },
+                { "Х", "H" },
+                { "Ц", "S" },
+                { "Ч", "Ch" },
+                { "Ш", "Sh" },
+                { "Щ", "Shch" },
+                { "Ы", "Y" },
+                { "Э", "E" },
+                { "Ю", "Iý" },
+                { "Я", "Ia" },
+
+                { "ә", "á" },
+                { "ғ", "ǵ" },
+                { "ё", "io" },
+                { "ж", "j" },
+                { "и", "i" },
+                { "і", "i" },
+                { "й", "i" },
+                { "қ", "q" },
+                { "ң", "ń" },
+                { "ө", "ó" },
+                { "у", "ý" },
+                { "ү", "ú" },
+                { "ұ", "u" },
+                { "х", "h" },
+                { "ц", "s" },
+                { "ч", "ch" },
+                { "ш", "sh" },
+                { "щ", "shch" },
+                { "ы", "y" },
+                { "э", "e" },
+                { "ю", "iý" },
+                { "я", "ia" },
+            };
+
+            kazakh2021TransliterationTable = new Dictionary<string, string>
+            {
+                { "Ә", "Ä" },
+                { "Ғ", "Ğ" },
+                { "Ё", "İo" },
+                { "И", "İ" },
+                { "І", "I" },
+                { "Й", "İ" },
                 { "Ң", "Ñ" },
                 { "Ө", "Ö" },
+                { "У", "U" },
                 { "Ү", "Ü" },
                 { "Ұ", "Ū" },
-                { "Х", "H" },
-                { "Ч", "Ç" },
+                { "Ц", "ts" },
+                { "Ч", "Tş" },
                 { "Ш", "Ş" },
-                { "Щ", "Şç" },
+                { "Щ", "Ştş" },
+                { "Э", "E" },
+                { "Ю", "İu" },
+                { "Я", "İa" },
 
                 { "ә", "ä" },
                 { "ғ", "ğ" },
-                { "ж", "j" },
+                { "ё", "io" },
+                { "и", "i" },
                 { "і", "ı" },
                 { "й", "i" },
-                { "қ", "q" },
                 { "ң", "ñ" },
                 { "ө", "ö" },
+                { "у", "u" },
                 { "ү", "ü" },
                 { "ұ", "ū" },
-                { "х", "h" },
-                { "ч", "ç" },
+                { "ц", "ts" },
+                { "ч", "tş" },
                 { "ш", "ş" },
-                { "щ", "şç" },
+                { "щ", "ştş" },
+                { "э", "e" },
+                { "ю", "iu" },
+                { "я", "ia" },
             };
 
             russianTransliterationTable = new Dictionary<string, string>();
@@ -160,6 +218,14 @@ namespace TransliterationAPI.Service.Transliterators
                 { "'", "" },
             };
 
+            foreach (var characterTransliteration in kazakh2018TransliterationTable)
+            {
+                if (!kazakh2021TransliterationTable.ContainsKey(characterTransliteration.Key))
+                {
+                    kazakh2021TransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
+                }
+            }
+
             foreach (var characterTransliteration in bgnPcgnTransliterationTable)
             {
                 if (!bulgarianTransliterationTable.ContainsKey(characterTransliteration.Key))
@@ -167,9 +233,14 @@ namespace TransliterationAPI.Service.Transliterators
                     bulgarianTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
                 }
 
-                if (!kazakhTransliterationTable.ContainsKey(characterTransliteration.Key))
+                if (!kazakh2018TransliterationTable.ContainsKey(characterTransliteration.Key))
                 {
-                    kazakhTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
+                    kazakh2018TransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
+                }
+
+                if (!kazakh2021TransliterationTable.ContainsKey(characterTransliteration.Key))
+                {
+                    kazakh2021TransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
                 }
 
                 if (!russianTransliterationTable.ContainsKey(characterTransliteration.Key))
@@ -192,9 +263,14 @@ namespace TransliterationAPI.Service.Transliterators
             {
                 transliterationTable = bulgarianTransliterationTable;
             }
-            else if (language.Equals(Language.Kazakh))
+            else if (language.Equals(Language.Kazakh) ||
+                     language.Equals(Language.Kazakh2021))
             {
-                transliterationTable = kazakhTransliterationTable;
+                transliterationTable = kazakh2021TransliterationTable;
+            }
+            else if (language.Equals(Language.Kazakh2018))
+            {
+                transliterationTable = kazakh2018TransliterationTable;
             }
             else if (language.Equals(Language.Russian))
             {
