@@ -10,6 +10,7 @@ namespace TransliterationAPI.Service.Transliterators
     {
         Dictionary<string, string> bgnPcgnTransliterationTable;
 
+        Dictionary<string, string> belarussianTransliterationTable;
         Dictionary<string, string> bulgarianTransliterationTable;
         Dictionary<string, string> kazakhTransliterationTable;
         Dictionary<string, string> russianTransliterationTable;
@@ -85,6 +86,59 @@ namespace TransliterationAPI.Service.Transliterators
                 { "э", "e" },
                 { "ю", "yu" },
                 { "я", "ya" }
+            };
+
+            belarussianTransliterationTable = new Dictionary<string, string>
+            {
+                // Uppeercase exceptions
+                { "Ль", "Ĺ" },
+                { "Нь", "Ń" },
+                { @"\bЕ", "Je" },
+                { @"\bЁ", "Jo" },
+                { @"\bЯ", "Ja" },
+                { @"\bЮ", "Ju" },
+
+                // Lowercase exceptions
+                { "іё", "іjo" },
+                { "ль", "ĺ" },
+                { "ля", "лia" },
+                { "нь", "ń" },
+                { @"е\b", "je" },
+                { @"ё\b", "jo" },
+                { @"ю\b", "ju" },
+                { @"я\b", "ja" },
+
+                // Uppeercase characters
+                { "Г", "H" },
+                { "Д", "D" },
+                { "Е", "Ie" }, // Also Je
+                { "Ё", "Jo" }, // Also Io
+                { "Ж", "Ž" },
+                { "І", "I" },
+                { "Й", "J" },
+                { "Ў", "Ŭ" },
+                { "Х", "Ch" },
+                { "Ц", "C" },
+                { "Ч", "Č" },
+                { "Ш", "Š" },
+                { "Ю", "Iu" }, // Also Ju
+                { "Я", "Ia" }, // Also Ja
+
+                // Lowercase characters
+                { "г", "h" },
+                { "д", "d" },
+                { "е", "ie" },
+                { "ё", "io" },
+                { "ж", "ž" },
+                { "і", "i" },
+                { "й", "j" },
+                { "ў", "ŭ" },
+                { "х", "ch" },
+                { "ц", "c" },
+                { "ч", "č" },
+                { "ш", "š" },
+                { "ю", "iu" },
+                { "я", "ia" },
             };
 
             bulgarianTransliterationTable = new Dictionary<string, string>
@@ -176,6 +230,11 @@ namespace TransliterationAPI.Service.Transliterators
 
             foreach (var characterTransliteration in bgnPcgnTransliterationTable)
             {
+                if (!belarussianTransliterationTable.ContainsKey(characterTransliteration.Key))
+                {
+                    belarussianTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
+                }
+
                 if (!bulgarianTransliterationTable.ContainsKey(characterTransliteration.Key))
                 {
                     bulgarianTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
@@ -202,7 +261,11 @@ namespace TransliterationAPI.Service.Transliterators
         {
             IDictionary<string, string> transliterationTable;
 
-            if (language.Equals(Language.Bulgarian))
+            if (language.Equals(Language.Belarussian))
+            {
+                transliterationTable = belarussianTransliterationTable;
+            }
+            else if (language.Equals(Language.Bulgarian))
             {
                 transliterationTable = bulgarianTransliterationTable;
             }
@@ -230,12 +293,25 @@ namespace TransliterationAPI.Service.Transliterators
                 transliteratedText = Regex.Replace(transliteratedText, character, transliterationTable[character]);
             }
 
-            if (language.Equals(Language.Russian))
+            if (language.Equals(Language.Belarussian))
+            {
+                transliteratedText = ApplyBelarussianFixes(transliteratedText);
+            }
+            else if (language.Equals(Language.Russian))
             {
                 transliteratedText = ApplyRussianFixes(transliteratedText);
             }
 
             return transliteratedText;
+        }
+
+        string ApplyBelarussianFixes(string text)
+        {
+            string fixedText = text;
+
+            fixedText = Regex.Replace(fixedText, "'i", "ji");
+
+            return fixedText;
         }
 
         string ApplyRussianFixes(string text)

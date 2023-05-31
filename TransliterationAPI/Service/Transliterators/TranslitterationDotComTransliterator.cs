@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using NuciExtensions;
@@ -29,16 +28,7 @@ namespace TransliterationAPI.Service.Transliterators
         {
             string fixedText = text;
 
-            if (language.Equals(Language.Belarussian))
-            {
-                fixedText = Regex.Replace(fixedText, "([a-zA-Z])H", "$1h");
-                fixedText = Regex.Replace(fixedText, "([a-zA-Z])S", "$1s");
-                fixedText = Regex.Replace(fixedText, "([a-zA-Z])T", "$1t");
-                fixedText = Regex.Replace(fixedText, "([a-zA-Z])U", "$1u");
-                fixedText = Regex.Replace(fixedText, "([a-zA-Z])Z", "$1z");
-                fixedText = Regex.Replace(fixedText, "([a-zA-Z])Ž", "$1ž");
-            }
-            else if (language.Equals(Language.Chuvash))
+            if (language.Equals(Language.Chuvash))
             {
                 fixedText = fixedText.Replace("i͡", "y");
             }
@@ -89,11 +79,6 @@ namespace TransliterationAPI.Service.Transliterators
             {
                 formData["tlang"] = "bak";
                 formData["scheme"] = "iso-9";
-            }
-            else if (languageCode.Equals(Language.Belarussian))
-            {
-                formData["tlang"] = "bel";
-                formData["scheme"] = "national";
             }
             else if (languageCode.Equals(Language.Chuvash))
             {
