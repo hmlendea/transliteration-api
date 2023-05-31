@@ -78,18 +78,6 @@ namespace TransliterationAPI.Service.Transliterators
                 fixedText = fixedText.Replace("ᐄ", "i");
                 fixedText = fixedText.Replace("ᐆ", "u");
             }
-            else if (language.Equals(Language.Kazakh))
-            {
-                fixedText = fixedText.Replace("Ц", "C");
-                fixedText = fixedText.Replace("Э", "E");
-                fixedText = fixedText.Replace("Я", "Ia");
-                fixedText = fixedText.Replace("Ю", "Iu");
-                fixedText = fixedText.Replace("ь", "’");
-                fixedText = fixedText.Replace("ц", "c");
-                fixedText = fixedText.Replace("э", "e");
-                fixedText = fixedText.Replace("я", "ia");
-                fixedText = fixedText.Replace("ю", "iu");
-            }
 
             if (language.Equals(Language.Armenian) ||
                 language.Equals(Language.Georgian) ||
@@ -157,11 +145,6 @@ namespace TransliterationAPI.Service.Transliterators
             {
                 formData["tlang"] = "iku";
                 formData["scheme"] = "canadian-aboriginal-syllabics";
-            }
-            else if (languageCode.Equals(Language.Kazakh))
-            {
-                formData["tlang"] = "kaz";
-                formData["scheme"] = "national";
             }
             else if (languageCode.Equals(Language.Kyrgyz))
             {
