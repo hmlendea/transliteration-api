@@ -41,8 +41,7 @@ namespace TransliterationAPI.Service.Transliterators
             if (language.Equals(Language.Armenian) ||
                 language.Equals(Language.Georgian) ||
                 language.Equals(Language.Inuttitut) ||
-                language.Equals(Language.Kyrgyz) ||
-                language.Equals(Language.MacedonianSlavic))
+                language.Equals(Language.Kyrgyz))
             {
                 fixedText = fixedText.ToTitleCase();
             }
@@ -99,11 +98,6 @@ namespace TransliterationAPI.Service.Transliterators
             {
                 formData["tlang"] = "kir";
                 formData["scheme"] = "iso-9";
-            }
-            else if (languageCode.Equals(Language.MacedonianSlavic))
-            {
-                formData["tlang"] = "mkd";
-                formData["scheme"] = "bgn-pcgn";
             }
             else if (languageCode.Equals(Language.Ossetic))
             {
