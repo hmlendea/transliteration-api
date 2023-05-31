@@ -18,7 +18,7 @@ namespace TransliterationAPI.Service.Entities
         public static Language Arabic => new Language("ar", "Arabic", nameof(ArabicTransliterator));
         public static Language Armenian => new Language("hy", "Armenian", nameof(TranslitterationDotComTransliterator));
         public static Language Bashkir => new Language("ba", "Bashkir", nameof(TranslitterationDotComTransliterator));
-        public static Language Belarussian => new Language("be", "Belarussian", nameof(TranslitterationDotComTransliterator));
+        public static Language Belarussian => new Language("be", "Belarussian", nameof(CyrillicTransliterator));
         public static Language Bengali => new Language("bn", "Bengali", nameof(UshuaiaTransliterator));
         public static Language Bulgarian => new Language("bg", "Bulgarian", nameof(CyrillicTransliterator));
         public static Language Chinese => new Language("zh", "Chinese", nameof(PinyinTransliterator));
