@@ -138,7 +138,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Арқалық", "Arqalyq")]
         [TestCase("Астана", "Astana")]
         [TestCase("Атырау", "Atyraý")]
-        [TestCase("Байқоңыр", "Baiqońyr")]
+        [TestCase("Байқоңыр", "Baıqońyr")]
         [TestCase("Балқаш", "Balqash")]
         [TestCase("Екібастұз", "Ekibastuz")]
         [TestCase("Жаңаөзен", "Jańaózen")]
@@ -146,24 +146,25 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Кентау", "Kentaý")]
         [TestCase("Көкшетау", "Kókshetaý")]
         [TestCase("Қарағанды", "Qaraǵandy")]
-        [TestCase("Қостанай", "Qostanai")]
+        [TestCase("Қостанай", "Qostanaı")]
         [TestCase("Қызылорда", "Qyzylorda")]
         [TestCase("Орал", "Oral")]
         [TestCase("Өскемен", "Óskemen")]
         [TestCase("Павлодар", "Pavlodar")]
         [TestCase("Петропавл", "Petropavl")]
-        [TestCase("Риддер", "Ridder")]
+        [TestCase("Риддер", "Rıdder")]
         [TestCase("Саран", "Saran")]
         [TestCase("Сәтбаев", "Sátbaev")]
-        [TestCase("Семей", "Semei")]
+        [TestCase("Семей", "Semeı")]
         [TestCase("Степногорск", "Stepnogorsk")]
         [TestCase("Талдықорған", "Taldyqorǵan")]
         [TestCase("Тараз", "Taraz")]
         [TestCase("Теміртау", "Temirtaý")]
         [TestCase("Түркістан", "Túrkistan")]
-        [TestCase("Шахтинск", "Shahtinsk")]
+        [TestCase("Шахтинск", "Shahtınsk")]
         [TestCase("Шымкент", "Shymkent")]
-        [TestCase("Щучинск", "Shchýchinsk")]
+        [TestCase("Щучинск", "Shchýchınsk")]
+        [TestCase("Барлық адамдар тумысынан азат және қадір-қасиеті мен құқықтары тең болып дүниеге келеді. Адамдарға ақыл-парасат, ар-ождан берілген, сондықтан олар бір-бірімен туыстық, бауырмалдық қарым-қатынас жасаулары тиіс.", "Barlyq adamdar týmysynan azat jáne qadir-qasıeti men quqyqtary teń bolyp dúnıege keledi. Adamdarǵa aqyl-parasat, ar-ojdan berilgen, sondyqtan olar bir-birimen týystyq, baýyrmaldyq qarym-qatynas jasaýlary tıis.")]
         public void GivenATextInKazakh2018CyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string kazakhText,
             string expectedTransliteratedText)
@@ -202,6 +203,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Шахтинск", "Şahtinsk")]
         [TestCase("Шымкент", "Şymkent")]
         [TestCase("Щучинск", "Ştşutşinsk")]
+        [TestCase("Барлық адамдар тумысынан азат және қадір-қасиеті мен құқықтары тең болып дүниеге келеді. Адамдарға ақыл-парасат, ар-ождан берілген, сондықтан олар бір-бірімен туыстық, бауырмалдық қарым-қатынас жасаулары тиіс.", "Barlyq adamdar tumysynan azat jäne qadır-qasietı men qūqyqtary teñ bolyp düniege keledı. Adamdarğa aqyl-parasat, ar-ojdan berılgen, sondyqtan olar bır-bırımen tuystyq, bauyrmaldyq qarym-qatynas jasaulary tiıs.")]
         public void GivenATextInKazakh2021CyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string kazakhText,
             string expectedTransliteratedText)
