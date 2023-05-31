@@ -35,7 +35,6 @@ namespace TransliterationAPI.Service.Transliterators
             if (language.Equals(Language.Bengali) ||
                 language.Equals(Language.Hindi) ||
                 language.Equals(Language.Kannada) ||
-                language.Equals(Language.Korean) ||
                 language.Equals(Language.Malayalam) ||
                 language.Equals(Language.Sanskrit) ||
                 language.Equals(Language.Sinhala) ||
@@ -43,15 +42,6 @@ namespace TransliterationAPI.Service.Transliterators
                 language.Equals(Language.Telugu))
             {
                 fixedText = fixedText.ToTitleCase();
-            }
-
-            if (language.Equals(Language.Korean))
-            {
-                fixedText = fixedText
-                    .Replace("ǒ", "ŏ")
-                    .Replace("’", "");
-
-                fixedText = Regex.Replace(fixedText, "^\"(.*)\"$", "$1");
             }
 
             return fixedText;
@@ -83,10 +73,6 @@ namespace TransliterationAPI.Service.Transliterators
             else if (language.Equals(Language.Kannada))
             {
                 formData["lang"] = "kannada_iso_transliterate";
-            }
-            else if (language.Equals(Language.Korean))
-            {
-                formData["lang"] = "hangul_mr_transcribe";
             }
             else if (language.Equals(Language.Malayalam))
             {

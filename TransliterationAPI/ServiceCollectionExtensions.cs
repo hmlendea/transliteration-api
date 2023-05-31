@@ -45,6 +45,7 @@ namespace TransliterationAPI
                 .AddScoped<GujaratiTransliterator>()
                 .AddScoped<HebrewTransliterator>()
                 .AddScoped<JapaneseTransliterator>()
+                .AddScoped<KoreanTransliterator>()
                 .AddScoped<MarathiTransliterator>()
                 .AddScoped<PinyinTransliterator>()
                 .AddScoped<PodolakTransliterator>()
