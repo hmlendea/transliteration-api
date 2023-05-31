@@ -174,7 +174,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Περιστέρι", "Peristéri")]
         [TestCase("Τρίκαλα", "Tríkala")]
         [TestCase("Χαλάνδρι", "Chalándri")]
-        public void GivenATextInModernDoricScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
+        public void GivenATextInModernScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string modernGreekText,
             string expectedTransliteratedText)
             => Assert.That(transliterator.Transliterate(modernGreekText, Language.Greek), Is.EqualTo(expectedTransliteratedText));
