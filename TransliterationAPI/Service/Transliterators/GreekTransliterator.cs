@@ -5,14 +5,14 @@ using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class AncientGreekTransliterator : ITransliterator
+    public class GreekTransliterator : ITransliterator
     {
-        Dictionary<string, string> transliterationTable;
-        Dictionary<string, string> doricTransliterationTable;
+        Dictionary<string, string> ancientGreekTransliterationTable;
+        Dictionary<string, string> ancientDoricGreekTransliterationTable;
 
-        public AncientGreekTransliterator()
+        public GreekTransliterator()
         {
-            transliterationTable = new Dictionary<string, string>
+            ancientGreekTransliterationTable = new Dictionary<string, string>
             {
                 { "α", "a" },
                 { "ἀ", "a" },
@@ -214,7 +214,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ϗ", "kai" }, // kai symbol
             };
 
-            doricTransliterationTable = new Dictionary<string, string>
+            ancientDoricGreekTransliterationTable = new Dictionary<string, string>
             {
                 { "Ή", "Á" },
                 { "Ἡ([^ρ])", "Ha$1" },
@@ -234,15 +234,15 @@ namespace TransliterationAPI.Service.Transliterators
 
             if(language.Equals(Language.AncientGreekDoric))
             {
-                foreach (string character in doricTransliterationTable.Keys)
+                foreach (string character in ancientDoricGreekTransliterationTable.Keys)
                 {
-                    transliteratedText = Regex.Replace(transliteratedText, character, doricTransliterationTable[character]);
+                    transliteratedText = Regex.Replace(transliteratedText, character, ancientDoricGreekTransliterationTable[character]);
                 }
             }
 
-            foreach (string character in transliterationTable.Keys)
+            foreach (string character in ancientGreekTransliterationTable.Keys)
             {
-                transliteratedText = Regex.Replace(transliteratedText, character, transliterationTable[character]);
+                transliteratedText = Regex.Replace(transliteratedText, character, ancientGreekTransliterationTable[character]);
             }
 
             transliteratedText = ApplyFixes(transliteratedText);

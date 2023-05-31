@@ -5,14 +5,14 @@ using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
-    public class AncientGreekTransliteratorTests
+    public class GreekTransliteratorTests
     {
         private ITransliterator transliterator;
 
         [SetUp]
         public void SetUp()
         {
-            this.transliterator = new AncientGreekTransliterator();
+            this.transliterator = new GreekTransliterator();
         }
 
         [Test]

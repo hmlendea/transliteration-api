@@ -13,8 +13,8 @@ namespace TransliterationAPI.Service.Entities
 
         public static Language Abkhaz => new Language("ab", "Abkhaz", nameof(TranslitterationDotComTransliterator));
         public static Language Adyghe => new Language("ady", "Adyghe", nameof(TranslitterationDotComTransliterator));
-        public static Language AncientGreek => new Language("grc", "Ancient Greek", nameof(AncientGreekTransliterator));
-        public static Language AncientGreekDoric => new Language("grc-dor", "Ancient Doric Greek", nameof(AncientGreekTransliterator));
+        public static Language AncientGreek => new Language("grc", "Ancient Greek", nameof(GreekTransliterator));
+        public static Language AncientGreekDoric => new Language("grc-dor", "Ancient Doric Greek", nameof(GreekTransliterator));
         public static Language Arabic => new Language("ar", "Arabic", nameof(ArabicTransliterator));
         public static Language Armenian => new Language("hy", "Armenian", nameof(TranslitterationDotComTransliterator));
         public static Language Bashkir => new Language("ba", "Bashkir", nameof(TranslitterationDotComTransliterator));
