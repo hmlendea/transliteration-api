@@ -11,6 +11,7 @@ namespace TransliterationAPI.Service.Transliterators
         Dictionary<string, string> bgnPcgnTransliterationTable;
 
         Dictionary<string, string> bulgarianTransliterationTable;
+        Dictionary<string, string> kazakhTransliterationTable;
         Dictionary<string, string> russianTransliterationTable;
         Dictionary<string, string> ukrainianTransliterationTable;
 
@@ -98,6 +99,39 @@ namespace TransliterationAPI.Service.Transliterators
                 { "щ", "sht" },
             };
 
+            kazakhTransliterationTable = new Dictionary<string, string>
+            {
+                { "Ә", "Ä" },
+                { "Ғ", "Ğ" },
+                { "Ж", "J" },
+                { "І", "I" },
+                { "Й", "I" },
+                { "Қ", "Q" },
+                { "Ң", "Ñ" },
+                { "Ө", "Ö" },
+                { "Ү", "Ü" },
+                { "Ұ", "Ū" },
+                { "Х", "H" },
+                { "Ч", "Ç" },
+                { "Ш", "Ş" },
+                { "Щ", "Şç" },
+
+                { "ә", "ä" },
+                { "ғ", "ğ" },
+                { "ж", "j" },
+                { "і", "ı" },
+                { "й", "i" },
+                { "қ", "q" },
+                { "ң", "ñ" },
+                { "ө", "ö" },
+                { "ү", "ü" },
+                { "ұ", "ū" },
+                { "х", "h" },
+                { "ч", "ç" },
+                { "ш", "ş" },
+                { "щ", "şç" },
+            };
+
             russianTransliterationTable = new Dictionary<string, string>();
 
             ukrainianTransliterationTable = new Dictionary<string, string>
@@ -133,6 +167,11 @@ namespace TransliterationAPI.Service.Transliterators
                     bulgarianTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
                 }
 
+                if (!kazakhTransliterationTable.ContainsKey(characterTransliteration.Key))
+                {
+                    kazakhTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
+                }
+
                 if (!russianTransliterationTable.ContainsKey(characterTransliteration.Key))
                 {
                     russianTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
@@ -152,6 +191,10 @@ namespace TransliterationAPI.Service.Transliterators
             if (language.Equals(Language.Bulgarian))
             {
                 transliterationTable = bulgarianTransliterationTable;
+            }
+            else if (language.Equals(Language.Kazakh))
+            {
+                transliterationTable = kazakhTransliterationTable;
             }
             else if (language.Equals(Language.Russian))
             {
