@@ -38,8 +38,9 @@ namespace TransliterationAPI.Service.Transliterators
                 {'ヤ', "ya"}, {'ユ', "yu"}, {'ヨ', "yo"},
                 {'ラ', "ra"}, {'リ', "ri"}, {'ル', "ru"}, {'レ', "re"}, {'ロ', "ro"},
                 {'ワ', "wa"}, {'ヲ', "wo"}, {'ン', "n"},
-                {'ィ', "i"}, {'デ', "de"}, {'プ', "pu"}, {'グ', "gu"},
-                {'・', " "},
+                {'ィ', "i"}, {'デ', "de"}, {'プ', "pu"}, {'グ', "gu"}, {'ズ', "zu"}, {'ジ', "ji"}, {'ガ', "ga"}, {'ベ', "be"}, {'ェ', "e"},
+                {'バ', "ba"}, {'ゲ', "ge"}, {'ド', "do"}, {'ゥ', "ū"}, {'ビ', "bi"}, {'ボ', "bo"},
+                {'・', " "}, {'ー', ""},
 
                 // Special Characters
                 {'ゃ', "ya"}, {'ゅ', "yu"}, {'ょ', "yo"}, // small ya, yu, yo
@@ -75,6 +76,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { '士', "ji" },
                 { '奈', "na" },
                 { '媛', "hime" },
+                { '宇', "u" },
                 { '宮', "miya" },
                 { '富', "fu" },
                 { '山', "yama" },
@@ -83,6 +85,8 @@ namespace TransliterationAPI.Service.Transliterators
                 { '島', "shima" },
                 { '崎', "saki" },
                 { '川', "kawa" },
+                { '州', "shū" },
+                { '市', "shi" },
                 { '幌', "poro" },
                 { '広', "hiro" },
                 { '形', "gata" },
@@ -97,6 +101,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { '殿', "dono" },
                 { '沖', "oki" },
                 { '沢', "zawa" },
+                { '津', "tsu" },
                 { '滋', "shi" },
                 { '潟', "gata" },
                 { '熊', "kuma" },
@@ -121,6 +126,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { '高', "taka" },
                 { '鳥', "tori" },
                 { '鹿', "ka" },
+                { '木', "ki" },
             };
 
         }
@@ -149,6 +155,12 @@ namespace TransliterationAPI.Service.Transliterators
         string ApplyFixes(string text)
         {
             string fixedText = text.ToTitleCase();
+
+            fixedText = Regex.Replace(fixedText, "aー", "ā");
+            fixedText = Regex.Replace(fixedText, "eー", "ē");
+            fixedText = Regex.Replace(fixedText, "iー", "ī");
+            fixedText = Regex.Replace(fixedText, "oー", "ō");
+            fixedText = Regex.Replace(fixedText, "uー", "ū");
 
             fixedText = Regex.Replace(fixedText, "([Tt])orit", "$1ott");
             fixedText = Regex.Replace(fixedText, "Takac", "Kōc");
