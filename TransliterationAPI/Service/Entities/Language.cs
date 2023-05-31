@@ -26,7 +26,7 @@ namespace TransliterationAPI.Service.Entities
         public static Language Coptic => new Language("cop", "Coptic", nameof(CopticTransliterator));
         public static Language EgyptianArabic => new Language("arz", "Egyptian Arabic", nameof(ArabicTransliterator));
         public static Language Georgian => new Language("ka", "Georgian", nameof(TranslitterationDotComTransliterator));
-        public static Language Greek => new Language("el", "Greek", nameof(TranslitterationDotComTransliterator));
+        public static Language Greek => new Language("el", "Greek", nameof(GreekTransliterator));
         public static Language Gujarati => new Language("gy", "Gujarati", nameof(GujaratiTransliterator));
         public static Language Hebrew => new Language("he", "Hebrew", nameof(HebrewTransliterator));
         public static Language Hindi => new Language("hi", "Hindi", nameof(UshuaiaTransliterator));

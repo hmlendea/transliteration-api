@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -7,11 +8,109 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class GreekTransliterator : ITransliterator
     {
+        Dictionary<string, string> modernGreekTransliterationTable;
         Dictionary<string, string> ancientGreekTransliterationTable;
         Dictionary<string, string> ancientDoricGreekTransliterationTable;
 
         public GreekTransliterator()
         {
+            // ISO 843
+            modernGreekTransliterationTable = new Dictionary<string, string>
+            {
+                // Uppercase exceptions
+                { "Ευ([ήο])", "Ev$1" },
+                { "Εύ([ήο])", "Ev́$1" },
+                { "Αυ", "Au" },
+                { "Αύ", "Aú" },
+                { "Ευ", "Eu" },
+                { "Εύ", "Eú" },
+                { "Ηυ", "Īy" },
+                { "Ου", "Ou" },
+                { "Ού", "Oú" },
+
+                // Lowercase exceptions
+                { "ευ([ήο])", "ev$1" },
+                { "εύ([ήο])", "ev́$1" },
+                { "αυ", "au" },
+                { "αύ", "aú" },
+                { "ευ", "eu" },
+                { "εύ", "eú" },
+                { "ηυ", "īy" },
+                { "ου", "ou" },
+                { "ού", "oú" },
+
+                // Uppercase letters
+                { "Α", "A" },
+                { "Ά", "Á" },
+                { "Β", "V" },
+                { "Γ", "G" },
+                { "Δ", "D" },
+                { "Ε", "E" },
+                { "Έ", "É" },
+                { "Ζ", "Z" },
+                { "Η", "Ī" }, // I
+                { "Ή", "Ī́" }, // Í
+                { "Θ", "Th" },
+                { "Ι", "I" },
+                { "Ϊ", "Ï" },
+                { "Ί", "Í" }, // Ï
+                { "Κ", "K" },
+                { "Λ", "L" },
+                { "Μ", "M" },
+                { "Ν", "N" },
+                { "Ξ", "X" },
+                { "Ο", "O" },
+                { "Π", "P" },
+                { "Ρ", "R" },
+                { "Σ", "S" },
+                { "Τ", "T" },
+                { "Υ", "Y" },
+                { "Ύ", "Ý" },
+                { "Ϋ", "Ÿ" },
+                { "Φ", "F" },
+                { "Χ", "Ch" },
+                { "Ψ", "Ps" },
+                { "Ω", "Ō" },
+                { "Ώ", "Ṓ" },
+
+                // Lowercase letters
+                { "α", "a" },
+                { "ά", "á" },
+                { "β", "v" },
+                { "γ", "g" },
+                { "δ", "d" },
+                { "ε", "e" },
+                { "έ", "é" },
+                { "ζ", "z" },
+                { "η", "ī" }, // i
+                { "ή", "ī́" }, // í
+                { "θ", "th" },
+                { "ι", "i" },
+                { "ϊ", "ï" },
+                { "ΐ", "ḯ" },
+                { "ί", "í" }, // ï
+                { "κ", "k" },
+                { "λ", "l" },
+                { "μ", "m" },
+                { "ν", "n" },
+                { "ξ", "x" },
+                { "ο", "o" },
+                { "π", "p" },
+                { "ρ", "r" },
+                { "σ", "s" },
+                { "ς", "s" },
+                { "τ", "t" },
+                { "υ", "y" },
+                { "ύ", "ý" },
+                { "ϋ", "ÿ" },
+                { "ΰ", "ÿ́" },
+                { "φ", "f" },
+                { "χ", "ch" },
+                { "ψ", "ps" },
+                { "ω", "ō" },
+                { "ώ", "ṓ" },
+            };
+
             ancientGreekTransliterationTable = new Dictionary<string, string>
             {
                 { "α", "a" },
@@ -232,25 +331,55 @@ namespace TransliterationAPI.Service.Transliterators
         {
             string transliteratedText = text;
 
-            if(language.Equals(Language.AncientGreekDoric))
+
+            if (language.Equals(Language.AncientGreek) ||
+                language.Equals(Language.AncientGreekDoric))
             {
-                foreach (string character in ancientDoricGreekTransliterationTable.Keys)
+                if (language.Equals(Language.AncientGreekDoric))
                 {
-                    transliteratedText = Regex.Replace(transliteratedText, character, ancientDoricGreekTransliterationTable[character]);
+                    foreach (string character in ancientDoricGreekTransliterationTable.Keys)
+                    {
+                        transliteratedText = Regex.Replace(transliteratedText, character, ancientDoricGreekTransliterationTable[character]);
+                    }
+                }
+
+                foreach (string character in ancientGreekTransliterationTable.Keys)
+                {
+                    transliteratedText = Regex.Replace(transliteratedText, character, ancientGreekTransliterationTable[character]);
                 }
             }
-
-            foreach (string character in ancientGreekTransliterationTable.Keys)
+            else if (language.Equals(Language.Greek))
             {
-                transliteratedText = Regex.Replace(transliteratedText, character, ancientGreekTransliterationTable[character]);
+                foreach (string character in modernGreekTransliterationTable.Keys)
+                {
+                    transliteratedText = Regex.Replace(transliteratedText, character, modernGreekTransliterationTable[character]);
+                }
+            }
+            else
+            {
+                throw new ArgumentException($"The {language.Name} language is not supported by the {nameof(GreekTransliterator)}");
             }
 
-            transliteratedText = ApplyFixes(transliteratedText);
+            transliteratedText = ApplyFixes(transliteratedText, language);
 
             return transliteratedText;
         }
 
-        string ApplyFixes(string text)
+        string ApplyFixes(string text, Language language)
+        {
+            string fixedText = text;
+
+            if (language.Equals(Language.AncientGreek) ||
+                language.Equals(Language.AncientGreekDoric))
+            {
+                fixedText = ApplyAncientFixes(fixedText);
+            }
+
+            return fixedText;
+        }
+
+
+        string ApplyAncientFixes(string text)
         {
             string fixedText = text;
 
