@@ -33,7 +33,7 @@ namespace TransliterationAPI.Service.Entities
         public static Language Inuttitut => new Language("iu", "Inuttitut", nameof(TranslitterationDotComTransliterator));
         public static Language Japanese => new Language("ja", "Japanese", nameof(JapaneseTransliterator));
         public static Language Kannada => new Language("kn", "Kannada", nameof(UshuaiaTransliterator));
-        public static Language Kazakh => new Language("kk", "Kazakh", nameof(TranslitterationDotComTransliterator));
+        public static Language Kazakh => new Language("kk", "Kazakh", nameof(CyrillicTransliterator));
         public static Language Korean => new Language("ko", "Korean", nameof(UshuaiaTransliterator));
         public static Language Kyrgyz => new Language("ky", "Kyrgyz", nameof(TranslitterationDotComTransliterator));
         public static Language MacedonianSlavic => new Language("mk", "Macedonian Slavic", nameof(TranslitterationDotComTransliterator));
