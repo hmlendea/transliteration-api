@@ -243,7 +243,7 @@ namespace TransliterationAPI.Service.Transliterators
             string fixedText = text;
 
             fixedText = Regex.Replace(fixedText, "Eka", "Yeka");
-            fixedText = Regex.Replace(fixedText, "oe", "oye");
+            fixedText = Regex.Replace(fixedText, "([eo])e", "$1ye");
 
             fixedText = Regex.Replace(fixedText, @"([\ \-])syur([\ \-])(.*)\b", "$1na$1$3e");
 
