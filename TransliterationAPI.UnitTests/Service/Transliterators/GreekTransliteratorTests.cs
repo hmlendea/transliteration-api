@@ -5,14 +5,14 @@ using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
-    public class AncientGreekTransliteratorTests
+    public class GreekTransliteratorTests
     {
         private ITransliterator transliterator;
 
         [SetUp]
         public void SetUp()
         {
-            this.transliterator = new AncientGreekTransliterator();
+            this.transliterator = new GreekTransliterator();
         }
 
         [Test]
@@ -142,5 +142,41 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
             string ancientGreekDoricText,
             string expectedTransliteratedText)
             => Assert.That(transliterator.Transliterate(ancientGreekDoricText, Language.AncientGreekDoric), Is.EqualTo(expectedTransliteratedText));
+
+        [Test]
+        [TestCase("Αγία Παρασκευή", "Agía Paraskevī́")]
+        [TestCase("Άγιος Δημήτριος", "Ágios Dīmī́trios")]
+        [TestCase("Αθήνα", "Athī́na")]
+        [TestCase("Αιγάλεω", "Aigáleō")]
+        [TestCase("Αχαρνές", "Acharnés")]
+        [TestCase("Βόλος", "Vόlos")]
+        [TestCase("Βύρωνας", "Výrōnas")]
+        [TestCase("Γλυφάδα", "Glyfáda")]
+        [TestCase("Εύοσμος", "Ev́osmos")]
+        [TestCase("Ζωγράφου", "Zōgráfou")]
+        [TestCase("Ηλιούπολη", "Īlioúpolī")]
+        [TestCase("Ηράκλειο", "Īrákleio")]
+        [TestCase("Θεσσαλονίκη", "Thessaloníkī")]
+        [TestCase("Ίλιον", "Ílion")]
+        [TestCase("Ιωάννινα", "Iōánnina")]
+        [TestCase("Καλαμαριά", "Kalamariá")]
+        [TestCase("Καλλιθέα", "Kallithéa")]
+        [TestCase("Κορυδαλλός", "Korydallόs")]
+        [TestCase("Λάρισα", "Lárisa")]
+        [TestCase("Μαρούσι", "Maroúsi")]
+        [TestCase("Μενίδι", "Menídi")]
+        [TestCase("Νέα Ιωνία", "Néa Iōnía")]
+        [TestCase("Νέα Σμύρνη", "Néa Smýrnī")]
+        [TestCase("Νίκαια", "Níkaia")]
+        [TestCase("Παλαιό Φάληρο", "Palaiό Fálīro")]
+        [TestCase("Πάτρα", "Pátra")]
+        [TestCase("Πειραιάς", "Peiraiás")]
+        [TestCase("Περιστέρι", "Peristéri")]
+        [TestCase("Τρίκαλα", "Tríkala")]
+        [TestCase("Χαλάνδρι", "Chalándri")]
+        public void GivenATextInModernScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
+            string modernGreekText,
+            string expectedTransliteratedText)
+            => Assert.That(transliterator.Transliterate(modernGreekText, Language.Greek), Is.EqualTo(expectedTransliteratedText));
     }
 }

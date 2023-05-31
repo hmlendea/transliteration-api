@@ -104,6 +104,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Набережные Челны", "Naberezhnye Chelny")]
         [TestCase("Нижний Новгород", "Nizhniy Novgorod")]
         [TestCase("Новосиби́рск", "Novosibírsk")]
+        [TestCase("Новошареево", "Novoshareyevo")]
         [TestCase("Омск", "Omsk")]
         [TestCase("Пермь", "Perm")]
         [TestCase("Петровск-Порт", "Petrovsk-Port")]
@@ -130,6 +131,45 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
             string russianText,
             string expectedTransliteratedText)
             => Assert.That(transliterator.Transliterate(russianText, Language.Russian), Is.EqualTo(expectedTransliteratedText));
+
+        [Test]
+        [TestCase("Ақтау", "Aqtau")]
+        [TestCase("Ақтөбе", "Aqtöbe")]
+        [TestCase("Алматы", "Almaty")]
+        [TestCase("Арқалық", "Arqalyq")]
+        [TestCase("Астана", "Astana")]
+        [TestCase("Атырау", "Atyrau")]
+        [TestCase("Байқоңыр", "Baiqoñyr")]
+        [TestCase("Балқаш", "Balqaş")]
+        [TestCase("Екібастұз", "Ekıbastūz")]
+        [TestCase("Жаңаөзен", "Jañaözen")]
+        [TestCase("Жезқазған", "Jezqazğan")]
+        [TestCase("Кентау", "Kentau")]
+        [TestCase("Көкшетау", "Kökşetau")]
+        [TestCase("Қарағанды", "Qarağandy")]
+        [TestCase("Қостанай", "Qostanai")]
+        [TestCase("Қызылорда", "Qyzylorda")]
+        [TestCase("Орал", "Oral")]
+        [TestCase("Өскемен", "Öskemen")]
+        [TestCase("Павлодар", "Pavlodar")]
+        [TestCase("Петропавл", "Petropavl")]
+        [TestCase("Риддер", "Ridder")]
+        [TestCase("Саран", "Saran")]
+        [TestCase("Сәтбаев", "Sätbaev")]
+        [TestCase("Семей", "Semei")]
+        [TestCase("Степногорск", "Stepnogorsk")]
+        [TestCase("Талдықорған", "Taldyqorğan")]
+        [TestCase("Тараз", "Taraz")]
+        [TestCase("Теміртау", "Temırtau")]
+        [TestCase("Түркістан", "Türkıstan")]
+        [TestCase("Шахтинск", "Şahtinsk")]
+        [TestCase("Шымкент", "Şymkent")]
+        [TestCase("Щучинск", "Ştşutşinsk")]
+        [TestCase("Барлық адамдар тумысынан азат және қадір-қасиеті мен құқықтары тең болып дүниеге келеді. Адамдарға ақыл-парасат, ар-ождан берілген, сондықтан олар бір-бірімен туыстық, бауырмалдық қарым-қатынас жасаулары тиіс.", "Barlyq adamdar tumysynan azat jäne qadır-qasietı men qūqyqtary teñ bolyp düniege keledı. Adamdarğa aqyl-parasat, ar-ojdan berılgen, sondyqtan olar bır-bırımen tuystyq, bauyrmaldyq qarym-qatynas jasaulary tiıs.")]
+        public void GivenATextInKazakhCyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
+            string kazakhText,
+            string expectedTransliteratedText)
+            => Assert.That(transliterator.Transliterate(kazakhText, Language.Kazakh), Is.EqualTo(expectedTransliteratedText));
 
         [Test]
         [TestCase("Київ", "Kyiv")]

@@ -11,6 +11,7 @@ namespace TransliterationAPI.Service.Transliterators
         Dictionary<string, string> bgnPcgnTransliterationTable;
 
         Dictionary<string, string> bulgarianTransliterationTable;
+        Dictionary<string, string> kazakhTransliterationTable;
         Dictionary<string, string> russianTransliterationTable;
         Dictionary<string, string> ukrainianTransliterationTable;
 
@@ -98,6 +99,53 @@ namespace TransliterationAPI.Service.Transliterators
                 { "щ", "sht" },
             };
 
+            kazakhTransliterationTable = new Dictionary<string, string>
+            {
+                { "Ә", "Ä" },
+                { "Ғ", "Ğ" },
+                { "Ё", "İo" },
+                { "Ж", "J" },
+                { "И", "İ" },
+                { "І", "I" },
+                { "Й", "İ" },
+                { "Қ", "Q" },
+                { "Ң", "Ñ" },
+                { "Ө", "Ö" },
+                { "У", "U" },
+                { "Ү", "Ü" },
+                { "Ұ", "Ū" },
+                { "Х", "H" },
+                { "Ц", "ts" },
+                { "Ч", "Tş" },
+                { "Ш", "Ş" },
+                { "Щ", "Ştş" },
+                { "Э", "E" },
+                { "Ю", "İu" },
+                { "Я", "İa" },
+
+                { "ә", "ä" },
+                { "ғ", "ğ" },
+                { "ё", "io" },
+                { "ж", "j" },
+                { "и", "i" },
+                { "і", "ı" },
+                { "й", "i" },
+                { "қ", "q" },
+                { "ң", "ñ" },
+                { "ө", "ö" },
+                { "у", "u" },
+                { "ү", "ü" },
+                { "ұ", "ū" },
+                { "х", "h" },
+                { "ц", "ts" },
+                { "ч", "tş" },
+                { "ш", "ş" },
+                { "щ", "ştş" },
+                { "э", "e" },
+                { "ю", "iu" },
+                { "я", "ia" },
+            };
+
             russianTransliterationTable = new Dictionary<string, string>();
 
             ukrainianTransliterationTable = new Dictionary<string, string>
@@ -133,6 +181,11 @@ namespace TransliterationAPI.Service.Transliterators
                     bulgarianTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
                 }
 
+                if (!kazakhTransliterationTable.ContainsKey(characterTransliteration.Key))
+                {
+                    kazakhTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
+                }
+
                 if (!russianTransliterationTable.ContainsKey(characterTransliteration.Key))
                 {
                     russianTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
@@ -152,6 +205,10 @@ namespace TransliterationAPI.Service.Transliterators
             if (language.Equals(Language.Bulgarian))
             {
                 transliterationTable = bulgarianTransliterationTable;
+            }
+            else if (language.Equals(Language.Kazakh))
+            {
+                transliterationTable = kazakhTransliterationTable;
             }
             else if (language.Equals(Language.Russian))
             {
@@ -186,7 +243,7 @@ namespace TransliterationAPI.Service.Transliterators
             string fixedText = text;
 
             fixedText = Regex.Replace(fixedText, "Eka", "Yeka");
-            fixedText = Regex.Replace(fixedText, "oe", "oye");
+            fixedText = Regex.Replace(fixedText, "([eo])e", "$1ye");
 
             fixedText = Regex.Replace(fixedText, @"([\ \-])syur([\ \-])(.*)\b", "$1na$1$3e");
 

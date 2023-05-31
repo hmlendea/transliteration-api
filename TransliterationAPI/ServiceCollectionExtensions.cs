@@ -38,7 +38,7 @@ namespace TransliterationAPI
         static IServiceCollection AddTransliteratorServices(this IServiceCollection services)
         {
             return services
-                .AddScoped<AncientGreekTransliterator>()
+                .AddScoped<GreekTransliterator>()
                 .AddScoped<ArabicTransliterator>()
                 .AddScoped<CopticTransliterator>()
                 .AddScoped<CyrillicTransliterator>()
