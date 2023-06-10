@@ -104,7 +104,8 @@ namespace TransliterationAPI.Service.Transliterators
                 formData["tlang"] = "oss";
                 formData["scheme"] = "iso-9";
             }
-            else if (languageCode.Equals(Language.Serbian))
+            else if (languageCode.Equals(Language.Serbian) ||
+                     languageCode.Equals(Language.SerboCroatian))
             {
                 formData["tlang"] = "srp";
                 formData["scheme"] = "national";
