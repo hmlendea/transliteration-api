@@ -344,7 +344,9 @@ namespace TransliterationAPI.Service.Transliterators
             {
                 transliterationTable = russianTransliterationTable;
             }
-            else if (language.Equals(Language.Serbian))
+            else if (language.Equals(Language.Serbian) ||
+                     language.Equals(Language.SerbianCyrillic) ||
+                     language.Equals(Language.SerboCroatian))
             {
                 transliterationTable = serbianTransliterationTable;
             }

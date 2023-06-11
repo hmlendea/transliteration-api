@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NUnit.Framework;
 
 using TransliterationAPI.Service.Entities;
@@ -380,7 +381,12 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         public void GivenATextInSerbianCyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string serbianText,
             string expectedTransliteratedText)
-            => Assert.That(transliterator.Transliterate(serbianText, Language.Serbian), Is.EqualTo(expectedTransliteratedText));
+        {
+            foreach (Language language in new List<Language> { Language.Serbian, Language.SerbianCyrillic, Language.SerboCroatian })
+            {
+                Assert.That(transliterator.Transliterate(serbianText, language), Is.EqualTo(expectedTransliteratedText));
+            }
+        }
 
         [Test]
         [TestCase("Київ", "Kyiv")]
