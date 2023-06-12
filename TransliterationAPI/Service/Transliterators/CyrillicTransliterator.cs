@@ -8,10 +8,12 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class CyrillicTransliterator : ITransliterator
     {
+        Dictionary<string, string> alaLcTransliterationTable;
         Dictionary<string, string> bgnPcgnTransliterationTable;
 
         Dictionary<string, string> belarussianTransliterationTable;
         Dictionary<string, string> bulgarianTransliterationTable;
+        Dictionary<string, string> chuvashTransliterationTable;
         Dictionary<string, string> kazakhTransliterationTable;
         Dictionary<string, string> russianTransliterationTable;
         Dictionary<string, string> macedonianTransliterationTable;
@@ -20,6 +22,25 @@ namespace TransliterationAPI.Service.Transliterators
 
         public CyrillicTransliterator()
         {
+            alaLcTransliterationTable = new Dictionary<string, string>
+            {
+                // Uppercase letters
+                { "Ё", "Ë" },
+                { "Й", "Ĭ" },
+                { "Ц", "T͡s" },
+                { "Э", "Ė" },
+                { "Ю", "I͡u" },
+                { "Я", "I͡a" },
+
+                // Lowercase letters
+                { "ё", "ë" },
+                { "й", "ĭ" },
+                { "ц", "t͡s" },
+                { "э", "ė" },
+                { "ю", "i͡u" },
+                { "я", "i͡a" },
+            };
+
             bgnPcgnTransliterationTable = new Dictionary<string, string>
             {
                 { "А", "A" },
@@ -155,6 +176,39 @@ namespace TransliterationAPI.Service.Transliterators
                 { "щ", "sht" },
             };
 
+            chuvashTransliterationTable = new Dictionary<string, string>
+            {
+                // Uppercase letters
+                { "[ҪÇ]", "Ś" },
+                { "Ӑ", "Ă" },
+                { "Ӗ", "Ĕ" },
+                { "Е", "Je" },
+                { "Ё", "Jo" },
+                { "Ж", "Ž" },
+                { "Й", "J" },
+                { "Ӳ", "Ü" },
+                { "Ч", "Č" },
+                { "Ш", "Š" },
+                { "Э", "E" },
+                { "Ю", "Ju" },
+                { "Я", "Ja" },
+
+                // Lowercase letters
+                { @"\bе", "je" },
+                { "[ҫç]", "ś" },
+                { "ӑ", "ă" },
+                { "ӗ", "ĕ" },
+                { "ё", "jo" },
+                { "ж", "ž" },
+                { "й", "j" },
+                { "ӳ", "ü" },
+                { "ч", "č" },
+                { "ш", "š" },
+                { "э", "e" },
+                { "ю", "ju" },
+                { "я", "ja" },
+            };
+
             kazakhTransliterationTable = new Dictionary<string, string>
             {
                 { "Ә", "Ä" },
@@ -283,6 +337,11 @@ namespace TransliterationAPI.Service.Transliterators
 
             foreach (var characterTransliteration in bgnPcgnTransliterationTable)
             {
+                if (!alaLcTransliterationTable.ContainsKey(characterTransliteration.Key))
+                {
+                    alaLcTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
+                }
+
                 if (!belarussianTransliterationTable.ContainsKey(characterTransliteration.Key))
                 {
                     belarussianTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
@@ -318,6 +377,14 @@ namespace TransliterationAPI.Service.Transliterators
                     ukrainianTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
                 }
             }
+
+            foreach (var characterTransliteration in alaLcTransliterationTable)
+            {
+                if (!chuvashTransliterationTable.ContainsKey(characterTransliteration.Key))
+                {
+                    chuvashTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
+                }
+            }
         }
 
         public string Transliterate(string text, Language language)
@@ -331,6 +398,10 @@ namespace TransliterationAPI.Service.Transliterators
             else if (language.Equals(Language.Bulgarian))
             {
                 transliterationTable = bulgarianTransliterationTable;
+            }
+            else if (language.Equals(Language.Chuvash))
+            {
+                transliterationTable = chuvashTransliterationTable;
             }
             else if (language.Equals(Language.Kazakh))
             {
