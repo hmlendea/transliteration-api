@@ -22,7 +22,7 @@ namespace TransliterationAPI.Service.Entities
         public static Language Bengali => new Language("bn", "Bengali", nameof(UshuaiaTransliterator));
         public static Language Bulgarian => new Language("bg", "Bulgarian", nameof(CyrillicTransliterator));
         public static Language Chinese => new Language("zh", "Chinese", nameof(PinyinTransliterator));
-        public static Language Chuvash => new Language("cv", "Chuvash", nameof(TranslitterationDotComTransliterator));
+        public static Language Chuvash => new Language("cv", "Chuvash", nameof(CyrillicTransliterator));
         public static Language Coptic => new Language("cop", "Coptic", nameof(CopticTransliterator));
         public static Language EgyptianArabic => new Language("arz", "Egyptian Arabic", nameof(ArabicTransliterator));
         public static Language Georgian => new Language("ka", "Georgian", nameof(TranslitterationDotComTransliterator));

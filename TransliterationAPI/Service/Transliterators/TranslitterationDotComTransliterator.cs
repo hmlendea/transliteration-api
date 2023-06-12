@@ -28,11 +28,7 @@ namespace TransliterationAPI.Service.Transliterators
         {
             string fixedText = text;
 
-            if (language.Equals(Language.Chuvash))
-            {
-                fixedText = fixedText.Replace("i͡", "y");
-            }
-            else if (language.Equals(Language.Inuttitut))
+            if (language.Equals(Language.Inuttitut))
             {
                 fixedText = fixedText.Replace("ᐄ", "i");
                 fixedText = fixedText.Replace("ᐆ", "u");
@@ -78,11 +74,6 @@ namespace TransliterationAPI.Service.Transliterators
             {
                 formData["tlang"] = "bak";
                 formData["scheme"] = "iso-9";
-            }
-            else if (languageCode.Equals(Language.Chuvash))
-            {
-                formData["tlang"] = "chv";
-                formData["scheme"] = "ala-lc";
             }
             else if (languageCode.Equals(Language.Georgian))
             {
