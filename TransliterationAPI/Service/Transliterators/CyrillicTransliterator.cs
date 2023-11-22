@@ -266,9 +266,11 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Ж", "Ž" },
                 { "Ѝ", "Ì" },
                 { "Ј", "J" },
+                { "Њ", "Nj" },
                 { "Х", "H" },
                 { "Ц", "C" },
                 { "Ч", "Č" },
+                { "Џ", "Dž" },
                 { "Ш", "Š" },
 
                 // Lowercase letters
@@ -277,9 +279,11 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ж", "ž" },
                 { "ѝ", "ì" },
                 { "ј", "j" },
+                { "њ", "nj" },
                 { "х", "h" },
                 { "ц", "c" },
                 { "ч", "č" },
+                { "џ", "dž" },
                 { "ш", "š" },
             };
 
