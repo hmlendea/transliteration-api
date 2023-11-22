@@ -202,6 +202,7 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, @"([ -])ẖ", "$1H̱");
 
             fixedText = Regex.Replace(fixedText, @"([Bb])ʾir", "$1iʾr");
+            fixedText = Regex.Replace(fixedText, @"([Bb])([nr])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([Ff])r", "$1ur");
             fixedText = Regex.Replace(fixedText, @"([ǦJǧj])m", "$1um");
             fixedText = Regex.Replace(fixedText, @"([HḤhḥ])([blmrsṣštṭ])", "$1a$2");
