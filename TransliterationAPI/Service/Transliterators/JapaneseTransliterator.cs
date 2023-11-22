@@ -15,7 +15,7 @@ namespace TransliterationAPI.Service.Transliterators
         {
             transliterationMap = new Dictionary<char, string>()
             {
-                // Basic Hiragana
+                // Hiragana
                 {'あ', "a"}, {'い', "i"}, {'う', "u"}, {'え', "e"}, {'お', "o"},
                 {'か', "ka"}, {'き', "ki"}, {'く', "ku"}, {'け', "ke"}, {'こ', "ko"},
                 {'さ', "sa"}, {'し', "shi"}, {'す', "su"}, {'せ', "se"}, {'そ', "so"},
@@ -27,7 +27,7 @@ namespace TransliterationAPI.Service.Transliterators
                 {'ら', "ra"}, {'り', "ri"}, {'る', "ru"}, {'れ', "re"}, {'ろ', "ro"},
                 {'わ', "wa"}, {'を', "wo"}, {'ん', "n"},
 
-                // Basic Katakana
+                // Katakana
                 {'ア', "a"}, {'イ', "i"}, {'ウ', "u"}, {'エ', "e"}, {'オ', "o"},
                 {'カ', "ka"}, {'キ', "ki"}, {'ク', "ku"}, {'ケ', "ke"}, {'コ', "ko"},
                 {'サ', "sa"}, {'シ', "shi"}, {'ス', "su"}, {'セ', "se"}, {'ソ', "so"},
@@ -40,7 +40,7 @@ namespace TransliterationAPI.Service.Transliterators
                 {'ワ', "wa"}, {'ヲ', "wo"}, {'ン', "n"},
                 {'ィ', "i"}, {'デ', "de"}, {'プ', "pu"}, {'グ', "gu"}, {'ズ', "zu"}, {'ジ', "ji"}, {'ガ', "ga"}, {'ベ', "be"}, {'ェ', "e"},
                 {'バ', "ba"}, {'ゲ', "ge"}, {'ド', "do"}, {'ゥ', "ū"}, {'ビ', "bi"}, {'ボ', "bo"}, {'ザ', "za"}, {'ざ', "za"},
-                {'・', " "}, {'ー', ""},
+                {'・', " "}, {'ー', ""}, {'ブ', "bu"},
 
                 // Special Characters
                 {'ゃ', "ya"}, {'ゅ', "yu"}, {'ょ', "yo"}, // small ya, yu, yo
@@ -127,6 +127,8 @@ namespace TransliterationAPI.Service.Transliterators
                 { '鳥', "tori" },
                 { '鹿', "ka" },
                 { '木', "ki" },
+
+                { '県', "Todōfuken" },
             };
 
         }
