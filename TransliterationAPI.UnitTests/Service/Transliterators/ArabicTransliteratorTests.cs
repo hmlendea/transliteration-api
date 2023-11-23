@@ -57,6 +57,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("فهرج", "Fahraǧ")]
         [TestCase("قرنين", "Qarnīn")]
         [TestCase("قَصْر الرُوم", "Qaṣr ar-Rūm")]
+        [TestCase("ڭلميم-وادي نون", "Gulmīm-Wādī Nūn")]
         [TestCase("مَنْف", "Manf")]
         [TestCase("مَنْف", "Manf")]
         [TestCase("هرتسليا", "Hirtsiliyā")]
