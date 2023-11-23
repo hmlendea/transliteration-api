@@ -67,7 +67,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { '台', "dai" },    // Stand, support, as in 仙台 (Sendai)
 
                 // Kanji
-                { '新', "shin" },
+                { '新', "nii" }, // Also as: shin
                 { '竜', "ryū" },
 
                 { 'ゴ', "go" },
