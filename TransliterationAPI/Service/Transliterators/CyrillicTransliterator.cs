@@ -318,6 +318,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { @"ія\b", "ia" },
                 { @"\b([Сс])и", "$1i" },
 
+                { "Ґ", "G" },
                 { "Г", "H" },
                 { "Є", "Ye" },
                 { "И", "Y" },
@@ -327,6 +328,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "О́", "Ó" },
                 { "Я", "Ya" },
 
+                { "ґ", "g" },
                 { "г", "h" },
                 { "є", "ie" },
                 { "и", "y" },
