@@ -297,6 +297,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Делчево", "Delčevo")]
         [TestCase("Демир Капија", "Demir Kapija")]
         [TestCase("Демир Хисар", "Demir Hisar")]
+        [TestCase("Дукља", "Duklja")]
         [TestCase("Кавадарци", "Kavadarci")]
         [TestCase("Кичево", "Kičevo")]
         [TestCase("Коњух", "Konjuh")]
