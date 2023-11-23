@@ -15,6 +15,7 @@ namespace TransliterationAPI.Service.Transliterators
         {
             transliterationTable = new Dictionary<string, string>()
             {
+                // Hangul
                 { "가", "ga" },
                 { "강", "gang" },
                 { "거", "geo" },
@@ -47,6 +48,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "수", "su" },
                 { "순", "sun" },
                 { "시", "si" },
+                { "신", "sin" },
                 { "안", "an" },
                 { "양", "yang" },
                 { "여", "yeo" },
@@ -82,6 +84,9 @@ namespace TransliterationAPI.Service.Transliterators
                 { "홍", "hong" },
                 { "화", "hwa" },
                 { "흥", "heung" },
+
+                // Hanja
+                { "룽", "lung" },
             };
         }
 
