@@ -66,6 +66,10 @@ namespace TransliterationAPI.Service.Transliterators
                 { '仙', "sen" },    // Hermit, wizard, as in 仙台 (Sendai)
                 { '台', "dai" },    // Stand, support, as in 仙台 (Sendai)
 
+                // Kanji
+                { '新', "shin" },
+                { '竜', "ryū" },
+
                 { 'ゴ', "go" },
                 { 'ゾ', "zo" },
                 { 'ダ', "da" },
@@ -94,7 +98,6 @@ namespace TransliterationAPI.Service.Transliterators
                 { '広', "hiro" },
                 { '形', "gata" },
                 { '愛', "e" },
-                { '新', "nii" },
                 { '木', "ki" },
                 { '本', "moto" },
                 { '札', "satsu" },
