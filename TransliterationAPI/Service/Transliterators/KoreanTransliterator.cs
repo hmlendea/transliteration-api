@@ -128,6 +128,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "현", "hyeon" },
                 { "홍", "hong" },
                 { "화", "hwa" },
+                { "흥", "heung" },
 
                 // Hanja
                 { "룽", "lung" },
