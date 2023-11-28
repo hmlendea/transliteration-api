@@ -52,6 +52,8 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ة", "ah" }, // ISO-233: ẗ // ah ou
                 { "و", "ū" },  // ISO-233: w
                 { "ي", "ī" }, // ISO-233: y
+
+                { "ڭ", "gu" },
             };
 
             maghrebiTransliterationTable = new Dictionary<string, string>()
