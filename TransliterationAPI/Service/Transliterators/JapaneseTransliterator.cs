@@ -40,7 +40,7 @@ namespace TransliterationAPI.Service.Transliterators
                 {'ワ', "wa"}, {'ヲ', "wo"}, {'ン', "n"},
                 {'ィ', "i"}, {'デ', "de"}, {'プ', "pu"}, {'グ', "gu"}, {'ズ', "zu"}, {'ジ', "ji"}, {'ガ', "ga"}, {'ベ', "be"}, {'ェ', "e"},
                 {'バ', "ba"}, {'ゲ', "ge"}, {'ド', "do"}, {'ゥ', "ū"}, {'ビ', "bi"}, {'ボ', "bo"}, {'ザ', "za"}, {'ざ', "za"},
-                {'・', " "}, {'ー', ""}, {'ブ', "bu"},
+                {'・', " "}, {'ー', ""}, {'ブ', "bu"}, {'ヴ', "vu"}, {'ァ', "a"}, {'パ', "pa"}, {'ポ', "po"}, {'ピ', "pi"}, {'ォ', "o"},
 
                 // Special Characters
                 {'ゃ', "ya"}, {'ゅ', "yu"}, {'ょ', "yo"}, // small ya, yu, yo
@@ -65,6 +65,10 @@ namespace TransliterationAPI.Service.Transliterators
                 { '浜', "hama" },   // Beach, as in 横浜 (Yokohama)
                 { '仙', "sen" },    // Hermit, wizard, as in 仙台 (Sendai)
                 { '台', "dai" },    // Stand, support, as in 仙台 (Sendai)
+
+                // Kanji
+                { '新', "nii" }, // Also as: shin
+                { '竜', "ryū" },
 
                 { 'ゴ', "go" },
                 { 'ゾ', "zo" },
@@ -94,7 +98,6 @@ namespace TransliterationAPI.Service.Transliterators
                 { '広', "hiro" },
                 { '形', "gata" },
                 { '愛', "e" },
-                { '新', "nii" },
                 { '木', "ki" },
                 { '本', "moto" },
                 { '札', "satsu" },
