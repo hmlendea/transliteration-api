@@ -77,9 +77,11 @@ namespace TransliterationAPI.Service.Transliterators
                 { '井', "i" },
                 { '倉', "kura" },
                 { '児', "go" },
+                { '半', "han" },
                 { '取', "tori" },
                 { '口', "guchi" },
                 { '和', "wa" },
+                { '地', "chi" },
                 { '城', "baraki" },
                 { '士', "ji" },
                 { '奈', "na" },
@@ -99,6 +101,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { '広', "hiro" },
                 { '形', "gata" },
                 { '愛', "e" },
+                { '方', "hō" },
                 { '木', "ki" },
                 { '本', "moto" },
                 { '札', "satsu" },
@@ -134,7 +137,6 @@ namespace TransliterationAPI.Service.Transliterators
                 { '高', "taka" },
                 { '鳥', "tori" },
                 { '鹿', "ka" },
-                { '半', "han" },
 
                 { '県', "Todōfuken" },
             };
