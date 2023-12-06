@@ -41,6 +41,7 @@ namespace TransliterationAPI.Service.Transliterators
                 {'ィ', "i"}, {'デ', "de"}, {'プ', "pu"}, {'グ', "gu"}, {'ズ', "zu"}, {'ジ', "ji"}, {'ガ', "ga"}, {'ベ', "be"}, {'ェ', "e"},
                 {'バ', "ba"}, {'ゲ', "ge"}, {'ド', "do"}, {'ゥ', "ū"}, {'ビ', "bi"}, {'ボ', "bo"}, {'ザ', "za"}, {'ざ', "za"},
                 {'・', " "}, {'ー', ""}, {'ブ', "bu"}, {'ヴ', "vu"}, {'ァ', "a"}, {'パ', "pa"}, {'ポ', "po"}, {'ピ', "pi"}, {'ォ', "o"},
+                {'ギ', "gi"}, {'ペ', "pe"}, {'ゼ', "ze"},
 
                 // Special Characters
                 {'ゃ', "ya"}, {'ゅ', "yu"}, {'ょ', "yo"}, // small ya, yu, yo
@@ -76,9 +77,11 @@ namespace TransliterationAPI.Service.Transliterators
                 { '井', "i" },
                 { '倉', "kura" },
                 { '児', "go" },
+                { '半', "han" },
                 { '取', "tori" },
                 { '口', "guchi" },
                 { '和', "wa" },
+                { '地', "chi" },
                 { '城', "baraki" },
                 { '士', "ji" },
                 { '奈', "na" },
@@ -98,6 +101,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { '広', "hiro" },
                 { '形', "gata" },
                 { '愛', "e" },
+                { '方', "hō" },
                 { '木', "ki" },
                 { '本', "moto" },
                 { '札', "satsu" },
