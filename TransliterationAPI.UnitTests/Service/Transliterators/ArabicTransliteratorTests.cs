@@ -50,6 +50,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("روما", "Rūmā")]
         [TestCase("رومان سور ديزير", "Rūmān al-Dīzīr")]
         [TestCase("سُورِيَا", "Sūriyā")]
+        [TestCase("شنقيط", "Šinqīṭ")]
         [TestCase("عَسْقَلَان", "ʿAsqalān")]
         [TestCase("غَزَّة", "Ġazzah")]
         [TestCase("فتح", "Fatḥ")]
