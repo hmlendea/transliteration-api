@@ -41,6 +41,7 @@ namespace TransliterationAPI.Service.Transliterators
                 {'ィ', "i"}, {'デ', "de"}, {'プ', "pu"}, {'グ', "gu"}, {'ズ', "zu"}, {'ジ', "ji"}, {'ガ', "ga"}, {'ベ', "be"}, {'ェ', "e"},
                 {'バ', "ba"}, {'ゲ', "ge"}, {'ド', "do"}, {'ゥ', "ū"}, {'ビ', "bi"}, {'ボ', "bo"}, {'ザ', "za"}, {'ざ', "za"},
                 {'・', " "}, {'ー', ""}, {'ブ', "bu"}, {'ヴ', "vu"}, {'ァ', "a"}, {'パ', "pa"}, {'ポ', "po"}, {'ピ', "pi"}, {'ォ', "o"},
+                {'ギ', "gi"}, {'ペ', "pe"}, {'ゼ', "ze"},
 
                 // Special Characters
                 {'ゃ', "ya"}, {'ゅ', "yu"}, {'ょ', "yo"}, // small ya, yu, yo
@@ -133,6 +134,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { '高', "taka" },
                 { '鳥', "tori" },
                 { '鹿', "ka" },
+                { '半', "han" },
 
                 { '県', "Todōfuken" },
             };
