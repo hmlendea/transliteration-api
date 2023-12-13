@@ -96,6 +96,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ν", "n" },
                 { "ξ", "x" },
                 { "ο", "o" },
+                { "ό", "ó" },
                 { "π", "p" },
                 { "ρ", "r" },
                 { "σ", "s" },
