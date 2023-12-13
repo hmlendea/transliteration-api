@@ -67,14 +67,25 @@ namespace TransliterationAPI.Service.Transliterators
                 { '仙', "sen" },    // Hermit, wizard, as in 仙台 (Sendai)
                 { '台', "dai" },    // Stand, support, as in 仙台 (Sendai)
 
-                // Kanji
-                { '新', "nii" }, // Also as: shin
-                { '竜', "ryū" },
+                // Chinese
+                { '郡', "gun" },
+                { '九', "kyū" },
+                { '西', "sei" },
+                { '寧', "nei" },
+                { '玉', "gyoku" },
 
+                // Korean
+                { '基', "ki" },
+
+                // NonAsian
+                { '델', "del" },
+
+                // Kanji
                 { 'ゴ', "go" },
                 { 'ゾ', "zo" },
                 { 'ダ', "da" },
                 { '井', "i" },
+                { '修', "shū" },
                 { '倉', "kura" },
                 { '児', "go" },
                 { '半', "han" },
@@ -101,6 +112,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { '広', "hiro" },
                 { '形', "gata" },
                 { '愛', "e" },
+                { '新', "nii" }, // Also as: shin
                 { '方', "hō" },
                 { '木', "ki" },
                 { '本', "moto" },
@@ -116,9 +128,11 @@ namespace TransliterationAPI.Service.Transliterators
                 { '滋', "shi" },
                 { '潟', "gata" },
                 { '熊', "kuma" },
+                { '町', "machi" },
                 { '知', "chi" },
                 { '石', "ishi" },
                 { '福', "fuku" },
+                { '竜', "ryū" },
                 { '縄', "nawa" },
                 { '群', "gun" },
                 { '良', "ra" },
@@ -129,7 +143,10 @@ namespace TransliterationAPI.Service.Transliterators
                 { '金', "kana" },
                 { '鎌', "kama" },
                 { '長', "naga" },
+                { '門', "mon" },
+                { '関', "kan" },
                 { '阜', "fu" },
+                { '院', "in" },
                 { '青', "ao" },
                 { '静', "shizu" },
                 { '須', "su" },
