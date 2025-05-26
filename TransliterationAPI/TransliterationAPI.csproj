@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="CHSPinYinConv" Version="1.0.0" />
     <PackageReference Include="NuciDAL" Version="2.2.0" />
-    <PackageReference Include="NuciExtensions" Version="4.0.0" />
+    <PackageReference Include="NuciExtensions" Version="1.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.2" />
   </ItemGroup>
 
