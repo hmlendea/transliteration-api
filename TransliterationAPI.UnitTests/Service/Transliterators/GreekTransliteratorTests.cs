@@ -104,7 +104,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Παλαιστίνη", "Palaistínē")]
         [TestCase("Παλλήνη", "Pallḗnē")]
         [TestCase("Πανόπολις", "Panópolis")]
-        [TestCase("Πανὸς πόλις", "Panὸs pólis")]
+        [TestCase("Πανὸς πόλις", "Panòs pólis")]
         [TestCase("Παραλία", "Paralía")]
         [TestCase("Πελοπόννησος", "Pelopónnēsos")]
         [TestCase("Ῥόδος", "Rhódos")]
