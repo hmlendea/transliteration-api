@@ -47,7 +47,6 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Δ", "D" },
                 { "Ε", "E" },
                 { "Έ", "É" },
-                { "Ζ", "Z" },
                 { "Η", "Ī" }, // I
                 { "Ή", "Ī́" }, // Í
                 { "Θ", "Th" },
@@ -73,6 +72,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Ψ", "Ps" },
                 { "Ω", "Ō" },
                 { "Ώ", "Ṓ" },
+                { "Ζ", "Z" },
 
                 // Lowercase letters
                 { "α", "a" },
@@ -82,7 +82,6 @@ namespace TransliterationAPI.Service.Transliterators
                 { "δ", "d" },
                 { "ε", "e" },
                 { "έ", "é" },
-                { "ζ", "z" },
                 { "η", "ī" }, // i
                 { "ή", "ī́" }, // í
                 { "θ", "th" },
@@ -112,6 +111,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ψ", "ps" },
                 { "ω", "ō" },
                 { "ώ", "ṓ" },
+                { "ζ", "z" }
             };
 
             ancientGreekTransliterationTable = new Dictionary<string, string>
@@ -210,6 +210,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Ἧι", "Êi" },
                 { "Θ", "Th" },
                 { "Ἱ", "Hi" },
+                { "Ὑ", "Hy" },
                 { "Ι", "I" },
                 { "Ἰ", "I" },
                 { "Ί", "Í" },
@@ -297,6 +298,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ᾓ", "êi" },
                 { "ᾗ", "êi" },
                 { "ᾑ", "ēi" },
+                { "ὑ", "hy" },
                 { "ί", "í" },
                 { "ῖ", "ī" },
                 { "ϊ", "ï" },
