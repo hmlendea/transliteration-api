@@ -47,6 +47,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Б", "B" },
                 { "В", "V" },
                 { "Г", "G" },
+                { "Ґ", "G" },
                 { "Д", "D" },
                 { "Е", "E" },
                 { "Ё", "Yo" },
@@ -54,6 +55,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "З", "Z" },
                 { "И", "I" },
                 { "Й", "Y" },
+                { "Є", "Ye" },
                 { "К", "K" },
                 { "Л", "L" },
                 { "М", "M" },
@@ -64,6 +66,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "С", "S" },
                 { "Т", "T" },
                 { "У", "U" },
+                { "Ў", "V" },
                 { "Ф", "F" },
                 { "Х", "Kh" }, // Kk
                 { "Ц", "Ts" },
@@ -80,12 +83,13 @@ namespace TransliterationAPI.Service.Transliterators
                 { "б", "b" },
                 { "в", "v" },
                 { "г", "g" },
+                { "ґ", "g" },
                 { "д", "d" },
                 { "е", "e" },
-                { "ё", "yo" },
-                { "ж", "zh" },
+                { "э", "e" },
                 { "з", "z" },
                 { "и", "i" },
+                { "є", "ie" },
                 { "й", "y" },
                 { "к", "k" },
                 { "л", "l" },
@@ -97,6 +101,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "с", "s" },
                 { "т", "t" },
                 { "у", "u" },
+                { "ў", "v" },
                 { "ф", "f" },
                 { "х", "kh" },
                 { "ц", "ts" },
@@ -106,9 +111,10 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ъ", "\""},
                 { "ы", "y" },
                 { "ь", "" }, // '
-                { "э", "e" },
+                { "ё", "yo" },
                 { "ю", "yu" },
-                { "я", "ya" }
+                { "я", "ya" },
+                { "ж", "zh" }
             };
 
             belarussianTransliterationTable = new Dictionary<string, string>
@@ -261,6 +267,7 @@ namespace TransliterationAPI.Service.Transliterators
             macedonianTransliterationTable = new Dictionary<string, string>
             {
                 // Uppercase letters
+                { "Ѕ", "Dz" },
                 { "Ѓ", "Ǵ" },
                 { "Ѐ", "È" }, // technically not a separate letter, but used to differentiate in words with homographs
                 { "Ж", "Ž" },
@@ -275,6 +282,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Ш", "Š" },
 
                 // Lowercase letters
+                { "ѕ", "dz" },
                 { "ѓ", "ǵ" },
                 { "ѐ", "è" }, // technically not a separate letter, but used to differentiate in words with homographs
                 { "ж", "ž" },
