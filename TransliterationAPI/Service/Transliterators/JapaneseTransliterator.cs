@@ -68,11 +68,12 @@ namespace TransliterationAPI.Service.Transliterators
                 { '台', "dai" },    // Stand, support, as in 仙台 (Sendai)
 
                 // Chinese
-                { '郡', "gun" },
                 { '九', "kyū" },
-                { '西', "sei" },
                 { '寧', "nei" },
+                { '歙', "shī" },
                 { '玉', "gyoku" },
+                { '西', "sei" },
+                { '郡', "gun" },
 
                 // Korean
                 { '基', "ki" },
