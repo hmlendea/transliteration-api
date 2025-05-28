@@ -94,6 +94,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Μεσσήνη", "Messḗnē")]
         [TestCase("Μίλητος", "Mílētos")]
         [TestCase("Μυγδονία", "Mygdonía")]
+        [TestCase("Μυὸς Ὅρμος", "Myòs Hórmos")]
         [TestCase("Νάξος", "Náxos")]
         [TestCase("Νέα Κόρινθος", "Néa Kórinthos")]
         [TestCase("Νεάπολις", "Neápolis")]
