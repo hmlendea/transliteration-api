@@ -313,6 +313,7 @@ namespace TransliterationAPI.Service.Transliterators
                 // Lowercase letters
                 { "ђ", "đ" },
                 { "ж", "ž" },
+                { "й", "j" },
                 { "ј", "j" },
                 { "љ", "lj" },
                 { "њ", "nj" },
@@ -321,6 +322,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ч", "č" },
                 { "џ", "dž" },
                 { "ш", "š" },
+                { "я", "ja" },
             };
 
             ukrainianTransliterationTable = new Dictionary<string, string>

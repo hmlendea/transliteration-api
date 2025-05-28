@@ -406,6 +406,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Врбас", "Vrbas")]
         [TestCase("Вршац", "Vršac")]
         [TestCase("Горњи Милановац", "Gornji Milanovac")]
+        [TestCase("Дарая", "Daraja")]
         [TestCase("Зајечар", "Zaječar")]
         [TestCase("Зрењанин", "Zrenjanin")]
         [TestCase("Инђија", "Inđija")]
@@ -439,6 +440,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Ћуприја", "Ćuprija")]
         [TestCase("Ужице", "Užice")]
         [TestCase("Чачак", "Čačak")]
+        [TestCase("Эль-Кусайр", "El-Kusajr")]
         public void GivenATextInSerbianCyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string serbianText,
             string expectedTransliteratedText)
