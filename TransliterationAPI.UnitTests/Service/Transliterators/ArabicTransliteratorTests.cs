@@ -43,6 +43,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("حركة المقاومة الإسلامية", "Ḥarakah al-Muqāwamah al-ʾIslāmiyyah")]
         [TestCase("حسن أباد", "Ḥasan Abād")]
         [TestCase("حصوين", "Ḥaṣwayn")]
+        [TestCase("حلوان", "Ḥelwān")]
         [TestCase("حماس", "Ḥamās")]
         [TestCase("حَيْفَا", "Ḥayfā")]
         [TestCase("دمشق", "Dimašq")]
