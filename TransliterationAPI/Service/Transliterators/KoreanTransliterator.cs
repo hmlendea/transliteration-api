@@ -113,6 +113,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "쓰", "sseu" },
                 { "아", "a" },
                 { "안", "an" },
+                { "알", "al" },
                 { "애", "ae" },
                 { "야", "ya" },
                 { "얀", "yan" },
