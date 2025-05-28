@@ -204,14 +204,20 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, @"([ -])ẖ", "$1H̱");
 
             // *a*
-            fixedText = Regex.Replace(fixedText, @"([Bb])([nr])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([Bb])ū", "$1aū");
-            fixedText = Regex.Replace(fixedText, @"([BKMQbkmq])([sṣš])", "$1a$2");
+            fixedText = Regex.Replace(fixedText, @"([BDbd])(r)", "$1a$2");
+            fixedText = Regex.Replace(fixedText, @"([BǦbǧ])(n)", "$1a$2");
+            fixedText = Regex.Replace(fixedText, @"([BKMbkm])([sṣš])", "$1a$2");
+            fixedText = Regex.Replace(fixedText, @"([BKMQbkmq])([sš])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([FLMTṬflmtṭ])([ln])", "$1a$2");
-            fixedText = Regex.Replace(fixedText, @"([HḤhḥ])([blmrsṣštṭ])", "$1a$2");
+            fixedText = Regex.Replace(fixedText, @"([HḤhḥ])([bmrsṣštṭ])", "$1a$2");
+            fixedText = Regex.Replace(fixedText, @"([HḤhḥ])([l][aeiīou])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([Qq])([h])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([Ss])b", "$1ab");
+            fixedText = Regex.Replace(fixedText, @"([Ṣṣ])([iīū])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"\b([N])([ǧ])", "$1a$2");
+            // *e*
+            fixedText = Regex.Replace(fixedText, @"([HḤhḥ])([l])", "$1e$2");
             // *i*
             fixedText = Regex.Replace(fixedText, @"([BTbt])([lt])", "$1i$2");
             fixedText = Regex.Replace(fixedText, @"([Mm])([rsṣ])", "$1i$2");
@@ -222,6 +228,7 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, @"([FZfz])([rq])", "$1u$2");
             fixedText = Regex.Replace(fixedText, @"([ǦJǧj])m", "$1um");
             fixedText = Regex.Replace(fixedText, @"([Kk])w", "$1uw");
+            fixedText = Regex.Replace(fixedText, @"([Qq])([ṣ])", "$1u$2");
 
             fixedText = Regex.Replace(fixedText, @"([Bb])ʾir", "$1iʾr");
             fixedText = Regex.Replace(fixedText, @"([Rr])w", "$1ū");

@@ -43,6 +43,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("حركة المقاومة الإسلامية", "Ḥarakah al-Muqāwamah al-ʾIslāmiyyah")]
         [TestCase("حسن أباد", "Ḥasan Abād")]
         [TestCase("حصوين", "Ḥaṣwayn")]
+        [TestCase("حلوان", "Ḥelwān")]
         [TestCase("حماس", "Ḥamās")]
         [TestCase("حَيْفَا", "Ḥayfā")]
         [TestCase("دمشق", "Dimašq")]
@@ -64,6 +65,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("هرتسليا", "Hirtsiliyā")]
         [TestCase("هشتغرد", "Haštġard")]
         [TestCase("يوانينا", "Īānīnā")]
+        [TestCase("جندر", "Ǧandar")]
         public void GivenATextInArabicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string arabicText,
             string expectedTransliteratedText)
