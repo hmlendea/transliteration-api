@@ -440,6 +440,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Ћуприја", "Ćuprija")]
         [TestCase("Ужице", "Užice")]
         [TestCase("Чачак", "Čačak")]
+        [TestCase("Эль-Кусайр", "El-Kusajr")]
         public void GivenATextInSerbianCyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string serbianText,
             string expectedTransliteratedText)

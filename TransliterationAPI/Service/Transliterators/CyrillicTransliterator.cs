@@ -313,6 +313,7 @@ namespace TransliterationAPI.Service.Transliterators
                 // Lowercase letters
                 { "ђ", "đ" },
                 { "ж", "ž" },
+                { "й", "j" },
                 { "ј", "j" },
                 { "љ", "lj" },
                 { "њ", "nj" },
