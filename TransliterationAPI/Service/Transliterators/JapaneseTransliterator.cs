@@ -137,6 +137,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { '石', "ishi" },
                 { '福', "fuku" },
                 { '竜', "ryū" },
+                { '紅', "kō" },
                 { '縄', "nawa" },
                 { '群', "gun" },
                 { '良', "ra" },
