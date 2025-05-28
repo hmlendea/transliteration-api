@@ -214,7 +214,7 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, @"([HḤhḥ])([l][aeiīou])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([Qq])([h])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([Ss])b", "$1ab");
-            fixedText = Regex.Replace(fixedText, @"([Ṣṣ])([iī])", "$1a$2");
+            fixedText = Regex.Replace(fixedText, @"([Ṣṣ])([iīū])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"\b([N])([ǧ])", "$1a$2");
             // *e*
             fixedText = Regex.Replace(fixedText, @"([HḤhḥ])([l])", "$1e$2");
