@@ -65,6 +65,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("هرتسليا", "Hirtsiliyā")]
         [TestCase("هشتغرد", "Haštġard")]
         [TestCase("يوانينا", "Īānīnā")]
+        [TestCase("جندر", "Ǧandar")]
         public void GivenATextInArabicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string arabicText,
             string expectedTransliteratedText)

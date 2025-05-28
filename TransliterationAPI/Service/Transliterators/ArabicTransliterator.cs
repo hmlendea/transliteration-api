@@ -204,8 +204,9 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, @"([ -])ẖ", "$1H̱");
 
             // *a*
-            fixedText = Regex.Replace(fixedText, @"([Bb])([nr])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([Bb])ū", "$1aū");
+            fixedText = Regex.Replace(fixedText, @"([BDbd])(r)", "$1a$2");
+            fixedText = Regex.Replace(fixedText, @"([BǦbǧ])(n)", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([BKMQbkmq])([sṣš])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([FLMTṬflmtṭ])([ln])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([HḤhḥ])([bmrsṣštṭ])", "$1a$2");
