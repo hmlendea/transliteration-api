@@ -188,7 +188,6 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Ἠ", "Ē" },
                 { "Ἢ", "Ê" },
                 { "Ἦ", "Ê" },
-                { "Ἡ", "Hē" }, // Ē
                 { "Ἣ", "Ê" },
                 { "Ἧ", "Ê" },
                 { "Ὴ", "Ḕ" },
@@ -196,6 +195,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Ἤ", "Ḗ" }, // Ḗ
                 { "Ἥ", "Ḗ" }, // Ḗ
                 { "Ή", "Ḗ" }, // Hē, Ḗ
+                { "Ἡ", "Hē" }, // Ē
                 { "Ηι", "Ē̂" },
                 { "Ήι", "Ē̄́" },
                 { "Ὴι", "Ē̄̀" },
@@ -210,18 +210,18 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Ἧι", "Êi" },
                 { "Θ", "Th" },
                 { "Ἱ", "Hi" },
-                { "Ὑ", "Hy" },
                 { "Ι", "I" },
                 { "Ἰ", "I" },
+                { "Ἴ", "Í" },
                 { "Ί", "Í" },
                 { "Ϊ", "Ï" },
                 { "Ϊ́", "Ḯ" },
-                { "Ἴ", "Í" },
                 { "Κ", "K" },
                 { "Λ", "L" },
                 { "Μ", "M" },
                 { "Ν", "N" },
                 { "Ξ", "X" },
+                { "Ὅ", "Hó" },
                 { "Ο", "O" },
                 { "Ὀ", "Ō" },
                 { "Ὄ", "Ó" },
@@ -232,6 +232,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Ῥ", "Rh" },
                 { "Σ", "S" },
                 { "Τ", "T" },
+                { "Ὑ", "Hy" },
                 { "Υ", "U" },
                 { "Υ̓", "Ú" },
                 { "Ύ", "Ú" },
