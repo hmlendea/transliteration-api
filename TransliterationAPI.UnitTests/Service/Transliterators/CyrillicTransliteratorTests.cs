@@ -406,6 +406,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Врбас", "Vrbas")]
         [TestCase("Вршац", "Vršac")]
         [TestCase("Горњи Милановац", "Gornji Milanovac")]
+        [TestCase("Дарая", "Daraja")]
         [TestCase("Зајечар", "Zaječar")]
         [TestCase("Зрењанин", "Zrenjanin")]
         [TestCase("Инђија", "Inđija")]

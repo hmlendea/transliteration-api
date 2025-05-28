@@ -321,6 +321,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ч", "č" },
                 { "џ", "dž" },
                 { "ш", "š" },
+                { "я", "ja" },
             };
 
             ukrainianTransliterationTable = new Dictionary<string, string>
