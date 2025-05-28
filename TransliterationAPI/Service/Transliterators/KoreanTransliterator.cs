@@ -86,6 +86,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "민", "min" },
                 { "바", "ba" },
                 { "반", "ban" },
+                { "발", "bal" },
                 { "밧", "bat" },
                 { "버", "beo" },
                 { "베", "be" },
@@ -106,6 +107,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "성", "seong" },
                 { "세", "se" },
                 { "센", "sen" },
+                { "셀", "sel" },
                 { "셰", "sye" },
                 { "셴", "syen" },
                 { "소", "so" },
@@ -117,6 +119,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "슬", "seul" },
                 { "시", "si" },
                 { "신", "sin" },
+                { "실", "sil" },
                 { "싱", "sing" },
                 { "쓰", "sseu" },
                 { "아", "a" },
@@ -228,6 +231,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "홍", "hong" },
                 { "화", "hwa" },
                 { "후", "hu" },
+                { "흥", "heung" },
                 { "히", "hi" },
 
                 // Hanja
