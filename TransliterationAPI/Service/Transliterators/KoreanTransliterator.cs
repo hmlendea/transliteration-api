@@ -259,7 +259,6 @@ namespace TransliterationAPI.Service.Transliterators
                 { "후", "hu" },
                 { "흥", "heung" },
                 { "히", "hi" },
-                { "히", "ken" },
 
                 // Hanja
                 { "룽", "lung" },
