@@ -37,6 +37,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "길", "gil" },
                 { "김", "gim" },
                 { "나", "na" },
+                { "난", "nan" },
                 { "남", "nam" },
                 { "냐", "nya" },
                 { "넘", "neom" },
@@ -72,6 +73,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "로", "lo" }, // or ro
                 { "롱", "long" },
                 { "루", "ru" },
+                { "룬", "run" },
                 { "르", "re" },
                 { "리", "ri" },
                 { "린", "rin" },
@@ -183,6 +185,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "젤", "jel" },
                 { "조", "jo" },
                 { "주", "ju" },
+                { "중", "jung" },
                 { "즈", "jeu" },
                 { "지", "ji" },
                 { "진", "jin" },
