@@ -52,6 +52,7 @@ namespace TransliterationAPI.Service.Entities
         public static Language SimplifiedChinese => new("zh-hans", "Simplified Chinese", nameof(PinyinTransliterator));
         public static Language Sinhala => new("si", nameof(Sinhala), nameof(UshuaiaTransliterator));
         public static Language Tajik => new("tg", nameof(Tajik), nameof(CyrillicTransliterator));
+        public static Language TajikCyrillic => new("tg-cyrl", nameof(Tajik), nameof(CyrillicTransliterator));
         public static Language Tamil => new("ta", nameof(Tamil), nameof(UshuaiaTransliterator));
         public static Language Telugu => new("te", nameof(Telugu), nameof(UshuaiaTransliterator));
         public static Language Udmurt => new("udm", nameof(Udmurt), nameof(TranslitterationDotComTransliterator));
