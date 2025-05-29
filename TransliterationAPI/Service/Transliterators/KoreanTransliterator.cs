@@ -75,6 +75,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "루", "ru" },
                 { "룬", "run" },
                 { "르", "re" },
+                { "른", "reun" },
                 { "리", "ri" },
                 { "린", "rin" },
                 { "마", "ma" },
@@ -208,6 +209,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "캉", "kaeng" },
                 { "커", "eko" },
                 { "케", "ke" },
+                { "켄", "ken" },
                 { "켈", "kel" },
                 { "코", "ko" },
                 { "콘", "kon" },
@@ -219,6 +221,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "키", "ki" },
                 { "타", "ta" },
                 { "탄", "tan" },
+                { "탈", "tal" },
                 { "탕", "tang" },
                 { "택", "taek" },
                 { "텔", "tel" },
@@ -255,6 +258,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "후", "hu" },
                 { "흥", "heung" },
                 { "히", "hi" },
+                { "히", "ken" },
 
                 // Hanja
                 { "룽", "lung" },
