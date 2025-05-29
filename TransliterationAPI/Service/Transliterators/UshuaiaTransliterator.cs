@@ -9,17 +9,10 @@ using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class UshuaiaTransliterator : IExternalTransliterator
+    public class UshuaiaTransliterator(IHttpRequestManager httpRequestManager) : IExternalTransliterator
     {
-        IHttpRequestManager httpRequestManager;
-
         string sessionCookieValue;
         DateTime cookieDate;
-
-        public UshuaiaTransliterator(IHttpRequestManager httpRequestManager)
-        {
-            this.httpRequestManager = httpRequestManager;
-        }
 
         public async Task<string> Transliterate(string text, Language language)
         {
@@ -28,7 +21,7 @@ namespace TransliterationAPI.Service.Transliterators
             return ApplyFixes(transliteratedText, language);
         }
 
-        string ApplyFixes(string text, Language language)
+        static string ApplyFixes(string text, Language language)
         {
             string fixedText = text;
 
@@ -49,7 +42,7 @@ namespace TransliterationAPI.Service.Transliterators
 
         private async Task<string> SendTransliterationRequest(string text, Language language)
         {
-            IDictionary<string, string> formData = new Dictionary<string, string>
+            Dictionary<string, string> formData = new()
             {
                 { "text", text},
                 { "lang", string.Empty }
@@ -103,7 +96,7 @@ namespace TransliterationAPI.Service.Transliterators
                 throw new ArgumentException($"The \"{language}\" language is not supported by {nameof(UshuaiaTransliterator)}!");
             }
 
-            IDictionary<string, string> headers = new Dictionary<string, string>
+            Dictionary<string, string> headers = new()
             {
                 { "Cookie", $"translit={sessionCookieValue};lastlang={formData["lang"]}" }
             };

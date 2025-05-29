@@ -8,22 +8,22 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class CyrillicTransliterator : ITransliterator
     {
-        Dictionary<string, string> alaLcTransliterationTable;
-        Dictionary<string, string> bgnPcgnTransliterationTable;
+        readonly Dictionary<string, string> alaLcTransliterationTable;
+        readonly Dictionary<string, string> bgnPcgnTransliterationTable;
 
-        Dictionary<string, string> belarussianTransliterationTable;
-        Dictionary<string, string> bulgarianTransliterationTable;
-        Dictionary<string, string> chuvashTransliterationTable;
-        Dictionary<string, string> kazakhTransliterationTable;
-        Dictionary<string, string> russianTransliterationTable;
-        Dictionary<string, string> macedonianTransliterationTable;
-        Dictionary<string, string> serbianTransliterationTable;
-        Dictionary<string, string> tajikTransliterationTable;
-        Dictionary<string, string> ukrainianTransliterationTable;
+        readonly Dictionary<string, string> belarussianTransliterationTable;
+        readonly Dictionary<string, string> bulgarianTransliterationTable;
+        readonly Dictionary<string, string> chuvashTransliterationTable;
+        readonly Dictionary<string, string> kazakhTransliterationTable;
+        readonly Dictionary<string, string> russianTransliterationTable;
+        readonly Dictionary<string, string> macedonianTransliterationTable;
+        readonly Dictionary<string, string> serbianTransliterationTable;
+        readonly Dictionary<string, string> tajikTransliterationTable;
+        readonly Dictionary<string, string> ukrainianTransliterationTable;
 
         public CyrillicTransliterator()
         {
-            alaLcTransliterationTable = new Dictionary<string, string>
+            alaLcTransliterationTable = new()
             {
                 // Uppercase letters
                 { "Ё", "Ë" },
@@ -42,7 +42,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "я", "i͡a" },
             };
 
-            bgnPcgnTransliterationTable = new Dictionary<string, string>
+            bgnPcgnTransliterationTable = new()
             {
                 { "А", "A" },
                 { "Б", "B" },
@@ -118,7 +118,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ж", "zh" }
             };
 
-            belarussianTransliterationTable = new Dictionary<string, string>
+            belarussianTransliterationTable = new()
             {
                 // Uppeercase exceptions
                 { "Ль", "Ĺ" },
@@ -171,7 +171,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "я", "ia" },
             };
 
-            bulgarianTransliterationTable = new Dictionary<string, string>
+            bulgarianTransliterationTable = new()
             {
                 { @"ия\b", "ia" },
 
@@ -183,7 +183,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "щ", "sht" },
             };
 
-            chuvashTransliterationTable = new Dictionary<string, string>
+            chuvashTransliterationTable = new()
             {
                 // Uppercase letters
                 { "[ҪÇ]", "Ś" },
@@ -216,7 +216,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "я", "ja" },
             };
 
-            kazakhTransliterationTable = new Dictionary<string, string>
+            kazakhTransliterationTable = new()
             {
                 { "Ә", "Ä" },
                 { "Ғ", "Ğ" },
@@ -263,9 +263,9 @@ namespace TransliterationAPI.Service.Transliterators
                 { "я", "ia" },
             };
 
-            russianTransliterationTable = new Dictionary<string, string>();
+            russianTransliterationTable = new();
 
-            macedonianTransliterationTable = new Dictionary<string, string>
+            macedonianTransliterationTable = new()
             {
                 // Uppercase letters
                 { "Ѕ", "Dz" },
@@ -298,7 +298,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ш", "š" },
             };
 
-            serbianTransliterationTable = new Dictionary<string, string>
+            serbianTransliterationTable = new()
             {
                 // Uppercase letters
                 { "Ђ", "Đ" },
@@ -327,7 +327,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "я", "ja" },
             };
 
-            tajikTransliterationTable = new Dictionary<string, string>
+            tajikTransliterationTable = new()
             {
                 { "[Ъъ]", "'" },
 
@@ -364,7 +364,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "я", "ja" },
             };
 
-            ukrainianTransliterationTable = new Dictionary<string, string>
+            ukrainianTransliterationTable = new()
             {
                 { @"ія\b", "ia" },
                 { @"\b([Сс])и", "$1i" },
@@ -515,7 +515,7 @@ namespace TransliterationAPI.Service.Transliterators
             return transliteratedText;
         }
 
-        string ApplyBelarussianFixes(string text)
+        static string ApplyBelarussianFixes(string text)
         {
             string fixedText = text;
 
@@ -524,7 +524,7 @@ namespace TransliterationAPI.Service.Transliterators
             return fixedText;
         }
 
-        string ApplyRussianFixes(string text)
+        static string ApplyRussianFixes(string text)
         {
             string fixedText = text;
 

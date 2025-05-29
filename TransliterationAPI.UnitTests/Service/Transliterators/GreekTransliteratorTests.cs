@@ -7,12 +7,12 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
     public class GreekTransliteratorTests
     {
-        private ITransliterator transliterator;
+        private GreekTransliterator transliterator;
 
         [SetUp]
         public void SetUp()
         {
-            this.transliterator = new GreekTransliterator();
+            transliterator = new();
         }
 
         [Test]

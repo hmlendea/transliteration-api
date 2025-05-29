@@ -8,10 +8,11 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class BerberTransliterator : ITransliterator
     {
-        Dictionary<string, string> transliterationTable;
+        readonly Dictionary<string, string> transliterationTable;
+
         public BerberTransliterator()
         {
-            transliterationTable = new Dictionary<string, string>
+            transliterationTable = new()
             {
                 { "ⴰ", "a" },
                 { "ⴳ", "g" },

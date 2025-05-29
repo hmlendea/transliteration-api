@@ -8,14 +8,14 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class GreekTransliterator : ITransliterator
     {
-        Dictionary<string, string> modernGreekTransliterationTable;
-        Dictionary<string, string> ancientGreekTransliterationTable;
-        Dictionary<string, string> ancientDoricGreekTransliterationTable;
+        readonly Dictionary<string, string> modernGreekTransliterationTable;
+        readonly Dictionary<string, string> ancientGreekTransliterationTable;
+        readonly Dictionary<string, string> ancientDoricGreekTransliterationTable;
 
         public GreekTransliterator()
         {
             // ISO 843
-            modernGreekTransliterationTable = new Dictionary<string, string>
+            modernGreekTransliterationTable = new()
             {
                 // Uppercase exceptions
                 { "Ευ([ήο])", "Ev$1" },
@@ -114,7 +114,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ζ", "z" }
             };
 
-            ancientGreekTransliterationTable = new Dictionary<string, string>
+            ancientGreekTransliterationTable = new()
             {
                 { "α", "a" },
                 { "ἀ", "a" },
@@ -327,7 +327,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ϗ", "kai" }, // kai symbol
             };
 
-            ancientDoricGreekTransliterationTable = new Dictionary<string, string>
+            ancientDoricGreekTransliterationTable = new()
             {
                 { "Ή", "Á" },
                 { "Ἡ([^ρ])", "Ha$1" },
@@ -393,7 +393,7 @@ namespace TransliterationAPI.Service.Transliterators
         }
 
 
-        string ApplyAncientFixes(string text)
+        static string ApplyAncientFixes(string text)
         {
             string fixedText = text;
 

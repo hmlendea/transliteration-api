@@ -8,15 +8,8 @@ using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class TranslitterationDotComTransliterator : IExternalTransliterator
+    public class TranslitterationDotComTransliterator(IHttpRequestManager httpRequestManager) : IExternalTransliterator
     {
-        IHttpRequestManager httpRequestManager;
-
-        public TranslitterationDotComTransliterator(IHttpRequestManager httpRequestManager)
-        {
-            this.httpRequestManager = httpRequestManager;
-        }
-
         public async Task<string> Transliterate(string text, Language language)
         {
             string transliteratedText = await SendTransliterationRequest(text, language);
@@ -24,7 +17,7 @@ namespace TransliterationAPI.Service.Transliterators
             return ApplyFixes(transliteratedText, language);
         }
 
-        private string ApplyFixes(string text, Language language)
+        private static string ApplyFixes(string text, Language language)
         {
             string fixedText = text;
 
@@ -47,7 +40,7 @@ namespace TransliterationAPI.Service.Transliterators
 
         private async Task<string> SendTransliterationRequest(string text, string languageCode)
         {
-            IDictionary<string, string> formData = new Dictionary<string, string>
+            Dictionary<string, string> formData = new()
             {
                 { "text", text},
                 { "tlang", string.Empty },

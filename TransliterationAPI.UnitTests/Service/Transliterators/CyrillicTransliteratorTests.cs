@@ -8,12 +8,12 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
     public class CyrillicTransliteratorTests
     {
-        private ITransliterator transliterator;
+        private CyrillicTransliterator transliterator;
 
         [SetUp]
         public void SetUp()
         {
-            this.transliterator = new CyrillicTransliterator();
+            transliterator = new();
         }
 
         [Test]

@@ -7,12 +7,12 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
     public class ArabicTransliteratorTests
     {
-        private ITransliterator transliterator;
+        private ArabicTransliterator transliterator;
 
         [SetUp]
         public void SetUp()
         {
-            this.transliterator = new ArabicTransliterator();
+            this.transliterator = new();
         }
 
         [Test]
