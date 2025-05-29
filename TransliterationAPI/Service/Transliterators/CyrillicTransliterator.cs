@@ -10,6 +10,7 @@ namespace TransliterationAPI.Service.Transliterators
     {
         readonly Dictionary<string, string> alaLcTransliterationTable;
         readonly Dictionary<string, string> bgnPcgnTransliterationTable;
+        readonly Dictionary<string, string> iso9TransliterationTable;
 
         readonly Dictionary<string, string> abkhazianTransliterationTable;
         readonly Dictionary<string, string> belarussianTransliterationTable;
@@ -117,6 +118,102 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ю", "yu" },
                 { "я", "ya" },
                 { "ж", "zh" }
+            };
+
+            iso9TransliterationTable = new()
+            {
+                // Uppercase characters
+                { "А", "A" },
+                { "Ӓ", "Ä" },
+                { "Ӓ̄", "Ạ̈" },
+                { "Ӑ", "Ă" },
+                { "А̄", "Ā" },
+                { "Ӕ", "Æ" },
+                { "А́", "Á" },
+                { "А̊", "Å" },
+                { "Б", "B" },
+                { "В", "V" },
+                { "Г", "G" },
+                { "Ґ", "G̀" },
+                { "Ѓ", "Ǵ" },
+                { "Ғ", "Ġ" },
+                { "Ҕ", "Ğ" },
+                { "Һ", "Ḥ" },
+                { "Д", "D" },
+                { "Ђ", "Đ" },
+                { "Е", "E" },
+                { "Ӗ", "Ĕ" },
+                { "Ё", "Ë" },
+                { "Є", "Ê" },
+                { "Ж", "Ž" },
+                { "Җ", "Ž̦" }, // Or Ž̧
+                { "Ӝ", "Z̄" },
+                { "Ӂ", "Z̆" },
+                { "З", "Z" },
+                { "Ӟ", "Z̈" },
+                { "Ӡ", "Ź" },
+                { "Ѕ", "Ẑ" },
+                { "И", "I" },
+                { "Ӣ", "Ī" },
+                { "И́", "Í" },
+                { "Ӥ", "Î" },
+                { "Й", "J" },
+                { "І", "Ì" },
+                { "Ї", "Ï" },
+                { "І̄", "Ǐ" },
+                { "Ј", "J̌" },
+                { "Ј̵", "J́" },
+                { "К", "K" },
+                { "Ќ", "Ḱ" },
+                { "Ӄ", "Ḳ" },
+                { "Ҝ", "K̂" },
+                { "Ҡ", "Ǩ" },
+                { "Ҟ", "K̄" },
+                { "Қ", "K̦" }, // Or Ķ
+                { "К̨", "K̀" },
+                { "Ԛ", "Q" },
+                { "Л", "L" },
+                { "Љ", "L̂" },
+                { "Ԡ", "L̦" }, // Or Ļ
+                { "М", "M" },
+                { "Н", "N" },
+                { "Њ", "N̂" },
+                { "Ң", "N̦" }, // Or Ņ
+                { "Ӊ", "Ṇ" },
+                { "Ҥ", "Ṅ" },
+                { "Ԋ", "Ǹ" },
+                { "Ԣ", "Ń" },
+                { "Ӈ", "Ň" },
+                { "Н̄", "N̄" },
+                { "О", "O" },
+                { "Ӧ", "Ö" },
+                { "Ө", "Ô" },
+                { "Ӫ", "Ő" },
+                { "Ӧ̄", "Ọ̈" },
+                { "Ҩ", "Ò" },
+                { "О́", "Ó" },
+                { "О̄", "Ō" },
+                { "Œ", "Œ" },
+                { "П", "P" },
+                { "Ҧ", "Ṕ" },
+                { "Ԥ", "P̀" },
+                { "Р", "R" },
+                { "С", "S" },
+                { "Ҫ", "Ș" }, // Or Ş
+                { "С̀", "S̀" },
+                { "Т", "T" },
+                { "Ћ", "Ć" },
+                { "Ԏ", "T̀" },
+                { "Т̌", "Ť" },
+                { "Ҭ", "Ț" }, // Or Ţ
+                { "У", "U" },
+                { "Ӱ", "Ü" },
+                { "Ӯ", "Ū" },
+                { "Ў", "Ŭ" },
+                { "Ӳ", "Ű" },
+                { "У́", "Ú" },
+                { "Ӱ̄", "Ụ̈" }, // Or Ụ̄
+                { "Ү", "Ù" },
             };
 
             abkhazianTransliterationTable = new() // ISO-9
