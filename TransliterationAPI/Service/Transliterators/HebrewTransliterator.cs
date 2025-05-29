@@ -9,11 +9,11 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class HebrewTransliterator : ITransliterator
     {
-        Dictionary<string, string> transliterationTable;
+        readonly Dictionary<string, string> transliterationTable;
 
         public HebrewTransliterator()
         {
-            transliterationTable = new Dictionary<string, string>
+            transliterationTable = new()
             {
                 { "רְעֹ", "rʿo" },
 
@@ -79,7 +79,7 @@ namespace TransliterationAPI.Service.Transliterators
             return transliteratedText;
         }
 
-        string ApplyFixes(string text)
+        static string ApplyFixes(string text)
         {
             string fixedText = text.ToTitleCase();
 

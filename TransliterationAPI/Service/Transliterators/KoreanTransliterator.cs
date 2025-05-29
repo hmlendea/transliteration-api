@@ -9,11 +9,11 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class KoreanTransliterator : ITransliterator
     {
-        Dictionary<string, string> transliterationTable;
+        readonly Dictionary<string, string> transliterationTable;
 
         public KoreanTransliterator()
         {
-            transliterationTable = new Dictionary<string, string>()
+            transliterationTable = new()
             {
                 // Hangul
                 { "가", "ga" },
@@ -277,7 +277,7 @@ namespace TransliterationAPI.Service.Transliterators
             return ApplyFixes(transliteratedText);
         }
 
-        string ApplyFixes(string text)
+        static string ApplyFixes(string text)
         {
             string fixedText = text;
 

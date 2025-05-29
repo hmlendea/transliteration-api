@@ -9,11 +9,11 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class CopticTransliterator : ITransliterator
     {
-        Dictionary<string, string> transliterationTable;
+        readonly Dictionary<string, string> transliterationTable;
 
         public CopticTransliterator()
         {
-            transliterationTable = new Dictionary<string, string>
+            transliterationTable = new()
             {
                 { "Ⲁ", "A" },
                 { "ⲁ", "a" },
@@ -109,7 +109,7 @@ namespace TransliterationAPI.Service.Transliterators
             return transliteratedText;
         }
 
-        string ApplyFixes(string text)
+        static string ApplyFixes(string text)
         {
             string fixedText = text;
 

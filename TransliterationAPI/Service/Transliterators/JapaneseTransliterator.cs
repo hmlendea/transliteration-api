@@ -9,7 +9,7 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class JapaneseTransliterator : ITransliterator
     {
-        Dictionary<char, string> transliterationMap;
+        readonly Dictionary<char, string> transliterationMap;
 
         public JapaneseTransliterator()
         {
@@ -178,9 +178,9 @@ namespace TransliterationAPI.Service.Transliterators
 
             foreach (char character in text)
             {
-                if (transliterationMap.ContainsKey(character))
+                if (transliterationMap.TryGetValue(character, out string value))
                 {
-                    transliteratedText += transliterationMap[character];
+                    transliteratedText += value;
                 }
                 else
                 {
@@ -193,7 +193,7 @@ namespace TransliterationAPI.Service.Transliterators
             return transliteratedText;
         }
 
-        string ApplyFixes(string text)
+        static string ApplyFixes(string text)
         {
             string fixedText = text.ToTitleCase();
 

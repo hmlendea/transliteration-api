@@ -9,13 +9,13 @@ namespace TransliterationAPI.Service
     public class HttpRequestManager : IHttpRequestManager
     {
         readonly CookieContainer cookies;
-        readonly HttpClient client = new HttpClient();
+        readonly HttpClient client = new();
 
         public HttpRequestManager()
         {
             cookies = new CookieContainer();
-            
-            HttpClientHandler handler = new HttpClientHandler
+
+            HttpClientHandler handler = new()
             {
                 CookieContainer = cookies
             };
@@ -51,13 +51,13 @@ namespace TransliterationAPI.Service
             IDictionary<string, string> formData,
             IDictionary<string, string> headers)
         {
-            HttpRequestMessage request = new HttpRequestMessage()
+            HttpRequestMessage request = new()
             {
                 RequestUri = new Uri(url),
                 Method = HttpMethod.Post,
                 Content = new FormUrlEncodedContent(formData)
             };
-            
+
             foreach (KeyValuePair<string, string> header in headers)
             {
                 request.Headers.Add(header.Key, header.Value);
@@ -78,12 +78,12 @@ namespace TransliterationAPI.Service
 
         public async Task<string> RetrieveCookies(string url)
         {
-            HttpRequestMessage request = new HttpRequestMessage()
+            HttpRequestMessage request = new()
             {
                 RequestUri = new Uri(url),
                 Method = HttpMethod.Get
             };
-            
+
             using (HttpResponseMessage response = await client
                 .SendAsync(request)
                 .ConfigureAwait(false))
