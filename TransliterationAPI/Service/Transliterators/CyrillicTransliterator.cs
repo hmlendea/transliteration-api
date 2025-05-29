@@ -18,6 +18,7 @@ namespace TransliterationAPI.Service.Transliterators
         Dictionary<string, string> russianTransliterationTable;
         Dictionary<string, string> macedonianTransliterationTable;
         Dictionary<string, string> serbianTransliterationTable;
+        Dictionary<string, string> tajikiTransliterationTable;
         Dictionary<string, string> ukrainianTransliterationTable;
 
         public CyrillicTransliterator()
@@ -326,6 +327,43 @@ namespace TransliterationAPI.Service.Transliterators
                 { "я", "ja" },
             };
 
+            tajikiTransliterationTable = new Dictionary<string, string>
+            {
+                { "[Ъъ]", "'" },
+
+                // Uppercase letters
+                { "Ғ", "Ğ" },
+                { "Ё", "Jo" },
+                { "Ж", "Ƶ" },
+                { "Ӣ", "Ī" },
+                { "Й", "J" },
+                { "Қ", "Q" },
+                { "Ӯ", "Ū" },
+                { "Х", "X" },
+                { "Ҳ", "H" },
+                { "Ч", "C" },
+                { "Ҷ", "Ç" },
+                { "Ш", "Ș" },
+                { "Ю", "Ju" },
+                { "Я", "Ja" },
+
+                // Lowercase letters
+                { "ғ", "ğ" },
+                { "ё", "jo" },
+                { "ж", "ƶ" },
+                { "ӣ", "ī" },
+                { "й", "j" },
+                { "қ", "q" },
+                { "ӯ", "ū" },
+                { "х", "x" },
+                { "ҳ", "h" },
+                { "ч", "c" },
+                { "ҷ", "ç" },
+                { "ш", "ș" },
+                { "ю", "ju" },
+                { "я", "ja" },
+            };
+
             ukrainianTransliterationTable = new Dictionary<string, string>
             {
                 { @"ія\b", "ia" },
@@ -391,6 +429,11 @@ namespace TransliterationAPI.Service.Transliterators
                     serbianTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
                 }
 
+                if (!tajikiTransliterationTable.ContainsKey(characterTransliteration.Key))
+                {
+                    tajikiTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
+                }
+
                 if (!ukrainianTransliterationTable.ContainsKey(characterTransliteration.Key))
                 {
                     ukrainianTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
@@ -439,6 +482,10 @@ namespace TransliterationAPI.Service.Transliterators
                      language.Equals(Language.SerboCroatian))
             {
                 transliterationTable = serbianTransliterationTable;
+            }
+            else if (language.Equals(Language.TajikiCyrillic))
+            {
+                transliterationTable = tajikiTransliterationTable;
             }
             else if (language.Equals(Language.Ukrainian))
             {

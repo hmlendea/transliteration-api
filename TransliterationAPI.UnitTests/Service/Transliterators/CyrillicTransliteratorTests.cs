@@ -452,6 +452,13 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         }
 
         [Test]
+        [TestCase("Эрон", "Eron")]
+        public void GivenATextInTajikiCyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
+            string tajikiText,
+            string expectedTransliteratedText)
+            => Assert.That(transliterator.Transliterate(tajikiText, Language.TajikiCyrillic), Is.EqualTo(expectedTransliteratedText));
+
+        [Test]
         [TestCase("Алчевськ", "Alchevsk")]
         [TestCase("Бердянськ", "Berdiansk")]
         [TestCase("Бєлорєцьк", "Bielorietsk")]
