@@ -25,6 +25,8 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ئ", "ʾi" },
 
                 { "ب", "b" },
+                { "پ", "p" },
+                { "ة", "ah" }, // ISO-233: ẗ // ah ou
                 { "ت", "t" },
                 { "ث", "th" }, // ṯ
                 { "ج", "ǧ" },
@@ -49,7 +51,6 @@ namespace TransliterationAPI.Service.Transliterators
                 { "م", "m" },
                 { "ن", "n" },
                 { "ه", "h" },
-                { "ة", "ah" }, // ISO-233: ẗ // ah ou
                 { "و", "ū" },  // ISO-233: w
                 { "ي", "ī" }, // ISO-233: y
 
