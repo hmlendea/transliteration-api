@@ -244,6 +244,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Ψ", "Ps" },
                 { "Ω", "Ō" },
                 { "Ώ", "Ṓ" }, // Ṓ
+                { "Ω͂", "Ô" },
 
                 // Lowercase letters
                 { "ἄ", "á" },
@@ -315,6 +316,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ΰ", "ǘ" },
                 { "ὐ", "u" }, // u is the most common transliteration, not ú
                 { "ώ", "ṓ" }, // ṓ
+                { "ῶ", "ô" },
 
                 // Additional characters
                 { "ϵ", "e" }, // lunate epsilon

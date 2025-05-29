@@ -23,6 +23,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Ᾰθῆναι", "Athênai")]
         [TestCase("Ἀίγινα", "Aígina")]
         [TestCase("Ἀίγυπτος", "Aígyptos")]
+        [TestCase("Ἀκρόπολις τῶν Ἀθηνῶν", "Akrópolis tôn Athēnôn")]
         [TestCase("Ᾰκρόπολις", "Akrópolis")]
         [TestCase("Ἀλεξάνδρεια", "Alexándreia")]
         [TestCase("Αλμυρός Μαγνησίας", "Almyrós Magnēsías")]
