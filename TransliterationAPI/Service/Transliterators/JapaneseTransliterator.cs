@@ -91,7 +91,6 @@ namespace TransliterationAPI.Service.Transliterators
                 { '児', "go" },
                 { '入', "nyū" },
                 { '半', "han" },
-                { '南', "nam" },
                 { '南', "nan" },
                 { '取', "tori" },
                 { '口', "guchi" },
