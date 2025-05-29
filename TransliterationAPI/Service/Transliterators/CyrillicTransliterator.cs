@@ -18,7 +18,7 @@ namespace TransliterationAPI.Service.Transliterators
         Dictionary<string, string> russianTransliterationTable;
         Dictionary<string, string> macedonianTransliterationTable;
         Dictionary<string, string> serbianTransliterationTable;
-        Dictionary<string, string> tajikiTransliterationTable;
+        Dictionary<string, string> tajikTransliterationTable;
         Dictionary<string, string> ukrainianTransliterationTable;
 
         public CyrillicTransliterator()
@@ -327,7 +327,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "я", "ja" },
             };
 
-            tajikiTransliterationTable = new Dictionary<string, string>
+            tajikTransliterationTable = new Dictionary<string, string>
             {
                 { "[Ъъ]", "'" },
 
@@ -429,9 +429,9 @@ namespace TransliterationAPI.Service.Transliterators
                     serbianTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
                 }
 
-                if (!tajikiTransliterationTable.ContainsKey(characterTransliteration.Key))
+                if (!tajikTransliterationTable.ContainsKey(characterTransliteration.Key))
                 {
-                    tajikiTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
+                    tajikTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
                 }
 
                 if (!ukrainianTransliterationTable.ContainsKey(characterTransliteration.Key))
@@ -483,9 +483,9 @@ namespace TransliterationAPI.Service.Transliterators
             {
                 transliterationTable = serbianTransliterationTable;
             }
-            else if (language.Equals(Language.TajikiCyrillic))
+            else if (language.Equals(Language.Tajik))
             {
-                transliterationTable = tajikiTransliterationTable;
+                transliterationTable = tajikTransliterationTable;
             }
             else if (language.Equals(Language.Ukrainian))
             {

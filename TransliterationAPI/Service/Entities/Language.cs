@@ -51,7 +51,7 @@ namespace TransliterationAPI.Service.Entities
         public static Language SerboCroatian => new Language("sh", "Serbo-Croatian", nameof(CyrillicTransliterator));
         public static Language SimplifiedChinese => new Language("zh-hans", "Simplified Chinese", nameof(PinyinTransliterator));
         public static Language Sinhala => new Language("si", nameof(Sinhala), nameof(UshuaiaTransliterator));
-        public static Language TajikiCyrillic => new Language("tg", nameof(TajikiCyrillic), nameof(CyrillicTransliterator));
+        public static Language Tajik => new Language("tg", nameof(Tajik), nameof(CyrillicTransliterator));
         public static Language Tamil => new Language("ta", nameof(Tamil), nameof(UshuaiaTransliterator));
         public static Language Telugu => new Language("te", nameof(Telugu), nameof(UshuaiaTransliterator));
         public static Language Udmurt => new Language("udm", nameof(Udmurt), nameof(TranslitterationDotComTransliterator));

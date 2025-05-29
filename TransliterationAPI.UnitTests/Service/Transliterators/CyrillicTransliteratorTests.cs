@@ -484,10 +484,10 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Ҳулбук", "Hulbuk")]
         [TestCase("Шайдон", "Șajdon")]
         [TestCase("Эрон", "Eron")]
-        public void GivenATextInTajikiCyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
-            string tajikiText,
+        public void GivenATextInTajikCyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
+            string tajikText,
             string expectedTransliteratedText)
-            => Assert.That(transliterator.Transliterate(tajikiText, Language.TajikiCyrillic), Is.EqualTo(expectedTransliteratedText));
+            => Assert.That(transliterator.Transliterate(tajikText, Language.Tajik), Is.EqualTo(expectedTransliteratedText));
 
         [Test]
         [TestCase("Алчевськ", "Alchevsk")]
