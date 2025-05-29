@@ -456,6 +456,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Бобоҷон Ғафуров", "Boboçon Ğafurov")]
         [TestCase("Бохтар", "Boxtar")]
         [TestCase("Бустон", "Buston")]
+        [TestCase("Вахш", "Vaxș")]
         [TestCase("Ваҳдат", "Vahdat")]
         [TestCase("Гулистон", "Guliston")]
         [TestCase("Данғара", "Danğara")]
