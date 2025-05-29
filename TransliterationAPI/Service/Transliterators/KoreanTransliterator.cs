@@ -130,6 +130,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "셴", "syen" },
                 { "소", "so" },
                 { "속", "sok" },
+                { "쇠", "soe" },
                 { "수", "su" },
                 { "순", "sun" },
                 { "슈", "shu" },
