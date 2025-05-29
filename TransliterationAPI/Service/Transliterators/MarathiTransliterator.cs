@@ -198,6 +198,9 @@ namespace TransliterationAPI.Service.Transliterators
 
             fixedText = Regex.Replace(fixedText, "valī", "vlī");
 
+            // *a*
+            fixedText = Regex.Replace(fixedText, @"([Ll])(nṇ)", "$1a$2");
+
             return fixedText.ToTitleCase();
         }
     }
