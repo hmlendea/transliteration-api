@@ -7,12 +7,12 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
     public class CopticTransliteratorTests
     {
-        private ITransliterator transliterator;
+        private CopticTransliterator transliterator;
 
         [SetUp]
         public void SetUp()
         {
-            this.transliterator = new CopticTransliterator();
+            transliterator = new();
         }
 
         [Test]

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -68,7 +67,7 @@ namespace TransliterationAPI.Service.Transliterators
                     {
                         if (c >= '0' && c <= '5')
                         {
-                            int tone = (int)Char.GetNumericValue(c) % 5;
+                            int tone = (int)char.GetNumericValue(c) % 5;
 
                             if (tone != 0)
                             {

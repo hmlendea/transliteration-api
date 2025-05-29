@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -83,6 +82,7 @@ namespace TransliterationAPI.Service
         static string NormaliseText(string text)
         {
             string normalisedText = text;
+
             normalisedText = Regex.Replace(normalisedText, "^[\\s\r\n]*", "");
             normalisedText = Regex.Replace(normalisedText, "[\\s\r\n]*$", "");
 
@@ -101,14 +101,13 @@ namespace TransliterationAPI.Service
         static string GetSha256FromString(string strData)
         {
             byte[] message = Encoding.ASCII.GetBytes(strData);
-            SHA256 hashString = SHA256.Create();
             string hex = "";
 
-            byte[] hashValue = hashString.ComputeHash(message);
+            byte[] hashValue = SHA256.HashData(message);
 
             foreach (byte x in hashValue)
             {
-                hex += String.Format("{0:x2}", x);
+                hex += string.Format("{0:x2}", x);
             }
 
             return hex;

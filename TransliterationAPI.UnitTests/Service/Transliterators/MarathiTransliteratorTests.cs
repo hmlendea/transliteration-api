@@ -7,12 +7,12 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
     public class MarathiTransliteratorTests
     {
-        private ITransliterator transliterator;
+        private MarathiTransliterator transliterator;
 
         [SetUp]
         public void SetUp()
         {
-            this.transliterator = new MarathiTransliterator();
+            transliterator = new();
         }
 
         [Test]
