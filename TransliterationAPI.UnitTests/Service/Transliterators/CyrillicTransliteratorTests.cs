@@ -510,6 +510,18 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         }
 
         [Test]
+        [TestCase("Барлык кешеләр дә азат һәм үз абруйлары һәм хокуклары ягыннан тиң булып туалар. Аларга акыл һәм вөҗдан бирелгән һәм бер-берсенә карата туганнарча мөнасәбәттә булырга тиешләр.", "Barlıq keşelär dä azat häm üz abruyları häm xoquqları yağınnan tiñ bulıp tualar. Alarğa aqıl häm wöcdan birelgän häm ber-bersenä qarata tuğannarça mönasäbättä bulırğa tiyeşlär.")]
+        public void GivenATextInTatarCyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
+            string tatarText,
+            string expectedTransliteratedText)
+        {
+            foreach (Language language in new List<Language> { Language.Tatar, Language.TatarCyrillic })
+            {
+                Assert.That(transliterator.Transliterate(tatarText, language), Is.EqualTo(expectedTransliteratedText));
+            }
+        }
+
+        [Test]
         [TestCase("Алчевськ", "Alchevsk")]
         [TestCase("Бердянськ", "Berdiansk")]
         [TestCase("Бєлорєцьк", "Bielorietsk")]

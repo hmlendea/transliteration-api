@@ -20,6 +20,7 @@ namespace TransliterationAPI.Service.Transliterators
         readonly Dictionary<string, string> russianTransliterationTable;
         readonly Dictionary<string, string> macedonianTransliterationTable;
         readonly Dictionary<string, string> serbianTransliterationTable;
+        readonly Dictionary<string, string> tatarTransliterationTable;
         readonly Dictionary<string, string> tajikTransliterationTable;
         readonly Dictionary<string, string> ukrainianTransliterationTable;
 
@@ -747,6 +748,154 @@ namespace TransliterationAPI.Service.Transliterators
                 { "я", "ja" },
             };
 
+            tatarTransliterationTable = new()
+            {
+                // Front vowels: [ÄäEeİiÖöÜüӘәЕеИиӨөҮү]
+                // Back vowels:  [AaIıOoUuАаЫыОоУу]
+
+                // Uppercase vowel harmony
+                { "([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])Г", "$1G" },
+                { "([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])Е", "$1Ye" },
+                { "([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])К", "$1K" },
+                { "([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])Ю", "$1Yü" },
+                { "([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])Я", "$1Yä" },
+                { "([AaIıOoUuАаЫыОоУу])Г", "$1Ğ" },
+                { "([AaIıOoUuАаЫыОоУу])Е", "$1Yı" },
+                { "([AaIıOoUuАаЫыОоУу])К", "$1Q" },
+                { "([AaIıOoUuАаЫыОоУу])Ю", "$1Yu" },
+                { "([AaIıOoUuАаЫыОоУу])Я", "$1Ya" },
+                { "Г([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])", "G$1" },
+                { "Г([AaIıOoUuАаЫыОоУу])", "Ğ$1" },
+                { "К([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])", "K$1" },
+                { "К([AaIıOoUuАаЫыОоУу])", "Q$1" },
+                { "Ю([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])", "Yü$1" },
+                { "Ю([AaIıOoUuАаЫыОоУу])", "Yu$1" },
+                { "Я([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])", "Yä$1" },
+                { "Я([AaIıOoUuАаЫыОоУу])", "Ya$1" },
+
+                // Lowercase vowel harmony
+                { "([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])г", "$1g" },
+                { "([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])е", "$1ye" },
+                { "([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])к", "$1k" },
+                { "([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])ю", "$1yü" },
+                { "([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])я", "$1yä" },
+                { "([AaIıOoUuАаЫыОоУу])г", "$1ğ" },
+                { "([AaIıOoUuАаЫыОоУу])е", "$1yı" },
+                { "([AaIıOoUuАаЫыОоУу])к", "$1q" },
+                { "([AaIıOoUuАаЫыОоУу])ю", "$1yu" },
+                { "([AaIıOoUuАаЫыОоУу])я", "$1ya" },
+                { "г([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])", "g$1" },
+                { "г([AaIıOoUuАаЫыОоУу])", "ğ$1" },
+                { "к([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])", "k$1" },
+                { "к([AaIıOoUuАаЫыОоУу])", "q$1" },
+                { "ю([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])", "yü$1" },
+                { "ю([AaIıOoUuАаЫыОоУу])", "yu$1" },
+                { "я([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])", "yä$1" },
+                { "я([AaIıOoUuАаЫыОоУу])", "ya$1" },
+
+                //// Uppercase exceptions
+                //{ "Аъ", "Ä" },
+                //{ "Ӓ", "Ä" },
+                //{ "Оъ", "Ö" },
+                //{ "Ӧ", "Ö" },
+                //{ "Уъ", "Ü" },
+                //{ "Ӱ", "Ü" },
+                //{ "Жъ", "C" },
+                //{ "Нъ", "Ñ" },
+                //{ "Ҥ", "Ñ" },
+                //{ "Хъ", "H" },
+
+                // Uppercase letters
+                { "А", "A" },
+                { "Б", "B" },
+                { "В", "W" }, // Or V in Russian words
+                { "Д", "D" },
+                { "Е", "E" },
+                { "Ж", "J" },
+                { "З", "Z" },
+                { "И", "İ" },
+                { "Й", "Y" },
+                { "Л", "L" },
+                { "М", "M" },
+                { "Н", "N" },
+                { "О", "O" },
+                { "П", "P" },
+                { "Р", "R" },
+                { "С", "S" },
+                { "Т", "T" },
+                { "У", "U" },
+                { "Ф", "F" },
+                { "Х", "X" },
+                { "Ч", "Ç" },
+                { "Ш", "Ş" },
+                { "Ы", "I" },
+                { "Ә", "Ä" },
+                { "Ө", "Ö" },
+                { "Ү", "Ü" },
+                { "Җ", "C" },
+                { "Ң", "Ñ" },
+                { "Һ", "H" },
+
+                // Uppercase letters - Russian
+                { "Ё", "Yo" },
+                { "Ц", "Ts" },
+                { "Щ", "Şç" },
+
+                //// Lowercase exceptions
+                //{ "аъ", "ä" },
+                //{ "ӓ", "ä" },
+                //{ "оъ", "ö" },
+                //{ "ӧ", "ö" },
+                //{ "уъ", "ü" },
+                //{ "ӱ", "ü" },
+                //{ "жъ", "c" },
+                //{ "нъ", "ñ" },
+                //{ "ҥ", "ñ" },
+                //{ "хъ", "h" },
+
+                // Lowercase letters
+                { "а", "a" },
+                { "б", "b" },
+                { "в", "w" }, // Or V in Russian words
+                { "д", "d" },
+                { "е", "e" },
+                { "ж", "j" },
+                { "з", "z" },
+                { "и", "i" },
+                { "й", "y" },
+                { "л", "l" },
+                { "м", "m" },
+                { "н", "n" },
+                { "о", "o" },
+                { "п", "p" },
+                { "р", "r" },
+                { "с", "s" },
+                { "т", "t" },
+                { "у", "u" },
+                { "ф", "f" },
+                { "х", "x" },
+                { "ч", "ç" },
+                { "ш", "ş" },
+                { "ы", "ı" },
+                { "ә", "ä" },
+                { "ө", "ö" },
+                { "ү", "ü" },
+                { "җ", "c" },
+                { "ң", "ñ" },
+                { "һ", "h" },
+
+                // Lowercase letters - Russian
+                { "ё", "yo" },
+                { "ц", "ts" },
+                { "щ", "şç" },
+
+                // Special characters
+                { "Ъ", "" },
+                { "Ь", "" },
+                { "ъ", "" },
+                { "ь", "" },
+            };
+
             ukrainianTransliterationTable = new()
             {
                 { @"ія\b", "ia" },
@@ -810,6 +959,11 @@ namespace TransliterationAPI.Service.Transliterators
                 if (!serbianTransliterationTable.ContainsKey(characterTransliteration.Key))
                 {
                     serbianTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
+                }
+
+                if (!tatarTransliterationTable.ContainsKey(characterTransliteration.Key))
+                {
+                    tatarTransliterationTable.Add(characterTransliteration.Key, characterTransliteration.Value);
                 }
 
                 if (!tajikTransliterationTable.ContainsKey(characterTransliteration.Key))
@@ -882,6 +1036,11 @@ namespace TransliterationAPI.Service.Transliterators
                      language.Equals(Language.TajikCyrillic))
             {
                 transliterationTable = tajikTransliterationTable;
+            }
+            else if (language.Equals(Language.Tatar) ||
+                     language.Equals(Language.TatarCyrillic))
+            {
+                transliterationTable = tatarTransliterationTable;
             }
             else if (language.Equals(Language.Ukrainian))
             {
