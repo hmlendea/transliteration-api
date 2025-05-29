@@ -8,12 +8,12 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
     public class CyrillicTransliteratorTests
     {
-        private ITransliterator transliterator;
+        private CyrillicTransliterator transliterator;
 
         [SetUp]
         public void SetUp()
         {
-            this.transliterator = new CyrillicTransliterator();
+            transliterator = new();
         }
 
         [Test]
@@ -450,6 +450,44 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
                 Assert.That(transliterator.Transliterate(serbianText, language), Is.EqualTo(expectedTransliteratedText));
             }
         }
+
+        [Test]
+        [TestCase("Балх", "Balx")]
+        [TestCase("Бобоҷон Ғафуров", "Boboçon Ğafurov")]
+        [TestCase("Бохтар", "Boxtar")]
+        [TestCase("Бустон", "Buston")]
+        [TestCase("Ваҳдат", "Vahdat")]
+        [TestCase("Гулистон", "Guliston")]
+        [TestCase("Данғара", "Danğara")]
+        [TestCase("Дустӣ", "Dustī")]
+        [TestCase("Душанбe", "Dușanbe")]
+        [TestCase("Ёвон", "Jovon")]
+        [TestCase("Зафаробод", "Zafarobod")]
+        [TestCase("Истаравшан", "Istaravșan")]
+        [TestCase("Истиқлол", "Istiqlol")]
+        [TestCase("Исфара", "Isfara")]
+        [TestCase("Конибодом", "Konibodom")]
+        [TestCase("Кӯлоб", "Kūlob")]
+        [TestCase("Левакант", "Levakant")]
+        [TestCase("Маскав", "Maskav")]
+        [TestCase("Мирзо Турсунзода", "Mirzo Tursunzoda")]
+        [TestCase("Нoрaк", "Norak")]
+        [TestCase("Навкат", "Navkat")]
+        [TestCase("Панҷакент", "Pançakent")]
+        [TestCase("Сомониён", "Somonijon")]
+        [TestCase("Тоҷикистон", "Toçikiston")]
+        [TestCase("Турсунзoдa", "Tursunzoda")]
+        [TestCase("Фархoр", "Farxor")]
+        [TestCase("Хоруғ", "Xoruğ")]
+        [TestCase("Хуҷанд", "Xuçand")]
+        [TestCase("Ҳисор", "Hisor")]
+        [TestCase("Ҳулбук", "Hulbuk")]
+        [TestCase("Шайдон", "Șajdon")]
+        [TestCase("Эрон", "Eron")]
+        public void GivenATextInTajikCyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
+            string tajikText,
+            string expectedTransliteratedText)
+            => Assert.That(transliterator.Transliterate(tajikText, Language.Tajik), Is.EqualTo(expectedTransliteratedText));
 
         [Test]
         [TestCase("Алчевськ", "Alchevsk")]

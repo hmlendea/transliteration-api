@@ -9,12 +9,12 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class ArabicTransliterator : ITransliterator
     {
-        Dictionary<string, string> transliterationTable;
-        Dictionary<string, string> maghrebiTransliterationTable;
+        readonly Dictionary<string, string> transliterationTable;
+        readonly Dictionary<string, string> maghrebiTransliterationTable;
 
         public ArabicTransliterator()
         {
-            transliterationTable = new Dictionary<string, string>()
+            transliterationTable = new()
             {
                 { "ا", "ā" },
                 { "آ", "\u02beā" },
@@ -56,7 +56,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ڭ", "gu" },
             };
 
-            maghrebiTransliterationTable = new Dictionary<string, string>()
+            maghrebiTransliterationTable = new()
             {
                 { "گ", "g" },
                 { "ڤ", "g" }
@@ -152,7 +152,7 @@ namespace TransliterationAPI.Service.Transliterators
             return ApplyFixes(transliteratedText);
         }
 
-        string ApplyFixes(string text)
+        static string ApplyFixes(string text)
         {
             string fixedText = text;
 

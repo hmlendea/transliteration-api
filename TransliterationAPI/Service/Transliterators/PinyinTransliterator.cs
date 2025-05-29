@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -18,7 +17,7 @@ namespace TransliterationAPI.Service.Transliterators
 
             foreach (char unicodeCharacter in text)
             {
-                ChineseChar chineseCharacter = new ChineseChar(unicodeCharacter);
+                ChineseChar chineseCharacter = new(unicodeCharacter);
                 numericalPinYin += chineseCharacter.Pinyins[0] + " ";
             }
 
@@ -29,12 +28,12 @@ namespace TransliterationAPI.Service.Transliterators
             return fixedText;
         }
 
-        string StyliseTonedPinYin(string tonedPinYin)
+        static string StyliseTonedPinYin(string tonedPinYin)
             => tonedPinYin
                 .Replace(' ', '-')
                 .ToTitleCase();
 
-        string ConvertNumericalToTonedPinYin(string numericalPinYin)
+        static string ConvertNumericalToTonedPinYin(string numericalPinYin)
         {
             IDictionary<int, string> PinyinToneMark = new Dictionary<int, string>
             {
@@ -68,7 +67,7 @@ namespace TransliterationAPI.Service.Transliterators
                     {
                         if (c >= '0' && c <= '5')
                         {
-                            int tone = (int)Char.GetNumericValue(c) % 5;
+                            int tone = (int)char.GetNumericValue(c) % 5;
 
                             if (tone != 0)
                             {
@@ -127,7 +126,7 @@ namespace TransliterationAPI.Service.Transliterators
             return accented;
         }
 
-        string ApplyFixes(string text)
+        static string ApplyFixes(string text)
         {
             string fixedText = text;
 

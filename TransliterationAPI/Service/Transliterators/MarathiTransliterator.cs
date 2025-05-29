@@ -9,11 +9,11 @@ namespace TransliterationAPI.Service.Transliterators
 {
     public class MarathiTransliterator : ITransliterator
     {
-        Dictionary<string, string> transliterationTable;
+        readonly Dictionary<string, string> transliterationTable;
 
         public MarathiTransliterator()
         {
-            transliterationTable = new Dictionary<string, string>
+            transliterationTable = new()
             {
                 // Additional characters
                 {"क़", "q"},
@@ -147,7 +147,7 @@ namespace TransliterationAPI.Service.Transliterators
             return transliteratedText;
         }
 
-        string ApplyFixes(string text)
+        static string ApplyFixes(string text)
         {
             string fixedText = text;
             fixedText = Regex.Replace(fixedText, " kn", " chan");

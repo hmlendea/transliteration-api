@@ -7,12 +7,12 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
     public class JapaneseTransliteratorTests
     {
-        private ITransliterator transliterator;
+        private JapaneseTransliterator transliterator;
 
         [SetUp]
         public void SetUp()
         {
-            this.transliterator = new JapaneseTransliterator();
+            transliterator = new();
         }
 
         [Test]

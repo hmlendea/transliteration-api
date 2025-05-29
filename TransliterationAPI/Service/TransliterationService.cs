@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -13,22 +12,11 @@ using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.Service
 {
-    public class TransliterationService : ITransliterationService
+    public class TransliterationService(
+        ITransliteratorFactory transliteratorFactory,
+        IRepository<CachedTransliteration> cache,
+        CacheSettings cacheSettings) : ITransliterationService
     {
-        ITransliteratorFactory transliteratorFactory;
-        IRepository<CachedTransliteration> cache;
-        CacheSettings cacheSettings;
-
-        public TransliterationService(
-            ITransliteratorFactory transliteratorFactory,
-            IRepository<CachedTransliteration> cache,
-            CacheSettings cacheSettings)
-        {
-            this.transliteratorFactory = transliteratorFactory;
-            this.cache = cache;
-            this.cacheSettings = cacheSettings;
-        }
-
         public async Task<string> Transliterate(string text, string languageCode)
         {
             if (Language.GetAll().All(language => !language.Code.Equals(languageCode)))
@@ -91,9 +79,10 @@ namespace TransliterationAPI.Service
                 .Transliterate(text, languageCode);
         }
 
-        string NormaliseText(string text)
+        static string NormaliseText(string text)
         {
             string normalisedText = text;
+
             normalisedText = Regex.Replace(normalisedText, "^[\\s\r\n]*", "");
             normalisedText = Regex.Replace(normalisedText, "[\\s\r\n]*$", "");
 
@@ -109,17 +98,16 @@ namespace TransliterationAPI.Service
             return cacheKey;
         }
 
-        string GetSha256FromString(string strData)
+        static string GetSha256FromString(string strData)
         {
             byte[] message = Encoding.ASCII.GetBytes(strData);
-            SHA256 hashString = SHA256.Create();
             string hex = "";
 
-            byte[] hashValue = hashString.ComputeHash(message);
+            byte[] hashValue = SHA256.HashData(message);
 
             foreach (byte x in hashValue)
             {
-                hex += String.Format("{0:x2}", x);
+                hex += string.Format("{0:x2}", x);
             }
 
             return hex;

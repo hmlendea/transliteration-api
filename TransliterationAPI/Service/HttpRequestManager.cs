@@ -9,13 +9,13 @@ namespace TransliterationAPI.Service
     public class HttpRequestManager : IHttpRequestManager
     {
         readonly CookieContainer cookies;
-        readonly HttpClient client = new HttpClient();
+        readonly HttpClient client = new();
 
         public HttpRequestManager()
         {
             cookies = new CookieContainer();
-            
-            HttpClientHandler handler = new HttpClientHandler
+
+            HttpClientHandler handler = new()
             {
                 CookieContainer = cookies
             };
@@ -30,20 +30,17 @@ namespace TransliterationAPI.Service
             string url,
             IDictionary<string, string> formData)
         {
-            using (HttpContent requestContent = new FormUrlEncodedContent(formData))
-            {
-                using (HttpResponseMessage response = await client
-                    .PostAsync(url, requestContent)
-                    .ConfigureAwait(false))
-                {
-                    response.EnsureSuccessStatusCode();
+            using HttpContent requestContent = new FormUrlEncodedContent(formData);
+            using HttpResponseMessage response = await client
+                .PostAsync(url, requestContent)
+                .ConfigureAwait(false);
 
-                    return await response
-                        .Content
-                        .ReadAsStringAsync()
-                        .ConfigureAwait(false);
-                }
-            }
+            response.EnsureSuccessStatusCode();
+
+            return await response
+                .Content
+                .ReadAsStringAsync()
+                .ConfigureAwait(false);
         }
 
         public async Task<string> Post(
@@ -51,54 +48,50 @@ namespace TransliterationAPI.Service
             IDictionary<string, string> formData,
             IDictionary<string, string> headers)
         {
-            HttpRequestMessage request = new HttpRequestMessage()
+            HttpRequestMessage request = new()
             {
                 RequestUri = new Uri(url),
                 Method = HttpMethod.Post,
                 Content = new FormUrlEncodedContent(formData)
             };
-            
+
             foreach (KeyValuePair<string, string> header in headers)
             {
                 request.Headers.Add(header.Key, header.Value);
             }
 
-            using (HttpResponseMessage response = await client
+            using HttpResponseMessage response = await client
                 .SendAsync(request)
-                .ConfigureAwait(false))
-            {
-                response.EnsureSuccessStatusCode();
+                .ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
 
-                return await response
-                    .Content
-                    .ReadAsStringAsync()
-                    .ConfigureAwait(false);
-            }
+            return await response
+                .Content
+                .ReadAsStringAsync()
+                .ConfigureAwait(false);
         }
 
         public async Task<string> RetrieveCookies(string url)
         {
-            HttpRequestMessage request = new HttpRequestMessage()
+            HttpRequestMessage request = new()
             {
                 RequestUri = new Uri(url),
                 Method = HttpMethod.Get
             };
-            
-            using (HttpResponseMessage response = await client
+
+            using HttpResponseMessage response = await client
                 .SendAsync(request)
-                .ConfigureAwait(false))
+                .ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
+
+            string cook = string.Empty;
+
+            foreach (var cookie in cookies.GetCookies(request.RequestUri))
             {
-                response.EnsureSuccessStatusCode();
-
-                string cook = string.Empty;
-
-                foreach (var cookie in cookies.GetCookies(request.RequestUri))
-                {
-                    cook += cookie.ToString() + ";";
-                }
-
-                return cook;
+                cook += cookie.ToString() + ";";
             }
+
+            return cook;
         }
     }
 }

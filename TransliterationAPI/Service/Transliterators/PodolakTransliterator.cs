@@ -8,18 +8,11 @@ using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class PodolakTransliterator : IExternalTransliterator
+    public class PodolakTransliterator(IHttpRequestManager httpRequestManager) : IExternalTransliterator
     {
-        IHttpRequestManager httpRequestManager;
-
-        public PodolakTransliterator(IHttpRequestManager httpRequestManager)
-        {
-            this.httpRequestManager = httpRequestManager;
-        }
-
         public async Task<string> Transliterate(string text, Language language)
         {
-            IDictionary<string, string> formData = new Dictionary<string, string>
+            Dictionary<string, string> formData = new()
             {
                 { "quelltext", language.Code },
                 { "zieltext", "isor9" },
@@ -35,7 +28,7 @@ namespace TransliterationAPI.Service.Transliterators
             return ExtractResultFromResponse(response);
         }
 
-        private string GetUrl(Language language)
+        private static string GetUrl(Language language)
         {
             const string url = "https://podolak.net/en/transliteration";
 
@@ -47,10 +40,10 @@ namespace TransliterationAPI.Service.Transliterators
             return $"{url}/old-church-slavonic";
         }
 
-        private string ExtractResultFromResponse(string response)
+        private static string ExtractResultFromResponse(string response)
         {
             string line = response
-                .Split(new [] { '\r', '\n' })
+                .Split(['\r', '\n'])
                 .First(x => x.Contains("ausgabe"));
 
             return Regex.Replace(line, "[^>]*>([^<]*)</textarea>.*", "$1");
