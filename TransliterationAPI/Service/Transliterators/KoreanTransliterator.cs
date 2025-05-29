@@ -48,6 +48,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "니", "ni" },
                 { "닝", "ning" },
                 { "다", "da" },
+                { "단", "dan" },
                 { "달", "dal" },
                 { "담", "dam" },
                 { "대", "dae" },
