@@ -483,7 +483,8 @@ namespace TransliterationAPI.Service.Transliterators
             {
                 transliterationTable = serbianTransliterationTable;
             }
-            else if (language.Equals(Language.Tajik))
+            else if (language.Equals(Language.Tajik) ||
+                     language.Equals(Language.TajikCyrillic))
             {
                 transliterationTable = tajikTransliterationTable;
             }

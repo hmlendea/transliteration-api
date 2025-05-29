@@ -456,6 +456,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [TestCase("Бобоҷон Ғафуров", "Boboçon Ğafurov")]
         [TestCase("Бохтар", "Boxtar")]
         [TestCase("Бустон", "Buston")]
+        [TestCase("Вахш", "Vaxș")]
         [TestCase("Ваҳдат", "Vahdat")]
         [TestCase("Гулистон", "Guliston")]
         [TestCase("Данғара", "Danğara")]
@@ -487,7 +488,12 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         public void GivenATextInTajikCyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
             string tajikText,
             string expectedTransliteratedText)
-            => Assert.That(transliterator.Transliterate(tajikText, Language.Tajik), Is.EqualTo(expectedTransliteratedText));
+        {
+            foreach (Language language in new List<Language> { Language.Tajik, Language.TajikCyrillic })
+            {
+                Assert.That(transliterator.Transliterate(tajikText, language), Is.EqualTo(expectedTransliteratedText));
+            }
+        }
 
         [Test]
         [TestCase("Алчевськ", "Alchevsk")]
