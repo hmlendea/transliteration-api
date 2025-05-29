@@ -17,6 +17,13 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         }
 
         [Test]
+        [TestCase("Дарбанзаалак ауаҩы дшоуп ихы дақәиҭны. Ауаа зегь зинлеи патулеи еиҟароуп. Урҭ ирымоуп ахшыҩи аламыси, дара дарагь аешьеи аешьеи реиԥш еизыҟазароуп.", "Darbanzaalak auaòy dšoup ihy daķa̋iţny. Auaa zegʹ zinlei patulei eik̄aroup. Urţ irymoup ahšyòi alamysi, dara daragʹ aešʹei aešʹei reiṕš eizyk̄azaroup.")]
+        public void GivvenATextInAbkhazianCyrillicScript_WhenTransliteratingIntoLatin_ThenTheCorrectTextIsReturned(
+            string abkhazianText,
+            string expectedTransliteratedText)
+            => Assert.That(transliterator.Transliterate(abkhazianText, Language.Abkhaz), Is.EqualTo(expectedTransliteratedText));
+
+        [Test]
         [TestCase("Асіповічы", "Asipovičy")]
         [TestCase("Астравец", "Astraviec")]
         [TestCase("Ашмяны", "Ašmiany")]

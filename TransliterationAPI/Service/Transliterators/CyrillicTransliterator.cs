@@ -11,6 +11,7 @@ namespace TransliterationAPI.Service.Transliterators
         readonly Dictionary<string, string> alaLcTransliterationTable;
         readonly Dictionary<string, string> bgnPcgnTransliterationTable;
 
+        readonly Dictionary<string, string> abkhazianTransliterationTable;
         readonly Dictionary<string, string> belarussianTransliterationTable;
         readonly Dictionary<string, string> bulgarianTransliterationTable;
         readonly Dictionary<string, string> chuvashTransliterationTable;
@@ -118,9 +119,131 @@ namespace TransliterationAPI.Service.Transliterators
                 { "ж", "zh" }
             };
 
+            abkhazianTransliterationTable = new() // ISO-9
+            {
+                // Uppercase exceptions
+                { "Гь", "Gʹ" },
+                { "Гә", "Ga̋" },
+                { "Гу", "Ga̋" },
+                { "Ӷь", "Ğʹ" },
+                { "Ҕь", "Ğʹ" },
+                { "Ӷә", "Ğa̋" },
+                { "Ҕу", "Ğa̋" },
+                { "Дә", "Da̋" },
+                { "Жь", "Žʹ" },
+                { "Жә", "Ža̋" },
+                { "Ӡә", "Źa̋" },
+                { "Кь", "Kʹ" },
+                { "Кә", "Ka̋" },
+                { "Ку", "Ka̋" },
+                { "Қь", "Ķʹ" },
+                { "Қә", "Ķa̋" },
+                { "Ӄу", "Ķa̋" },
+                { "Ҟь", "K̄ʹ" },
+                { "Ҟә", "K̄a̋" },
+                { "Ҟу", "K̄a̋" },
+                { "Тә", "Ta̋" },
+                { "Ҭә", "Ţa̋" },
+                { "Хь", "Hʹ" },
+                { "Хә", "Ha̋" },
+                { "Ху", "Ha̋" },
+                { "Ҳә", "H̦a̋" },
+                { "Цә", "Ca̋" },
+                { "Ҵә", "C̄a̋" },
+                { "Шь", "Šʹ" },
+                { "Шә", "Ša̋" },
+                { "Џь", "D̂" },
+
+                // Uppercase characters
+                { "А", "A" },
+                { "Б", "B" },
+                { "В", "V" },
+                { "Г", "G" },
+                { "Ҕ", "Ğ" },
+                { "Д", "D" },
+                { "Е", "E" },
+                { "Ж", "Ž" },
+                { "З", "Z" },
+                { "Ӡ", "Ź" },
+                { "И", "I" },
+                { "К", "K" },
+                { "Қ", "Ķ" },
+                { "Ҟ", "K̄" },
+                { "Л", "L" },
+                { "М", "M" },
+                { "Н", "N" },
+                { "О", "O" },
+                { "П", "P" },
+                { "Ԥ", "Ṕ" },
+                { "Ҧ", "Ṕ" },
+                { "Р", "R" },
+                { "С", "S" },
+                { "Т", "T" },
+                { "Ҭ", "Ţ" },
+                { "У", "U" },
+                { "Ф", "F" },
+                { "Х", "H" },
+                { "Ҳ", "H̦" },
+                { "Ц", "C" },
+                { "Ҵ", "C̄" },
+                { "Ч", "Č" },
+                { "Ҷ", "C̦" },
+                { "Ҽ", "C̆" },
+                { "Ҿ", "̦C̆" },
+                { "Ш", "Š" },
+                { "Ы", "Y" },
+                { "Ҩ", "Ò" },
+                { "Џ", "D̂" },
+                { "Ь", "ʹ" },
+                { "Ә", "A̋" },
+
+                // Lowercase characters
+                { "а", "a" },
+                { "б", "b" },
+                { "в", "v" },
+                { "г", "g" },
+                { "ҕ", "ğ" },
+                { "д", "d" },
+                { "е", "e" },
+                { "ж", "ž" },
+                { "з", "z" },
+                { "ӡ", "ź" },
+                { "и", "i" },
+                { "к", "k" },
+                { "қ", "ķ" },
+                { "ҟ", "k̄" },
+                { "л", "l" },
+                { "м", "m" },
+                { "н", "n" },
+                { "о", "o" },
+                { "п", "p" },
+                { "ԥ", "ṕ" },
+                { "ҧ", "ṕ" },
+                { "р", "r" },
+                { "с", "s" },
+                { "т", "t" },
+                { "ҭ", "ţ" },
+                { "у", "u" },
+                { "ф", "f" },
+                { "х", "h" },
+                { "ҳ", "h̦" },
+                { "ц", "c" },
+                { "ҵ", "c̄" },
+                { "ч", "č" },
+                { "ҷ", "c̦" },
+                { "ҽ", "c̆" },
+                { "ҿ", "̦c̆" },
+                { "ш", "š" },
+                { "ы", "y" },
+                { "ҩ", "ò" },
+                { "џ", "d̂" },
+                { "ь", "ʹ" },
+                { "ә", "a̋" }
+            };
+
             belarussianTransliterationTable = new()
             {
-                // Uppeercase exceptions
+                // Uppercase exceptions
                 { "Ль", "Ĺ" },
                 { "Нь", "Ń" },
                 { @"\bЕ", "Je" },
@@ -138,7 +261,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { @"ю\b", "ju" },
                 { @"я\b", "ja" },
 
-                // Uppeercase characters
+                // Uppercase characters
                 { "Г", "H" },
                 { "Д", "D" },
                 { "Е", "Ie" }, // Also Je
@@ -453,7 +576,11 @@ namespace TransliterationAPI.Service.Transliterators
         {
             IDictionary<string, string> transliterationTable;
 
-            if (language.Equals(Language.Belarussian))
+            if (language.Equals(Language.Abkhaz))
+            {
+                transliterationTable = abkhazianTransliterationTable;
+            }
+            else if (language.Equals(Language.Belarussian))
             {
                 transliterationTable = belarussianTransliterationTable;
             }

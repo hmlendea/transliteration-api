@@ -11,7 +11,7 @@ namespace TransliterationAPI.Service.Entities
     {
         static readonly IDictionary<string, Language> entries;
 
-        public static Language Abkhaz => new("ab", nameof(Abkhaz), nameof(TranslitterationDotComTransliterator));
+        public static Language Abkhaz => new("ab", nameof(Abkhaz), nameof(CyrillicTransliterator));
         public static Language Adyghe => new("ady", nameof(Adyghe), nameof(TranslitterationDotComTransliterator));
         public static Language AncientGreek => new("grc", $"Ancient {nameof(Greek)}", nameof(GreekTransliterator));
         public static Language AncientGreekDoric => new("grc-dor", $"Ancient Doric {nameof(Greek)}", nameof(GreekTransliterator));
