@@ -199,6 +199,7 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, "valī", "vlī");
 
             // *a*
+            fixedText = Regex.Replace(fixedText, @"([Bb])(d)", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([Ll])(nṇ)", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([Mm])(j)", "$1a$2");
 
