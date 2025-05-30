@@ -200,6 +200,7 @@ namespace TransliterationAPI.Service.Transliterators
 
             // *a*
             fixedText = Regex.Replace(fixedText, @"([Ll])(nṇ)", "$1a$2");
+            fixedText = Regex.Replace(fixedText, @"([Mm])(j)", "$1a$2");
 
             return fixedText.ToTitleCase();
         }
