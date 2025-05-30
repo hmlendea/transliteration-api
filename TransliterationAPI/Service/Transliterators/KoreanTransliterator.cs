@@ -218,6 +218,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "코", "ko" },
                 { "콘", "kon" },
                 { "콜", "kol" },
+                { "콜", "kol" },
                 { "콧", "kot" },
                 { "쿠", "ku" },
                 { "쿤", "kun" },
