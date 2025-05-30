@@ -215,22 +215,26 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, @"([Dd])([ẖ])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([FLMTṬflmtṭ])([ln])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([Ǧǧ])([z])", "$1a$2");
-            fixedText = Regex.Replace(fixedText, @"([ǦLNQRYǧlnqry])([h])", "$1a$2");
+            fixedText = Regex.Replace(fixedText, @"([BǦLNQRSYbǧlnqrsy])([h])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([HḤhḥ])([bmrsṣštṭ])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([HḤhḥ])([l][aeiīou])", "$1a$2");
-            fixedText = Regex.Replace(fixedText, @"([Qq])([l])", "$1a$2");
-            fixedText = Regex.Replace(fixedText, @"([Šš])([a])", "$1a$2");
-            fixedText = Regex.Replace(fixedText, @"([Ss])([b])", "$1a$2");
+            fixedText = Regex.Replace(fixedText, @"([NSns])b", "$1ab");
+            fixedText = Regex.Replace(fixedText, @"([Qq])l", "$1al");
+            fixedText = Regex.Replace(fixedText, @"([Ss])b", "$1ab");
             fixedText = Regex.Replace(fixedText, @"([Ṣṣ])([iī]|ū)", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([Zz])([ġ])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"\b([N])([ǧ])", "$1a$2");
             // *e*
-            fixedText = Regex.Replace(fixedText, @"([HḤhḥ])([l])", "$1e$2");
-            fixedText = Regex.Replace(fixedText, @"([Ll])([f])", "$1e$2");
+            fixedText = Regex.Replace(fixedText, @"([Bb])d", "$1ed");
+            fixedText = Regex.Replace(fixedText, @"([HḤhḥ])l", "$1el");
+            fixedText = Regex.Replace(fixedText, @"([Ll])f", "$1ef");
             // *i*
             fixedText = Regex.Replace(fixedText, @"([BTbt])([ltṭ])", "$1i$2");
-            fixedText = Regex.Replace(fixedText, @"([Mm])([rsṣ])", "$1i$2");
+            fixedText = Regex.Replace(fixedText, @"([Ǧǧ])d", "$1id");
+            fixedText = Regex.Replace(fixedText, @"([Mm])r", "$1ir");
+            fixedText = Regex.Replace(fixedText, @"([Mm])([sṣ])", "$1i$2");
             fixedText = Regex.Replace(fixedText, @"([Šš])n", "$1in");
+            fixedText = Regex.Replace(fixedText, @"([Tt])m", "$1im");
             // *u*
             fixedText = Regex.Replace(fixedText, @"([Dd])([ǧn])", "$1u$2");
             fixedText = Regex.Replace(fixedText, @"([Mm])([q])", "$1u$2");
