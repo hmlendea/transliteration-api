@@ -108,7 +108,6 @@ namespace TransliterationAPI.Service.Transliterators
                 { "밧", "bat" },
                 { "뱌", "bya" },
                 { "버", "beo" },
-                { "버", "eo" },
                 { "베", "be" },
                 { "벨", "bel" },
                 { "보", "bo" },
