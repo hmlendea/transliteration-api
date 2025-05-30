@@ -753,6 +753,10 @@ namespace TransliterationAPI.Service.Transliterators
                 // Front vowels: [ÄäEeİiÖöÜüӘәЕеИиӨөҮү]
                 // Back vowels:  [AaIıOoUuАаЫыОоУу]
 
+                // Fix wrong characters
+                { "Ə", "Ә" },
+                { "ə", "ә" },
+
                 // Uppercase vowel harmony
                 { "([ÄäEeİiÖöÜüӘәЕеИиӨөҮү])Е", "$1Ye" },
                 { "([ÄäEeİiÖöÜüӘәЕеИиӨөҮү][^ '\"-]*)Г", "$1G" },

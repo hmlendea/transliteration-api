@@ -510,6 +510,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         }
 
         [Test]
+        [TestCase("Bilər", "Bilär")]
         [TestCase("Азнакай", "Aznaqay")]
         [TestCase("Алабуга", "Alabuğa")]
         [TestCase("Әлмәт", "Älmät")]
