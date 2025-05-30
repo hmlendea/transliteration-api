@@ -117,6 +117,7 @@ namespace TransliterationAPI.Service.Transliterators
 
             // *a*
             fixedText = Regex.Replace(fixedText, @"([Ss])([r])", "$1a$2");
+            fixedText = Regex.Replace(fixedText, @"([Ww])([n])", "$1a$2");
 
             return fixedText;
         }
