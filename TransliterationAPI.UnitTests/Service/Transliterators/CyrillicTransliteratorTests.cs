@@ -510,12 +510,14 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         }
 
         [Test]
+        [TestCase("Bilər", "Bilär")]
         [TestCase("Азнакай", "Aznaqay")]
         [TestCase("Алабуга", "Alabuğa")]
         [TestCase("Әлмәт", "Älmät")]
         [TestCase("Баулы", "Baulı")]
         [TestCase("Бөгелмә", "Bögelmä")]
         [TestCase("Казань", "Qazan")]
+        [TestCase("Тәтеш", "Täteş")]
         [TestCase("Яр Чаллы", "Yar Çallı")]
         [TestCase("Яшел Үзән", "Yäşel Üzän")]
         [TestCase("Барлык кешеләр дә азат һәм үз абруйлары һәм хокуклары ягыннан тиң булып туалар. Аларга акыл һәм вөҗдан бирелгән һәм бер-берсенә карата туганнарча мөнасәбәттә булырга тиешләр.", "Barlıq keşelär dä azat häm üz abruyları häm xoquqları yağınnan tiñ bulıp tualar. Alarğa aqıl häm wöcdan birelgän häm ber-bersenä qarata tuğannarça mönasäbättä bulırğa tiyeşlär.")]
