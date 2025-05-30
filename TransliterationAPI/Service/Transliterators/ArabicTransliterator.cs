@@ -211,11 +211,11 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, @"([BKMbkm])([sṣš])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([BKMQbkmq])([sš])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([FLMTṬflmtṭ])([ln])", "$1a$2");
+            fixedText = Regex.Replace(fixedText, @"([Ǧǧ])([z])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([HḤhḥ])([bmrsṣštṭ])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([HḤhḥ])([l][aeiīou])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([Mm])([d])", "$1a$2");
-            fixedText = Regex.Replace(fixedText, @"([Nn])([h])", "$1a$2");
-            fixedText = Regex.Replace(fixedText, @"([Qq])([h])", "$1a$2");
+            fixedText = Regex.Replace(fixedText, @"([NQRnqr])([h])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"([Ss])b", "$1ab");
             fixedText = Regex.Replace(fixedText, @"([Ṣṣ])([iīū])", "$1a$2");
             fixedText = Regex.Replace(fixedText, @"\b([N])([ǧ])", "$1a$2");
