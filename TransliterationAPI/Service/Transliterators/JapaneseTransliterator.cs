@@ -71,7 +71,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { '九', "kyū" },
                 { '寧', "nei" },
                 { '歙', "shī" },
-                { '玉', "gyoku" },
+                { '玉', "gyoku" }, // Or tama
                 { '西', "sei" },
                 { '郡', "gun" },
 
@@ -134,7 +134,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { '滋', "shi" },
                 { '潟', "gata" },
                 { '熊', "kuma" },
-                { '町', "machi" },
+                { '町', "chō" }, // Or machi
                 { '直', "choku" },
                 { '知', "chi" },
                 { '石', "ishi" },
