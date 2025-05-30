@@ -101,7 +101,24 @@ namespace TransliterationAPI.Service.Transliterators
                 { "Cookie", $"translit={sessionCookieValue};lastlang={formData["lang"]}" }
             };
 
-            return await httpRequestManager.Post("https://www.ushuaia.pl/transliterate/transliterate.php", formData, headers);
+            string transliteratedText = await httpRequestManager.Post("https://www.ushuaia.pl/transliterate/transliterate.php", formData, headers);
+
+            if (language.Equals(Language.Hindi))
+            {
+                transliteratedText = ApplyHindiPostProcessing(transliteratedText);
+            }
+
+            return transliteratedText;
+        }
+
+        static string ApplyHindiPostProcessing(string text)
+        {
+            string fixedText = text;
+
+            // *a*
+            fixedText = Regex.Replace(fixedText, @"([Ss])([r])", "$1a$2");
+
+            return fixedText;
         }
     }
 }
