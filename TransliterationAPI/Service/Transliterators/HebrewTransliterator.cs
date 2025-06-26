@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-using NuciExtensions;
-
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
@@ -81,7 +79,7 @@ namespace TransliterationAPI.Service.Transliterators
 
         static string ApplyFixes(string text)
         {
-            string fixedText = text.ToTitleCase();
+            string fixedText = ToTitleCase(text);
 
             fixedText = Regex.Replace(fixedText, "([\\ \\-])byb", "$1Aviv");
 
@@ -165,6 +163,21 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, @"yiyi", "yi");
 
             return fixedText;
+        }
+
+        static string ToTitleCase(string source)
+        {
+            char[] chars = source.ToLower().ToCharArray();
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                if (i == 0 || chars[i - 1] == ' ')
+                {
+                    chars[i] = char.ToUpper(chars[i]);
+                }
+            }
+
+            return new string(chars);
         }
     }
 }
