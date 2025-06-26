@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-using NuciExtensions;
-
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
@@ -157,7 +155,7 @@ namespace TransliterationAPI.Service.Transliterators
         {
             string fixedText = text;
 
-            fixedText = fixedText.ToTitleCase();
+            fixedText = ToTitleCase(fixedText);
 
             fixedText = fixedText.Replace(" [Dd]ī[l]* ", " āl-");
             fixedText = fixedText.Replace("ūrfū", "ūrifū");
@@ -292,6 +290,21 @@ namespace TransliterationAPI.Service.Transliterators
             fixedText = Regex.Replace(fixedText, @"([a-z])([A-Z])", "$1 $2");
 
             return fixedText;
+        }
+
+        static string ToTitleCase(string source)
+        {
+            char[] chars = source.ToLower().ToCharArray();
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                if (i == 0 || chars[i - 1] == ' ')
+                {
+                    chars[i] = char.ToUpper(chars[i]);
+                }
+            }
+
+            return new string(chars);
         }
     }
 }
