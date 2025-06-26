@@ -28,7 +28,7 @@ namespace TransliterationAPI
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
             return services
-                .AddSingleton<IRepository<CachedTransliteration>>(x => new JsonRepository<CachedTransliteration>(cacheSettings.StoreLocation))
+                .AddSingleton<IFileRepository<CachedTransliteration>>(x => new JsonRepository<CachedTransliteration>(cacheSettings.StoreLocation))
                 .AddSingleton<IHttpRequestManager, HttpRequestManager>()
                 .AddTransliteratorServices()
                 .AddSingleton<ITransliteratorFactory, TransliteratorFactory>()

@@ -14,7 +14,7 @@ namespace TransliterationAPI.Service
 {
     public class TransliterationService(
         ITransliteratorFactory transliteratorFactory,
-        IRepository<CachedTransliteration> cache,
+        IFileRepository<CachedTransliteration> cache,
         CacheSettings cacheSettings) : ITransliterationService
     {
         public async Task<string> Transliterate(string text, string languageCode)
