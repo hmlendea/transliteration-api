@@ -15,10 +15,13 @@ namespace TransliterationAPI
         public static IServiceCollection AddConfigurations(this IServiceCollection services, IConfiguration configuration)
         {
             CacheSettings cacheSettings = new();
+            SecuritySettings securitySettings = new();
 
             configuration.Bind(nameof(CacheSettings), cacheSettings);
+            configuration.Bind(nameof(SecuritySettings), securitySettings);
 
             services.AddSingleton(cacheSettings);
+            services.AddSingleton(securitySettings);
 
             return services;
         }
