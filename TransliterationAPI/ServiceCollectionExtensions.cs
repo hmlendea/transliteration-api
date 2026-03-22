@@ -12,11 +12,9 @@ namespace TransliterationAPI
 {
     public static class ServiceCollectionExtensions
     {
-        static CacheSettings cacheSettings;
-
         public static IServiceCollection AddConfigurations(this IServiceCollection services, IConfiguration configuration)
         {
-            cacheSettings = new CacheSettings();
+            CacheSettings cacheSettings = new();
 
             configuration.Bind(nameof(CacheSettings), cacheSettings);
 
@@ -28,29 +26,31 @@ namespace TransliterationAPI
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
             return services
-                .AddSingleton<IFileRepository<CachedTransliteration>>(x => new JsonRepository<CachedTransliteration>(cacheSettings.StoreLocation))
+                .AddSingleton<IFileRepository<CachedTransliteration>>(provider
+                    => new JsonRepository<CachedTransliteration>(
+                        provider.GetRequiredService<CacheSettings>().StoreLocation))
                 .AddSingleton<IHttpRequestManager, HttpRequestManager>()
                 .AddTransliteratorServices()
-                .AddSingleton<ITransliteratorFactory, TransliteratorFactory>()
+                .AddScoped<ITransliteratorFactory, TransliteratorFactory>()
                 .AddSingleton<ITransliterationService, TransliterationService>();
         }
 
         static IServiceCollection AddTransliteratorServices(this IServiceCollection services)
         {
             return services
-                .AddScoped<GreekTransliterator>()
-                .AddScoped<ArabicTransliterator>()
-                .AddScoped<CopticTransliterator>()
-                .AddScoped<CyrillicTransliterator>()
-                .AddScoped<GujaratiTransliterator>()
-                .AddScoped<HebrewTransliterator>()
-                .AddScoped<JapaneseTransliterator>()
-                .AddScoped<KoreanTransliterator>()
-                .AddScoped<MarathiTransliterator>()
-                .AddScoped<PinyinTransliterator>()
-                .AddScoped<PodolakTransliterator>()
-                .AddScoped<TranslitterationDotComTransliterator>()
-                .AddScoped<UshuaiaTransliterator>();
+                .AddTransient<GreekTransliterator>()
+                .AddTransient<ArabicTransliterator>()
+                .AddTransient<CopticTransliterator>()
+                .AddTransient<CyrillicTransliterator>()
+                .AddTransient<GujaratiTransliterator>()
+                .AddTransient<HebrewTransliterator>()
+                .AddTransient<JapaneseTransliterator>()
+                .AddTransient<KoreanTransliterator>()
+                .AddTransient<MarathiTransliterator>()
+                .AddTransient<PinyinTransliterator>()
+                .AddTransient<PodolakTransliterator>()
+                .AddTransient<TranslitterationDotComTransliterator>()
+                .AddTransient<UshuaiaTransliterator>();
         }
     }
 }
