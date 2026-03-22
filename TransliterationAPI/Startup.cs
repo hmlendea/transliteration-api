@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using NuciAPI.Middleware;
 using TransliterationAPI.Configuration;
 
 namespace TransliterationAPI
@@ -16,27 +16,31 @@ namespace TransliterationAPI
         public IConfiguration Configuration { get; } = configuration;
         public static IServiceProvider ServiceProvider { get; private set; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddConfigurations(Configuration);
-            services.AddCustomServices();
 
-            ServiceProvider = services.BuildServiceProvider();
+            services
+                .AddNuciApiReplayProtection()
+                .AddConfigurations(Configuration)
+                .AddCustomServices();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseNuciApiExceptionHandling();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseRouting();
+
+            app.UseNuciApiHeaderValidation();
+            app.UseNuciApiReplayProtection();
 
             app.UseAuthorization();
 
