@@ -2,29 +2,27 @@
 using System.Web;
 
 using Microsoft.AspNetCore.Mvc;
-
+using TransliterationAPI.API.Requests;
 using TransliterationAPI.Service;
 
-namespace TransliterationAPI.Controllers
+namespace TransliterationAPI.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class TransliterationController(ITransliterationService transliterationService) : ControllerBase
     {
         [HttpGet]
-        public ActionResult Get(
-            [FromQuery] string text,
-            [FromQuery] string language)
+        public ActionResult Get([FromQuery] GetTransliterationRequest request)
         {
-            if (text != null && text.Length > 256)
+            if (request.Text != null && request.Text.Length > 256)
             {
                 return BadRequest("The text cannot exceed 256 characters");
             }
 
             try
             {
-                string decodedText = HttpUtility.UrlDecode(text);
-                string transliteratedText = transliterationService.Transliterate(text, language).Result; // TODO: Broken async
+                string decodedText = HttpUtility.UrlDecode(request.Text);
+                string transliteratedText = transliterationService.Transliterate(decodedText, request.Language).Result; // TODO: Broken async
 
                 return Ok(transliteratedText);
             }

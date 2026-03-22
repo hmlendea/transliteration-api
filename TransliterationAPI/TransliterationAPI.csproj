@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="CHSPinYinConv" Version="1.0.0" />
+    <PackageReference Include="NuciAPI" Version="3.2.0" />
     <PackageReference Include="NuciDAL" Version="3.0.1" />
     <PackageReference Include="NuciExtensions" Version="5.3.0" />
   </ItemGroup>

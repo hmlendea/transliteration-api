@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using TransliterationAPI.Service.Entities;
 
-namespace TransliterationAPI.Controllers
+namespace TransliterationAPI.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
