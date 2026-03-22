@@ -43,7 +43,7 @@ namespace TransliterationAPI.Service
             if (!string.IsNullOrWhiteSpace(transliteration.TransliteratedText))
             {
                 cache.Add(transliteration);
-                cache.ApplyChanges();
+                cache.SaveChanges();
             }
 
             return transliteration.TransliteratedText;
