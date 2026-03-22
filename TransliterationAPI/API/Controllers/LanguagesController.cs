@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using NuciAPI.Controllers;
 using TransliterationAPI.API.Requests;
+using TransliterationAPI.API.Responses;
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.API.Controllers
@@ -15,7 +16,10 @@ namespace TransliterationAPI.API.Controllers
         public ActionResult Get()
             => ProcessRequest(
                 new GetLanguagesRequest(),
-                () => Language.GetAll().OrderBy(language => language.Code).ToList(),
+                () => new GetLanguagesResponse
+                {
+                    Languages = [.. Language.GetAll().OrderBy(language => language.Code)]
+                },
                 NuciApiAuthorisation.None);
     }
 }
