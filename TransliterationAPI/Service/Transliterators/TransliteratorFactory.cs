@@ -1,29 +1,29 @@
 using System;
 using System.Reflection;
-
+using Microsoft.Extensions.DependencyInjection;
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class TransliteratorFactory : ITransliteratorFactory
+    public class TransliteratorFactory(IServiceProvider serviceProvider) : ITransliteratorFactory
     {
-        readonly Assembly assembly;
-
-        public TransliteratorFactory()
-        {
-            assembly = Assembly.GetExecutingAssembly();
-        }
+        private readonly IServiceProvider serviceProvider = serviceProvider;
+        private readonly Assembly assembly = Assembly.GetExecutingAssembly();
 
         public IExternalTransliterator GetExternalTransliterator(Language language)
-        {
-            Type transliteratorType = assembly.GetType($"{nameof(TransliterationAPI)}.{nameof(Service)}.{nameof(Transliterators)}.{language.Transliterator}");
-            return (IExternalTransliterator)Startup.ServiceProvider.GetService(transliteratorType);
-        }
+            => (IExternalTransliterator)serviceProvider.GetRequiredService(GetTransliteratorType(language));
 
         public ITransliterator GetTransliterator(Language language)
-        {
-            Type transliteratorType = assembly.GetType($"{nameof(TransliterationAPI)}.{nameof(Service)}.{nameof(Transliterators)}.{language.Transliterator}");
-            return (ITransliterator)Startup.ServiceProvider.GetService(transliteratorType);
-        }
+            => (ITransliterator)serviceProvider.GetRequiredService(GetTransliteratorType(language));
+
+        Type GetTransliteratorType(Language language)
+            => assembly.GetType(GetTransliteratorTypeName(language))
+                ?? throw new InvalidOperationException($"Transliterator '{language.Transliterator}' not found.");
+
+        static string GetTransliteratorTypeName(Language language)
+            => $"{nameof(TransliterationAPI)}." +
+               $"{nameof(Service)}." +
+               $"{nameof(Transliterators)}." +
+               $"{language.Transliterator}";
     }
 }
