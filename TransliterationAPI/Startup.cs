@@ -14,19 +14,19 @@ namespace TransliterationAPI
     public class Startup(IConfiguration configuration)
     {
         public IConfiguration Configuration { get; } = configuration;
-        public static IServiceProvider ServiceProvider { get; private set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-            services
-                .AddNuciApiReplayProtection()
-                .AddConfigurations(Configuration)
-                .AddCustomServices();
+            services.AddConfigurations(Configuration);
+            services.AddCustomServices();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(
+            IApplicationBuilder app,
+            IWebHostEnvironment env,
+            CacheSettings cacheSettings)
         {
             app.UseNuciApiExceptionHandling();
 
@@ -45,7 +45,6 @@ namespace TransliterationAPI
                 endpoints.MapControllers();
             });
 
-            CacheSettings cacheSettings = ServiceProvider.GetService<CacheSettings>();
             if (!File.Exists(cacheSettings.StoreLocation))
             {
                 CreateCacheStore(cacheSettings.StoreLocation);
