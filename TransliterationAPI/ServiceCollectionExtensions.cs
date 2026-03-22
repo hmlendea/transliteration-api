@@ -38,19 +38,19 @@ namespace TransliterationAPI
         static IServiceCollection AddTransliteratorServices(this IServiceCollection services)
         {
             return services
-                .AddScoped<GreekTransliterator>()
-                .AddScoped<ArabicTransliterator>()
-                .AddScoped<CopticTransliterator>()
-                .AddScoped<CyrillicTransliterator>()
-                .AddScoped<GujaratiTransliterator>()
-                .AddScoped<HebrewTransliterator>()
-                .AddScoped<JapaneseTransliterator>()
-                .AddScoped<KoreanTransliterator>()
-                .AddScoped<MarathiTransliterator>()
-                .AddScoped<PinyinTransliterator>()
-                .AddScoped<PodolakTransliterator>()
-                .AddScoped<TranslitterationDotComTransliterator>()
-                .AddScoped<UshuaiaTransliterator>();
+                .AddTransient<GreekTransliterator>()
+                .AddTransient<ArabicTransliterator>()
+                .AddTransient<CopticTransliterator>()
+                .AddTransient<CyrillicTransliterator>()
+                .AddTransient<GujaratiTransliterator>()
+                .AddTransient<HebrewTransliterator>()
+                .AddTransient<JapaneseTransliterator>()
+                .AddTransient<KoreanTransliterator>()
+                .AddTransient<MarathiTransliterator>()
+                .AddTransient<PinyinTransliterator>()
+                .AddTransient<PodolakTransliterator>()
+                .AddTransient<TranslitterationDotComTransliterator>()
+                .AddTransient<UshuaiaTransliterator>();
         }
     }
 }
