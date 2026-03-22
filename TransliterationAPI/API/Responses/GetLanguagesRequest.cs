@@ -6,5 +6,7 @@ namespace TransliterationAPI.API.Responses
     public class GetLanguagesResponse : NuciApiSuccessResponse
     {
         public Language[] Languages { get; set; }
+
+        public int Count => Languages.Length;
     }
 }
