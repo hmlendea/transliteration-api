@@ -18,20 +18,11 @@ namespace TransliterationAPI.Service.Transliterators
             foreach (char unicodeCharacter in text)
             {
                 ChineseChar chineseCharacter = new(unicodeCharacter);
-                numericalPinYin += chineseCharacter.Pinyins[0] + " ";
+                numericalPinYin += chineseCharacter.Pinyins[0];
             }
 
-            string tonedPinYin = ConvertNumericalToTonedPinYin(numericalPinYin);
-            string transliteratedText = StyliseTonedPinYin(tonedPinYin);
-            string fixedText = ApplyFixes(transliteratedText);
-
-            return fixedText;
+            return ApplyFixes(ConvertNumericalToTonedPinYin(numericalPinYin));
         }
-
-        static string StyliseTonedPinYin(string tonedPinYin)
-            => tonedPinYin
-                .Replace(' ', '-')
-                .ToTitleCase();
 
         static string ConvertNumericalToTonedPinYin(string numericalPinYin)
         {
@@ -132,7 +123,7 @@ namespace TransliterationAPI.Service.Transliterators
 
             fixedText = fixedText.Replace("ǒ", "ŏ");
 
-            return fixedText;
+            return fixedText.ToTitleCase();
         }
     }
 }
