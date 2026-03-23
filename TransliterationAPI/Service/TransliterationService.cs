@@ -28,6 +28,11 @@ namespace TransliterationAPI.Service
                 new LogInfo(MyLogInfoKey.Language, languageCode)
             ];
 
+            logger.Info(
+                MyOperation.Transliteration,
+                OperationStatus.Started,
+                logInfos);
+
             try
             {
                 string transliteratedText = await PerformTransliteration(text, languageCode);
