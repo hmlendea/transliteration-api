@@ -105,6 +105,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { '宇', "u" },
                 { '宮', "miya" },
                 { '富', "fu" },
+                { '対', "tai" },
                 { '小', "shō" },
                 { '山', "yama" },
                 { '岐', "gi" },
