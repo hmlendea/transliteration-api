@@ -4,17 +4,20 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using NuciExtensions;
-
+using NuciLog.Core;
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class UshuaiaTransliterator(IHttpRequestManager httpRequestManager) : IExternalTransliterator
+    public class UshuaiaTransliterator(
+        IHttpRequestManager httpRequestManager,
+        ILogger logger)
+        : ExternalTransliterator(logger), IExternalTransliterator
     {
         string sessionCookieValue;
         DateTime cookieDate;
 
-        public async Task<string> Transliterate(string text, Language language)
+        protected override async Task<string> PerformTransliteration(string text, Language language)
         {
             string transliteratedText = await SendTransliterationRequest(text, language);
 

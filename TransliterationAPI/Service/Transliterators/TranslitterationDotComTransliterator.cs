@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using NuciExtensions;
-
+using NuciLog.Core;
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class TranslitterationDotComTransliterator(IHttpRequestManager httpRequestManager) : IExternalTransliterator
+    public class TranslitterationDotComTransliterator(
+        IHttpRequestManager httpRequestManager,
+        ILogger logger)
+        : ExternalTransliterator(logger), IExternalTransliterator
     {
-        public async Task<string> Transliterate(string text, Language language)
+        protected override async Task<string> PerformTransliteration(string text, Language language)
         {
             string transliteratedText = await SendTransliterationRequest(text, language);
 

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using NUnit.Framework;
-
+using NuciLog.Core;
 using TransliterationAPI.Service.Entities;
 using TransliterationAPI.Service.Transliterators;
 
@@ -13,7 +13,7 @@ namespace TransliterationAPI.UnitTests.Service.Transliterators
         [SetUp]
         public void SetUp()
         {
-            transliterator = new();
+            transliterator = new(new NullLogger());
         }
 
         [Test]

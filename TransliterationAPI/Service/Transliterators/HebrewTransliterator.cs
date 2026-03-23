@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-
+using NuciLog.Core;
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class HebrewTransliterator : ITransliterator
+    public class HebrewTransliterator : Transliterator, ITransliterator
     {
         readonly Dictionary<string, string> transliterationTable;
 
-        public HebrewTransliterator()
+        public HebrewTransliterator(ILogger logger) : base(logger)
         {
             transliterationTable = new()
             {
@@ -63,7 +63,7 @@ namespace TransliterationAPI.Service.Transliterators
             };
         }
 
-        public string Transliterate(string text, Language language)
+        protected override string PerformTransliteration(string text, Language language)
         {
             string transliteratedText = text;
 

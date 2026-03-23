@@ -1,12 +1,14 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Text;
 using System.Text.RegularExpressions;
-
 using NuciDAL.Repositories;
-
+using NuciLog.Core;
 using TransliterationAPI.Configuration;
+using TransliterationAPI.Logging;
 using TransliterationAPI.Service.Entities;
 using TransliterationAPI.Service.Transliterators;
 
@@ -15,9 +17,49 @@ namespace TransliterationAPI.Service
     public class TransliterationService(
         ITransliteratorFactory transliteratorFactory,
         IFileRepository<CachedTransliteration> cache,
+        ILogger logger,
         CacheSettings cacheSettings) : ITransliterationService
     {
         public async Task<string> Transliterate(string text, string languageCode)
+        {
+            IEnumerable<LogInfo> logInfos =
+            [
+                new LogInfo(MyLogInfoKey.Text, text),
+                new LogInfo(MyLogInfoKey.LanguageCode, languageCode)
+            ];
+
+            logger.Info(
+                MyOperation.Transliteration,
+                OperationStatus.Started,
+                logInfos);
+
+            try
+            {
+                string transliteratedText = await PerformTransliteration(text, languageCode);
+
+                logger.Info(
+                    MyOperation.Transliteration,
+                    OperationStatus.Success,
+                    logInfos,
+                    new LogInfo(MyLogInfoKey.TransliteratedText, transliteratedText));
+
+                return transliteratedText;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(
+                    MyOperation.Transliteration,
+                    OperationStatus.Failure,
+                    ex,
+                    logInfos);
+
+                throw;
+            }
+        }
+
+        async Task<string> PerformTransliteration(
+            string text,
+            string languageCode)
         {
             if (Language.GetAll().All(language => !language.Code.Equals(languageCode)))
             {

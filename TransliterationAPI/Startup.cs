@@ -28,6 +28,7 @@ namespace TransliterationAPI
             IWebHostEnvironment env,
             CacheSettings cacheSettings)
         {
+            app.UseNuciApiRequestLogging();
             app.UseNuciApiExceptionHandling();
 
             if (env.IsDevelopment())

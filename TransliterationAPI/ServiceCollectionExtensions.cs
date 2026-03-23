@@ -2,7 +2,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using NuciDAL.Repositories;
-
+using NuciLog;
+using NuciLog.Configuration;
+using NuciLog.Core;
 using TransliterationAPI.Configuration;
 using TransliterationAPI.Service;
 using TransliterationAPI.Service.Entities;
@@ -16,12 +18,15 @@ namespace TransliterationAPI
         {
             CacheSettings cacheSettings = new();
             SecuritySettings securitySettings = new();
+            NuciLoggerSettings loggerSettings = new();
 
             configuration.Bind(nameof(CacheSettings), cacheSettings);
             configuration.Bind(nameof(SecuritySettings), securitySettings);
+            configuration.Bind(nameof(NuciLoggerSettings), loggerSettings);
 
             services.AddSingleton(cacheSettings);
             services.AddSingleton(securitySettings);
+            services.AddSingleton(loggerSettings);
 
             return services;
         }
@@ -53,7 +58,8 @@ namespace TransliterationAPI
                 .AddTransient<PinyinTransliterator>()
                 .AddTransient<PodolakTransliterator>()
                 .AddTransient<TranslitterationDotComTransliterator>()
-                .AddTransient<UshuaiaTransliterator>();
+                .AddTransient<UshuaiaTransliterator>()
+                .AddTransient<ILogger, NuciLogger>();
         }
     }
 }
