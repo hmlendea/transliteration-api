@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-
+using NuciLog.Core;
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class CyrillicTransliterator : ITransliterator
+    public class CyrillicTransliterator : Transliterator, ITransliterator
     {
         readonly Dictionary<string, string> alaLcTransliterationTable;
         readonly Dictionary<string, string> bgnPcgnTransliterationTable;
@@ -24,7 +24,7 @@ namespace TransliterationAPI.Service.Transliterators
         readonly Dictionary<string, string> tajikTransliterationTable;
         readonly Dictionary<string, string> ukrainianTransliterationTable;
 
-        public CyrillicTransliterator()
+        public CyrillicTransliterator(ILogger logger) : base(logger)
         {
             alaLcTransliterationTable = new()
             {
@@ -998,7 +998,7 @@ namespace TransliterationAPI.Service.Transliterators
             }
         }
 
-        public string Transliterate(string text, Language language)
+        protected override string PerformTransliteration(string text, Language language)
         {
             IDictionary<string, string> transliterationTable;
 

@@ -1,17 +1,16 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-
 using Microsoft.International.Converters.PinYinConverter;
 
 using NuciExtensions;
-
+using NuciLog.Core;
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class PinyinTransliterator : ITransliterator
+    public class PinyinTransliterator(ILogger logger) : Transliterator(logger), ITransliterator
     {
-        public string Transliterate(string text, Language language)
+        protected override string PerformTransliteration(string text, Language language)
         {
             string numericalPinYin = string.Empty;
 

@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
+using NuciLog.Core;
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class PodolakTransliterator(IHttpRequestManager httpRequestManager) : IExternalTransliterator
+    public class PodolakTransliterator(
+        IHttpRequestManager httpRequestManager,
+        ILogger logger)
+        : ExternalTransliterator(logger), IExternalTransliterator
     {
-        public async Task<string> Transliterate(string text, Language language)
+        protected override async Task<string> PerformTransliteration(string text, Language language)
         {
             Dictionary<string, string> formData = new()
             {

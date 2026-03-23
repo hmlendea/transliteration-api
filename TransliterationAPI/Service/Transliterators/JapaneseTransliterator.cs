@@ -1,17 +1,16 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-
 using NuciExtensions;
-
+using NuciLog.Core;
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class JapaneseTransliterator : ITransliterator
+    public class JapaneseTransliterator : Transliterator, ITransliterator
     {
         readonly Dictionary<char, string> transliterationMap;
 
-        public JapaneseTransliterator()
+        public JapaneseTransliterator(ILogger logger) : base(logger)
         {
             transliterationMap = new Dictionary<char, string>()
             {
@@ -173,7 +172,7 @@ namespace TransliterationAPI.Service.Transliterators
 
         }
 
-        public string Transliterate(string text, Language language)
+        protected override string PerformTransliteration(string text, Language language)
         {
             string transliteratedText = string.Empty;
 

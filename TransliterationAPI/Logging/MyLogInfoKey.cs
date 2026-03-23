@@ -10,6 +10,10 @@ namespace TransliterationAPI.Logging
 
         public static LogInfoKey TransliteratedText => new MyLogInfoKey(nameof(TransliteratedText));
 
-        public static LogInfoKey Language => new MyLogInfoKey(nameof(Language));
+        public static LogInfoKey LanguageCode => new MyLogInfoKey(nameof(LanguageCode));
+
+        public static LogInfoKey LanguageName => new MyLogInfoKey(nameof(LanguageName));
+
+        public static LogInfoKey Transliterator => new MyLogInfoKey(nameof(Transliterator));
     }
 }

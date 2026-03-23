@@ -25,7 +25,7 @@ namespace TransliterationAPI.Service
             IEnumerable<LogInfo> logInfos =
             [
                 new LogInfo(MyLogInfoKey.Text, text),
-                new LogInfo(MyLogInfoKey.Language, languageCode)
+                new LogInfo(MyLogInfoKey.LanguageCode, languageCode)
             ];
 
             logger.Info(
