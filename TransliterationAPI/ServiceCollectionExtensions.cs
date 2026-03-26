@@ -14,19 +14,19 @@ namespace TransliterationAPI
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddConfigurations(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddConfigurations(
+            this IServiceCollection services,
+            IConfiguration configuration)
         {
             CacheSettings cacheSettings = new();
             SecuritySettings securitySettings = new();
-            NuciLoggerSettings loggerSettings = new();
 
             configuration.Bind(nameof(CacheSettings), cacheSettings);
             configuration.Bind(nameof(SecuritySettings), securitySettings);
-            configuration.Bind(nameof(NuciLoggerSettings), loggerSettings);
 
             services.AddSingleton(cacheSettings);
             services.AddSingleton(securitySettings);
-            services.AddSingleton(loggerSettings);
+            services.AddNuciLoggerSettings(configuration);
 
             return services;
         }
