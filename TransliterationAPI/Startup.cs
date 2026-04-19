@@ -18,8 +18,11 @@ namespace TransliterationAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddConfigurations(Configuration);
-            services.AddCustomServices();
+
+            services
+                .AddConfigurations(Configuration)
+                .AddNuciApiScannerProtection()
+                .AddCustomServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -30,6 +33,7 @@ namespace TransliterationAPI
         {
             app.UseNuciApiRequestLogging();
             app.UseNuciApiExceptionHandling();
+            app.UseNuciApiScannerProtection();
 
             if (env.IsDevelopment())
             {
