@@ -6,7 +6,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NuciAPI.Middleware;
+using NuciAPI.Middleware.ExceptionHandling;
+using NuciAPI.Middleware.Logging;
+using NuciAPI.Middleware.Security;
+
 using TransliterationAPI.Configuration;
 
 namespace TransliterationAPI
