@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+
 using NuciLog.Core;
+
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
     public class HebrewTransliterator : Transliterator, ITransliterator
     {
-        readonly Dictionary<string, string> transliterationTable;
+        private readonly Dictionary<string, string> transliterationTable;
 
         public HebrewTransliterator(ILogger logger) : base(logger)
         {
@@ -77,7 +79,7 @@ namespace TransliterationAPI.Service.Transliterators
             return transliteratedText;
         }
 
-        static string ApplyFixes(string text)
+        private static string ApplyFixes(string text)
         {
             string fixedText = ToTitleCase(text);
 
@@ -165,7 +167,7 @@ namespace TransliterationAPI.Service.Transliterators
             return fixedText;
         }
 
-        static string ToTitleCase(string source)
+        private static string ToTitleCase(string source)
         {
             char[] chars = source.ToLower().ToCharArray();
 

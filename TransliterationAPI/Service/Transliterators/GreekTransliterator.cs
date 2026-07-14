@@ -1,16 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+
 using NuciLog.Core;
+
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
     public class GreekTransliterator : Transliterator, ITransliterator
     {
-        readonly Dictionary<string, string> modernGreekTransliterationTable;
-        readonly Dictionary<string, string> ancientGreekTransliterationTable;
-        readonly Dictionary<string, string> ancientDoricGreekTransliterationTable;
+        private readonly Dictionary<string, string> modernGreekTransliterationTable;
+        private readonly Dictionary<string, string> ancientGreekTransliterationTable;
+        private readonly Dictionary<string, string> ancientDoricGreekTransliterationTable;
 
         public GreekTransliterator(ILogger logger) : base(logger)
         {
@@ -393,7 +395,7 @@ namespace TransliterationAPI.Service.Transliterators
         }
 
 
-        static string ApplyAncientFixes(string text)
+        private static string ApplyAncientFixes(string text)
         {
             string fixedText = text;
 

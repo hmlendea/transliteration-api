@@ -4,7 +4,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using NuciExtensions;
+
 using NuciLog.Core;
+
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
@@ -14,8 +16,10 @@ namespace TransliterationAPI.Service.Transliterators
         ILogger logger)
         : ExternalTransliterator(logger), IExternalTransliterator
     {
-        string sessionCookieValue;
-        DateTime cookieDate;
+        private static int SessionCookieExpiryMinutes => 5;
+
+        private string sessionCookieValue;
+        private DateTime cookieDate;
 
         protected override async Task<string> PerformTransliteration(string text, Language language)
         {
@@ -24,7 +28,7 @@ namespace TransliterationAPI.Service.Transliterators
             return ApplyFixes(transliteratedText, language);
         }
 
-        static string ApplyFixes(string text, Language language)
+        private static string ApplyFixes(string text, Language language)
         {
             string fixedText = text;
 
@@ -51,7 +55,7 @@ namespace TransliterationAPI.Service.Transliterators
                 { "lang", string.Empty }
             };
 
-            if ((DateTime.Now - cookieDate).TotalMinutes > 5)
+            if ((DateTime.Now - cookieDate).TotalMinutes > SessionCookieExpiryMinutes)
             {
                 string cookies = await httpRequestManager.RetrieveCookies("https://www.ushuaia.pl/transliterate/");
                 sessionCookieValue = Regex.Replace(cookies, "translit=([^;]*).*", "$1");
@@ -114,7 +118,7 @@ namespace TransliterationAPI.Service.Transliterators
             return transliteratedText;
         }
 
-        static string ApplyHindiPostProcessing(string text)
+        private static string ApplyHindiPostProcessing(string text)
         {
             string fixedText = text;
 

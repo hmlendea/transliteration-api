@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+
 using Microsoft.International.Converters.PinYinConverter;
 
 using NuciExtensions;
+
 using NuciLog.Core;
+
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
@@ -23,7 +26,7 @@ namespace TransliterationAPI.Service.Transliterators
             return ApplyFixes(ConvertNumericalToTonedPinYin(numericalPinYin));
         }
 
-        static string ConvertNumericalToTonedPinYin(string numericalPinYin)
+        private static string ConvertNumericalToTonedPinYin(string numericalPinYin)
         {
             IDictionary<int, string> PinyinToneMark = new Dictionary<int, string>
             {
@@ -116,7 +119,7 @@ namespace TransliterationAPI.Service.Transliterators
             return accented;
         }
 
-        static string ApplyFixes(string text)
+        private static string ApplyFixes(string text)
         {
             string fixedText = text;
 

@@ -8,8 +8,8 @@ namespace TransliterationAPI.Service
 {
     public class HttpRequestManager : IHttpRequestManager
     {
-        readonly CookieContainer cookies;
-        readonly HttpClient client = new();
+        private readonly CookieContainer cookies;
+        private readonly HttpClient client;
 
         public HttpRequestManager()
         {
@@ -84,14 +84,14 @@ namespace TransliterationAPI.Service
                 .ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
 
-            string cook = string.Empty;
+            string cookieValues = string.Empty;
 
-            foreach (var cookie in cookies.GetCookies(request.RequestUri))
+            foreach (Cookie cookie in cookies.GetCookies(request.RequestUri))
             {
-                cook += cookie.ToString() + ";";
+                cookieValues += cookie.ToString() + ";";
             }
 
-            return cook;
+            return cookieValues;
         }
     }
 }

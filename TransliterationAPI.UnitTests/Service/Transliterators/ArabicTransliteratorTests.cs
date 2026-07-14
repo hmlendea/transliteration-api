@@ -5,9 +5,10 @@ using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
+    [TestFixture]
     public class ArabicTransliteratorTests
     {
-        private ArabicTransliterator transliterator;
+        ArabicTransliterator transliterator;
 
         [SetUp]
         public void SetUp()

@@ -5,9 +5,10 @@ using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
+    [TestFixture]
     public class BerberTransliteratorTests
     {
-        private BerberTransliterator transliterator;
+        BerberTransliterator transliterator;
 
         [SetUp]
         public void SetUp()

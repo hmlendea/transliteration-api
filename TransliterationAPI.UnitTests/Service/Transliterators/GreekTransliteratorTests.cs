@@ -5,9 +5,10 @@ using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
+    [TestFixture]
     public class GreekTransliteratorTests
     {
-        private GreekTransliterator transliterator;
+        GreekTransliterator transliterator;
 
         [SetUp]
         public void SetUp()

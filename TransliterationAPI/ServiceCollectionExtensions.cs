@@ -2,9 +2,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using NuciDAL.Repositories;
+
 using NuciLog;
 using NuciLog.Configuration;
 using NuciLog.Core;
+
 using TransliterationAPI.Configuration;
 using TransliterationAPI.Service;
 using TransliterationAPI.Service.Entities;
@@ -39,27 +41,27 @@ namespace TransliterationAPI
                         provider.GetRequiredService<CacheSettings>().StoreLocation))
                 .AddSingleton<IHttpRequestManager, HttpRequestManager>()
                 .AddTransliteratorServices()
-                .AddScoped<ITransliteratorFactory, TransliteratorFactory>()
+                .AddSingleton<ITransliteratorFactory, TransliteratorFactory>()
                 .AddSingleton<ITransliterationService, TransliterationService>();
         }
 
-        static IServiceCollection AddTransliteratorServices(this IServiceCollection services)
+        private static IServiceCollection AddTransliteratorServices(this IServiceCollection services)
         {
             return services
-                .AddTransient<GreekTransliterator>()
-                .AddTransient<ArabicTransliterator>()
-                .AddTransient<CopticTransliterator>()
-                .AddTransient<CyrillicTransliterator>()
-                .AddTransient<GujaratiTransliterator>()
-                .AddTransient<HebrewTransliterator>()
-                .AddTransient<JapaneseTransliterator>()
-                .AddTransient<KoreanTransliterator>()
-                .AddTransient<MarathiTransliterator>()
-                .AddTransient<PinyinTransliterator>()
-                .AddTransient<PodolakTransliterator>()
-                .AddTransient<TranslitterationDotComTransliterator>()
-                .AddTransient<UshuaiaTransliterator>()
-                .AddTransient<ILogger, NuciLogger>();
+                .AddSingleton<GreekTransliterator>()
+                .AddSingleton<ArabicTransliterator>()
+                .AddSingleton<CopticTransliterator>()
+                .AddSingleton<CyrillicTransliterator>()
+                .AddSingleton<GujaratiTransliterator>()
+                .AddSingleton<HebrewTransliterator>()
+                .AddSingleton<JapaneseTransliterator>()
+                .AddSingleton<KoreanTransliterator>()
+                .AddSingleton<MarathiTransliterator>()
+                .AddSingleton<PinyinTransliterator>()
+                .AddSingleton<PodolakTransliterator>()
+                .AddSingleton<TranslitterationDotComTransliterator>()
+                .AddSingleton<UshuaiaTransliterator>()
+                .AddSingleton<ILogger, NuciLogger>();
         }
     }
 }

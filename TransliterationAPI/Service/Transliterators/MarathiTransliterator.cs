@@ -2,14 +2,16 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using NuciExtensions;
+
 using NuciLog.Core;
+
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
     public class MarathiTransliterator : Transliterator, ITransliterator
     {
-        readonly Dictionary<string, string> transliterationTable;
+        private readonly Dictionary<string, string> transliterationTable;
 
         public MarathiTransliterator(ILogger logger) : base(logger)
         {
@@ -147,7 +149,7 @@ namespace TransliterationAPI.Service.Transliterators
             return transliteratedText;
         }
 
-        static string ApplyFixes(string text)
+        private static string ApplyFixes(string text)
         {
             string fixedText = text;
             fixedText = Regex.Replace(fixedText, " kn", " chan");

@@ -5,9 +5,10 @@ using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
+    [TestFixture]
     public class CopticTransliteratorTests
     {
-        private CopticTransliterator transliterator;
+        CopticTransliterator transliterator;
 
         [SetUp]
         public void SetUp()

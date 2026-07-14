@@ -1,28 +1,30 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+
 using NuciLog.Core;
+
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
     public class CyrillicTransliterator : Transliterator, ITransliterator
     {
-        readonly Dictionary<string, string> alaLcTransliterationTable;
-        readonly Dictionary<string, string> bgnPcgnTransliterationTable;
-        readonly Dictionary<string, string> iso9TransliterationTable;
+        private readonly Dictionary<string, string> alaLcTransliterationTable;
+        private readonly Dictionary<string, string> bgnPcgnTransliterationTable;
+        private readonly Dictionary<string, string> iso9TransliterationTable;
 
-        readonly Dictionary<string, string> abkhazianTransliterationTable;
-        readonly Dictionary<string, string> belarussianTransliterationTable;
-        readonly Dictionary<string, string> bulgarianTransliterationTable;
-        readonly Dictionary<string, string> chuvashTransliterationTable;
-        readonly Dictionary<string, string> kazakhTransliterationTable;
-        readonly Dictionary<string, string> russianTransliterationTable;
-        readonly Dictionary<string, string> macedonianTransliterationTable;
-        readonly Dictionary<string, string> serbianTransliterationTable;
-        readonly Dictionary<string, string> tatarTransliterationTable;
-        readonly Dictionary<string, string> tajikTransliterationTable;
-        readonly Dictionary<string, string> ukrainianTransliterationTable;
+        private readonly Dictionary<string, string> abkhazianTransliterationTable;
+        private readonly Dictionary<string, string> belarussianTransliterationTable;
+        private readonly Dictionary<string, string> bulgarianTransliterationTable;
+        private readonly Dictionary<string, string> chuvashTransliterationTable;
+        private readonly Dictionary<string, string> kazakhTransliterationTable;
+        private readonly Dictionary<string, string> russianTransliterationTable;
+        private readonly Dictionary<string, string> macedonianTransliterationTable;
+        private readonly Dictionary<string, string> serbianTransliterationTable;
+        private readonly Dictionary<string, string> tatarTransliterationTable;
+        private readonly Dictionary<string, string> tajikTransliterationTable;
+        private readonly Dictionary<string, string> ukrainianTransliterationTable;
 
         public CyrillicTransliterator(ILogger logger) : base(logger)
         {

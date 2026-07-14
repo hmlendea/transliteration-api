@@ -7,9 +7,10 @@ using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
+    [TestFixture]
     public class GujaratiTransliteratorTests
     {
-        private GujaratiTransliterator transliterator;
+        GujaratiTransliterator transliterator;
 
         [SetUp]
         public void SetUp()

@@ -10,10 +10,11 @@ using TransliterationAPI.UnitTests.Service;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
+    [TestFixture]
     public class UshuaiaTransliteratorTests
     {
-        private FakeHttpRequestManager httpRequestManager;
-        private UshuaiaTransliterator transliterator;
+        FakeHttpRequestManager httpRequestManager;
+        UshuaiaTransliterator transliterator;
 
         [SetUp]
         public void SetUp()

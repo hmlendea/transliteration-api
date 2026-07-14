@@ -10,10 +10,11 @@ using TransliterationAPI.UnitTests.Service;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
+    [TestFixture]
     public class PodolakTransliteratorTests
     {
-        private FakeHttpRequestManager httpRequestManager;
-        private PodolakTransliterator transliterator;
+        FakeHttpRequestManager httpRequestManager;
+        PodolakTransliterator transliterator;
 
         [SetUp]
         public void SetUp()

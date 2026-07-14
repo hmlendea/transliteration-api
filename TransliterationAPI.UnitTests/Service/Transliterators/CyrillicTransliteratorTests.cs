@@ -6,9 +6,10 @@ using TransliterationAPI.Service.Transliterators;
 
 namespace TransliterationAPI.UnitTests.Service.Transliterators
 {
+    [TestFixture]
     public class CyrillicTransliteratorTests
     {
-        private CyrillicTransliterator transliterator;
+        CyrillicTransliterator transliterator;
 
         [SetUp]
         public void SetUp()

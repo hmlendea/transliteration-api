@@ -1,4 +1,3 @@
-
 using NuciAPI.Responses;
 
 namespace TransliterationAPI.API.Responses

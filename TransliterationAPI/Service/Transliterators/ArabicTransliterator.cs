@@ -1,14 +1,16 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+
 using NuciLog.Core;
+
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
     public class ArabicTransliterator : Transliterator, ITransliterator
     {
-        readonly Dictionary<string, string> transliterationTable;
-        readonly Dictionary<string, string> maghrebiTransliterationTable;
+        private readonly Dictionary<string, string> transliterationTable;
+        private readonly Dictionary<string, string> maghrebiTransliterationTable;
 
         public ArabicTransliterator(ILogger logger) : base(logger)
         {
@@ -151,7 +153,7 @@ namespace TransliterationAPI.Service.Transliterators
             return ApplyFixes(transliteratedText);
         }
 
-        static string ApplyFixes(string text)
+        private static string ApplyFixes(string text)
         {
             string fixedText = text;
 
@@ -292,7 +294,7 @@ namespace TransliterationAPI.Service.Transliterators
             return fixedText;
         }
 
-        static string ToTitleCase(string source)
+        private static string ToTitleCase(string source)
         {
             char[] chars = source.ToLower().ToCharArray();
 
