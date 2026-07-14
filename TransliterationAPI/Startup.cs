@@ -16,19 +16,16 @@ namespace TransliterationAPI
 {
     public class Startup(IConfiguration configuration)
     {
-        public IConfiguration Configuration { get; } = configuration;
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
             services
-                .AddConfigurations(Configuration)
+                .AddConfigurations(configuration)
                 .AddNuciApiScannerProtection()
                 .AddCustomServices();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
             IApplicationBuilder app,
             IWebHostEnvironment env,

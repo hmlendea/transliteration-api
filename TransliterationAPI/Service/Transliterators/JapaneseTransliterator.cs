@@ -1,14 +1,17 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+
 using NuciExtensions;
+
 using NuciLog.Core;
+
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
     public class JapaneseTransliterator : Transliterator, ITransliterator
     {
-        readonly Dictionary<char, string> transliterationMap;
+        private readonly Dictionary<char, string> transliterationMap;
 
         public JapaneseTransliterator(ILogger logger) : base(logger)
         {
@@ -193,7 +196,7 @@ namespace TransliterationAPI.Service.Transliterators
             return transliteratedText;
         }
 
-        static string ApplyFixes(string text)
+        private static string ApplyFixes(string text)
         {
             string fixedText = text.ToTitleCase();
 

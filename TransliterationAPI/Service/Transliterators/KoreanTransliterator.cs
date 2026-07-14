@@ -2,14 +2,16 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using NuciExtensions;
+
 using NuciLog.Core;
+
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
     public class KoreanTransliterator : Transliterator, ITransliterator
     {
-        readonly Dictionary<string, string> transliterationTable;
+        private readonly Dictionary<string, string> transliterationTable;
 
         public KoreanTransliterator(ILogger logger) : base(logger)
         {
@@ -295,7 +297,7 @@ namespace TransliterationAPI.Service.Transliterators
             return ApplyFixes(transliteratedText);
         }
 
-        static string ApplyFixes(string text)
+        private static string ApplyFixes(string text)
         {
             string fixedText = text;
 

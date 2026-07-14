@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
 using NuciDAL.Repositories;
+
 using NuciLog.Core;
+
 using TransliterationAPI.Configuration;
 using TransliterationAPI.Logging;
 using TransliterationAPI.Service.Entities;
@@ -45,19 +48,19 @@ namespace TransliterationAPI.Service
 
                 return transliteratedText;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
                 logger.Error(
                     MyOperation.Transliteration,
                     OperationStatus.Failure,
-                    ex,
+                    exception,
                     logInfos);
 
                 throw;
             }
         }
 
-        async Task<string> PerformTransliteration(
+        private async Task<string> PerformTransliteration(
             string text,
             string languageCode)
         {
@@ -91,7 +94,7 @@ namespace TransliterationAPI.Service
             return transliteration.TransliteratedText;
         }
 
-        async Task<string> TryGetTransliteratedText(string text, string languageCode)
+        private async Task<string> TryGetTransliteratedText(string text, string languageCode)
         {
             try
             {
@@ -103,7 +106,7 @@ namespace TransliterationAPI.Service
             }
         }
 
-        async Task<string> GetTransliteratedText(string text, string languageCode)
+        private async Task<string> GetTransliteratedText(string text, string languageCode)
         {
             Language language = Language.FromCode(languageCode);
 
@@ -121,7 +124,7 @@ namespace TransliterationAPI.Service
                 .Transliterate(text, languageCode);
         }
 
-        static string NormaliseText(string text)
+        private static string NormaliseText(string text)
         {
             string normalisedText = text;
 
@@ -131,7 +134,7 @@ namespace TransliterationAPI.Service
             return normalisedText;
         }
 
-        string GetCacheId(string text, string languageCode)
+        private string GetCacheId(string text, string languageCode)
         {
             string textUnicodes = string.Join('-', text.Select(c => (int)c));
             string cacheKey = $"{languageCode}_{textUnicodes}_{cacheSettings.ApplicationVersion}";
@@ -140,16 +143,16 @@ namespace TransliterationAPI.Service
             return cacheKey;
         }
 
-        static string GetSha256FromString(string strData)
+        private static string GetSha256FromString(string strData)
         {
             byte[] message = Encoding.ASCII.GetBytes(strData);
             string hex = "";
 
             byte[] hashValue = SHA256.HashData(message);
 
-            foreach (byte x in hashValue)
+            foreach (byte hashByte in hashValue)
             {
-                hex += string.Format("{0:x2}", x);
+                hex += string.Format("{0:x2}", hashByte);
             }
 
             return hex;

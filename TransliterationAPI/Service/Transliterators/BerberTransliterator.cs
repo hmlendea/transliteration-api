@@ -1,15 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+
 using NuciExtensions;
+
 using NuciLog.Core;
+
 using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
     public class BerberTransliterator : Transliterator, ITransliterator
     {
-        readonly Dictionary<string, string> transliterationTable;
+        private readonly Dictionary<string, string> transliterationTable;
 
         public BerberTransliterator(ILogger logger) : base(logger)
         {
