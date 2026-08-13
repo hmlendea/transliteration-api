@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Mvc;
 
 using NuciAPI.Controllers;
 
@@ -17,14 +19,14 @@ namespace TransliterationAPI.API.Controllers
         : NuciApiController
     {
         [HttpGet]
-        public ActionResult Get([FromQuery] GetTransliterationRequest request)
-            => ProcessRequest(
+        public async Task<ActionResult> Get([FromQuery] GetTransliterationRequest request)
+            => await ProcessRequest(
                 request,
-                () =>
+                async () =>
                 {
                     GetTransliterationResponse response = new()
                     {
-                        Text = transliterationService.Transliterate(request.Text, request.Language).Result
+                        Text = await transliterationService.Transliterate(request.Text, request.Language)
                     };
 
                     response.SignHMAC(securitySettings.HmacSigningKey);

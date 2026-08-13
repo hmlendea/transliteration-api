@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -47,20 +50,14 @@ namespace TransliterationAPI
 
         private static IServiceCollection AddTransliteratorServices(this IServiceCollection services)
         {
+            foreach (Type transliteratorType in Language.GetAll()
+                         .Select(language => language.TransliteratorType)
+                         .Distinct())
+            {
+                services.AddSingleton(transliteratorType);
+            }
+
             return services
-                .AddSingleton<GreekTransliterator>()
-                .AddSingleton<ArabicTransliterator>()
-                .AddSingleton<CopticTransliterator>()
-                .AddSingleton<CyrillicTransliterator>()
-                .AddSingleton<GujaratiTransliterator>()
-                .AddSingleton<HebrewTransliterator>()
-                .AddSingleton<JapaneseTransliterator>()
-                .AddSingleton<KoreanTransliterator>()
-                .AddSingleton<MarathiTransliterator>()
-                .AddSingleton<PinyinTransliterator>()
-                .AddSingleton<PodolakTransliterator>()
-                .AddSingleton<TranslitterationDotComTransliterator>()
-                .AddSingleton<UshuaiaTransliterator>()
                 .AddSingleton<ILogger, NuciLogger>();
         }
     }
