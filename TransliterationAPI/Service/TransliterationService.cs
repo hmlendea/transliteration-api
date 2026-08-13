@@ -110,9 +110,7 @@ namespace TransliterationAPI.Service
         {
             Language language = Language.FromCode(languageCode);
 
-            if (language.Transliterator.Equals(nameof(PodolakTransliterator)) ||
-                language.Transliterator.Equals(nameof(TranslitterationDotComTransliterator)) ||
-                language.Transliterator.Equals(nameof(UshuaiaTransliterator)))
+            if (language.UsesExternalTransliterator)
             {
                 return await transliteratorFactory
                     .GetExternalTransliterator(language)

@@ -11,55 +11,55 @@ namespace TransliterationAPI.Service.Entities
     {
         static readonly IDictionary<string, Language> entries;
 
-        public static Language Abkhaz => new("ab", nameof(Abkhaz), nameof(CyrillicTransliterator));
-        public static Language Adyghe => new("ady", nameof(Adyghe), nameof(TranslitterationDotComTransliterator));
-        public static Language AncientGreek => new("grc", $"Ancient {nameof(Greek)}", nameof(GreekTransliterator));
-        public static Language AncientGreekDoric => new("grc-dor", $"Ancient Doric {nameof(Greek)}", nameof(GreekTransliterator));
-        public static Language Arabic => new("ar", nameof(Arabic), nameof(ArabicTransliterator));
-        public static Language Armenian => new("hy", nameof(Armenian), nameof(TranslitterationDotComTransliterator));
-        public static Language Bashkir => new("ba", nameof(Bashkir), nameof(TranslitterationDotComTransliterator));
-        public static Language Belarussian => new("be", nameof(Belarussian), nameof(CyrillicTransliterator));
-        public static Language Bengali => new("bn", nameof(Bengali), nameof(UshuaiaTransliterator));
-        public static Language Berber => new("ber", nameof(Berber), nameof(TranslitterationDotComTransliterator));
-        public static Language Bulgarian => new("bg", nameof(Bulgarian), nameof(CyrillicTransliterator));
-        public static Language Chinese => new("zh", nameof(Chinese), nameof(PinyinTransliterator));
-        public static Language Chuvash => new("cv", nameof(Chuvash), nameof(CyrillicTransliterator));
-        public static Language Coptic => new("cop", nameof(Coptic), nameof(CopticTransliterator));
-        public static Language EgyptianArabic => new("arz", $"Egyptian {nameof(Arabic)}", nameof(ArabicTransliterator));
-        public static Language Georgian => new("ka", nameof(Georgian), nameof(TranslitterationDotComTransliterator));
-        public static Language Greek => new("el", nameof(Greek), nameof(GreekTransliterator));
-        public static Language Gujarati => new("gy", nameof(Gujarati), nameof(GujaratiTransliterator));
-        public static Language Hebrew => new("he", nameof(Hebrew), nameof(HebrewTransliterator));
-        public static Language Hindi => new("hi", nameof(Hindi), nameof(UshuaiaTransliterator));
-        public static Language Inuttitut => new("iu", nameof(Inuttitut), nameof(TranslitterationDotComTransliterator));
-        public static Language Japanese => new("ja", nameof(Japanese), nameof(JapaneseTransliterator));
-        public static Language Kannada => new("kn", nameof(Kannada), nameof(UshuaiaTransliterator));
-        public static Language Kazakh => new("kk", nameof(Kazakh), nameof(CyrillicTransliterator));
-        public static Language Korean => new("ko", nameof(Korean), nameof(KoreanTransliterator));
-        public static Language Kyrgyz => new("ky", nameof(Kyrgyz), nameof(TranslitterationDotComTransliterator));
-        public static Language MacedonianSlavic => new("mk", "Macedonian Slavic", nameof(CyrillicTransliterator));
-        public static Language MaghrebiArabic => new("ary", $"Maghrebi {nameof(Arabic)}", nameof(ArabicTransliterator));
-        public static Language Malayalam => new("ml", nameof(Malayalam), nameof(UshuaiaTransliterator));
-        public static Language Marathi => new("mr", nameof(Marathi), nameof(MarathiTransliterator));
-        public static Language Mongol => new("mn", nameof(Mongol), nameof(UshuaiaTransliterator));
-        public static Language OldChurchSlavonic => new("cu", "Old Church Slavonic", nameof(PodolakTransliterator));
-        public static Language Ossetic => new("os", nameof(Ossetic), nameof(TranslitterationDotComTransliterator));
-        public static Language Russian => new("ru", nameof(Russian), nameof(CyrillicTransliterator));
-        public static Language Sanskrit => new("sa", nameof(Sanskrit), nameof(UshuaiaTransliterator));
-        public static Language Serbian => new("sr", nameof(Serbian), nameof(CyrillicTransliterator));
-        public static Language SerbianCyrillic => new("sr-ec", nameof(Serbian), nameof(CyrillicTransliterator));
-        public static Language SerboCroatian => new("sh", "Serbo-Croatian", nameof(CyrillicTransliterator));
-        public static Language SimplifiedChinese => new("zh-hans", "Simplified Chinese", nameof(PinyinTransliterator));
-        public static Language Sinhala => new("si", nameof(Sinhala), nameof(UshuaiaTransliterator));
-        public static Language Tajik => new("tg", nameof(Tajik), nameof(CyrillicTransliterator));
-        public static Language TajikCyrillic => new("tg-cyrl", nameof(Tajik), nameof(CyrillicTransliterator));
-        public static Language Tamil => new("ta", nameof(Tamil), nameof(UshuaiaTransliterator));
-        public static Language Tatar => new("tt", nameof(Tatar), nameof(CyrillicTransliterator));
-        public static Language TatarCyrillic => new("tt-cyrl", nameof(Tatar), nameof(CyrillicTransliterator));
-        public static Language Telugu => new("te", nameof(Telugu), nameof(UshuaiaTransliterator));
-        public static Language Udmurt => new("udm", nameof(Udmurt), nameof(TranslitterationDotComTransliterator));
-        public static Language Ukrainian => new("uk", nameof(Ukrainian), nameof(CyrillicTransliterator));
-        public static Language WesternArmenian => new("hyw", "Western Armenian", nameof(TranslitterationDotComTransliterator));
+        public static Language Abkhaz => new("ab", nameof(Abkhaz), typeof(CyrillicTransliterator));
+        public static Language Adyghe => new("ady", nameof(Adyghe), typeof(TranslitterationDotComTransliterator));
+        public static Language AncientGreek => new("grc", $"Ancient {nameof(Greek)}", typeof(GreekTransliterator));
+        public static Language AncientGreekDoric => new("grc-dor", $"Ancient Doric {nameof(Greek)}", typeof(GreekTransliterator));
+        public static Language Arabic => new("ar", nameof(Arabic), typeof(ArabicTransliterator));
+        public static Language Armenian => new("hy", nameof(Armenian), typeof(TranslitterationDotComTransliterator));
+        public static Language Bashkir => new("ba", nameof(Bashkir), typeof(TranslitterationDotComTransliterator));
+        public static Language Belarussian => new("be", nameof(Belarussian), typeof(CyrillicTransliterator));
+        public static Language Bengali => new("bn", nameof(Bengali), typeof(UshuaiaTransliterator));
+        public static Language Berber => new("ber", nameof(Berber), typeof(TranslitterationDotComTransliterator));
+        public static Language Bulgarian => new("bg", nameof(Bulgarian), typeof(CyrillicTransliterator));
+        public static Language Chinese => new("zh", nameof(Chinese), typeof(PinyinTransliterator));
+        public static Language Chuvash => new("cv", nameof(Chuvash), typeof(CyrillicTransliterator));
+        public static Language Coptic => new("cop", nameof(Coptic), typeof(CopticTransliterator));
+        public static Language EgyptianArabic => new("arz", $"Egyptian {nameof(Arabic)}", typeof(ArabicTransliterator));
+        public static Language Georgian => new("ka", nameof(Georgian), typeof(TranslitterationDotComTransliterator));
+        public static Language Greek => new("el", nameof(Greek), typeof(GreekTransliterator));
+        public static Language Gujarati => new("gy", nameof(Gujarati), typeof(GujaratiTransliterator));
+        public static Language Hebrew => new("he", nameof(Hebrew), typeof(HebrewTransliterator));
+        public static Language Hindi => new("hi", nameof(Hindi), typeof(UshuaiaTransliterator));
+        public static Language Inuttitut => new("iu", nameof(Inuttitut), typeof(TranslitterationDotComTransliterator));
+        public static Language Japanese => new("ja", nameof(Japanese), typeof(JapaneseTransliterator));
+        public static Language Kannada => new("kn", nameof(Kannada), typeof(UshuaiaTransliterator));
+        public static Language Kazakh => new("kk", nameof(Kazakh), typeof(CyrillicTransliterator));
+        public static Language Korean => new("ko", nameof(Korean), typeof(KoreanTransliterator));
+        public static Language Kyrgyz => new("ky", nameof(Kyrgyz), typeof(TranslitterationDotComTransliterator));
+        public static Language MacedonianSlavic => new("mk", "Macedonian Slavic", typeof(CyrillicTransliterator));
+        public static Language MaghrebiArabic => new("ary", $"Maghrebi {nameof(Arabic)}", typeof(ArabicTransliterator));
+        public static Language Malayalam => new("ml", nameof(Malayalam), typeof(UshuaiaTransliterator));
+        public static Language Marathi => new("mr", nameof(Marathi), typeof(MarathiTransliterator));
+        public static Language Mongol => new("mn", nameof(Mongol), typeof(UshuaiaTransliterator));
+        public static Language OldChurchSlavonic => new("cu", "Old Church Slavonic", typeof(PodolakTransliterator));
+        public static Language Ossetic => new("os", nameof(Ossetic), typeof(TranslitterationDotComTransliterator));
+        public static Language Russian => new("ru", nameof(Russian), typeof(CyrillicTransliterator));
+        public static Language Sanskrit => new("sa", nameof(Sanskrit), typeof(UshuaiaTransliterator));
+        public static Language Serbian => new("sr", nameof(Serbian), typeof(CyrillicTransliterator));
+        public static Language SerbianCyrillic => new("sr-ec", nameof(Serbian), typeof(CyrillicTransliterator));
+        public static Language SerboCroatian => new("sh", "Serbo-Croatian", typeof(CyrillicTransliterator));
+        public static Language SimplifiedChinese => new("zh-hans", "Simplified Chinese", typeof(PinyinTransliterator));
+        public static Language Sinhala => new("si", nameof(Sinhala), typeof(UshuaiaTransliterator));
+        public static Language Tajik => new("tg", nameof(Tajik), typeof(CyrillicTransliterator));
+        public static Language TajikCyrillic => new("tg-cyrl", nameof(Tajik), typeof(CyrillicTransliterator));
+        public static Language Tamil => new("ta", nameof(Tamil), typeof(UshuaiaTransliterator));
+        public static Language Tatar => new("tt", nameof(Tatar), typeof(CyrillicTransliterator));
+        public static Language TatarCyrillic => new("tt-cyrl", nameof(Tatar), typeof(CyrillicTransliterator));
+        public static Language Telugu => new("te", nameof(Telugu), typeof(UshuaiaTransliterator));
+        public static Language Udmurt => new("udm", nameof(Udmurt), typeof(TranslitterationDotComTransliterator));
+        public static Language Ukrainian => new("uk", nameof(Ukrainian), typeof(CyrillicTransliterator));
+        public static Language WesternArmenian => new("hyw", "Western Armenian", typeof(TranslitterationDotComTransliterator));
 
         static Language()
         {
@@ -82,13 +82,16 @@ namespace TransliterationAPI.Service.Entities
 
         public string Name { get; }
 
-        public string Transliterator { get; }
+        public Type TransliteratorType { get; }
 
-        private Language(string code, string name, string transliterator)
+        public bool UsesExternalTransliterator
+            => typeof(IExternalTransliterator).IsAssignableFrom(TransliteratorType);
+
+        private Language(string code, string name, Type transliteratorType)
         {
             Code = code;
             Name = name;
-            Transliterator = transliterator;
+            TransliteratorType = transliteratorType;
         }
 
         public static Language FromCode(string code)

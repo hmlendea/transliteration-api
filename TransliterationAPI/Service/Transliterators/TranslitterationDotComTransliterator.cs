@@ -10,11 +10,43 @@ using TransliterationAPI.Service.Entities;
 
 namespace TransliterationAPI.Service.Transliterators
 {
-    public class TranslitterationDotComTransliterator(
+    public sealed class TranslitterationDotComTransliterator(
         IHttpRequestManager httpRequestManager,
         ILogger logger)
         : ExternalTransliterator(logger), IExternalTransliterator
     {
+        private static readonly string EndpointUrl = "https://www.translitteration.com/ajax/en/transliterate";
+        private static readonly string ResponsePrefix = "ack:::";
+        private static readonly string Script = "latn";
+        private static readonly IDictionary<string, string> TranslitterationDotComTargetLanguageCodes =
+            new Dictionary<string, string>()
+            {
+                { Language.Abkhaz, "abk" },
+                { Language.Adyghe, "ady" },
+                { Language.Armenian, "xcl" },
+                { Language.Bashkir, "bak" },
+                { Language.Georgian, "kat" },
+                { Language.Inuttitut, "iku" },
+                { Language.Kyrgyz, "kir" },
+                { Language.Ossetic, "oss" },
+                { Language.Udmurt, "udm" },
+                { Language.WesternArmenian, "hye" }
+            };
+        private static readonly IDictionary<string, string> TranslitterationDotComSchemes =
+            new Dictionary<string, string>()
+            {
+                { Language.Abkhaz, "iso-9" },
+                { Language.Adyghe, "iso-9" },
+                { Language.Armenian, "iso-9985" },
+                { Language.Bashkir, "iso-9" },
+                { Language.Georgian, "national" },
+                { Language.Inuttitut, "canadian-aboriginal-syllabics" },
+                { Language.Kyrgyz, "iso-9" },
+                { Language.Ossetic, "iso-9" },
+                { Language.Udmurt, "bgn-pcgn" },
+                { Language.WesternArmenian, "ala-lc" }
+            };
+
         protected override async Task<string> PerformTransliteration(string text, Language language)
         {
             string transliteratedText = await SendTransliterationRequest(text, language);
@@ -45,72 +77,23 @@ namespace TransliterationAPI.Service.Transliterators
 
         private async Task<string> SendTransliterationRequest(string text, string languageCode)
         {
+            if (!TranslitterationDotComTargetLanguageCodes.TryGetValue(languageCode, out string targetLanguageCode) ||
+                !TranslitterationDotComSchemes.TryGetValue(languageCode, out string transliterationScheme))
+            {
+                throw new ArgumentException($"The \"{languageCode}\" language is not supported by {nameof(TranslitterationDotComTransliterator)}.");
+            }
+
             Dictionary<string, string> formData = new()
             {
-                { "text", text},
-                { "tlang", string.Empty },
-                { "script", "latn" },
-                { "scheme", string.Empty }
+                { "text", text },
+                { "tlang", targetLanguageCode },
+                { "script", Script },
+                { "scheme", transliterationScheme }
             };
 
-            if (languageCode.Equals(Language.Abkhaz))
-            {
-                formData["tlang"] = "abk";
-                formData["scheme"] = "iso-9";
-            }
-            else if (languageCode.Equals(Language.Adyghe))
-            {
-                formData["tlang"] = "ady";
-                formData["scheme"] = "iso-9";
-            }
-            else if (languageCode.Equals(Language.Armenian))
-            {
-                formData["tlang"] = "xcl";
-                formData["scheme"] = "iso-9985";
-            }
-            else if (languageCode.Equals(Language.Bashkir))
-            {
-                formData["tlang"] = "bak";
-                formData["scheme"] = "iso-9";
-            }
-            else if (languageCode.Equals(Language.Georgian))
-            {
-                formData["tlang"] = "kat";
-                formData["scheme"] = "national";
-            }
-            else if (languageCode.Equals(Language.Inuttitut))
-            {
-                formData["tlang"] = "iku";
-                formData["scheme"] = "canadian-aboriginal-syllabics";
-            }
-            else if (languageCode.Equals(Language.Kyrgyz))
-            {
-                formData["tlang"] = "kir";
-                formData["scheme"] = "iso-9";
-            }
-            else if (languageCode.Equals(Language.Ossetic))
-            {
-                formData["tlang"] = "oss";
-                formData["scheme"] = "iso-9";
-            }
-            else if (languageCode.Equals(Language.Udmurt))
-            {
-                formData["tlang"] = "udm";
-                formData["scheme"] = "bgn-pcgn";
-            }
-            else if (languageCode.Equals(Language.WesternArmenian))
-            {
-                formData["tlang"] = "hye";
-                formData["scheme"] = "ala-lc";
-            }
-            else
-            {
-                throw new ArgumentException($"The \"{languageCode}\" language is not supported by {nameof(TranslitterationDotComTransliterator)}!");
-            }
+            string response = await httpRequestManager.Post(EndpointUrl, formData);
 
-            string response = await httpRequestManager.Post("https://www.translitteration.com/ajax/en/transliterate", formData);
-
-            return response.Replace("ack:::", "");
+            return response.Replace(ResponsePrefix, "");
         }
     }
 }
