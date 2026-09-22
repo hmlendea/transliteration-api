@@ -31,7 +31,7 @@ The application is built with ASP.NET Core and targets .NET 10. It exposes an HT
 - Multiple transliteration strategies, including built-in and external providers
 - File-based cache for repeated requests
 - HMAC-signed API responses
-- Unit tests for transliterators
+- Unit tests for transliterators and full-pipeline HTTP integration tests
 
 ## 🚀 Usage
 
@@ -113,8 +113,16 @@ ASPNETCORE_URLS=http://localhost:5000 dotnet run --project TransliterationAPI/Tr
 
 ### Test
 
+The solution command executes both the unit and integration test projects:
+
 ```bash
 dotnet test TransliterationAPI.slnx
+```
+
+To execute only the HTTP integration tests:
+
+```bash
+dotnet test TransliterationAPI.IntegrationTests/TransliterationAPI.IntegrationTests.csproj
 ```
 
 ### Release
@@ -164,6 +172,7 @@ The cache file is created automatically on startup if it does not exist.
 The solution contains the following projects:
 
 - `TransliterationAPI`: Main ASP.NET Core API project
+- `TransliterationAPI.IntegrationTests`: NUnit full-pipeline HTTP integration test project
 - `TransliterationAPI.UnitTests`: NUnit test project
 
 The key directories inside `TransliterationAPI/` are:

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 using TransliterationAPI.Service.Transliterators;
 
@@ -20,7 +21,7 @@ namespace TransliterationAPI.Service.Entities
         public static Language Bashkir => new("ba", nameof(Bashkir), typeof(TranslitterationDotComTransliterator));
         public static Language Belarussian => new("be", nameof(Belarussian), typeof(CyrillicTransliterator));
         public static Language Bengali => new("bn", nameof(Bengali), typeof(UshuaiaTransliterator));
-        public static Language Berber => new("ber", nameof(Berber), typeof(TranslitterationDotComTransliterator));
+        public static Language Berber => new("ber", nameof(Berber), typeof(BerberTransliterator));
         public static Language Bulgarian => new("bg", nameof(Bulgarian), typeof(CyrillicTransliterator));
         public static Language Chinese => new("zh", nameof(Chinese), typeof(PinyinTransliterator));
         public static Language Chuvash => new("cv", nameof(Chuvash), typeof(CyrillicTransliterator));
@@ -82,8 +83,12 @@ namespace TransliterationAPI.Service.Entities
 
         public string Name { get; }
 
+        public string Transliterator => TransliteratorType.Name;
+
+        [JsonIgnore]
         public Type TransliteratorType { get; }
 
+        [JsonIgnore]
         public bool UsesExternalTransliterator
             => typeof(IExternalTransliterator).IsAssignableFrom(TransliteratorType);
 
