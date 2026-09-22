@@ -70,6 +70,12 @@ namespace TransliterationAPI.Service
             }
 
             string normalisedText = NormaliseText(text);
+
+            if (!cacheSettings.Enabled)
+            {
+                return await TryGetTransliteratedText(normalisedText, languageCode);
+            }
+
             string cacheId = GetCacheId(normalisedText, languageCode);
 
             CachedTransliteration transliteration = cache.TryGet(cacheId);

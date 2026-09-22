@@ -51,8 +51,14 @@ namespace TransliterationAPI.Service.Transliterators
             string line = response
                 .Split(['\r', '\n'])
                 .First(responseLine => responseLine.Contains("ausgabe"));
+            Match resultMatch = Regex.Match(line, "[^>]*>([^<]*)</textarea>.*");
 
-            return Regex.Replace(line, "[^>]*>([^<]*)</textarea>.*", "$1");
+            if (!resultMatch.Success)
+            {
+                throw new FormatException("The Podolak response does not contain a valid transliteration result.");
+            }
+
+            return resultMatch.Groups[1].Value;
         }
     }
 }

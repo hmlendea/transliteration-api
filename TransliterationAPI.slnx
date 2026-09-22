@@ -1,13 +1,5 @@
 <Solution>
-  <Configurations>
-    <Platform Name="Any CPU" />
-    <Platform Name="x64" />
-    <Platform Name="x86" />
-  </Configurations>
-  <Project Path="TransliterationAPI.UnitTests/TransliterationAPI.UnitTests.csproj" Type="aa74ce52-6bfe-4e9f-b77e-d1b6ec3d18cb">
-    <Platform Project="AnyCPU" />
-  </Project>
-  <Project Path="TransliterationAPI/TransliterationAPI.csproj" Type="aa74ce52-6bfe-4e9f-b77e-d1b6ec3d18cb">
-    <Platform Project="AnyCPU" />
-  </Project>
+  <Project Path="TransliterationAPI/TransliterationAPI.csproj" />
+  <Project Path="TransliterationAPI.IntegrationTests/TransliterationAPI.IntegrationTests.csproj" />
+  <Project Path="TransliterationAPI.UnitTests/TransliterationAPI.UnitTests.csproj" />
 </Solution>
