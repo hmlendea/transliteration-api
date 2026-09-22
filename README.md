@@ -238,6 +238,8 @@ Common supported languages include (but are not limited to):
 
 ## 🏗️ Architecture
 
+See the [architecture documentation](./ARCHITECTURE.md) for verified system boundaries, runtime flows, dependencies, constraints, and extension points.
+
 ### Transliteration Implementation
 
 The service chooses a transliteration strategy based on the requested language:
