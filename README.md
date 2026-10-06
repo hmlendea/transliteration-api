@@ -22,6 +22,7 @@ The application is built with ASP.NET Core and targets .NET 10. It exposes an HT
 - [Architecture](#architecture)
 - [Contributing](#contributing)
 - [Security](#security)
+- [Privacy](#privacy)
 - [Supporting the Project](#supporting-the-project)
 - [License](#license)
 
@@ -281,6 +282,10 @@ When doing so, please:
 ## 🔒 Security
 
 For information on reporting security vulnerabilities, see [SECURITY.md](./SECURITY.md).
+
+## 🛡️ Privacy
+
+For information on how the application handles personal data, see [PRIVACY.md](./PRIVACY.md).
 
 ## 💝 Supporting the Project
 
