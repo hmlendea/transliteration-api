@@ -6,15 +6,18 @@ This document describes how the Transliteration API handles personal data. It co
 
 ## 📑 Table of Contents
 
-- What This Document Covers
-- Self-Hosted Deployments
-- Data We Handle
-- Processing and Use
-- Storage, Retention, and Deletion
-- External Processing and Integrations
-- Data Protection and Security
-- Document Changes
-- Contact
+- [What This Document Covers](#-what-this-document-covers)
+- [Self-Hosted Deployments](#-self-hosted-deployments)
+- [Data We Handle](#-data-we-handle)
+- [Processing and Use](#-processing-and-use)
+- [Storage, Retention, and Deletion](#-storage-retention-and-deletion)
+- [External Processing and Integrations](#-external-processing-and-integrations)
+- [Data Protection and Security](#-data-protection-and-security)
+- [Data Subject Rights](#-data-subject-rights)
+- [Data Locations](#-data-locations)
+- [Telemetry Controls](#-telemetry-controls)
+- [Document Changes](#-document-changes)
+- [Contact](#-contact)
 
 ## 🔎 What This Document Covers
 
@@ -35,10 +38,10 @@ No telemetry, update checks, crash reports, or other data are sent to project ma
 
 ### Data Provided to the Application
 
-- **Source text** — Unicode text submitted by the client in the `text` query parameter for transliteration
-- **Language code** — Language identifier submitted by the client in the `language` query parameter to select the transliteration strategy
+- **Source text** — Unicode text submitted by the client in the `text` query parameter for transliteration (maximum 256 UTF-16 code units)
+- **Language code** — Language identifier submitted by the client in the `language` query parameter to select the transliteration strategy (case-sensitive, exact match against registry)
 
-No other personal data is requested or collected from users, administrators, or connected systems.
+No other personal data is requested or collected from users, administrators, or connected systems. The API has no user accounts, authentication, sessions, cookies, or tracking identifiers.
 
 ### Data Generated or Collected by the Application
 
@@ -64,6 +67,8 @@ The application processes the data described above for these verified functions:
 - **Response signing** — Transliterated text and HMAC signing key
 - **Structured logging** — Source text, language code, transliterated text, operation status
 
+Legal basis for processing (where applicable): legitimate interest of the operator in providing the transliteration service; no consent mechanism is implemented as the API has no user accounts.
+
 ## 🗄️ Storage, Retention, and Deletion
 
 | Data category | Storage location | Retention and deletion |
@@ -72,6 +77,8 @@ The application processes the data described above for these verified functions:
 | Log entries | File at configured `nuciLoggerSettings.logFilePath` (default: `logfile.log`) | Controlled by operator's log rotation and retention policies. |
 | HMAC signing key | Configuration (`securitySettings.hmacSigningKey`) | Stored in configuration; operator manages secret rotation. |
 | In-memory request data | Process memory | Discarded after each request completes. |
+| Ushuaia session cookie | In-memory (singleton `UshuaiaTransliterator`) | Refreshed after 5 minutes; discarded on process restart. |
+| External provider responses | In-memory (request scope) | Discarded after response construction. |
 
 For self-hosted deployments, the instance operator controls all local storage, deletion, and backups. The project does not operate a centralised service and does not retain any data from self-hosted instances.
 
@@ -84,6 +91,19 @@ For self-hosted deployments, the instance operator controls all local storage, d
 | podolak.net | Transliteration for Old Church Slavonic | Source text, fixed form parameters (ISO-9 scheme) | https://podolak.net/en/transliteration/old-church-slavonic |
 
 The application has no other built-in external data transfers. External provider use is determined by the language registry; operators can restrict to local-only transliterators by modifying the registry.
+
+### Data Flow to External Providers
+
+1. Client requests transliteration for a language mapped to an external provider
+2. Service normalises text (trims whitespace)
+3. Service computes cache key; checks cache (if enabled)
+4. On cache miss: external transliterator constructs HTTP request
+5. Request sent via HTTPS to provider endpoint with form-encoded body
+6. Provider response parsed; result returned to service
+7. Service caches result (if enabled and non-whitespace)
+8. Service returns signed response to client
+
+**Data minimisation**: Only the normalised source text and mapped language code are transmitted. No client IP, headers, or identifiers are forwarded.
 
 ## 🛡️ Data Protection and Security
 
@@ -100,6 +120,44 @@ The application has no other built-in external data transfers. External provider
   - Applying .NET and dependency security updates
 
 No absolute security is promised.
+
+## 👤 Data Subject Rights
+
+As the API has no user accounts or persistent identifiers, traditional data subject rights (access, rectification, erasure, portability, restriction, objection) apply as follows:
+
+| Right | Applicability | Mechanism |
+|-------|---------------|-----------|
+| Access | Cache entries contain only hashed keys and transliterated output; source text not stored | Operator can inspect cache file directly |
+| Rectification | No persistent personal data linked to identifiers | N/A |
+| Erasure | Delete cache file; rotate logs | Operator-controlled |
+| Portability | Cache is JSON; logs are text | Operator can export files |
+| Restriction | Disable caching via config; adjust log level | Configuration changes |
+| Objection | Block client at network layer | Infrastructure controls |
+
+Operators of self-hosted instances should implement their own processes for handling data subject requests.
+
+## 📍 Data Locations
+
+| Platform or Scope | Location | Contents |
+|-------------------|----------|----------|
+| Cache file | `cacheSettings.storeLocation` (default: `./cache.json`) | JSON array of `{ "id": "sha256...", "transliteratedText": "..." }` |
+| Log file | `nuciLoggerSettings.logFilePath` (default: `./logfile.log`) | Structured log lines with timestamp, operation, status, text, language, transliterator |
+| Configuration | `TransliterationAPI/appsettings.json` | HMAC key (placeholder), cache/log paths, feature flags |
+| In-memory | Process heap | Request-scoped strings; singleton Ushuaia session cookie |
+
+## 📊 Telemetry Controls
+
+The application has **no built-in telemetry, analytics, diagnostics, or crash reporting**. The following controls are available to operators:
+
+| Control | Mechanism |
+|---------|-----------|
+| Disable file logging | Set `nuciLoggerSettings.isFileOutputEnabled: false` |
+| Adjust log destination | Modify `nuciLoggerSettings.logFilePath` or configure NuciLog programmatically |
+| Disable caching | Set `cacheSettings.enabled: false` |
+| Restrict to local transliterators | Remove external language entries from `Language.cs` registry |
+| Network egress control | Firewall rules blocking outbound HTTPS to provider domains |
+
+No opt-out is required because no telemetry exists.
 
 ## 🔄 Document Changes
 

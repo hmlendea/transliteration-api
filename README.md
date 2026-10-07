@@ -28,11 +28,14 @@ The application is built with ASP.NET Core and targets .NET 10. It exposes an HT
 
 ## ✨ Capabilities
 
-- Support for 40+ languages and variants
-- Multiple transliteration strategies, including built-in and external providers
-- File-based cache for repeated requests
-- HMAC-signed API responses
-- Unit tests for transliterators and full-pipeline HTTP integration tests
+- Support for 49 languages and variants across 15 transliteration strategies
+- Multiple transliteration strategies: 12 local (built-in) and 3 external provider adapters
+- File-based JSON cache for repeated requests with SHA-256 identity keys
+- HMAC-SHA256 signed API responses for integrity verification
+- Scanner protection middleware blocking known probe paths and patterns
+- Structured logging with NuciLog (operation status, context, file output)
+- Comprehensive test coverage: unit tests for algorithms, integration tests for full HTTP pipeline
+- Cross-platform: runs on Linux, macOS, Windows with .NET 10
 
 ## 🚀 Usage
 
@@ -49,7 +52,11 @@ Response payload on success:
 
 ```json
 {
-	"text": "Ekvatorialnaya Afrika"
+	"success": true,
+	"message": "OK",
+	"code": "SUCCESS",
+	"text": "Ekvatorialnaya Afrika",
+	"hmac": "sha256=..."
 }
 ```
 
@@ -63,14 +70,18 @@ Response payload on success:
 
 ```json
 {
-	"count": 1,
+	"success": true,
+	"message": "OK",
+	"code": "SUCCESS",
+	"count": 49,
 	"languages": [
 		{
 			"code": "ar",
 			"name": "Arabic",
 			"transliterator": "ArabicTransliterator"
 		}
-	]
+	],
+	"hmac": "sha256=..."
 }
 ```
 
@@ -126,6 +137,12 @@ To execute only the HTTP integration tests:
 dotnet test TransliterationAPI.IntegrationTests/TransliterationAPI.IntegrationTests.csproj
 ```
 
+To execute only unit tests:
+
+```bash
+dotnet test TransliterationAPI.UnitTests/TransliterationAPI.UnitTests.csproj
+```
+
 ### Release
 
 ```bash
@@ -140,13 +157,13 @@ The script downloads and executes an external release helper from `https://raw.g
 
 The application reads configuration from `TransliterationAPI/appsettings.json`.
 
-| Section | Key | Description |
-|---------|-----|-------------|
-| `cacheSettings` | `storeLocation` | Path to the JSON file used for cached transliteration results |
-| `cacheSettings` | `enabled` | Flag to control cache usage |
-| `securitySettings` | `hmacSigningKey` | Secret used to sign API responses |
-| `nuciLoggerSettings` | `logFilePath` | Path to the log file |
-| `nuciLoggerSettings` | `isFileOutputEnabled` | Flag to enable file logging |
+| Section | Key | Type | Default | Required | Description |
+|---------|-----|------|---------|----------|-------------|
+| `cacheSettings` | `storeLocation` | string | `cache.json` | No | Path to the JSON file used for cached transliteration results |
+| `cacheSettings` | `enabled` | boolean | `true` | No | Flag to control cache usage |
+| `securitySettings` | `hmacSigningKey` | string | placeholder | Yes | Secret used to sign API responses (must be replaced in production) |
+| `nuciLoggerSettings` | `logFilePath` | string | `logfile.log` | No | Path to the log file |
+| `nuciLoggerSettings` | `isFileOutputEnabled` | boolean | `true` | No | Flag to enable file logging |
 
 The cache file is created automatically on startup if it does not exist.
 
@@ -167,6 +184,13 @@ The cache file is created automatically on startup if it does not exist.
 	}
 }
 ```
+
+### Environment Variables
+
+| Variable | Purpose |
+|----------|---------|
+| `ASPNETCORE_URLS` | Binding URLs (default: Kestrel defaults) |
+| `ASPNETCORE_ENVIRONMENT` | `Development` enables dev exception page |
 
 ## 🗂️ Project Structure
 
@@ -196,8 +220,180 @@ Transliterates input text for a specific language.
 
 **Query parameters:**
 
-- `text` - input text to transliterate (limited to 256 characters)
-- `language` - supported language code
+- `text` - input text to transliterate (limited to 256 UTF-16 code units)
+- `language` - supported language code (case-sensitive)
+
+**Behaviour:**
+
+- Leading and trailing whitespace is trimmed before processing
+- If the language code is not supported, the original text is returned unchanged
+- Successful results may be stored in the JSON cache
+- The response includes an HMAC signature
+
+**Response:**
+
+```json
+{
+	"success": true,
+	"message": "OK",
+	"code": "SUCCESS",
+	"text": "transliterated text or null",
+	"hmac": "sha256=..."
+}
+```
+
+### GET /Languages
+
+Returns the list of supported languages and their transliterator implementations.
+
+**Response includes:**
+
+- `count` - number of supported languages
+- `languages` - array of language objects with `code`, `name`, and `transliterator` fields
+- HMAC signature for response verification
+
+**Response:**
+
+```json
+{
+	"success": true,
+	"message": "OK",
+	"code": "SUCCESS",
+	"count": 49,
+	"languages": [
+		{
+			"code": "ar",
+			"name": "Arabic",
+			"transliterator": "ArabicTransliterator"
+		}
+	],
+	"hmac": "sha256=..."
+}
+```
+
+## 📋 Supported Languages
+
+The API currently supports 49 languages and variants. You can retrieve the authoritative list at runtime from `GET /Languages`.
+
+### Local Transliterators (12 implementations, 37 languages)
+
+| Code | Language | Transliterator |
+|------|----------|----------------|
+| `ar` | Arabic | ArabicTransliterator |
+| `ar-dz` | Algerian Arabic | ArabicTransliterator |
+| `ar-ma` | Moroccan Arabic | ArabicTransliterator |
+| `be` | Belarussian | CyrillicTransliterator |
+| `bg` | Bulgarian | CyrillicTransliterator |
+| `cu` | Old Church Slavonic | CyrillicTransliterator |
+| `el` | Greek | GreekTransliterator |
+| `grc` | Ancient Greek | GreekTransliterator |
+| `grc-dor` | Doric Greek | GreekTransliterator |
+| `he` | Hebrew | HebrewTransliterator |
+| `ja` | Japanese | JapaneseTransliterator |
+| `ka` | Georgian | CyrillicTransliterator |
+| `kk` | Kazakh | CyrillicTransliterator |
+| `ko` | Korean | KoreanTransliterator |
+| `mk` | Macedonian | CyrillicTransliterator |
+| `mn` | Mongolian | CyrillicTransliterator |
+| `ru` | Russian | CyrillicTransliterator |
+| `sr` | Serbian | CyrillicTransliterator |
+| `tg` | Tajik | CyrillicTransliterator |
+| `uk` | Ukrainian | CyrillicTransliterator |
+| `zh` | Chinese (Simplified) | PinyinTransliterator |
+| `zh-hans` | Chinese (Simplified) | PinyinTransliterator |
+| `zh-hant` | Chinese (Traditional) | PinyinTransliterator |
+| `gu` | Gujarati | GujaratiTransliterator |
+| `mr` | Marathi | MarathiTransliterator |
+| `cop` | Coptic | CopticTransliterator |
+| `ber` | Berber (Tifinagh) | BerberTransliterator |
+
+### External Provider Transliterators (3 implementations, 12 languages)
+
+| Code | Language | Transliterator | Provider |
+|------|----------|----------------|----------|
+| `ab` | Abkhaz | TranslitterationDotComTransliterator | translitteration.com |
+| `ady` | Adyghe | TranslitterationDotComTransliterator | translitteration.com |
+| `hy` | Armenian | TranslitterationDotComTransliterator | translitteration.com |
+| `ba` | Bashkir | TranslitterationDotComTransliterator | translitteration.com |
+| `ka` | Georgian | TranslitterationDotComTransliterator | translitteration.com |
+| `inh` | Inuttitut | TranslitterationDotComTransliterator | translitteration.com |
+| `ky` | Kyrgyz | TranslitterationDotComTransliterator | translitteration.com |
+| `os` | Ossetic | TranslitterationDotComTransliterator | translitteration.com |
+| `udm` | Udmurt | TranslitterationDotComTransliterator | translitteration.com |
+| `hyw` | Western Armenian | TranslitterationDotComTransliterator | translitteration.com |
+| `bn` | Bengali | UshuaiaTransliterator | ushuaia.pl |
+| `hi` | Hindi | UshuaiaTransliterator | ushuaia.pl |
+| `kn` | Kannada | UshuaiaTransliterator | ushuaia.pl |
+| `ml` | Malayalam | UshuaiaTransliterator | ushuaia.pl |
+| `mn` | Mongol | UshuaiaTransliterator | ushuaia.pl |
+| `sa` | Sanskrit | UshuaiaTransliterator | ushuaia.pl |
+| `si` | Sinhala | UshuaiaTransliterator | ushuaia.pl |
+| `ta` | Tamil | UshuaiaTransliterator | ushuaia.pl |
+| `te` | Telugu | UshuaiaTransliterator | ushuaia.pl |
+| `cu` | Old Church Slavonic | PodolakTransliterator | podolak.net |
+
+## 🏗️ Architecture
+
+See the [architecture documentation](./ARCHITECTURE.md) for verified system boundaries, runtime flows, dependencies, constraints, and extension points.
+
+### Transliteration Implementation
+
+The service chooses a transliteration strategy based on the requested language:
+
+- Built-in transliterators are used for Cyrillic, Greek, Hebrew, Arabic, Japanese, Korean, Gujarati, Marathi, Coptic, and Chinese Pinyin scripts
+- Selected languages use external transliteration providers
+- The appropriate transliterator is resolved through a factory at runtime
+
+### Caching Strategy
+
+Before storing a result in cache, the service performs the following:
+
+1. Trims leading and trailing whitespace
+2. Combines the normalised text, language code, and application version
+3. Hashes the combination with SHA-256
+4. Stores the transliterated result in the JSON cache file
+
+### Development Notes
+
+- The API uses controllers and conventional routing with endpoint names derived from controller names
+- Static files and default files are enabled in the ASP.NET Core pipeline
+- The cache store is created automatically on application startup
+- Logging and exception handling are wired through the Nuci API middleware packages
+
+## 🤝 Contributing
+
+You are welcome to submit any suggestion, feedback, or modification to this project.
+
+When doing so, please:
+
+- Maintain cross-platform compatibility
+- Maintain the existing public contract intact unless a breaking change is intentional
+- Maintain the pull requests as focused and consistent with the existing code style
+- Maintain your branch up-to-date with `master`
+- Revise the documentation when behaviour changes
+- Properly test all changes, including edge cases and error conditions
+- Add unit tests for any new or changed functionality
+
+## 🔒 Security
+
+For information on reporting security vulnerabilities, see [SECURITY.md](./SECURITY.md).
+
+## 🛡️ Privacy
+
+For information on how the application handles personal data, see [PRIVACY.md](./PRIVACY.md).
+
+## 💝 Supporting the Project
+
+Discovered a problem or have a suggestion? [Open an issue](https://github.com/hmlendea/transliteration-api/issues)!
+
+If you find this project useful, consider [funding it](https://hmlendea.go.ro/funding) or starring ⭐️ it on GitHub!
+
+[![Donate](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_generic.png)](https://hmlendea.go.ro/funding)
+
+## 📄 License
+
+This project is being distributed under the `GNU General Public License v3.0 or later`.
+See [LICENSE](./LICENSE) for further information.
 
 **Behaviour:**
 
@@ -215,27 +411,6 @@ Returns the list of supported languages and their transliterator implementations
 - `count` - number of supported languages
 - `languages` - array of language objects with `code`, `name`, and `transliterator` fields
 - HMAC signature for response verification
-
-## 📋 Supported Languages
-
-The API currently supports 40+ languages and variants. You can retrieve the authoritative list at runtime from `GET /Languages`.
-
-Common supported languages include (but are not limited to):
-
-| Code | Language |
-| --- | --- |
-| `ar` | Arabic |
-| `be` | Belarussian |
-| `bg` | Bulgarian |
-| `el` | Greek |
-| `grc` | Ancient Greek |
-| `he` | Hebrew |
-| `ja` | Japanese |
-| `ka` | Georgian |
-| `ko` | Korean |
-| `ru` | Russian |
-| `uk` | Ukrainian |
-| `zh` | Chinese |
 
 ## 🏗️ Architecture
 
