@@ -9,86 +9,85 @@
 
 ## Settings Classes
 
-### CacheSettings (`Configuration/CacheSettings.cs`)
+### CacheSettings (`TransliterationAPI/Configuration/CacheSettings.cs`)
 
 ```csharp
 public sealed class CacheSettings
 {
-    public string Directory { get; set; } = "./cache";
-    public int MaxTextLength { get; set; } = 10000;
+    public string ApplicationVersion
+        => Assembly.GetEntryAssembly()?.GetName().Version?.ToString();
+
+    public string StoreLocation { get; set; }
+
+    public bool Enabled { get; set; } = true;
 }
 ```
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| `Directory` | string | `./cache` | Cache file storage path (relative to working dir or absolute) |
-| `MaxTextLength` | int | `10000` | Maximum input text length; longer returns 400 |
+| `ApplicationVersion` | string (read-only) | Assembly version | Computed from entry assembly; used in cache key for automatic invalidation on deploy |
+| `StoreLocation` | string | *required* | Relative or absolute path to cache JSON file (e.g., `cache.json` or `/var/lib/transliteration-api/cache.json`) |
+| `Enabled` | bool | `true` | Master toggle for cache read/write |
 
 **Environment variables:**
 ```bash
-TRANSLITERATION_API__CACHE__DIRECTORY=/var/lib/transliteration-api/cache
-TRANSLITERATION_API__CACHE__MAXTEXTLENGTH=50000
+TRANSLITERATION_API__CACHESETTINGS__STORELOCATION=/var/lib/transliteration-api/cache.json
+TRANSLITERATION_API__CACHESETTINGS__ENABLED=true
 ```
 
-### SecuritySettings (`Configuration/SecuritySettings.cs`)
+### SecuritySettings (`TransliterationAPI/Configuration/SecuritySettings.cs`)
 
 ```csharp
 public sealed class SecuritySettings
 {
-    public string HmacKey { get; set; } = "";
-    public string[] AllowedHosts { get; set; } = [];
+    public string HmacSigningKey { get; set; }
 }
 ```
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| `HmacKey` | string | `""` | Base64-encoded 32-byte key for HMAC-SHA256 response signing |
-| `AllowedHosts` | string[] | `[]` | Host header validation (empty = allow all) |
+| `HmacSigningKey` | string | *required in production* | Base64-encoded 32-byte (256-bit) key for HMAC-SHA256 response signing; 44 chars base64 |
 
 **Environment variables:**
 ```bash
-TRANSLITERATION_API__SECURITY__HMACKEY="$(openssl rand -base64 32)"
-TRANSLITERATION_API__SECURITY__ALLOWEDHOSTS__0=api.example.com
-TRANSLITERATION_API__SECURITY__ALLOWEDHOSTS__1=api-staging.example.com
+TRANSLITERATION_API__SECURITYSETTINGS__HMACSIGNINGKEY="$(openssl rand -base64 32)"
 ```
 
-### HttpRequestSettings (from NuciAPI)
+### NuciLoggerSettings (from NuciLog)
 
 ```csharp
-public sealed class HttpRequestSettings
+public sealed class NuciLoggerSettings
 {
-    public TimeSpan ConnectTimeout { get; set; } = TimeSpan.FromSeconds(30);
-    public TimeSpan ReadTimeout { get; set; } = TimeSpan.FromSeconds(60);
-    public long MaxResponseSize { get; set; } = 1_048_576; // 1MB
-    public bool AllowAutoRedirect { get; set; } = false;
+    public string LogFilePath { get; set; }
+    public bool IsFileOutputEnabled { get; set; }
 }
 ```
 
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `LogFilePath` | string | `logfile.log` | Path to log file (relative to working dir or absolute) |
+| `IsFileOutputEnabled` | bool | `true` | Enable file logging output |
+
 **Environment variables:**
 ```bash
-TRANSLITERATION_API__HTTPREQUEST__CONNECTTIMEOUT=00:00:30
-TRANSLITERATION_API__HTTPREQUEST__READTIMEOUT=00:01:00
-TRANSLITERATION_API__HTTPREQUEST__MAXRESPONSESIZE=2097152
-TRANSLITERATION_API__HTTPREQUEST__ALLOW_AUTO_REDIRECT=false
+TRANSLITERATION_API__NUCILOGGERSETTINGS__LOGFILEPATH=/var/log/transliteration-api/app.log
+TRANSLITERATION_API__NUCILOGGERSETTINGS__ISFILEOUTPUTENABLED=true
 ```
 
 ## appsettings.json (Complete Example)
 
 ```json
 {
-  "Cache": {
-    "Directory": "./cache",
-    "MaxTextLength": 10000
+  "cacheSettings": {
+    "storeLocation": "cache.json",
+    "enabled": "true"
   },
-  "Security": {
-    "HmacKey": "",
-    "AllowedHosts": []
+  "securitySettings": {
+    "hmacSigningKey": "[[TRANSLITERATION_API_HMAC_SIGNING_KEY]]"
   },
-  "HttpRequest": {
-    "ConnectTimeout": "00:00:30",
-    "ReadTimeout": "00:01:00",
-    "MaxResponseSize": 1048576,
-    "AllowAutoRedirect": false
+  "nuciLoggerSettings": {
+    "logFilePath": "logfile.log",
+    "isFileOutputEnabled": true
   },
   "Logging": {
     "LogLevel": {
@@ -103,14 +102,21 @@ TRANSLITERATION_API__HTTPREQUEST__ALLOW_AUTO_REDIRECT=false
 }
 ```
 
+**Note:** Section names match class names exactly (`cacheSettings`, `securitySettings`, `nuciLoggerSettings`), not PascalCase.
+
 ## Environment-Specific Overrides
 
 ### appsettings.Development.json
 
 ```json
 {
-  "Cache": {
-    "Directory": "./cache-dev"
+  "cacheSettings": {
+    "storeLocation": "cache-dev.json",
+    "enabled": "true"
+  },
+  "nuciLoggerSettings": {
+    "logFilePath": "logfile-dev.log",
+    "isFileOutputEnabled": true
   },
   "Logging": {
     "LogLevel": {
@@ -125,12 +131,16 @@ TRANSLITERATION_API__HTTPREQUEST__ALLOW_AUTO_REDIRECT=false
 
 ```json
 {
-  "Cache": {
-    "Directory": "/var/lib/transliteration-api/cache",
-    "MaxTextLength": 50000
+  "cacheSettings": {
+    "storeLocation": "/var/lib/transliteration-api/cache.json",
+    "enabled": "true"
   },
-  "Security": {
-    "AllowedHosts": ["api.example.com", "api.internal"]
+  "securitySettings": {
+    "hmacSigningKey": "[[TRANSLITERATION_API_HMAC_SIGNING_KEY]]"
+  },
+  "nuciLoggerSettings": {
+    "logFilePath": "/var/log/transliteration-api/app.log",
+    "isFileOutputEnabled": true
   },
   "Logging": {
     "LogLevel": {
@@ -144,10 +154,162 @@ TRANSLITERATION_API__HTTPREQUEST__ALLOW_AUTO_REDIRECT=false
 ## Binding in Startup
 
 ```csharp
-// ServiceCollectionExtensions.cs
-public static IServiceCollection AddTransliterationApi(this IServiceCollection services, IConfiguration configuration)
+// TransliterationAPI/ServiceCollectionExtensions.cs
+public static IServiceCollection AddConfigurations(
+    this IServiceCollection services,
+    IConfiguration configuration)
 {
-    services.Configure<CacheSettings>(configuration.GetSection("Cache"));
+    CacheSettings cacheSettings = new();
+    SecuritySettings securitySettings = new();
+
+    configuration.Bind(nameof(CacheSettings), cacheSettings);
+    configuration.Bind(nameof(SecuritySettings), securitySettings);
+
+    services.AddSingleton(cacheSettings);
+    services.AddSingleton(securitySettings);
+    services.AddNuciLoggerSettings(configuration);
+
+    return services;
+}
+```
+
+**Key points:**
+- Uses `configuration.Bind(nameof(CacheSettings), cacheSettings)` — binds to section named `cacheSettings` (class name)
+- Registers settings as singletons for DI injection
+- `AddNuciLoggerSettings` binds `nuciLoggerSettings` section and registers NuciLog
+
+## Configuration Validation
+
+**Startup validation (throws on failure):**
+- `CacheSettings.StoreLocation` not null/empty (validated by `JsonRepository` on first use)
+- `SecuritySettings.HmacSigningKey` not empty in production (validated by NuciAPI HMAC middleware per request)
+
+**Runtime validation:**
+- Cache directory writable (checked on first write in `Startup.CreateCacheStore`)
+- HMAC key length verified per request by NuciAPI middleware
+
+## Environment Variable Mapping
+
+| Setting | Environment Variable |
+|---------|---------------------|
+| `CacheSettings.StoreLocation` | `TRANSLITERATION_API__CACHESETTINGS__STORELOCATION` |
+| `CacheSettings.Enabled` | `TRANSLITERATION_API__CACHESETTINGS__ENABLED` |
+| `SecuritySettings.HmacSigningKey` | `TRANSLITERATION_API__SECURITYSETTINGS__HMACSIGNINGKEY` |
+| `NuciLoggerSettings.LogFilePath` | `TRANSLITERATION_API__NUCILOGGERSETTINGS__LOGFILEPATH` |
+| `NuciLoggerSettings.IsFileOutputEnabled` | `TRANSLITERATION_API__NUCILOGGERSETTINGS__ISFILEOUTPUTENABLED` |
+| `Logging:LogLevel:Default` | `TRANSLITERATION_API__LOGGING__LOGLEVEL__DEFAULT` |
+
+**Note:** Double underscore `__` = colon `:` in configuration hierarchy. Section names use class name casing (`CacheSettings` → `CACHESETTINGS`).
+
+## Generating HMAC Key
+
+```bash
+# 32 bytes = 256 bits = 44 chars base64
+openssl rand -base64 32
+
+# Example output: k7V3x9mN2pQ5rT8yU1wZ4aB6cD8eF0gH2jK4lM6nO8=
+```
+
+## Docker / Container Configuration
+
+### Dockerfile (relevant section)
+
+```dockerfile
+# Cache volume
+VOLUME /var/lib/transliteration-api/cache
+
+# Non-root user
+RUN adduser --disabled-password --gecos '' appuser
+USER appuser
+
+# Working directory
+WORKDIR /app
+
+# Config via environment
+ENV TRANSLITERATION_API__CACHESETTINGS__STORELOCATION=/var/lib/transliteration-api/cache.json
+ENV TRANSLITERATION_API__SECURITYSETTINGS__HMACSIGNINGKEY=""
+ENV TRANSLITERATION_API__NUCILOGGERSETTINGS__LOGFILEPATH=/var/log/transliteration-api/app.log
+```
+
+### docker-compose.yml
+
+```yaml
+services:
+  transliteration-api:
+    build: .
+    environment:
+      - TRANSLITERATION_API__CACHESETTINGS__STORELOCATION=/var/lib/transliteration-api/cache.json
+      - TRANSLITERATION_API__SECURITYSETTINGS__HMACSIGNINGKEY=${HMAC_KEY}
+      - TRANSLITERATION_API__NUCILOGGERSETTINGS__LOGFILEPATH=/var/log/transliteration-api/app.log
+      - ASPNETCORE_ENVIRONMENT=Production
+    volumes:
+      - transliteration-cache:/var/lib/transliteration-api/cache
+      - transliteration-logs:/var/log/transliteration-api
+    ports:
+      - "8080:8080"
+
+volumes:
+  transliteration-cache:
+  transliteration-logs:
+```
+
+### Kubernetes ConfigMap + Secret
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: transliteration-api-config
+data:
+  CACHESETTINGS__STORELOCATION: "/var/lib/transliteration-api/cache.json"
+  CACHESETTINGS__ENABLED: "true"
+  NUCILOGGERSETTINGS__LOGFILEPATH: "/var/log/transliteration-api/app.log"
+  NUCILOGGERSETTINGS__ISFILEOUTPUTENABLED: "true"
+  LOGGING__LOGLEVEL__DEFAULT: "Information"
+  LOGGING__LOGLEVEL__MICROSOFT_ASPNETCORE: "Warning"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: transliteration-api-secrets
+type: Opaque
+stringData:
+  SECURITYSETTINGS__HMACSIGNINGKEY: "k7V3x9mN2pQ5rT8yU1wZ4aB6cD8eF0gH2jK4lM6nO8="
+```
+
+## Configuration Patterns
+
+### Feature Flags (Future)
+
+```json
+{
+  "Features": {
+    "EnableNewTransliterator": false,
+    "EnableMetricsEndpoint": false
+  }
+}
+```
+
+### External Provider Overrides
+
+```json
+{
+  "ExternalProviders": {
+    "TransliterationDotCom": {
+      "BaseUrl": "https://transliteration.com",
+      "Timeout": "00:00:30"
+    },
+    "Ushuaia": {
+      "BaseUrl": "https://ushuaia.pl",
+      "CookieTtlMinutes": 5
+    },
+    "Podolak": {
+      "BaseUrl": "https://podolak.pl",
+      "Timeout": "00:00:45"
+    }
+  }
+}
+```
     services.Configure<SecuritySettings>(configuration.GetSection("Security"));
     services.Configure<HttpRequestSettings>(configuration.GetSection("HttpRequest"));
 

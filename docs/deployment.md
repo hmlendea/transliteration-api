@@ -7,9 +7,9 @@
 | .NET SDK | 10.0.x | For build; runtime self-contained |
 | .NET Runtime | 10.0.x | If not self-contained |
 | OS | Linux (tested), Windows, macOS | x64, arm64 |
-| Disk | 100 MB + cache | Cache grows with usage |
-| Memory | 100 MB base + cache | Depends on concurrent requests |
-| Network | Outbound HTTPS | For external providers |
+| Disk | 100 MB + cache | Cache grows with usage (single JSON file) |
+| Memory | 100 MB base + cache | Depends on concurrent requests; entire cache loaded in memory |
+| Network | Outbound HTTPS | For external providers (transliteration.com, ushuaia.pl, podolak.pl) |
 
 ## Build
 
@@ -62,7 +62,7 @@ dotnet publish TransliterationAPI/TransliterationAPI.csproj \
   -o ./publish/linux-x64-trimmed
 ```
 
-**Note:** Trimming may remove reflection-used types (Language registry). Test thoroughly.
+**Note:** Trimming may remove reflection-used types (Language registry uses `Assembly.GetTypes()`). Test thoroughly.
 
 ## Run
 
@@ -82,10 +82,12 @@ dotnet run --urls "http://localhost:5000"
 ```bash
 export ASPNETCORE_ENVIRONMENT=Production
 export ASPNETCORE_URLS=http://0.0.0.0:8080
-export TRANSLITERATION_API__CACHE__DIRECTORY=/var/lib/transliteration-api/cache
-export TRANSLITERATION_API__SECURITY__HMACKEY="$(openssl rand -base64 32)"
-export TRANSLITERATION_API__SECURITY__ALLOWEDHOSTS__0=api.example.com
+export TRANSLITERATION_API__CACHESETTINGS__STORELOCATION=/var/lib/transliteration-api/cache.json
+export TRANSLITERATION_API__SECURITYSETTINGS__HMACSIGNINGKEY="$(openssl rand -base64 32)"
+export TRANSLITERATION_API__NUCILOGGERSETTINGS__LOGFILEPATH=/var/log/transliteration-api/app.log
 ```
+
+**Note:** Section names match class names exactly (`CacheSettings` → `CACHESETTINGS`, `SecuritySettings` → `SECURITYSETTINGS`, `NuciLoggerSettings` → `NUCILOGGERSETTINGS`).
 
 ### systemd Service (Linux)
 
@@ -103,9 +105,9 @@ WorkingDirectory=/opt/transliteration-api
 ExecStart=/opt/transliteration-api/TransliterationAPI
 Environment=ASPNETCORE_ENVIRONMENT=Production
 Environment=ASPNETCORE_URLS=http://0.0.0.0:8080
-Environment=TRANSLITERATION_API__CACHE__DIRECTORY=/var/lib/transliteration-api/cache
-Environment=TRANSLITERATION_API__SECURITY__HMACKEY=your-base64-key-here
-Environment=TRANSLITERATION_API__SECURITY__ALLOWEDHOSTS__0=api.example.com
+Environment=TRANSLITERATION_API__CACHESETTINGS__STORELOCATION=/var/lib/transliteration-api/cache.json
+Environment=TRANSLITERATION_API__SECURITYSETTINGS__HMACSIGNINGKEY=your-base64-key-here
+Environment=TRANSLITERATION_API__NUCILOGGERSETTINGS__LOGFILEPATH=/var/log/transliteration-api/app.log
 Restart=on-failure
 RestartSec=5
 StandardOutput=journal
@@ -117,7 +119,7 @@ NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=/var/lib/transliteration-api/cache
+ReadWritePaths=/var/lib/transliteration-api /var/log/transliteration-api
 CapabilityBoundingSet=
 AmbientCapabilities=
 
@@ -151,9 +153,11 @@ FROM mcr.microsoft.com/dotnet/runtime-deps:10.0-noble-chiseled AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 USER app
-VOLUME /var/lib/transliteration-api/cache
+VOLUME /var/lib/transliteration-api
+VOLUME /var/log/transliteration-api
 ENV ASPNETCORE_URLS=http://0.0.0.0:8080
-ENV TRANSLITERATION_API__CACHE__DIRECTORY=/var/lib/transliteration-api/cache
+ENV TRANSLITERATION_API__CACHESETTINGS__STORELOCATION=/var/lib/transliteration-api/cache.json
+ENV TRANSLITERATION_API__NUCILOGGERSETTINGS__LOGFILEPATH=/var/log/transliteration-api/app.log
 EXPOSE 8080
 ENTRYPOINT ["./TransliterationAPI"]
 ```
@@ -168,9 +172,10 @@ docker build -t transliteration-api:latest .
 docker run -d \
   --name transliteration-api \
   -p 8080:8080 \
-  -e TRANSLITERATION_API__SECURITY__HMACKEY="$(openssl rand -base64 32)" \
-  -e TRANSLITERATION_API__SECURITY__ALLOWEDHOSTS__0=api.example.com \
-  -v transliteration-cache:/var/lib/transliteration-api/cache \
+  -e TRANSLITERATION_API__SECURITYSETTINGS__HMACSIGNINGKEY="$(openssl rand -base64 32)" \
+  -e TRANSLITERATION_API__SECURITYSETTINGS__ALLOWEDHOSTS__0=api.example.com \
+  -v transliteration-cache:/var/lib/transliteration-api \
+  -v transliteration-logs:/var/log/transliteration-api \
   transliteration-api:latest
 ```
 
@@ -205,18 +210,20 @@ spec:
           value: "Production"
         - name: ASPNETCORE_URLS
           value: "http://0.0.0.0:8080"
-        - name: TRANSLITERATION_API__CACHE__DIRECTORY
-          value: "/var/lib/transliteration-api/cache"
-        - name: TRANSLITERATION_API__SECURITY__HMACKEY
+        - name: TRANSLITERATION_API__CACHESETTINGS__STORELOCATION
+          value: "/var/lib/transliteration-api/cache.json"
+        - name: TRANSLITERATION_API__SECURITYSETTINGS__HMACSIGNINGKEY
           valueFrom:
             secretKeyRef:
               name: transliteration-api-secrets
               key: HMAC_KEY
-        - name: TRANSLITERATION_API__SECURITY__ALLOWEDHOSTS__0
-          value: "api.example.com"
+        - name: TRANSLITERATION_API__NUCILOGGERSETTINGS__LOGFILEPATH
+          value: "/var/log/transliteration-api/app.log"
         volumeMounts:
         - name: cache
-          mountPath: /var/lib/transliteration-api/cache
+          mountPath: /var/lib/transliteration-api
+        - name: logs
+          mountPath: /var/log/transliteration-api
         resources:
           requests:
             memory: "128Mi"
@@ -240,6 +247,9 @@ spec:
       - name: cache
         persistentVolumeClaim:
           claimName: transliteration-api-cache
+      - name: logs
+        persistentVolumeClaim:
+          claimName: transliteration-api-logs
 ---
 apiVersion: v1
 kind: Service
@@ -263,6 +273,17 @@ spec:
   resources:
     requests:
       storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: transliteration-api-logs
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
 ```
 
 ## Reverse Proxy (Required for Production)
