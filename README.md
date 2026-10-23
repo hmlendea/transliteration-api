@@ -376,12 +376,15 @@ You are welcome to submit any suggestion, feedback, or modification to this proj
 When doing so, please:
 
 - Maintain cross-platform compatibility
-- Maintain the existing public contract intact unless a breaking change is intentional
-- Maintain the pull requests as focused and consistent with the existing code style
-- Maintain your branch up-to-date with `master`
-- Revise the documentation when behaviour changes
-- Properly test all changes, including edge cases and error conditions
-- Add unit tests for any new or changed functionality
+- Preserve the existing public contract unless a breaking change is intentional
+- Submit focused pull requests that conform to the existing code style
+- Maintain your branch synchronised with `master`
+- Revise the documentation when functionality changes
+- Properly test all modifications, including edge cases and error conditions
+- Include tests for additional or modified functionality
+- Raise a new [issue](https://github.com/hmlendea/transliteration-api/issues) for problems or suggestions
+
+See the [contributing guidelines](./CONTRIBUTING.md) for details on how to report issues, suggest enhancements, and submit changes.
 
 ## 🔒 Security
 
@@ -403,81 +406,6 @@ If you find this project useful, consider [funding it](https://hmlendea.go.ro/fu
 
 This project is being distributed under the `GNU General Public License v3.0 or later`.
 See [LICENSE](./LICENSE) for further information.
-
-**Behaviour:**
-
-- Leading and trailing whitespace is trimmed before processing
-- If the language code is not supported, the original text is returned unchanged
-- Successful results may be stored in the JSON cache
-- The response includes an HMAC signature
-
-### GET /Languages
-
-Returns the list of supported languages and their transliterator implementations.
-
-**Response includes:**
-
-- `count` - number of supported languages
-- `languages` - array of language objects with `code`, `name`, and `transliterator` fields
-- HMAC signature for response verification
-
-## 🏗️ Architecture
-
-Transliteration API is a single-process ASP.NET Core service with transport, orchestration, strategy, and infrastructure boundaries verified by dedicated architecture tests.
-
-See the [architecture documentation](./ARCHITECTURE.md) for the system context, principal components, runtime flows, ownership boundaries, dependencies, constraints, and extension points.
-
-### Transliteration Implementation
-
-The service chooses a transliteration strategy based on the requested language:
-
-- Built-in transliterators are used for Cyrillic, Greek, Hebrew, Arabic, Japanese, Korean, Gujarati, Marathi, Coptic, and Chinese Pinyin scripts
-- Selected languages use external transliteration providers
-- The appropriate transliterator is resolved through a factory at runtime
-
-### Caching Strategy
-
-Before storing a result in cache, the service performs the following:
-
-1. Trims leading and trailing whitespace
-2. Combines the normalised text, language code, and application version
-3. Hashes the combination with SHA-256
-4. Stores the transliterated result in the JSON cache file
-
-### Development Notes
-
-- The API uses controllers and conventional routing with endpoint names derived from controller names
-- Static files and default files are enabled in the ASP.NET Core pipeline
-- The cache store is created automatically on application startup
-- Logging and exception handling are wired through the Nuci API middleware packages
-
-## 🤝 Contributing
-
-You are welcome to submit any suggestion, feedback, or modification to this project.
-
-When doing so, please:
-
-- Maintain cross-platform compatibility
-- Maintain the existing public contract intact unless a breaking change is intentional
-- Maintain the pull requests as focused and consistent with the existing code style
-- Maintain your branch up-to-date with `master`
-- Revise the documentation when behaviour changes
-- Properly test all changes, including edge cases and error conditions
-- Add unit tests for any new or changed functionality
-
-## 🔒 Security
-
-For information on reporting security vulnerabilities, see [SECURITY.md](./SECURITY.md).
-
-## 🛡️ Privacy
-
-For information on how the application handles personal data, see [PRIVACY.md](./PRIVACY.md).
-
-## 💝 Supporting the Project
-
-Discovered a problem or have a suggestion? [Open an issue](https://github.com/hmlendea/transliteration-api/issues)!
-
-If you find this project useful, consider [funding it](https://hmlendea.go.ro/funding) or starring ⭐️ it on GitHub!
 
 [![Donate](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_generic.png)](https://hmlendea.go.ro/funding)
 
