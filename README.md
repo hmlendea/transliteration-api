@@ -125,7 +125,7 @@ ASPNETCORE_URLS=http://localhost:5000 dotnet run --project TransliterationAPI/Tr
 
 ### Test
 
-The solution command executes both the unit and integration test projects:
+The solution command executes the unit, integration, and architecture test projects:
 
 ```bash
 dotnet test TransliterationAPI.slnx
@@ -141,6 +141,12 @@ To execute only unit tests:
 
 ```bash
 dotnet test TransliterationAPI.UnitTests/TransliterationAPI.UnitTests.csproj
+```
+
+To execute only the architecture tests:
+
+```bash
+dotnet test TransliterationAPI.ArchitectureTests/TransliterationAPI.ArchitectureTests.csproj
 ```
 
 ### Release
@@ -197,6 +203,7 @@ The cache file is created automatically on startup if it does not exist.
 The solution contains the following projects:
 
 - `TransliterationAPI`: Main ASP.NET Core API project
+- [TransliterationAPI.ArchitectureTests](TransliterationAPI.ArchitectureTests/): NUnit and ArchUnit.NET dependency, placement, and production-isolation checks
 - `TransliterationAPI.IntegrationTests`: NUnit full-pipeline HTTP integration test project
 - `TransliterationAPI.UnitTests`: NUnit test project
 
@@ -334,7 +341,9 @@ The API currently supports 49 languages and variants. You can retrieve the autho
 
 ## 🏗️ Architecture
 
-See the [architecture documentation](./ARCHITECTURE.md) for verified system boundaries, runtime flows, dependencies, constraints, and extension points.
+Transliteration API is a single-process ASP.NET Core service with transport, orchestration, strategy, and infrastructure boundaries verified by dedicated architecture tests.
+
+See the [architecture documentation](./ARCHITECTURE.md) for the system context, principal components, runtime flows, ownership boundaries, dependencies, constraints, and extension points.
 
 ### Transliteration Implementation
 
@@ -414,7 +423,9 @@ Returns the list of supported languages and their transliterator implementations
 
 ## 🏗️ Architecture
 
-See the [architecture documentation](./ARCHITECTURE.md) for verified system boundaries, runtime flows, dependencies, constraints, and extension points.
+Transliteration API is a single-process ASP.NET Core service with transport, orchestration, strategy, and infrastructure boundaries verified by dedicated architecture tests.
+
+See the [architecture documentation](./ARCHITECTURE.md) for the system context, principal components, runtime flows, ownership boundaries, dependencies, constraints, and extension points.
 
 ### Transliteration Implementation
 

@@ -44,7 +44,7 @@ This document describes the current architecture of the Transliteration API. It 
 
 The service transliterates text from registered writing systems into the Latin alphabet and exposes the authoritative language registry. This document records the ownership boundaries and change-sensitive contracts that contributors require when modifying routes, language mappings, transliteration algorithms, provider adapters, caching, middleware, or deployment configuration.
 
-The repository contains one deployable API project and separate unit and integration verification projects. The document describes only implemented behaviour visible in the current source.
+The repository contains one deployable API project and separate unit, integration, and architecture verification projects. The document describes only implemented behaviour visible in the current source.
 
 ## 🌐 System Context
 
@@ -237,10 +237,12 @@ Boundary rules:
 Paths:
 - [TransliterationAPI.UnitTests/](TransliterationAPI.UnitTests/)
 - [TransliterationAPI.IntegrationTests/](TransliterationAPI.IntegrationTests/)
+- [TransliterationAPI.ArchitectureTests/](TransliterationAPI.ArchitectureTests/)
 
 Responsibilities:
 - Verify language algorithms and registry composition at unit level.
 - Exercise the complete HTTP pipeline, middleware, routing, HMAC contracts, cache lifecycle, registry completeness, and provider adapter protocols at integration level.
+- Enforce documented dependency boundaries, transport placement, and production project and assembly isolation with NUnit and ArchUnit.NET.
 
 Boundary rules:
 - Integration tests substitute remote HTTP and logging while retaining the production host, middleware, controllers, service, strategies, and filesystem repository.
@@ -469,7 +471,7 @@ The principal dependency rules are:
 - `TransliterationService` owns orchestration and depends upon abstractions for strategy resolution and persistence.
 - Provider-specific URLs, form fields, cookie conventions, and parsing remain inside the corresponding external transliterator.
 - Local transliterators remain independent of HTTP and cache persistence.
-- The production project does not reference either test project; both test projects reference the production project.
+- The production project does not reference test projects; all three test projects reference the production project.
 - Adding a registry entry and adding its implementation are one coherent change, since the registry drives DI registration and factory dispatch.
 
 ## 📦 External Dependencies
@@ -516,6 +518,8 @@ The deployment unit is one ASP.NET Core process. It hosts both routes, all middl
 | Middleware order | `Startup` | Logging wraps exception handling and scanner protection before routing | Full-pipeline integration tests | Reordering requires security and error-contract regression verification |
 
 ## ✅ Testing and Verification
+
+[`TransliterationAPI.ArchitectureTests`](TransliterationAPI.ArchitectureTests/) loads the production assembly once with ArchUnit.NET. Its NUnit rules verify transport placement, separation from concrete strategies and persistence, lower-layer independence from transport, local algorithms without I/O, and provider HTTP isolation. Separate checks inspect compiled assembly references, declared project references, and `InternalsVisibleTo`. Rule selectors must match production types. These tests follow the existing single-project boundaries rather than imposing separate Domain, Application, or Infrastructure projects. The language registry deliberately references strategy types, and strategies consume registry metadata; this documented coupling is not treated as an acyclic layer split.
 
 [`TransliterationAPI.UnitTests`](TransliterationAPI.UnitTests/) verifies local transliteration algorithms, provider post-processing, registry composition, and focused service collaborators. [`TransliterationAPI.IntegrationTests`](TransliterationAPI.IntegrationTests/) starts the production host with `WebApplicationFactory`, supplies a loopback address required by request logging, isolates cache storage, and replaces remote HTTP and logging dependencies with deterministic implementations.
 
@@ -597,6 +601,7 @@ The current startup routine specifically creates a JSON array file. A non-file r
 | Outbound HTTP adapter | [`TransliterationAPI/Service/HttpRequestManager.cs`](TransliterationAPI/Service/HttpRequestManager.cs) |
 | Logging vocabulary | [TransliterationAPI/Logging/](TransliterationAPI/Logging/) |
 | Unit verification | [TransliterationAPI.UnitTests/](TransliterationAPI.UnitTests/) |
+| Architecture verification | [TransliterationAPI.ArchitectureTests/](TransliterationAPI.ArchitectureTests/) |
 | Full-pipeline verification | [TransliterationAPI.IntegrationTests/](TransliterationAPI.IntegrationTests/) |
 | Continuous integration | [`.github/workflows/dotnet.yml`](.github/workflows/dotnet.yml) |
 
