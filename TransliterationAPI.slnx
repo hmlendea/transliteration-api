@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="TransliterationAPI/TransliterationAPI.csproj" />
+  <Project Path="TransliterationAPI.ArchitectureTests/TransliterationAPI.ArchitectureTests.csproj" />
   <Project Path="TransliterationAPI.IntegrationTests/TransliterationAPI.IntegrationTests.csproj" />
   <Project Path="TransliterationAPI.UnitTests/TransliterationAPI.UnitTests.csproj" />
 </Solution>

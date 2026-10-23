@@ -2,9 +2,10 @@
 
 ## Overview
 
-Two test projects provide comprehensive coverage:
+Three test projects provide complementary coverage:
 - **Unit Tests** (`TransliterationAPI.UnitTests`) — Fast, isolated, deterministic
 - **Integration Tests** (`TransliterationAPI.IntegrationTests`) — Full HTTP pipeline, external provider simulation
+- **Architecture Tests** ([TransliterationAPI.ArchitectureTests](../TransliterationAPI.ArchitectureTests/)) - NUnit and ArchUnit.NET checks for dependency boundaries, transport placement, production project and assembly isolation, and prohibited internal visibility. Every rule selects production types explicitly and fails on empty selections. Run this project independently with `dotnet test TransliterationAPI.ArchitectureTests/TransliterationAPI.ArchitectureTests.csproj`, or include it through the solution test command. No external providers are called.
 
 ## Unit Tests
 
