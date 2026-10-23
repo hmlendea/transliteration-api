@@ -394,18 +394,15 @@ For information on reporting security vulnerabilities, see [SECURITY.md](./SECUR
 
 For information on how the application handles personal data, see [PRIVACY.md](./PRIVACY.md).
 
+## 📜 Code of Conduct
+
+See the [Code of Conduct](./CODE_OF_CONDUCT.md) for the standards of conduct expected in all project spaces.
+
 ## 💝 Supporting the Project
 
 Discovered a problem or have a suggestion? [Open an issue](https://github.com/hmlendea/transliteration-api/issues)!
 
 If you find this project useful, consider [funding it](https://hmlendea.go.ro/funding) or starring ⭐️ it on GitHub!
-
-[![Donate](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_generic.png)](https://hmlendea.go.ro/funding)
-
-## 📄 License
-
-This project is being distributed under the `GNU General Public License v3.0 or later`.
-See [LICENSE](./LICENSE) for further information.
 
 [![Donate](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_generic.png)](https://hmlendea.go.ro/funding)
 
