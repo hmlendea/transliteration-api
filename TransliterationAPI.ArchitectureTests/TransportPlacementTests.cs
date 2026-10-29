@@ -37,5 +37,26 @@ namespace TransliterationAPI.ArchitectureTests
                 .Because("controllers and transport contracts belong in their documented API namespaces")
                 .Check(ProductionArchitecture.Model);
         }
+
+        [TestCase("TransliterationAPI.API.Controllers", typeof(NuciApiController))]
+        [TestCase("TransliterationAPI.API.Requests", typeof(NuciApiRequest))]
+        [TestCase("TransliterationAPI.API.Responses", typeof(NuciApiSuccessResponse))]
+        public void GivenApiNamespaces_WhenInspectingContracts_ThenEveryTypeUsesItsTransportBase(
+            string transportNamespace,
+            Type contractType)
+        {
+            IObjectProvider<IType> transportTypes = Types().That()
+                .ResideInAssembly(ProductionArchitecture.Assembly)
+                .And().ResideInNamespace(transportNamespace);
+
+            Assert.That(
+                transportTypes.GetObjects(ProductionArchitecture.Model),
+                Is.Not.Empty,
+                $"The {transportNamespace} selector must match production transport types.");
+
+            Types().That().Are(transportTypes).Should().BeAssignableTo(contractType)
+                .Because($"types in {transportNamespace} must use the {contractType.Name} contract")
+                .Check(ProductionArchitecture.Model);
+        }
     }
 }
