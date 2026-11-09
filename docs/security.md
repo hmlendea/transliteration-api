@@ -199,6 +199,29 @@ public class CachedTransliteration : EntityBase
 - Add `NuciAPI.Middleware.Authorization` package
 - Implement custom middleware before `UseEndpoints()`
 
+### 10. Security Scan Workflow
+
+The project includes a GitHub Actions security workflow (`.github/workflows/security.yml`) that runs on every push, pull request, and weekly schedule (Sundays at midnight UTC). The workflow performs:
+
+- **Dependency vulnerability scanning**: `dotnet list package --vulnerable --include-transitive` checks all transitive dependencies for known vulnerabilities
+- **CodeQL static analysis**: GitHub's CodeQL engine analyses the C# codebase for security issues including injection flaws, insecure patterns, and code quality problems
+
+The workflow requires `security-events: write` permission to upload SARIF results to GitHub Code Scanning. Results are visible in the repository's Security tab under Code scanning alerts.
+
+**Workflow triggers:**
+- Push to `master` branch
+- Pull requests targeting `master` branch
+- Weekly schedule (cron: `0 0 * * 0`)
+
+**Workflow steps:**
+1. Checkout repository
+2. Setup .NET 10.0
+3. Restore dependencies
+4. Check for vulnerable packages
+5. Initialize CodeQL for C#
+6. Build project
+7. Perform CodeQL analysis and upload results
+
 **Authorization header:** Not validated by application; passed through to external providers if needed
 
 ### 10. Dependency Security
@@ -293,7 +316,7 @@ chmod 640 /etc/transliteration-api/appsettings.json
 - [ ] ScannerProtectionMiddleware enabled (default)
 - [ ] ExceptionHandlingMiddleware enabled (default)
 - [ ] Logging to secure destination (not world-readable)
-- [ ] Regular `dotnet list package --vulnerable` in CI
+- [ ] Security scan workflow enabled (`.github/workflows/security.yml` runs dependency vulnerability scan and CodeQL analysis)
 - [ ] Dependency updates tested in staging before production
 - [ ] `AllowedHosts` configured to expected hostname(s)
 
@@ -353,7 +376,7 @@ chmod 640 /etc/transliteration-api/appsettings.json
 - [ ] ScannerProtectionMiddleware enabled (default)
 - [ ] ExceptionHandlingMiddleware enabled (default)
 - [ ] Logging to secure destination (not world-readable)
-- [ ] Regular `dotnet list package --vulnerable` in CI
+- [ ] Security scan workflow enabled (`.github/workflows/security.yml` runs dependency vulnerability scan and CodeQL analysis)
 - [ ] Dependency updates tested in staging before production
 
 ## Incident Response
