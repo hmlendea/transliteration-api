@@ -188,6 +188,15 @@ Error responses: `{ success: false, message, code, hmac: null }` (no `text` prop
 - **Dependency pinning**: Exact package versions in `.csproj`
 - **No secrets in repo**: Placeholder HMAC key; operator injects at runtime
 
+### Security Scan Workflow
+
+The project includes a GitHub Actions security workflow (`.github/workflows/security.yml`) that runs on every push, pull request, and weekly schedule. The workflow performs:
+
+- **Dependency vulnerability scanning**: `dotnet list package --vulnerable --include-transitive` checks all transitive dependencies for known vulnerabilities
+- **CodeQL static analysis**: GitHub's CodeQL engine analyses the C# codebase for security issues including injection flaws, insecure patterns, and code quality problems
+
+The workflow requires `security-events: write` permission to upload SARIF results to GitHub Code Scanning. Results are visible in the repository's Security tab under Code scanning alerts.
+
 ### Missing Controls (Known Gaps)
 
 - **No authentication/authorisation**: Endpoints are public
