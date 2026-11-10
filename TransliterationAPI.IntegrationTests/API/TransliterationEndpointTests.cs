@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 using NUnit.Framework;
 
+using NuciAPI.Responses;
+
 using TransliterationAPI.API.Responses;
 using TransliterationAPI.IntegrationTests.Infrastructure;
 
@@ -294,7 +296,7 @@ namespace TransliterationAPI.IntegrationTests.API
         {
             using HttpResponseMessage response = await client.GetAsync(BuildEndpoint(DefaultText, DefaultLanguageCode));
             string responseBody = await response.Content.ReadAsStringAsync();
-            GetTransliterationResponse? responseForValidation = JsonSerializer.Deserialize<GetTransliterationResponse>(
+            NuciApiContentResponse<TransliterationResponseContent>? responseForValidation = JsonSerializer.Deserialize<NuciApiContentResponse<TransliterationResponseContent>>(
                 responseBody,
                 SerialisationOptions);
 
@@ -311,12 +313,12 @@ namespace TransliterationAPI.IntegrationTests.API
         {
             using HttpResponseMessage response = await client.GetAsync(BuildEndpoint(DefaultText, DefaultLanguageCode));
             string responseBody = await response.Content.ReadAsStringAsync();
-            GetTransliterationResponse? responseForValidation = JsonSerializer.Deserialize<GetTransliterationResponse>(
+            NuciApiContentResponse<TransliterationResponseContent>? responseForValidation = JsonSerializer.Deserialize<NuciApiContentResponse<TransliterationResponseContent>>(
                 responseBody,
                 SerialisationOptions);
 
             Assert.That(responseForValidation, Is.Not.Null);
-            responseForValidation!.Text = "Praise the Sun!";
+            responseForValidation!.Content.Text = "Praise the Sun!";
 
             Assert.That(
                 responseForValidation.HasValidHMAC(TransliterationApiWebApplicationFactory.HmacSigningKey),

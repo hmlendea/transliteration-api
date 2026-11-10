@@ -4,6 +4,8 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
+using NuciAPI.Responses;
+
 using NUnit.Framework;
 
 using TransliterationAPI.API.Responses;
@@ -113,9 +115,12 @@ namespace TransliterationAPI.IntegrationTests.API
             using HttpResponseMessage response = await client.GetAsync(LanguagesEndpoint);
             using JsonDocument responseBody = await ReadResponseBody(response);
             JsonElement root = responseBody.RootElement;
-            GetLanguagesResponse responseForValidation = new()
+            NuciApiContentResponse<LanguagesResponseContent> responseForValidation = new(
+                new()
+                {
+                    Languages = [.. Language.GetAll().OrderBy(language => language.Code)]
+                })
             {
-                Languages = [.. Language.GetAll().OrderBy(language => language.Code)],
                 HmacToken = root.GetProperty("hmac").GetString()!
             };
 
@@ -134,11 +139,12 @@ namespace TransliterationAPI.IntegrationTests.API
         {
             using HttpResponseMessage response = await client.GetAsync(LanguagesEndpoint);
             using JsonDocument responseBody = await ReadResponseBody(response);
-            GetLanguagesResponse responseForValidation = new()
-            {
-                Languages = [.. Language.GetAll().OrderByDescending(language => language.Code)],
-                HmacToken = responseBody.RootElement.GetProperty("hmac").GetString()!
-            };
+            NuciApiContentResponse<LanguagesResponseContent>? responseForValidation = JsonSerializer.Deserialize<NuciApiContentResponse<LanguagesResponseContent>>(
+                responseBody.RootElement.GetRawText());
+
+            Assert.That(responseForValidation, Is.Not.Null);
+            responseForValidation!.Content.Languages = [.. Language.GetAll().OrderByDescending(language => language.Code)];
+            responseForValidation.HmacToken = responseBody.RootElement.GetProperty("hmac").GetString()!;
 
             Assert.That(
                 responseForValidation.HasValidHMAC(TransliterationApiWebApplicationFactory.HmacSigningKey),
