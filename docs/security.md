@@ -228,17 +228,17 @@ The workflow requires `security-events: write` permission to upload SARIF result
 
 **NuGet packages (pinned versions from `TransliterationAPI.csproj`):**
 ```
-NuciAPI 3.6.1
-NuciAPI.Controllers 2.3.1
-NuciAPI.Middleware 2.0.3
-NuciAPI.Middleware.ExceptionHandling 1.0.2
-NuciAPI.Middleware.Logging 1.0.1
+NuciAPI 3.6.2
+NuciAPI.Controllers 2.3.2
+NuciAPI.Middleware 2.0.4
+NuciAPI.Middleware.ExceptionHandling 1.0.3
+NuciAPI.Middleware.Logging 1.0.3
 NuciAPI.Middleware.Security 1.0.6
-NuciDAL 3.2.1
-NuciLog 1.2.1
-NuciLog.Core 3.1.0
-NuciSecurity.HMAC 4.1.3
-NuciExtensions 5.3.2
+NuciDAL 4.2.0
+NuciLog 1.2.3
+NuciLog.Core 3.1.1
+NuciSecurity.HMAC 4.1.5
+NuciExtensions 6.0.2
 CHSPinYinConv 1.0.0
 ```
 
