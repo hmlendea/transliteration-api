@@ -53,7 +53,7 @@ namespace TransliterationAPI.IntegrationTests.API
             using HttpResponseMessage response = await client.GetAsync(LanguagesEndpoint);
             using JsonDocument responseBody = await ReadResponseBody(response);
 
-            JsonElement languages = responseBody.RootElement.GetProperty("languages");
+            JsonElement languages = responseBody.RootElement.GetProperty("content").GetProperty("languages");
             string[] expectedCodes = Language.GetAll()
                 .OrderBy(language => language.Code)
                 .Select(language => language.Code)
@@ -66,7 +66,7 @@ namespace TransliterationAPI.IntegrationTests.API
             Assert.Multiple(() =>
             {
                 Assert.That(actualCodes, Is.EqualTo(expectedCodes));
-                Assert.That(responseBody.RootElement.GetProperty("count").GetInt32(), Is.EqualTo(expectedCodes.Length));
+                Assert.That(responseBody.RootElement.GetProperty("content").GetProperty("count").GetInt32(), Is.EqualTo(expectedCodes.Length));
             });
         }
 
@@ -77,6 +77,7 @@ namespace TransliterationAPI.IntegrationTests.API
             using JsonDocument responseBody = await ReadResponseBody(response);
 
             JsonElement[] actualLanguages = responseBody.RootElement
+                .GetProperty("content")
                 .GetProperty("languages")
                 .EnumerateArray()
                 .ToArray();
@@ -160,7 +161,7 @@ namespace TransliterationAPI.IntegrationTests.API
         {
             using HttpResponseMessage response = await client.GetAsync(LanguagesEndpoint);
             using JsonDocument responseBody = await ReadResponseBody(response);
-            JsonElement[] languages = responseBody.RootElement.GetProperty("languages").EnumerateArray().ToArray();
+            JsonElement[] languages = responseBody.RootElement.GetProperty("content").GetProperty("languages").EnumerateArray().ToArray();
             string?[] codes = languages.Select(language => language.GetProperty("code").GetString()).ToArray();
             string?[] names = languages.Select(language => language.GetProperty("name").GetString()).ToArray();
             string?[] duplicateNames = names

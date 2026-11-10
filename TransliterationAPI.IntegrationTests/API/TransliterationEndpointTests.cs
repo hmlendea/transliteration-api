@@ -222,7 +222,7 @@ namespace TransliterationAPI.IntegrationTests.API
 
             using HttpResponseMessage response = await client.GetAsync(BuildEndpoint(DefaultText, DefaultLanguageCode));
             using JsonDocument responseBody = await ReadResponseBody(response);
-            JsonElement text = responseBody.RootElement.GetProperty("text");
+            JsonElement text = responseBody.RootElement.GetProperty("content").GetProperty("text");
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
 
@@ -251,7 +251,7 @@ namespace TransliterationAPI.IntegrationTests.API
                 Assert.That(root.GetProperty("message").GetString(), Is.EqualTo("Operation completed successfully."));
                 Assert.That(root.GetProperty("code").GetString(), Is.EqualTo("SUCCESS"));
                 Assert.That(root.GetProperty("hmac").GetString(), Is.Not.Null.And.Not.Empty);
-                Assert.That(root.GetProperty("text").GetString(), Is.EqualTo(DefaultResult));
+                Assert.That(root.GetProperty("content").GetProperty("text").GetString(), Is.EqualTo(DefaultResult));
             });
         }
 

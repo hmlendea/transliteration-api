@@ -53,7 +53,7 @@ namespace TransliterationAPI.IntegrationTests.Service
             Assert.Multiple(() =>
             {
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-                Assert.That(responseBody.RootElement.GetProperty("text").GetString(), Is.EqualTo(expectedText));
+                Assert.That(responseBody.RootElement.GetProperty("content").GetProperty("text").GetString(), Is.EqualTo(expectedText));
                 Assert.That(manager.PostInvocationCount, Is.EqualTo(1));
                 Assert.That(manager.PostWithHeadersInvocationCount, Is.Zero);
                 Assert.That(manager.RetrieveCookiesInvocationCount, Is.Zero);
@@ -86,7 +86,7 @@ namespace TransliterationAPI.IntegrationTests.Service
             Assert.Multiple(() =>
             {
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-                Assert.That(responseBody.RootElement.GetProperty("text").GetString(), Is.EqualTo(expectedText));
+                Assert.That(responseBody.RootElement.GetProperty("content").GetProperty("text").GetString(), Is.EqualTo(expectedText));
             });
         }
 
@@ -124,7 +124,7 @@ namespace TransliterationAPI.IntegrationTests.Service
             Assert.Multiple(() =>
             {
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-                Assert.That(responseBody.RootElement.GetProperty("text").ValueKind, Is.EqualTo(JsonValueKind.Null));
+                Assert.That(responseBody.RootElement.GetProperty("content").GetProperty("text").ValueKind, Is.EqualTo(JsonValueKind.Null));
                 Assert.That(ReadCacheEntryCount(), Is.Zero);
             });
         }
@@ -145,7 +145,7 @@ namespace TransliterationAPI.IntegrationTests.Service
             {
                 Assert.That(failedResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
                 Assert.That(successfulResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-                Assert.That(successfulBody.RootElement.GetProperty("text").GetString(), Is.EqualTo("maykuape"));
+                Assert.That(successfulBody.RootElement.GetProperty("content").GetProperty("text").GetString(), Is.EqualTo("maykuape"));
                 Assert.That(factory.HttpRequestManager.PostInvocationCount, Is.EqualTo(2));
                 Assert.That(ReadCacheEntryCount(), Is.EqualTo(1));
             });
