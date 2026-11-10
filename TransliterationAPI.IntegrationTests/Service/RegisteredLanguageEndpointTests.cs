@@ -57,7 +57,7 @@ namespace TransliterationAPI.IntegrationTests.Service
             Assert.Multiple(() =>
             {
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-                Assert.That(responseBody.RootElement.GetProperty("text").GetString(), Is.EqualTo(expectedText));
+                Assert.That(responseBody.RootElement.GetProperty("content").GetProperty("text").GetString(), Is.EqualTo(expectedText));
                 Assert.That(factory.HttpRequestManager.TotalPostInvocationCount, Is.EqualTo(expectedProviderInvocations));
                 Assert.That(ReadCacheEntryCount(), Is.EqualTo(1));
             });

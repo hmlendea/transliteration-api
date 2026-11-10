@@ -43,8 +43,8 @@ namespace TransliterationAPI.ArchitectureTests
         [TestCase(typeof(NuciApiController), typeof(IHttpRequestManager))]
         [TestCase(typeof(NuciApiRequest), typeof(ITransliterationService))]
         [TestCase(typeof(NuciApiRequest), typeof(IHttpRequestManager))]
-        [TestCase(typeof(NuciApiSuccessResponse), typeof(ITransliterationService))]
-        [TestCase(typeof(NuciApiSuccessResponse), typeof(IHttpRequestManager))]
+        [TestCase(typeof(NuciApiResponseContent), typeof(ITransliterationService))]
+        [TestCase(typeof(NuciApiResponseContent), typeof(IHttpRequestManager))]
         public void GivenAnAbstractionBoundary_WhenInspectingDependencies_ThenBypassesAreProhibited(
             Type sourceContract,
             Type forbiddenContract)

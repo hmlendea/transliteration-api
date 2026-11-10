@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 using NuciAPI.Controllers;
+using NuciAPI.Responses;
 
 using TransliterationAPI.API.Requests;
 using TransliterationAPI.API.Responses;
@@ -24,13 +25,12 @@ namespace TransliterationAPI.API.Controllers
                 request,
                 async () =>
                 {
-                    GetTransliterationResponse response = new()
-                    {
-                        Text = await transliterationService.Transliterate(request.Text, request.Language)
-                    };
-
+                    NuciApiContentResponse<TransliterationResponseContent> response = new(
+                        new()
+                        {
+                            Text = await transliterationService.Transliterate(request.Text, request.Language)
+                        });
                     response.SignHMAC(securitySettings.HmacSigningKey);
-
                     return response;
                 },
                 NuciApiAuthorisation.None);

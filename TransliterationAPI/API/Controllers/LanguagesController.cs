@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 
 using NuciAPI.Controllers;
+using NuciAPI.Responses;
 
 using TransliterationAPI.API.Requests;
 using TransliterationAPI.API.Responses;
@@ -21,13 +22,12 @@ namespace TransliterationAPI.API.Controllers
                 new GetLanguagesRequest(),
                 () =>
                 {
-                    GetLanguagesResponse response = new()
-                    {
-                        Languages = [.. Language.GetAll().OrderBy(language => language.Code)]
-                    };
-
+                    NuciApiContentResponse<LanguagesResponseContent> response = new(
+                        new()
+                        {
+                            Languages = [.. Language.GetAll().OrderBy(language => language.Code)]
+                        });
                     response.SignHMAC(securitySettings.HmacSigningKey);
-
                     return response;
                 },
                 NuciApiAuthorisation.None);

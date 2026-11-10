@@ -19,7 +19,7 @@ namespace TransliterationAPI.ArchitectureTests
     {
         [TestCase(typeof(NuciApiController), "TransliterationAPI.API.Controllers")]
         [TestCase(typeof(NuciApiRequest), "TransliterationAPI.API.Requests")]
-        [TestCase(typeof(NuciApiSuccessResponse), "TransliterationAPI.API.Responses")]
+        [TestCase(typeof(NuciApiResponseContent), "TransliterationAPI.API.Responses")]
         public void GivenTransportTypes_WhenInspectingPlacement_ThenTheyResideAtTheApiBoundary(
             Type contractType,
             string expectedNamespace)
@@ -40,7 +40,7 @@ namespace TransliterationAPI.ArchitectureTests
 
         [TestCase("TransliterationAPI.API.Controllers", typeof(NuciApiController))]
         [TestCase("TransliterationAPI.API.Requests", typeof(NuciApiRequest))]
-        [TestCase("TransliterationAPI.API.Responses", typeof(NuciApiSuccessResponse))]
+        [TestCase("TransliterationAPI.API.Responses", typeof(NuciApiResponseContent))]
         public void GivenApiNamespaces_WhenInspectingContracts_ThenEveryTypeUsesItsTransportBase(
             string transportNamespace,
             Type contractType)

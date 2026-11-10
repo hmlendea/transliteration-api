@@ -47,7 +47,7 @@ namespace TransliterationAPI.IntegrationTests.Service
             {
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
                 Assert.That(responseBody.RootElement.GetProperty("success").GetBoolean());
-                Assert.That(responseBody.RootElement.GetProperty("text").GetString(), Is.EqualTo(expectedText));
+                Assert.That(responseBody.RootElement.GetProperty("content").GetProperty("text").GetString(), Is.EqualTo(expectedText));
                 Assert.That(responseBody.RootElement.GetProperty("hmac").GetString(), Is.Not.Null.And.Not.Empty);
                 Assert.That(factory.HttpRequestManager.TotalPostInvocationCount, Is.Zero);
                 Assert.That(ReadCacheEntryCount(), Is.EqualTo(1));

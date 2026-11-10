@@ -47,7 +47,7 @@ namespace TransliterationAPI.IntegrationTests.Service
             Assert.Multiple(() =>
             {
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-                Assert.That(responseBody.RootElement.GetProperty("text").GetString(), Is.EqualTo("slovo"));
+                Assert.That(responseBody.RootElement.GetProperty("content").GetProperty("text").GetString(), Is.EqualTo("slovo"));
                 Assert.That(manager.PostInvocationCount, Is.EqualTo(1));
                 Assert.That(manager.PostWithHeadersInvocationCount, Is.Zero);
                 Assert.That(manager.RetrieveCookiesInvocationCount, Is.Zero);
@@ -83,7 +83,7 @@ namespace TransliterationAPI.IntegrationTests.Service
             Assert.Multiple(() =>
             {
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-                Assert.That(responseBody.RootElement.GetProperty("text").GetString(), Is.EqualTo(expectedText));
+                Assert.That(responseBody.RootElement.GetProperty("content").GetProperty("text").GetString(), Is.EqualTo(expectedText));
                 Assert.That(ReadCacheEntryCount(), Is.EqualTo(1));
             });
         }
@@ -97,7 +97,7 @@ namespace TransliterationAPI.IntegrationTests.Service
             using HttpResponseMessage response = await client.GetAsync(BuildEndpoint(SourceText));
             using JsonDocument responseBody = await ReadResponseBody(response);
 
-            Assert.That(responseBody.RootElement.GetProperty("text").GetString(), Is.EqualTo("first"));
+            Assert.That(responseBody.RootElement.GetProperty("content").GetProperty("text").GetString(), Is.EqualTo("first"));
         }
 
         [Test]
@@ -112,7 +112,7 @@ namespace TransliterationAPI.IntegrationTests.Service
             Assert.Multiple(() =>
             {
                 Assert.That(firstResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-                Assert.That(secondBody.RootElement.GetProperty("text").GetString(), Is.Empty);
+                Assert.That(secondBody.RootElement.GetProperty("content").GetProperty("text").GetString(), Is.Empty);
                 Assert.That(factory.HttpRequestManager.PostInvocationCount, Is.EqualTo(2));
                 Assert.That(ReadCacheEntryCount(), Is.Zero);
             });
@@ -132,7 +132,7 @@ namespace TransliterationAPI.IntegrationTests.Service
             Assert.Multiple(() =>
             {
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-                Assert.That(responseBody.RootElement.GetProperty("text").ValueKind, Is.EqualTo(JsonValueKind.Null));
+                Assert.That(responseBody.RootElement.GetProperty("content").GetProperty("text").ValueKind, Is.EqualTo(JsonValueKind.Null));
                 Assert.That(ReadCacheEntryCount(), Is.Zero);
             });
         }
@@ -150,7 +150,7 @@ namespace TransliterationAPI.IntegrationTests.Service
             Assert.Multiple(() =>
             {
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-                Assert.That(responseBody.RootElement.GetProperty("text").ValueKind, Is.EqualTo(JsonValueKind.Null));
+                Assert.That(responseBody.RootElement.GetProperty("content").GetProperty("text").ValueKind, Is.EqualTo(JsonValueKind.Null));
                 Assert.That(ReadCacheEntryCount(), Is.Zero);
             });
         }

@@ -278,8 +278,8 @@ flowchart LR
 | Data or Store | Owner | Representation and Storage | Lifecycle or Consistency |
 |---------------|-------|----------------------------|--------------------------|
 | `GetTransliterationRequest` | API transport | Query-bound `Text` and `Language`; `Text` has a maximum .NET string length of 256 UTF-16 code units | Per request; model validation precedes controller execution |
-| `GetTransliterationResponse` | Transliteration controller | Success envelope plus nullable `text` and `hmac` in JSON | Per request; signed after orchestration completes |
-| `GetLanguagesResponse` | Languages controller | Success envelope plus code-sorted `languages`, computed `count`, and `hmac` | Per request; deterministic for an unchanged registry and key |
+| `NuciApiContentResponse<TransliterationResponseContent>` | Transliteration controller | Success envelope with nested nullable `content.text` and `hmac` in JSON | Per request; signed after orchestration completes |
+| `NuciApiContentResponse<LanguagesResponseContent>` | Languages controller | Success envelope with nested code-sorted `content.languages`, computed `content.count`, and `hmac` | Per request; deterministic for an unchanged registry and key |
 | `Language` registry | `Language` static initialiser | In-memory dictionary keyed by exact, case-sensitive language code | Initialised once; no runtime mutation API |
 | `CachedTransliteration` | `TransliterationService` and NuciDAL repository | JSON object containing a SHA-256 `id` and `transliteratedText` | Added after a successful non-whitespace result; no expiry or eviction policy |
 | Cache file | NuciDAL repository and startup | JSON array at `CacheSettings.StoreLocation`, `cache.json` by default | Created when absent; retained across restarts; application version participates in identity rather than deleting prior entries |
