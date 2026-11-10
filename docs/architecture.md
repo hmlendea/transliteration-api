@@ -95,10 +95,10 @@ Both controllers inherit `NuciApiController` (from `NuciAPI.Controllers`), which
 |-------|---------|------------|
 | `GetTransliterationRequest` | Transliteration input | `Text` (max 256 chars), `Language` |
 | `GetLanguagesRequest` | Language discovery input | (empty) |
-| `GetTransliterationResponse` | Transliteration output | `Text` (transliterated) |
-| `GetLanguagesResponse` | Language discovery output | `Language[] Languages`, `int Count` |
+| `TransliterationResponseContent` | Transliteration output | `Text` (transliterated), nested under `content` |
+| `LanguagesResponseContent` | Language discovery output | `Language[] Languages`, computed `Count`, nested under `content` |
 
-Both responses inherit `NuciApiSuccessResponse` which includes `Hmac` property set by `SignHMAC()`.
+Both endpoints return `NuciApiContentResponse<TContent>` envelopes. Controllers sign the complete envelope with `SecuritySettings.HmacSigningKey` using `SignHMAC()`.
 
 ## Application and Data Layer
 
@@ -272,7 +272,7 @@ Returns 403 Forbidden with empty body; does not invoke application handlers.
 
 ### Response Signing (NuciSecurity.HMAC)
 
-- `NuciApiSuccessResponse.SignHMAC(key)` computes HMAC-SHA256 of response JSON (excluding `hmac` field)
+- `NuciApiResponse.SignHMAC(key)` computes HMAC-SHA256 of response JSON (excluding `hmac` field)
 - Key: `SecuritySettings.HmacSigningKey` (from config, placeholder in appsettings.json)
 - Both endpoints sign responses
 - Not authentication; integrity verification only
@@ -490,10 +490,10 @@ LanguagesController.Get()
 ProcessRequest() → Language.GetAll().OrderBy(l => l.Code)
     │
     ▼
-GetLanguagesResponse { Languages[], Count }
+NuciApiContentResponse<LanguagesResponseContent> { content { Languages[], Count } }
     │
     ▼
-SignHMAC() → Response: { count, languages[], hmac }
+    SignHMAC() → Response: { success, message, code, content { count, languages[] }, hmac }
 ```
 
 ## Testing Architecture

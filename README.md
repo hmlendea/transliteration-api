@@ -54,10 +54,12 @@ Response payload on success:
 ```json
 {
 	"success": true,
-	"message": "OK",
+	"message": "Operation completed successfully.",
 	"code": "SUCCESS",
-	"text": "Ekvatorialnaya Afrika",
-	"hmac": "sha256=..."
+	"content": {
+		"text": "Ekvatorialnaya Afrika"
+	},
+	"hmac": "..."
 }
 ```
 
@@ -72,17 +74,19 @@ Response payload on success:
 ```json
 {
 	"success": true,
-	"message": "OK",
+	"message": "Operation completed successfully.",
 	"code": "SUCCESS",
-	"count": 49,
-	"languages": [
-		{
-			"code": "ar",
-			"name": "Arabic",
-			"transliterator": "ArabicTransliterator"
-		}
-	],
-	"hmac": "sha256=..."
+	"content": {
+		"count": 49,
+		"languages": [
+			{
+				"code": "ar",
+				"name": "Arabic",
+				"transliterator": "ArabicTransliterator"
+			}
+		]
+	},
+	"hmac": "..."
 }
 ```
 
@@ -243,10 +247,12 @@ Transliterates input text for a specific language.
 ```json
 {
 	"success": true,
-	"message": "OK",
+	"message": "Operation completed successfully.",
 	"code": "SUCCESS",
-	"text": "transliterated text or null",
-	"hmac": "sha256=..."
+	"content": {
+		"text": "transliterated text or null"
+	},
+	"hmac": "..."
 }
 ```
 
@@ -256,8 +262,8 @@ Returns the list of supported languages and their transliterator implementations
 
 **Response includes:**
 
-- `count` - number of supported languages
-- `languages` - array of language objects with `code`, `name`, and `transliterator` fields
+- `content.count` - number of supported languages
+- `content.languages` - array of language objects with `code`, `name`, and `transliterator` fields
 - HMAC signature for response verification
 
 **Response:**
@@ -265,17 +271,19 @@ Returns the list of supported languages and their transliterator implementations
 ```json
 {
 	"success": true,
-	"message": "OK",
+	"message": "Operation completed successfully.",
 	"code": "SUCCESS",
-	"count": 49,
-	"languages": [
+	"content": {
+		"count": 49,
+		"languages": [
 		{
 			"code": "ar",
 			"name": "Arabic",
 			"transliterator": "ArabicTransliterator"
 		}
-	],
-	"hmac": "sha256=..."
+		]
+	},
+	"hmac": "..."
 }
 ```
 

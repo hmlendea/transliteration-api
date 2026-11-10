@@ -68,11 +68,11 @@ dotnet test TransliterationAPI.slnx
 ```bash
 # Transliterate Russian text
 curl 'http://localhost:5000/Transliteration?text=%D0%AD%D0%BA%D0%B2%D0%B0%D1%82%D0%BE%D1%80%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F%20%D0%90%D1%84%D1%80%D0%B8%D0%BA%D0%B0&language=ru'
-# {"text":"Ekvatorialnaya Afrika","hmac":"..."}
+# {"success":true,"message":"Operation completed successfully.","code":"SUCCESS","content":{"text":"Ekvatorialnaya Afrika"},"hmac":"..."}
 
 # List supported languages
 curl 'http://localhost:5000/Languages'
-# {"count":40,"languages":[{"code":"ar","name":"Arabic","transliterator":"ArabicTransliterator"},...]}
+# {"success":true,"message":"Operation completed successfully.","code":"SUCCESS","content":{"count":49,"languages":[{"code":"ar","name":"Arabic","transliterator":"ArabicTransliterator"},...]},"hmac":"..."}
 ```
 
 ## Detailed Architecture
@@ -121,12 +121,12 @@ Both controllers inherit from `NuciApiController` (NuciAPI.Controllers package),
 **TransliterationController** (`GET /Transliteration`):
 - Accepts `text` (max 256 chars) and `language` query parameters
 - Delegates to `ITransliterationService.Transliterate()`
-- Returns `GetTransliterationResponse` with `text` and `hmac` fields
+- Returns `NuciApiContentResponse<TransliterationResponseContent>` with nested `content.text` and `hmac` fields
 
 **LanguagesController** (`GET /Languages`):
 - No input parameters
 - Returns `Language.GetAll()` ordered by code
-- Returns `GetLanguagesResponse` with `count`, `languages[]`, and `hmac`
+- Returns `NuciApiContentResponse<LanguagesResponseContent>` with nested `content.count`, `content.languages[]`, and `hmac`
 
 ### Application Layer (TransliterationService)
 
@@ -289,10 +289,10 @@ LanguagesController.Get()
 ProcessRequest() → Language.GetAll().OrderBy(l => l.Code)
     │
     ▼
-GetLanguagesResponse { Languages[], Count }
+NuciApiContentResponse<LanguagesResponseContent> { content { Languages[], Count } }
     │
     ▼
-SignHMAC() → Response: { count, languages[], hmac }
+SignHMAC() → Response: { success, message, code, content { count, languages[] }, hmac }
 ```
 
 ## Configuration
