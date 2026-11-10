@@ -33,7 +33,7 @@ public class CachedTransliteration : EntityBase
 }
 ```
 
-## JsonRepository (NuciDAL 3.2.1)
+## JsonRepository (NuciDAL 4.2.0)
 
 **File format:** JSON array of `CachedTransliteration` objects
 

@@ -314,17 +314,17 @@ All bound in `AddConfigurations()` and registered as singletons.
 | Package | Version | Purpose |
 |---------|---------|---------|
 | `CHSPinYinConv` | 1.0.0 | Chinese Pinyin conversion |
-| `NuciAPI` | 3.6.1 | Base API infrastructure |
-| `NuciAPI.Controllers` | 2.3.1 | Controller base class, request/response models |
-| `NuciAPI.Middleware` | 2.0.3 | Middleware pipeline |
-| `NuciAPI.Middleware.ExceptionHandling` | 1.0.2 | Exception→response mapping |
-| `NuciAPI.Middleware.Logging` | 1.0.1 | Request logging |
+| `NuciAPI` | 3.6.2 | Base API infrastructure |
+| `NuciAPI.Controllers` | 2.3.2 | Controller base class, request/response models |
+| `NuciAPI.Middleware` | 2.0.4 | Middleware pipeline |
+| `NuciAPI.Middleware.ExceptionHandling` | 1.0.3 | Exception→response mapping |
+| `NuciAPI.Middleware.Logging` | 1.0.3 | Request logging |
 | `NuciAPI.Middleware.Security` | 1.0.6 | Scanner protection |
-| `NuciDAL` | 3.2.1 | JSON repository (cache) |
-| `NuciExtensions` | 5.3.2 | String extensions (ToTitleCase, etc.) |
-| `NuciLog` | 1.2.1 | Logging implementation |
-| `NuciLog.Core` | 3.1.0 | Logging abstractions |
-| `NuciSecurity.HMAC` | 4.1.3 | HMAC response signing |
+| `NuciDAL` | 4.2.0 | JSON repository (cache) |
+| `NuciExtensions` | 6.0.2 | String extensions (ToTitleCase, etc.) |
+| `NuciLog` | 1.2.3 | Logging implementation |
+| `NuciLog.Core` | 3.1.1 | Logging abstractions |
+| `NuciSecurity.HMAC` | 4.1.5 | HMAC response signing |
 
 ### External HTTP Endpoints
 
